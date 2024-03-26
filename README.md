@@ -1,6 +1,7 @@
 # Web-ohjelmoinnin-sovellusprojekti
 Ryhmä 9:
-Hannu Karjalainen
-Tapio Kylmämaa
-Jimi Jakola
-Matti Nieminen
+
+- Hannu Karjalainen (HannuKarjalainen)
+- Tapio Kylmämaa (xolooh)
+- Jimi Jakola (jimijakola)
+- Matti Nieminen (Majuniemi)
