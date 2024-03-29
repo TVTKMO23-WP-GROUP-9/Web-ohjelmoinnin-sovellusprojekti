@@ -5,6 +5,7 @@ Ryhmä 9:
 - Tapio Kylmämaa (xolooh)
 - Jimi Jakola (jimijakola)
 - Matti Nieminen (Majuniemi)
+- Rebecca Soisenniemi (suklaanen)
 
 
 # Getting Started with Create React App
