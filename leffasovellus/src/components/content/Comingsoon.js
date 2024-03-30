@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import './Comingsoon.css'; // Sisällytä CSS-tiedosto suoraan komponenttiin
 
 const EventList = () => {
   const [events, setEvents] = useState([]);
@@ -15,17 +16,15 @@ const EventList = () => {
         const eventsData = Array.from(eventNodes).map(eventNode => {
           return {
             id: eventNode.querySelector('ID').textContent,
-            title: eventNode.querySelector('Title').textContent,
-            genres: eventNode.querySelector('Genres').textContent,
-            synopsis: eventNode.querySelector('ShortSynopsis').textContent,
             imageUrl: eventNode.querySelector('EventLargeImagePortrait').textContent,
+            title: eventNode.querySelector('Title').textContent,
             eventUrl: eventNode.querySelector('EventURL').textContent
           };
         });
         setEvents(eventsData);
         setLoading(false);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error('Tiedonhakuvirhe:', error);
         setLoading(false);
       }
     };
@@ -34,22 +33,20 @@ const EventList = () => {
   }, []);
 
   return (
-    <div>
-      <h1>Finnkino Events - Coming Soon</h1>
+    <div className="event-list">
       {loading ? (
-        <p>Loading...</p>
+        <p>Hetkonen...</p>
       ) : (
-        <ul>
+        <div className="events-container">
           {events.map(event => (
-            <li key={event.id}>
-              <h2>{event.title}</h2>
-              <p>Genres: {event.genres}</p>
-              <p>{event.synopsis}</p>
-              <img src={event.imageUrl} alt={event.title} />
-              <a href={event.eventUrl}>More Info</a>
-            </li>
+            <div key={event.id} className="event-item">
+                <a href={event.eventUrl} target="_blank" rel="noopener noreferrer"> {/* Avaa linkki uuteen välilehteen */}
+                <img src={event.imageUrl} alt="Event" />
+                <div className="head">{event.title}</div>
+              </a>
+            </div>
           ))}
-        </ul>
+        </div>
       )}
     </div>
   );
