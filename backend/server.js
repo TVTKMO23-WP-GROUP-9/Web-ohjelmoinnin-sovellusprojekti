@@ -1,10 +1,10 @@
-require('dotenv').config();
+require('dotenv').config({ path: '../.env' });
 const express = require('express');
 const app = express();
 
 const profile = require('./routes/profile'); // Tuo 'user' reitityksen
 
-app.use('/', profile);  // Käytä 'user' reititystä juuressa
+app.use('/', profile);  // Käytä 'profile' reititystä juuressa
 
 const PORT = process.env.PORT || 3001; // Määritä portti
 
