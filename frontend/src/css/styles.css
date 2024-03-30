@@ -1,113 +1,208 @@
+/******* ROOT | BODY & THEME PROVIDER *******/
+
 :root {
+  margin: 0;
+  padding: 0rem;
+  text-align: center;
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-size: 1.2em;
   line-height: 1.5;
   font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
-}
-
-
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
 }
 
 body {
+  position: relative;
   margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  overflow-y: scroll;
+  padding-bottom: 235px; 
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+.body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--text-color);
+  background-color: var(--background-color);
 }
+
+/******* USING THEME PROVIDER? *******/
+/******* consume styles with: " var(--namehere) " and make sure to include that --namehere in both: " .light " and  " .dark " -modes *******/
+
+.light { 
+  --background-color: #f5f5f5;
+  --text-color: #000000;
+  --github-image: url('../images/github-mark.png');
+  --button-bg: #282e37;
+  --button-text: #ffffff;
+  --create-bg: #b1b1b1;
+  --h2: #000000;
+  --left-border: 9px solid #303030;
+  --a-link: #25272d;
+  --a-link-hover: #303030;
+  --footer-hover: #981824;
+}
+
+.dark {
+  --background-color: #25272d;
+  --text-color: #ffffff;
+  --github-image: url('../images/github-mark-white.png');
+  --button-bg: #1a1a1a;
+  --button-text: #ffffff;
+  --create-bg: #373737;
+  --h2: #ffffff;
+  --left-border: 9px solid #ffffff;
+  --a-link: #ffffff;
+  --a-link-hover: #f3bdbe;
+  --footer-hover: #981824;
+}
+
+/******* HEADER WITH NAVIGATION BAR *******/
+
+#header {
+  margin: 0;
+  margin-bottom: 200px;
+}
+
+#header-bar {
+  position: fixed;
+  top: 0;
+  height: 200px;
+  width: 100%;
+  border-bottom: 1px solid #000000;
+  background: linear-gradient(67deg, #000000, #272727, #272727, #272727, #272727, #000000);
+}
+
+#header-bar .header-container {
+  margin: 0 auto;
+  /*display: flex;*/
+  max-width: 100vh;
+  place-items: center;
+}
+
+#header-bar ul.navigate {
+  list-style-type: none;
+  justify-content: left;
+  display: inline-flex;
+  font-family: "Thasadith", sans-serif;
+  font-size: 1.5em;
+  color: #ffffff;
+  animation: headerWave 5s infinite linear;
+}
+
+#header-bar ul a {
+  text-decoration: none;
+  color: #ffffff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+#header-bar ul a:hover {
+  text-decoration: none;
+  color: #981824;
+}
+
+#header-bar ul.navigate li {
+  padding-left: 35px;
+  padding-right: 35px;
+}
+
+h1 /* this title is for @Header */ {
+  margin: 0 auto;
+  margin-top: 7px;
+  font-family: "Rampart One", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 3.2em;
+  color: #e4b8bc;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  animation: headerWave 5s infinite linear;
+}
+
+/******* FOOTER *******/
+
+#footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  justify-content: center;
+  bottom: 0px;
+  padding-top: 30px;
+  padding-bottom: 3px;
+  align-items: center;
+  border-top: 1px solid #000000;
+  background: linear-gradient(111deg, #000000, #272727, #272727, #272727, #272727, #000000);
+  color: #ffffff;
+  font-size: 1.1em;
+}
+
+#footer a {
+  text-decoration: none;
+  color: #9a9a9a;
+  font-size: 1.1em;
+}
+
+#footer a:hover {
+  color: var(--footer-hover);
+}
+/******* CONTENT incl. PAGES AND COMPONENTS *******/
+
+.content {
+  margin: 0 auto;
+  padding-top: 20px;
+  padding-left: 25px;
+  padding-right: 25px;
+  padding-bottom: 40px;
+  max-width: 1200px;
+  text-align: left;
+}
+
+/******* LINKS *******/
+
+a {
+  font-weight: 500;
+  color: var(--a-link);
+  text-decoration: inherit;
+}
+
+a:hover {
+  color: var(--a-link-hover);
+}
+
+/******* TITLES *******/
+
+h2 /* titles for @Content */ {
+  font-family: "Thasadith", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 1.6em;
+  color: var(--h2);
+}
+
+/******* BUTTONS *******/
 
 button {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-right: 8px;
   border-radius: 8px;
   border: 1px solid transparent;
   padding: 0.6em 1.2em;
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: var(--button-bg);
+  color: var(--button-text);
   cursor: pointer;
   transition: border-color 0.25s;
 }
+
 button:hover {
   border-color: #646cff;
 }
+
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
-}
-
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-}
+/******* CLASSES incl. buttons, selects, inputs, labels, spans, ps, pretty much everything *******/
