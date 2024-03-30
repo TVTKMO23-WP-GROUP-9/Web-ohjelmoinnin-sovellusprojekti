@@ -84,8 +84,14 @@ nav {
     align-items: center;
     border-top: 1px solid var(--dark-foreground-color);
     border-bottom: 1px solid var(--dark-foreground-color);
-    height: 50px;
-    width: auto;
+    height: 100%;
+    width: 150px;
+    position: fixed;
+    z-index: 1;
+    background-color: #161515;
+    overflow-x: hidden;
+    padding-top: 20px;
+    list-style: none;
 }
 
 nav ul {
@@ -98,6 +104,7 @@ nav li {
     margin-right: var(--general-margin);
     color: #FFF;
     background-color: #161515;
+    padding:  0.5em 1em;
 }
 
 nav li a {
@@ -112,6 +119,22 @@ nav li a:hover {
     background-color: #111;
     color: #FFF;
     font-weight: bold;
+}
+
+.burger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+}
+/*hampurilaisen viivat*/
+.line1, .line2, .line3 {
+    width: 30px;
+    height: 10px;
+    background-color: #161515;
+    margin: 2px;
 }
 
 aside {
@@ -140,6 +163,7 @@ footer p {
     font-weight: bold;
     justify-content: center;
 }
+
 
 @media only screen and (max-width: 1200px) {
     div#content {
@@ -170,5 +194,33 @@ footer p {
     div#content section {
         width: 100vw;
         flex-direction: column;
+    }
+}
+/*hampurilaiseen vähän media hommia ja asetuksia valikkoon*/
+@media screen and (max-width: 768px) {
+    .sivu-palkki {
+    display: none;
+    
+    }
+    .sivu-palkki.active {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    position: absolute;
+    top: 25px;
+    right: 0px;
+    }
+    .sivu-palkki.active li {
+    text-align: center;
+    padding: 5px;
+    }
+    .burger {
+    display: flex;
+    }
+    nav {
+    display: flex;
+    background-color: #FFF;
+    border-top: 1px solid var(--white-foreground-color);
+    border-bottom: 1px solid var(--white-foreground-color);
     }
 }

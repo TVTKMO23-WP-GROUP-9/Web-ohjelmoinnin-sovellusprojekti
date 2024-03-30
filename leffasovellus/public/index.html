@@ -25,15 +25,24 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>React App</title>
-    <link rel="stylesheet" href="nav.css">
+    <link rel="stylesheet" href="../src/css/styles.css">
   </head>
   <body>
-        <ul>
-          <li><a href="#leffat">Leffat</a></li>
-          <li><a href="#sarjat">Sarjat</a></li>
-          <li><a href="#Ryhmät">Ryhmät</a></li>
+    <header>
+        <nav>
+          <ul class="sivu-palkki">
+          <li><a href="#Movies">Leffat</a></li>
+          <li><a href="#Series">Sarjat</a></li>
+          <li><a href="#Groups">Ryhmät</a></li>
           <li style="float:right"><a href="#login">Kirjaudu sisään</a></li>
         </ul>
+        </nav>
+        <div class="burger">
+          <div class="line1"></div>
+          <div class="line2"></div>
+          <div class="line3"></div>
+      </div>
+    </ul>
   </header>
   <main>
 
@@ -51,5 +60,6 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+    <script src="script.js"></script>
   </body>
 </html>
