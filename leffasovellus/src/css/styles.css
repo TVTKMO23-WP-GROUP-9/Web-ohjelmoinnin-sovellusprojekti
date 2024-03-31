@@ -84,13 +84,13 @@ nav {
     align-items: center;
     border-top: 1px solid var(--dark-foreground-color);
     border-bottom: 1px solid var(--dark-foreground-color);
-    height: 100%;
-    width: 150px;
+    height: 65px;
+    width: 100%;
     position: fixed;
     z-index: 1;
     background-color: #161515;
     overflow-x: hidden;
-    padding-top: 20px;
+    padding-top: 5px;
     list-style: none;
 }
 
@@ -200,7 +200,6 @@ footer p {
 @media screen and (max-width: 768px) {
     .sivu-palkki {
     display: none;
-    
     }
     .sivu-palkki.active {
     display: flex;
@@ -222,5 +221,9 @@ footer p {
     background-color: #FFF;
     border-top: 1px solid var(--white-foreground-color);
     border-bottom: 1px solid var(--white-foreground-color);
+    height: 240px;
+    width: 200px;
+    right: 20px;
+    top: 40px;
     }
 }
