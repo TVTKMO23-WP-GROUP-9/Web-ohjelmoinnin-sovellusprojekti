@@ -4,6 +4,9 @@ import './Comingsoon.css'; // Sisällytä CSS-tiedosto suoraan komponenttiin
 const Comingsoon = () => {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [hoveredEventIndex, setHoveredEventIndex] = useState(-1);
+  const [currentEventIndex, setCurrentEventIndex] = useState(0);
+  const [visibleEvents, setVisibleEvents] = useState([]);
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -32,20 +35,39 @@ const Comingsoon = () => {
     fetchEvents();
   }, []);
 
+  useEffect(() => {
+    setVisibleEvents(events.slice(currentEventIndex, currentEventIndex + 5));
+  }, [currentEventIndex, events]);
+
+  const handleNext = () => {
+    setCurrentEventIndex(prevIndex => Math.min(prevIndex + 1, events.length - 5));
+  };
+
+  const handlePrev = () => {
+    setCurrentEventIndex(prevIndex => Math.max(prevIndex - 1, 0));
+  };
+
   return (
     <div className="event-list">
       {loading ? (
         <p>Hetkonen...</p>
       ) : (
         <div className="events-container">
-          {events.map(event => (
-            <div key={event.id} className="event-item">
-                <a href={event.eventUrl} target="_blank" rel="noopener noreferrer"> {/* Avaa linkki uuteen välilehteen */}
+          <img src="../src/components/content/images/leftarrow.jpg" alt="Left Arrow" onClick={handlePrev} />
+          {visibleEvents.map((event, index) => (
+            <div
+              key={event.id}
+              className="event-item"
+              onMouseEnter={() => setHoveredEventIndex(index)}
+              onMouseLeave={() => setHoveredEventIndex(-1)}
+            >
+              <a href={event.eventUrl} target="_blank" rel="noopener noreferrer">
                 <img src={event.imageUrl} alt="Event" />
-                <div className="head">{event.title}</div>
+                {hoveredEventIndex === index && <div className="head">{event.title}</div>}
               </a>
             </div>
           ))}
+          <img src="../src/components/content/images/rightarrow.jpg" alt="Right Arrow" onClick={handleNext} />
         </div>
       )}
     </div>

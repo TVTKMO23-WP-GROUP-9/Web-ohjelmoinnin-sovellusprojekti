@@ -12,7 +12,6 @@ const Home = () => {
       {<Comingsoon />}
 
       <h2>H2 Some Title Here </h2>
-
       <p>Put some content here</p>
 
       <p>Huom. Tämä malli ei ole responsiivinen. Ts. "hajoaa" pienemmillä näytöillä. </p>
