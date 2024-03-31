@@ -2,7 +2,7 @@ require('dotenv').config({ path: '../.env' });
 const express = require('express');
 const app = express();
 
-const profile = require('./routes/profile'); // Tuo 'user' reitityksen
+const profile = require('./routes/profile'); // Tuo 'profile' reitityksen
 
 app.use('/', profile);  // Käytä 'profile' reititystä juuressa
 
