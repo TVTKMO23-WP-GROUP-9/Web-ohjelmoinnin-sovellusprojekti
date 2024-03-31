@@ -69,6 +69,7 @@ body {
   width: 100%;
   border-bottom: 1px solid #000000;
   background: linear-gradient(67deg, #000000, #272727, #272727, #272727, #272727, #000000);
+  z-index: 2;
 }
 
 #header-bar .header-container {
