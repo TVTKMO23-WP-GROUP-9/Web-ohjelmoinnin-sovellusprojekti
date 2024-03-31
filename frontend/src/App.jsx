@@ -6,7 +6,6 @@ import { ThemeProvider, useTheme } from './ThemeProvider';
 import '@css/styles.css';
 import Header from '@components/header/Header';
 import Footer from '@components/footer/Footer';
-import nav from '@components/nav/nav';
 import Home from '@pages/Home';
 // importtaa muut sivut
 

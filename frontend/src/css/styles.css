@@ -73,6 +73,7 @@ body {
 }
 
 #header-bar .header-container {
+  
   margin: 0 auto;
   /*display: flex;*/
   max-width: 100vh;
@@ -204,6 +205,48 @@ button:hover {
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
+}
+
+
+/******* Hamppari *******/
+.hamburger{
+  display: none;
+  width: 2rem;
+  height: 2rem;
+  justify-content: space-around;
+  flex-flow: column nowrap;
+  z-index: 10;
+}
+.burger{
+  width: 2rem;
+  height: 0.25rem;
+  border-radius: 10px;
+  background-color: black;
+  transform-origin: 1px;
+  transition: all 0.3s linear;
+}
+
+@media screen and (max-width: 768px) {
+  .navigate {
+    display: none; /* Piilotetaan leveässä näytössä */
+    flex-direction: column;
+    position: absolute;
+    top: 50px; /* Säädä tarvittaessa kohdistamaan kunnolla */
+    left: 0;
+    background-color: #333;
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+  }
+
+  .navigate.active {
+    display: flex; /* Näytetään aktiivisena hampurilaisvalikon ollessa auki */
+  }
+
+  .hamburger {
+    display: block; /* Näytetään hampurilainen pienessä näytössä */
+    cursor: pointer;
+  }
 }
 
 /******* CLASSES incl. buttons, selects, inputs, labels, spans, ps, pretty much everything *******/
