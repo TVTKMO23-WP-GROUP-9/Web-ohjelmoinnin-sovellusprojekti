@@ -1,4 +1,5 @@
 import React from 'react';
+import Comingsoon from '@content/Comingsoon';
 
 const Home = () => {
 
@@ -6,6 +7,10 @@ const Home = () => {
 
     <div className="content">
 
+    <h2>Tulossa elokuvateattereihin </h2>
+
+    {<Comingsoon />}
+      
     <h2>H2 Some Title Here </h2>
 
     <p>Put some content here</p>
