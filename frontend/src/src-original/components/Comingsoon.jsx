@@ -1,18 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import './Comingsoon.css'; // Sisällytä CSS-tiedosto suoraan komponenttiin
+import '@css/Comingsoon.css'; // Sisällytä CSS-tiedosto suoraan komponenttiin
 
 const EventList = () => {
   const [events, setEvents] = useState([]);
-  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchEvents = async () => {
-      try {
-        const response = await fetch('https://www.finnkino.fi/xml/Events/?listType=ComingSoon');
-        const xmlText = await response.text();
-        const parser = new DOMParser();
-        const xmlDoc = parser.parseFromString(xmlText, 'text/xml');
-        const eventNodes = xmlDoc.getElementsByTagName('Event');
+	@@ -15,17 +16,15 @@ const EventList = () => {
         const eventsData = Array.from(eventNodes).map(eventNode => {
           return {
             id: eventNode.querySelector('ID').textContent,
@@ -28,8 +20,7 @@ const EventList = () => {
         setLoading(false);
       }
     };
-
-    fetchEvents();
+	@@ -34,22 +33,20 @@ const EventList = () => {
   }, []);
 
   return (
@@ -50,6 +41,5 @@ const EventList = () => {
       )}
     </div>
   );
-};
 
-export default EventList;
+  export default EventList;

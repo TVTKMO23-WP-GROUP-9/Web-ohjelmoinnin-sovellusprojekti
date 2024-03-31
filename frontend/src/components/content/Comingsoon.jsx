@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Comingsoon.css'; // Sisällytä CSS-tiedosto suoraan komponenttiin
 
-const EventList = () => {
+const Comingsoon = () => {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -52,4 +52,4 @@ const EventList = () => {
   );
 };
 
-export default EventList;
+export default Comingsoon;
