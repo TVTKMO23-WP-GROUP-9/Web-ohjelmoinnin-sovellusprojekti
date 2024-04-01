@@ -89,7 +89,7 @@ const Comingsoon = () => {
             >
               <a href={event.eventUrl} target="_blank" rel="noopener noreferrer">
                 <img src={event.imageUrl} alt="Event" />
-                {hoveredEventIndex === index && <div className="head">{event.title}</div>}
+                <div className="head">{event.title}</div>
               </a>
             </div>
           ))}
