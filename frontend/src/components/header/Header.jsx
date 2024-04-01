@@ -6,7 +6,6 @@ const Header = ({ user, handleLogout }) => {
     <div id="header">
       <div id="header-bar">
         <div className="header-container">
-          <h1>Fancy Title Here</h1> 
             <div >
                 <ul className="navigate">
                 <li><Link to="/">Etusivu</Link></li>
