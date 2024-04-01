@@ -32,6 +32,7 @@ function App() {
   return (
     <>
       <Router>
+      
         <ThemeProvider>
           <div className={`body ${theme}`}>
             <Header user={user} handleLogout={handleLogout} />

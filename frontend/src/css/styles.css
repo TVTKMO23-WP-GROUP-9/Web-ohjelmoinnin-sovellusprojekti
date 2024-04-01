@@ -57,6 +57,22 @@ body {
 
 /******* HEADER WITH NAVIGATION BAR *******/
 
+.menu-items {
+width: 100%;
+height: 50px;
+}
+.menu-items ul{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  height: var(--header-height);
+  margin: 1rem;
+}
+.menu-items li{
+  list-style-type: none;
+  padding-right: 10px;
+}
 #header {
   margin: 0;
   margin-bottom: 200px;
@@ -71,13 +87,24 @@ body {
   background: linear-gradient(67deg, #000000, #272727, #272727, #272727, #272727, #000000);
   z-index: 2;
 }
+.nav__close {
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
+ }
+ 
+ .show-menu {
+  right: 0;
+ }
 
 #header-bar .header-container {
-  
   margin: 0 auto;
-  /*display: flex;*/
+  display: flex;
   max-width: 100vh;
   place-items: center;
+  flex-direction: row;
+  justify-content: space-evenly;
+  
 }
 
 #header-bar ul.navigate {
@@ -207,46 +234,26 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
-
 /******* Hamppari *******/
-.hamburger{
+.hamburger-icon {
   display: none;
-  width: 2rem;
-  height: 2rem;
-  justify-content: space-around;
-  flex-flow: column nowrap;
-  z-index: 10;
-}
-.burger{
-  width: 2rem;
-  height: 0.25rem;
-  border-radius: 10px;
-  background-color: black;
-  transform-origin: 1px;
-  transition: all 0.3s linear;
+  cursor: pointer;
 }
 
-@media screen and (max-width: 768px) {
-  .navigate {
-    display: none; /* Piilotetaan leveässä näytössä */
-    flex-direction: column;
-    position: absolute;
-    top: 50px; /* Säädä tarvittaessa kohdistamaan kunnolla */
-    left: 0;
-    background-color: #333;
-    width: 100%;
-    padding: 10px;
-    box-sizing: border-box;
-  }
 
-  .navigate.active {
-    display: flex; /* Näytetään aktiivisena hampurilaisvalikon ollessa auki */
-  }
-
-  .hamburger {
-    display: block; /* Näytetään hampurilainen pienessä näytössä */
-    cursor: pointer;
+@media (max-width: 768px) {
+  .hamburger-icon {
+    display: block;
   }
 }
 
+@media (max-width: 768px) {
+  .menu-items {
+    display: none;
+  }
+
+  .menu-items.show {
+    display: block;
+  }
+}
 /******* CLASSES incl. buttons, selects, inputs, labels, spans, ps, pretty much everything *******/
