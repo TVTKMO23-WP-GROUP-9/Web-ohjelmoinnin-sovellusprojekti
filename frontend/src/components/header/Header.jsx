@@ -13,7 +13,7 @@ const Header = ({ user, handleLogout }) => {
     <div id="header">
       <div id="header-bar">
         <div className="header-container">
-          <h1>Fancy Title Here</h1>
+        <h1>Logo - &or name</h1> 
           <button className="mobile-menu-icon" onClick={toggleburger}>☰</button>
         
       <div className={`menu-items ${isburgerOpen ? 'open' : ''}`}>
@@ -25,9 +25,9 @@ const Header = ({ user, handleLogout }) => {
           {user && <li><Link onClick={handleLogout}>Kirjaudu ulos</Link></li>}
           <LoginDropdown />
         </ul>
+            </div>
+        </div>
       </div>
-    </div>
-    </div>
     </div>
     
   );

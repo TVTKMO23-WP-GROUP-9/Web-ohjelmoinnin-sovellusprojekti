@@ -28,7 +28,7 @@ body {
 /******* consume styles with: " var(--namehere) " and make sure to include that --namehere in both: " .light " and  " .dark " -modes *******/
 
 .light { 
-  --background-color: #f5f5f5;
+  --background-color: #faf0e4;
   --text-color: #000000;
   --github-image: url('../images/github-mark.png');
   --button-bg: #282e37;
@@ -38,11 +38,11 @@ body {
   --left-border: 9px solid #303030;
   --a-link: #25272d;
   --a-link-hover: #303030;
-  --footer-hover: #981824;
+  --footer-hover: #ededed;
 }
 
 .dark {
-  --background-color: #25272d;
+  --background-color: #1d1d1d;
   --text-color: #ffffff;
   --github-image: url('../images/github-mark-white.png');
   --button-bg: #1a1a1a;
@@ -51,8 +51,8 @@ body {
   --h2: #ffffff;
   --left-border: 9px solid #ffffff;
   --a-link: #ffffff;
-  --a-link-hover: #f3bdbe;
-  --footer-hover: #981824;
+  --a-link-hover: #323640;
+  --footer-hover: #ededed;
 }
 
 /******* HEADER WITH NAVIGATION BAR *******/
@@ -85,7 +85,7 @@ body {
 }
 #header {
   margin: 0;
-  margin-bottom: 200px;
+  margin-bottom: 100px;
 }
 
 
@@ -93,10 +93,10 @@ body {
   
   position: fixed;
   top: 0;
-  height: 200px;
+  height: 100px;
   width: 100%;
   border-bottom: 1px solid #000000;
-  background: linear-gradient(67deg, #000000, #272727, #272727, #272727, #272727, #000000);
+  background: linear-gradient(67deg, #0b0c0f, #0b2b55, #0b2b55, #0b2b55, #0b2b55, #0b0c0f);
   z-index: 2;
 
 }
@@ -139,18 +139,18 @@ body {
 
 #header-bar ul a:hover {
   text-decoration: none;
-  color: #981824;
+  color: #dcc1a1;
 }
 
 #header-bar ul.navigate li {
-  padding-left: 35px;
-  padding-right: 35px;
+  padding-left: 15px;
+  padding-right: 15px;
 }
 
 h1 /* this title is for @Header */ {
   margin: 0 auto;
   margin-top: 7px;
-  font-family: "Rampart One", sans-serif;
+  font-family: "Thasadith", sans-serif;
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
@@ -192,7 +192,7 @@ h1 /* this title is for @Header */ {
   padding-bottom: 3px;
   align-items: center;
   border-top: 1px solid #000000;
-  background: linear-gradient(111deg, #000000, #272727, #272727, #272727, #272727, #000000);
+  background: #342f2a;
   color: #ffffff;
   font-size: 1.1em;
 }
