@@ -10,6 +10,7 @@ const login = require('./routes/authRoutes'); // Tuo 'login' reitityksen
 const search = require('./routes/movieRoutes'); // Tuo 'search' reitityksen
 const discover = require('./routes/movieRoutes'); // Tuo 'discover' reitityksen
 
+// backendin juuressa: npm install cors --no-fund || npm install cors
 app.use(cors({ origin: 'http://localhost:5173' })); // sallii CORS-pyynnöt alkuperästä localhost:5173 (react)
 
 app.use('/', profile);  // Käytä 'profile' reititystä juuressa

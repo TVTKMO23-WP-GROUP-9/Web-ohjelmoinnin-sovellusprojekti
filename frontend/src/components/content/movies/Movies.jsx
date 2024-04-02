@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+// frontendin juuressa: npm install axios --no-fund || npm install axios
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import './movies.css';
