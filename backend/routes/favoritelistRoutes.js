@@ -21,7 +21,6 @@ router.get('/', async (req, res) => {
     res.json(result.rows);
   } catch (error) {
     console.error('Virhe haettaessa Listaa:', error);
-    res.status(500).send('Virhe haettaessa Listaa');
   }
 });
 
@@ -32,7 +31,7 @@ router.get('/favoritelist/:favoritelistid', async (req, res) => {
     const query = {
       text: `
       SELECT fl.*, p.profilename, g.groupname
-      FROM favoritelist fl
+      FROM favoritelist_ fl
       LEFT JOIN profile p ON fl.profilename = p.id
       LEFT JOIN group g ON fl.groupname = g.id
       WHERE fl.favoritelistid = $1
@@ -48,7 +47,6 @@ router.get('/favoritelist/:favoritelistid', async (req, res) => {
     }
   } catch (error) {
     console.error('Virhe haettaessa Listaa:', error);
-    res.status(500).send('Virhe haettaessa Listaa');
   }
 });
 
@@ -58,7 +56,7 @@ router.post('/favoritelist', async (req, res) => {
       const { favoritelistid, favoriteditem, showtime, timestamp } = req.body;
       
       const query = {
-        text: 'INSERT INTO favoritelist (favoritelistid, favoriteditem, showtime, timestamp) VALUES ($1, $2, $3, $4)',
+        text: 'INSERT INTO favoritelist_ (favoritelistid, favoriteditem, showtime, timestamp) VALUES ($1, $2, $3, $4)',
         values: [favoritelistid, favoriteditem, showtime, timestamp],
       };
   
@@ -66,7 +64,6 @@ router.post('/favoritelist', async (req, res) => {
       res.status(201).send('Suosikkilista lisätty onnistuneesti');
     } catch (error) {
       console.error('Virhe lisättäessä listaa:', error);
-      res.status(500).send('Virhe lisättäessä listaa');
     }
   });
   
@@ -76,7 +73,7 @@ router.delete('/favoritelist/:favoritelistid', async (req, res) => {
   const favoritelistid = req.params.favoritelistid;
   try {
     const query = {
-      text: 'DELETE FROM favoritelist WHERE favoritelistid = $1',
+      text: 'DELETE FROM favoritelist_ WHERE favoritelistid = $1',
       values: [favoritelistid],
     };
 
@@ -84,7 +81,6 @@ router.delete('/favoritelist/:favoritelistid', async (req, res) => {
     res.send(`Lista poistettu onnistuneesti ${result.rowCount}`);
   } catch (error) {
     console.error('Virhe poistettaessa listaa:', error);
-    res.status(500).send('Virhe poistettaessa listaa');
   }
 });
 
