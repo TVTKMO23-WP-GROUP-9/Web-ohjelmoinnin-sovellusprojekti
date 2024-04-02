@@ -7,19 +7,13 @@ import '@css/styles.css';
 import Header from '@components/header/Header';
 import Footer from '@components/footer/Footer';
 import Home from '@content/homepage/Home';
-<<<<<<< HEAD
 import Login from '@components/header/Login';
-=======
->>>>>>> fe1bf6988e83d3988dc0d35d059ab605a6edf960
 // importtaa muut sivut
 
 function App() {
   const { theme, toggleTheme } = useTheme();
   const [user, setUser] = useState(null)
-<<<<<<< HEAD
   
-=======
->>>>>>> fe1bf6988e83d3988dc0d35d059ab605a6edf960
 
   useEffect(() => {
     const savedTheme = localStorage.getItem('theme');
