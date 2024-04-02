@@ -208,4 +208,33 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+/******* BUTTONS *******/
+
+select {
+  padding: 1em 1em;
+}
+
+label {
+  padding: 0.2em 1em;
+}
+
+input  {
+  padding: 1em;
+  margin-right: 1em;
+  margin-left: 1em;
+}
+
+.shortInput {
+  margin: 0 auto;
+  width: 80px;
+}
+
+.longInput {
+  margin: 0 auto;
+  margin-left: 0;
+  width: 180px;
+}
+
+
 /******* CLASSES incl. buttons, selects, inputs, labels, spans, ps, pretty much everything *******/
+
