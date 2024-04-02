@@ -1,0 +1,14 @@
+.home-container {
+  height: 100vh; /* Vie koko näytön korkeuden */
+  display: flex;
+  flex-direction: column;
+}
+
+.uppercontent {
+  height: 80%; /* Ylemmän sisällön korkeus on 80% näytön korkeudesta */
+  overflow: auto; /* Lisää vierityspalkki tarvittaessa, jos sisältö ylittää tilan */
+}
+
+.coming-soon-container {
+  height: 100px; /* Comingsoon-divin korkeus on 20% ylemmästä sisällöstä */
+}
