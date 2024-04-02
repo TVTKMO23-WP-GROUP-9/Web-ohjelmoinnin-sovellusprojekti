@@ -1,40 +1,62 @@
-
-INSERT INTO Profile_ (profilename, password, email, profilepicurl, "timestamp", description) VALUES
--- id 1-5
-('Viilipytty', 'hashed_password_here', NULL, NULL, CURRENT_TIMESTAMP, NULL),
-('Jankka', 'hashed_password_here', NULL, NULL, CURRENT_TIMESTAMP, NULL),
-('komediaa82', 'hashed_password_here', NULL, NULL, CURRENT_TIMESTAMP, NULL),
-('Eloton', 'hashed_password_here', NULL, NULL, CURRENT_TIMESTAMP, NULL),
-('vainse', 'hashed_password_here', NULL, NULL, CURRENT_TIMESTAMP, NULL),
--- id 6-10
-('jokaToka', 'hashed_password_here', NULL, NULL, CURRENT_TIMESTAMP, NULL),
-('Mikk0', 'hashed_password_here', NULL, NULL, CURRENT_TIMESTAMP, NULL),
-('dramaqueen', 'hashed_password_here', NULL, NULL, CURRENT_TIMESTAMP, NULL),
-('kauhistus', 'hashed_password_here', NULL, NULL, CURRENT_TIMESTAMP, NULL),
-('Jest4s', 'hashed_password_here', NULL, NULL, CURRENT_TIMESTAMP, NULL),
--- id 11-15
-('AaveMaria', 'hashed_password_here', NULL, NULL, CURRENT_TIMESTAMP, NULL),
-('siippa5', 'hashed_password_here', NULL, NULL, CURRENT_TIMESTAMP, NULL),
-('Pastilli', 'hashed_password_here', NULL, NULL, CURRENT_TIMESTAMP, NULL),
-('Huutista', 'hashed_password_here', NULL, NULL, CURRENT_TIMESTAMP, NULL),
-('salaakaton', 'hashed_password_here', NULL, NULL, CURRENT_TIMESTAMP, NULL),
--- id 16-20
-('Kan-Joni', 'hashed_password_here', NULL, NULL, CURRENT_TIMESTAMP, NULL),
-('poikamies', 'hashed_password_here', NULL, NULL, CURRENT_TIMESTAMP, NULL),
-('Misu01', 'hashed_password_here', NULL, NULL, CURRENT_TIMESTAMP, NULL),
-('maitotee', 'hashed_password_here', NULL, NULL, CURRENT_TIMESTAMP, NULL),
-('lipettiin', 'hashed_password_here', NULL, NULL, CURRENT_TIMESTAMP, NULL),
--- id 21-23
-('Jenna', 'hashed_password_here', NULL, NULL, CURRENT_TIMESTAMP, NULL),
-('Siilinpieru', 'hashed_password_here', NULL, NULL, CURRENT_TIMESTAMP, NULL),
-('PaijaanSUA', 'hashed_password_here', NULL, NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO Profile_ (profilename, hashedPassword, email, profilepicurl, "timestamp", description) VALUES
+-- testikäyttäjät id 1-10
+-- Viilipytty hashaamaton salasana: oivamato
+('Viilipytty', '$2b$10$Os132x/7gfQuEkIpTNvTG.XMrnQG/bOgj4AepLQ5u.wtgfEoTFpf.', NULL, NULL, CURRENT_TIMESTAMP, NULL),
+-- Jankka hashaamaton salasana: 8D94gvds0
+('Jankka', '$2b$10$ZarxfNZO1AYZp9VCg3Zjz.URJxUuZdcve5qd6A9QZQGWYRBln3rgm', NULL, NULL, CURRENT_TIMESTAMP, NULL),
+-- komediaa82 hashaamaton salasana: aaidemok
+('komediaa82', '$2b$10$9KLQoLOOd9PVGamFgdVoa.CoUDfXClGvAe6CCIW6vhdKbJfBzg89i', NULL, NULL, CURRENT_TIMESTAMP, NULL),
+-- Eloton hashaamaton salasana: sana5532
+('Eloton', '$2b$10$e8MfS6GQLuMWZnGyKowW7udiBNhys3/dH/YIgSbv3Z0MxggXBl9Lm', NULL, NULL, CURRENT_TIMESTAMP, NULL),
+-- vainse hashaamaton salasana: rekku6
+('vainse', '$2b$10$pYcfW1TE4lORryyRO6FJFOs8bF7m8ClPaXjDG/M/A4FsWVT917iDK', NULL, NULL, CURRENT_TIMESTAMP, NULL),
+-- jokaToka hashaamaton salasana: lomakuume#1
+('jokaToka', '$2b$10$QGlrHI60xCT1JkERYAYQYuiEuQCJAuaY.w9DVxNo2L6dpHNR2Me4G', NULL, NULL, CURRENT_TIMESTAMP, NULL),
+-- Mikk0 hashaamaton salasana: VIEROSKAT
+('Mikk0', '$2b$10$b9MMw4wALTbPDKXbgZIuJedz.tBhB1AAxBO21UW8gmVn34uvUDOEa', NULL, NULL, CURRENT_TIMESTAMP, NULL),
+-- dramaqueen hashaamaton salasana: unohdettu1010
+('dramaqueen', '$2b$10$SlZvRPqkAbEEO99f0gyRXubu/CKlkQo12ayYMyenik1ekELUtCc3W', NULL, NULL, CURRENT_TIMESTAMP, NULL),
+-- kauhistus hashaamaton salasana: kauhuleffoja38
+('kauhistus', '$2b$10$XrLUGUbR77BVtDPVZ6cLIOsmvltN20QLnzQ5vm8cWQjSPviNrjJiG', NULL, NULL, CURRENT_TIMESTAMP, NULL),
+-- Jest4s hashaamaton salasana: )3nvds98ETF
+('Jest4s', '$2b$10$IwMD52QfxJhT258LxwVNKeGGGDfix8oWApJt9Kd48DOGPhqbxi60K', NULL, NULL, CURRENT_TIMESTAMP, NULL),
+-- testikäyttäjät id 11-20
+-- AaveMaria hashaamaton salasana: #mvvdisCORD
+('AaveMaria', '$2b$10$FC1jbhISaPnald7BczUTp.myptklA36L0ntNz4fdyedZprQ1X4aWq', NULL, NULL, CURRENT_TIMESTAMP, NULL),
+-- siippa5 hashaamaton salasana: siipaton000
+('siippa5', '$2b$10$is.bNU/5A4MdM9sZV/UdwO6qvMruQrfUbrkql371f9gmUs4TagBHa', NULL, NULL, CURRENT_TIMESTAMP, NULL),
+-- Pastilli hashaamaton salasana: jukujes%
+('Pastilli', '$2b$10$3bQI9aUHy9wx2qfulRDdRu94wo.m2RPcswnHNt126onZOwf3W.E3O', NULL, NULL, CURRENT_TIMESTAMP, NULL),
+-- Huutista hashaamaton salasana: xDXDxdXD94
+('Huutista', '$2b$10$m1A0mr3RqW.FejzJskU9iuS2SiDqcXpRpX3Da08TleGxP4b3gui8e', NULL, NULL, CURRENT_TIMESTAMP, NULL),
+-- salaakaato hashaamaton salasana: tuskaa4=
+('salaakaton', '$2b$10$RoF/XQbHpoLG8cm00ll/kuF1SUiLl/Vq0mEBio14./T.CfaGrh.F2', NULL, NULL, CURRENT_TIMESTAMP, NULL),
+-- Kan-Joni hashaamaton salasana: helppo
+('Kan-Joni', '$2b$10$8KeS4n.O2CLpUurqsQMBa.wej5SaNcSVC8XE9hl8uQ0Rj1lZzhN2a', NULL, NULL, CURRENT_TIMESTAMP, NULL),
+-- poikamies hashaamaton salasana: vielkinEhtis
+('poikamies', '$2b$10$MxjsY3EsB25IjGQJsUCpqOClHnsNISN1slbYkhc9zX0.JAhAMPxtO', NULL, NULL, CURRENT_TIMESTAMP, NULL),
+-- Misu01 hashaamaton salasana: 987654321
+('Misu01', '$2b$10$NI8.6kt3rXWmTTkb4uNZA.98JFcPnXm.AeLyNgB17V7aNWT.2tTQO', NULL, NULL, CURRENT_TIMESTAMP, NULL),
+-- maitotee hashaamaton salasana: EnJuoKahvia
+('maitotee', '$2b$10$BHetFB1YNwSCicx/I3YhE.2THqx2zBq1dzYr3enEKk4iSFOReVXuu', NULL, NULL, CURRENT_TIMESTAMP, NULL),
+-- lipettiin hashaamaton salasana: somaprinsessa666
+('lipettiin', '$2b$10$3IgL5lCJzcjp5HS0AWVcyOveJevU79cd9lNsPFvnWeECqT7YlNBf6', NULL, NULL, CURRENT_TIMESTAMP, NULL),
+-- testikäyttäjät id 21 - 24
+-- Jenna hashaamaton salasana: annejjenna
+('Jenna', '$2b$10$DVgyW0Hc4jGIp/31Ck1oc.beiRyrR3DffdOGoFXrvWfShxeq9RjMu', NULL, NULL, CURRENT_TIMESTAMP, NULL),
+-- Siilinpieru hashaamaton salasana: hedgehog
+('Siilinpieru', '$2b$10$YWfQeOraJww3UCF3Ap0d6Of0bfnRn9uEJYdzuYfpLkAhyR2nyl0KK', NULL, NULL, CURRENT_TIMESTAMP, NULL),
+-- PaijaanSUA hashaamaton salasana: byebye??0
+('PaijaanSUA', '$2b$10$EOakCcZdU0hk/jxPajsGaeq1SVAJpDn56P6gXL63M3y6aPSruY9rS', NULL, NULL, CURRENT_TIMESTAMP, NULL),
+-- UUUseri hashaamaton salasana: 123456
+('UUUseri', '$2b$10$09CaL5r.JxvCl2rm2F5BBudYNinrgKKqPfcuVGEXJvdJwub0Q06te', NULL, NULL, CURRENT_TIMESTAMP, NULL)
 
 INSERT INTO Group_ (groupname, groupexplanation, "timestamp") VALUES
 -- id 1-5
 ('Ryhmärämä', 'kuvaus', CURRENT_TIMESTAMP),
 ('komediahullut', 'kuvaus', CURRENT_TIMESTAMP),
 ('tosimiesklubi', 'kuvaus', CURRENT_TIMESTAMP),
-('Stadin Muuvissa', 'kuvaus', CURRENT_TIMESTAMP),
+('Stadinrinki', 'kuvaus', CURRENT_TIMESTAMP),
 ('SOTA-leffat', 'kuvaus', CURRENT_TIMESTAMP),
 -- id 6-10
 ('Draamailijat', 'kuvaus', CURRENT_TIMESTAMP),
@@ -70,7 +92,7 @@ INSERT INTO Memberlist_ (profileid, mainuser, groupid, pending) VALUES
 ('11', 0, '3', 0),
 ('12', 0, '3', 0),
 ('13', 0, '3', 0),
--- Ryhmä Stadin Muuvissa
+-- Ryhmä Stadinrinki
 ('9', 1, '4', 0),
 ('7', 0, '4', 0),
 ('2', 0, '4', 0),
@@ -138,7 +160,7 @@ INSERT INTO Memberlist_ (profileid, mainuser, groupid, pending) VALUES
 ('18', 0, '15', 0),
 ('14', 0, '15', 0);
 
-INSERT INTO Favorites_ (profileid, groupid, favoriteditem, showtime, "timestamp") VALUES
+INSERT INTO Favoritelist_ (profileid, groupid, favoriteditem, showtime, "timestamp") VALUES
 ('1', '1', 'favorited_item_here', NULL, CURRENT_TIMESTAMP),
 ('2', '2', 'favorited_item_here', NULL, CURRENT_TIMESTAMP),
 ('3', '3', 'favorited_item_here', NULL, CURRENT_TIMESTAMP),
