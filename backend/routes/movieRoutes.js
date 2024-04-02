@@ -52,7 +52,7 @@ router.get('/movie/search', async (req, res) => {
         result.id,
         result.title,
         result.poster_path,
-    ));
+    )).filter(movie => movie.poster_path !== null);
       res.json(movies);
     } catch (error) {
       console.error('Virhe elokuvien hakemisessa:', error);
@@ -83,7 +83,7 @@ router.get('/movie/search', async (req, res) => {
         result.id,
         result.title,
         result.poster_path,
-    ));
+    )).filter(movie => movie.poster_path !== null);
       res.json(movies);
     } catch (error) {
       console.error('Virhe elokuvien löytämisessä:', error);
