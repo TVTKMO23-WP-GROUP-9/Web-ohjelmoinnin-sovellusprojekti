@@ -3,6 +3,7 @@ class MovieData {
         id, 
         title, 
         poster_path
+        
     ) {
         this.id = id;
         this.title = title;
@@ -21,6 +22,7 @@ class MovieData {
     getTitle() {
       return this.title;
     }
+    
 
   }
   

@@ -8,6 +8,7 @@ import Header from '@components/header/Header';
 import Footer from '@components/footer/Footer';
 import Home from '@content/homepage/Home';
 import Search from '@content/movies/Search';
+import MovieDetails from '@content/movies/MovieDetails';
 // importtaa muut sivut
 
 function App() {
@@ -40,12 +41,13 @@ function App() {
             <Routes>
               <Route path="/" exact element={<Home />} />
               <Route path="/search" element={<Search />} />
+              <Route path="/movie/:id" element={<MovieDetails/>} />
               {/****** Loput routet, esim.
             
             <Route path="/community" element={<Community />} />
             <Route path="/login" element={<Login setUser={setUser}/>} />
             <Route path="/myaccount" element={<MyAccount user={user} />} />
-            <Route path="/movie/:id" element={<MovieDetails/>} />
+            
             <Route path="/group/" element={<GroupDetails/>} />
             <Route path="/profile/" element={<ProfileDetails/>} />
             ********/}

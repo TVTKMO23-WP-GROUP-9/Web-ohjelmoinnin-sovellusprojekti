@@ -1,6 +1,7 @@
 const express = require('express');
 const { Pool } = require('pg');
 const router = express.Router();
+const axios = require('axios');
 const bodyParser = require('body-parser');
 
 const MovieData = require('./data/MovieData.js');
@@ -60,8 +61,8 @@ router.get('/movie/search', async (req, res) => {
     }
   });
   
-  // löydetään elokuvia esim. suosituimpien perusteella tai muita kivoja parametrejä käyttäen, ei taida varsinaisesti tukea "hakusanaa" eli searchia
-  router.get('/movie/discover', async (req, res) => {
+// löydetään elokuvia esim. suosituimpien perusteella tai muita kivoja parametrejä käyttäen, ei taida varsinaisesti tukea "hakusanaa" eli searchia
+router.get('/movie/discover', async (req, res) => {
     const { sort_by, page, year, language } = req.query;
 
     const apiKey = process.env.TMDB_API_KEY;
@@ -75,7 +76,6 @@ router.get('/movie/search', async (req, res) => {
 
     const url = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=${genreId}&sort_by=${sort_by}&page=${page}&primary_release_year=${year}&language=${language}`;
 
-    
     try {
       const response = await fetch(url);
       const data = await response.json();
@@ -89,8 +89,23 @@ router.get('/movie/search', async (req, res) => {
       console.error('Virhe elokuvien löytämisessä:', error);
       res.status(500).json({ message: 'Virhe palvelimella' });
     }
-  });
+ });
 
-  // find by id -haun toteutus myöhemmin, eli kun on haettu elokuvat vaikka listaan, niin klikkaamalla elokuvaa saadaan elokuvan lisäsivu auki, infot pöytään
+// find by id -haku, eli kun on haettu elokuvat vaikka listaan, niin klikkaamalla elokuvaa saadaan elokuvan lisäsivu auki, infot pöytään
+router.get('/movie/:id', async (req, res) => {
+    const apiKey = process.env.TMDB_API_KEY;
+    const movieId = req.params.id;
+    const url = `https://api.themoviedb.org/3/movie/${movieId}?api_key=${apiKey}`;
+
+    try {
+    const response = await axios.get(url);
+    const movieData = response.data;
+    res.json(movieData);
+    } catch (error) {
+    console.error('Virhe elokuvan hakemisessa:', error);
+    res.status(500).json({ message: 'Virhe palvelimella' });
+    }
+ });
+
 
 module.exports = router;
