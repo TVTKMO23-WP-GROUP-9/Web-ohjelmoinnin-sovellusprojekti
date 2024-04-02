@@ -26,7 +26,7 @@ pool.query('SELECT NOW()', (err, res) => {
 // GET-endpoint hakee kaikki tietueet taulusta profile
 router.get('/profile', async (req, res) => {
     try {
-        const query = 'SELECT * FROM "Profile"';
+        const query = 'SELECT * FROM "Profile_"';
         const result = await pool.query(query);
         res.json(result.rows);
     } catch (error) {
@@ -41,7 +41,7 @@ router.get('/profile/:profilename', async (req, res) => {
 
     try {
         const query = {
-            text: 'SELECT * FROM "Profile" WHERE profilename = $1',
+            text: 'SELECT * FROM "Profile_" WHERE profilename = $1',
             values: [profileName],
         };
 
@@ -63,7 +63,7 @@ router.delete('/profile/:profilename', async (req, res) => {
 
     try {
         const query = {
-            text: 'DELETE FROM "Profile" WHERE profilename = $1',
+            text: 'DELETE FROM "Profile_" WHERE profilename = $1',
             values: [profileName],
         };
 
@@ -84,7 +84,7 @@ router.post('/profile', async (req, res) => {
 
         // Lisätään uusi tietue profile-tauluun
         const profileQuery = {
-            text: 'INSERT INTO "Profile" (profilename, password, email, profilepicurl, timestamp) VALUES ($1, $2, $3, $4, $5)',
+            text: 'INSERT INTO "Profile_" (profilename, password, email, profilepicurl, timestamp) VALUES ($1, $2, $3, $4, $5)',
             values: [profilename, password, email, profilepicurl, now],
         };
 
@@ -105,7 +105,7 @@ router.put('/profile/:profilename', async (req, res) => {
     try {
         const now = new Date(); // Haetaan nykyinen aikaleima
         const query = {
-            text: 'UPDATE "Profile" SET email = $1, timestamp = $2 WHERE profilename = $3',
+            text: 'UPDATE "Profile_" SET email = $1, timestamp = $2 WHERE profilename = $3',
             values: [email, now, profileName],
         };
 
