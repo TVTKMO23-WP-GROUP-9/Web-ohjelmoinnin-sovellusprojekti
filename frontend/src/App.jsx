@@ -36,8 +36,7 @@ function App() {
       <Router>
         <ThemeProvider>
           <div className={`body ${theme}`}>
-            <Header user={user} handleLogout={handleLogout} />
-
+              <Header user={user} handleLogout={handleLogout} />  
             <Routes>
               <Route path="/" exact element={<Home />} />
               <Route path="/search" element={<Search />} />
