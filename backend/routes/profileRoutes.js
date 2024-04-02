@@ -26,7 +26,7 @@ pool.query('SELECT NOW()', (err, res) => {
 // GET-endpoint hakee kaikki tietueet taulusta profile
 router.get('/profile', async (req, res) => {
     try {
-        const query = 'SELECT * FROM "Profile_"';
+        const query = 'SELECT * FROM "profile_"';
         const result = await pool.query(query);
         res.json(result.rows);
     } catch (error) {
@@ -35,14 +35,14 @@ router.get('/profile', async (req, res) => {
     }
 });
 
-// GET-endpoint hakee tietyn tietueen taulusta profile annetun profilename-arvon perusteella
-router.get('/profile/:profilename', async (req, res) => {
-    const profileName = req.params.profilename;
+// GET-endpoint hakee tietyn tietueen taulusta profile annetun profileid-arvon perusteella
+router.get('/profile/:profileid', async (req, res) => {
+    const profileId = req.params.profileid;
 
     try {
         const query = {
-            text: 'SELECT * FROM "Profile_" WHERE profilename = $1',
-            values: [profileName],
+            text: 'SELECT * FROM "profile_" WHERE profileid = $1',
+            values: [profileId],
         };
 
         const result = await pool.query(query);
@@ -57,14 +57,14 @@ router.get('/profile/:profilename', async (req, res) => {
     }
 });
 
-// DELETE-endpoint poistaa tietueen annetulla profilename-arvolla
-router.delete('/profile/:profilename', async (req, res) => {
-    const profileName = req.params.profilename;
+// DELETE-endpoint poistaa tietueen annetulla profileId-arvolla
+router.delete('/profile/:profileid', async (req, res) => {
+    const profileId = req.params.profileid;
 
     try {
         const query = {
-            text: 'DELETE FROM "Profile_" WHERE profilename = $1',
-            values: [profileName],
+            text: 'DELETE FROM "profile_" WHERE profileid = $1',
+            values: [profileId],
         };
 
         const result = await pool.query(query);
@@ -78,14 +78,14 @@ router.delete('/profile/:profilename', async (req, res) => {
 // POST-endpoint luo uuden tietueen profile-tauluun
 router.post('/profile', async (req, res) => {
 
-    const { profilename, password, email, profilepicurl } = req.body;
+    const { profilename, hashedpassword, email, profilepicurl } = req.body;
     try {
         const now = new Date(); // Haetaan nykyinen aikaleima
 
         // Lisätään uusi tietue profile-tauluun
         const profileQuery = {
-            text: 'INSERT INTO "Profile_" (profilename, password, email, profilepicurl, timestamp) VALUES ($1, $2, $3, $4, $5)',
-            values: [profilename, password, email, profilepicurl, now],
+            text: 'INSERT INTO "profile_" (profilename, hashedpassword, email, profilepicurl, timestamp) VALUES ($1, $2, $3, $4, $5)',
+            values: [profilename, hashedpassword, email, profilepicurl, now],
         };
 
         await pool.query(profileQuery);
@@ -97,16 +97,37 @@ router.post('/profile', async (req, res) => {
     }
 });
 
-// PUT-endpoint päivittää tietueen email- ja timestamp-kentät annetulla profilename-arvolla
-router.put('/profile/:profilename', async (req, res) => {
-    const profileName = req.params.profilename;
-    const { email } = req.body; // Otetaan vastaan uusi email
+// PUT-endpoint päivittää tietueen profilename, email, profilepicurl, description ja timestamp-kentät annetulla profileid-arvolla
+router.put('/profile/:profileid', async (req, res) => {
+    const profileId = req.params.profileid;
+    const { profilename, email, profilepicurl, description } = req.body; // Otetaan vastaan uudet arvot
 
     try {
         const now = new Date(); // Haetaan nykyinen aikaleima
         const query = {
-            text: 'UPDATE "Profile_" SET email = $1, timestamp = $2 WHERE profilename = $3',
-            values: [email, now, profileName],
+            text: 'UPDATE "profile_" SET profilename = $1, email = $2, profilepicurl = $3, description = $4, timestamp = $5 WHERE profileid = $6',
+            values: [profilename, email, profilepicurl, description, now, profileId],
+        };
+
+        const result = await pool.query(query);
+
+        res.send(`Tietue päivitetty onnistuneesti: ${result.rowCount}`);
+    } catch (error) {
+        console.error('Virhe päivitettäessä tietuetta:', error);
+        res.status(500).send('Virhe päivitettäessä tietuetta');
+    }
+});
+
+// PUT-endpoint päivittää tietueen hashedpassword ja timestamp-kentät annetulla profileid-arvolla
+router.put('/profile/password/:profileid', async (req, res) => {
+    const profileId = req.params.profileid;
+    const { hashedpassword } = req.body; // Otetaan vastaan uusi salasana
+
+    try {
+        const now = new Date(); // Haetaan nykyinen aikaleima
+        const query = {
+            text: 'UPDATE "profile_" SET hashedpassword = $1, timestamp = $2 WHERE profileid = $3',
+            values: [hashedpassword, now, profileId],
         };
 
         const result = await pool.query(query);
