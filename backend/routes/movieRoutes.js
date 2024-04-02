@@ -2,6 +2,7 @@ const express = require('express');
 const { Pool } = require('pg');
 const router = express.Router();
 const bodyParser = require('body-parser');
+
 const MovieData = require('./data/MovieData.js');
 
 router.use(bodyParser.urlencoded({ extended: false }));
@@ -42,7 +43,7 @@ const with_genres = {
 router.get('/movie/search', async (req, res) => {
     const { query, page, year, language } = req.query;
     const apiKey = process.env.TMDB_API_KEY;
-    const url = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${query}&page=${page}&primary_release_year=${year}&language=${language}`;
+    const url = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${query}&page=${page}&year=${year}&language=${language}`;
     
     try {
       const response = await fetch(url);

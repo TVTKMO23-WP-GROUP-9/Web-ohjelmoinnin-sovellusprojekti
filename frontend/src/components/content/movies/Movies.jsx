@@ -22,7 +22,8 @@ const Movies = () => {
         response = await axios.get('http://localhost:3001/movie/search', {
           params: {
             query: query,
-            page: page
+            page: page,
+            year: year
           }
         });
       } else {
@@ -31,8 +32,7 @@ const Movies = () => {
             genre: genre,
             sort_by: 'popularity.desc',
             page: page,
-            year: year,
-            keywords: keywords
+            year: year
           }
         });
       }
@@ -44,10 +44,12 @@ const Movies = () => {
   };
 
   const handleInputChange = (event) => {
+    setGenre('');
     setQuery(event.target.value);
   };
 
   const handleGenreChange = (event) => {
+    setQuery(''); 
     setGenre(event.target.value);
   };
 
@@ -60,61 +62,62 @@ const Movies = () => {
   };
 
   const handleSearch = () => {
+    setMovies([]);
     search();
   };
 
 
   return (
     <>
-      <h2>Leffahaku</h2>
-      <p className="info">Löydä elokuvia ja sarjoja eri parametreillä tai etsi nimellä. <br/> Annetaan enintään 20 hakutulosta per. sivu.</p>
+    <h2>Leffahaku</h2>
 
-      <div className="group-view">
-        <div className="group-view-item-left">
-          <b>Hae nimellä:</b>
-          <div>
-            <input
-              className="field longInput"
-              type="text"
-              placeholder="..."
-              value={query}
-              onChange={handleInputChange}
-            />
-          </div>
-          <div>
-            <button onClick={handleSearch}>Hae</button>
-          </div>
-        </div>
-        <div className="group-view-item-right">
-          <div>
-            <div className="flex">
-              <div className="pdd-right">
+    <p className="info">Löydä elokuvia ja sarjoja eri parametreillä tai etsi nimellä. <br/> Annetaan enintään 20 hakutulosta per. sivu.</p>
+    
+    <div className="group-view">
+
+        <div className="flex">
+
+            <div className="pdd-right">
+                <b>Hae nimellä</b>
+                <div>
+                    <input
+                    className="field longInput"
+                    type="text"
+                    placeholder="..."
+                    value={query}
+                    onChange={handleInputChange}
+                    />
+                </div>
+            </div>
+            
+            <div className="pdd-right">
                 <b>Valitse genre:</b><br/>
                 <select value={genre} onChange={handleGenreChange}>
                 <option value="">...</option>
                 <option value="all">Kaikki</option>
-                  <option value="action">Toiminta</option>
-                  <option value="comedy">Komedia</option>
-                  <option value="drama">Draama</option>
-                  <option value="horror">Kauhu</option>
-                  <option value="romance">Romantiikka</option>
-                  <option value="thriller">Jännitys</option>
-                  <option value="scifi">Scifi</option>
-                  <option value="fantasy">Fantasia</option>
-                  <option value="documentary">Dokumentti</option>
-                  <option value="animation">Animaatio</option>
-                  <option value="family">Perhe</option>
-                  <option value="mystery">Mysteeri</option>
-                  <option value="crime">Rikos</option>
-                  <option value="adventure">Seikkailu</option>
-                  <option value="history">Historia</option>
-                  <option value="war">Sota</option>
-                  <option value="music">Musiikki</option>
-                  <option value="western">Lännenelokuva</option>
-                  <option value="tv">TV-sarja</option>
+                <option value="action">Toiminta</option>
+                <option value="comedy">Komedia</option>
+                <option value="drama">Draama</option>
+                <option value="horror">Kauhu</option>
+                <option value="romance">Romantiikka</option>
+                <option value="thriller">Jännitys</option>
+                <option value="scifi">Scifi</option>
+                <option value="fantasy">Fantasia</option>
+                <option value="documentary">Dokumentti</option>
+                <option value="animation">Animaatio</option>
+                <option value="family">Perhe</option>
+                <option value="mystery">Mysteeri</option>
+                <option value="crime">Rikos</option>
+                <option value="adventure">Seikkailu</option>
+                <option value="history">Historia</option>
+                <option value="war">Sota</option>
+                <option value="music">Musiikki</option>
+                <option value="western">Lännenelokuva</option>
+                <option value="tv">TV-sarja</option>
                 </select>
-              </div>
-              <div className="pdd-right">
+            </div>
+
+            <div className="pdd-right">
                 <b>Sivunumero:</b><br/>
                 <input
                   className="field shortInput"
@@ -123,8 +126,8 @@ const Movies = () => {
                   value={page}
                   onChange={handlePageChange}
                 />
-              </div>
-              <div className="pdd-right">
+            </div>
+            <div className="pdd-right">
                 <b>Vuosi:</b><br/>
                 <input
                   className="field shortInput"
@@ -133,16 +136,14 @@ const Movies = () => {
                   value={year}
                   onChange={handleYearChange}
                 />
-              </div>
             </div>
-            <div>
-              <button onClick={handleSearch}>Hae</button>
-            </div>
-          </div>
         </div>
-      </div>
+        <div>
+            <button onClick={handleSearch}>Hae</button>
+        </div>
+    </div>
 
-      <div className="movie-container">
+    <div className="movie-container">
         {movies.map(movie => (
         <div key={movie.id} className="movie-item">
           <Link to={`/movie/${movie.id}`}>
@@ -150,7 +151,7 @@ const Movies = () => {
           </Link>
         </div>
         ))}
-      </div>
+    </div>
     </>
   );
 };
