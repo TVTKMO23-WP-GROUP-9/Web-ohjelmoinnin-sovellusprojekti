@@ -1,0 +1,15 @@
+services:
+
+  leffa-r9:
+    image: postgres:16.2-alpine
+    environment:
+      # default db: postgres
+      - POSTGRES_DB=${DB_DATABASE}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+       # default user: postgres
+      - POSTGRES_USER=${DB_USER}
+     
+    ports:
+      - '5433:5432'
+    volumes:
+      - './sql:/docker-entrypoint-initdb.d'
