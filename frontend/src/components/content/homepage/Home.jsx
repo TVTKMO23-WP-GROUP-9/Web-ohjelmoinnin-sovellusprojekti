@@ -7,12 +7,24 @@ const Home = () => {
 
   return (
 
-    <div className="home-container">
-      <div className="uppercontent">
-        <p>Tulossa elokuvateattereihin</p>
-        <div className="coming-soon-container">
-          <Comingsoon />
+    <div className='home-container'>
+      <div className='left-container'>
+        <p>vasen marginaali</p>
+      </div>
+      <div className='mid-container'>
+        <div className='uppercontent'>
+          <div className="coming-soon-container">
+            <h2>Tulossa Finnkinoon</h2>
+            <Comingsoon />
+          </div>
         </div>
+        <div className='lowercontent'>
+          <p>alakontaineri</p>
+
+        </div>
+      </div>
+      <div className='right-container'>
+        <p>oikea marginaali</p>
       </div>
     </div>
   );

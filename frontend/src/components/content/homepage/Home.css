@@ -1,14 +1,29 @@
 .home-container {
-  height: 100vh; /* Vie koko näytön korkeuden */
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+}
+
+.left-container,
+.right-container {
+  width: 10%;
+}
+
+.mid-container {
+  width: 80%;
   display: flex;
   flex-direction: column;
 }
 
 .uppercontent {
-  height: 80%; /* Ylemmän sisällön korkeus on 80% näytön korkeudesta */
-  overflow: auto; /* Lisää vierityspalkki tarvittaessa, jos sisältö ylittää tilan */
+  height: 55%;
+  overflow: hidden;
+  padding-top: 0%;
+  padding-left: 5%;
+  padding-right: 5%;
 }
 
 .coming-soon-container {
-  height: 100px; /* Comingsoon-divin korkeus on 20% ylemmästä sisällöstä */
+  object-fit: cover;
+  overflow: hidden;
 }

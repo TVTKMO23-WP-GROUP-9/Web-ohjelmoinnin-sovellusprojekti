@@ -73,13 +73,14 @@ const Comingsoon = () => {
         <p>Hetkonen...</p>
       ) : (
         <div className="events-container">
+          <div className="arrow">
           <img
             src="../src/components/content/images/leftarrow.jpg"
             alt="Left Arrow"
             onClick={handlePrev}
             onMouseEnter={() => handleMouseEnter(handlePrev)}
             onMouseLeave={handleMouseLeave} // Kutsu handleMouseLeave, kun hiiri poistuu
-          />
+          /></div>
           {visibleEvents.map((event, index) => (
             <div
               key={event.id}
@@ -93,13 +94,14 @@ const Comingsoon = () => {
               </a>
             </div>
           ))}
+          <div className="arrow">
           <img
             src="../src/components/content/images/rightarrow.jpg"
             alt="Right Arrow"
             onClick={handleNext}
             onMouseEnter={() => handleMouseEnter(handleNext)}
             onMouseLeave={handleMouseLeave} // Kutsu handleMouseLeave, kun hiiri poistuu
-          />
+          /></div>
         </div>
       )}
     </div>
