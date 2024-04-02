@@ -1,5 +1,9 @@
 import React from 'react';
 import Comingsoon from '@content/homepage/Comingsoon'
+import Leftsidebar from '@content/homepage/Leftsidebar'
+import Rightsidebar from '@content/homepage/Rightsidebar'
+import Latestreviews from '@content/homepage/Latestreviews'
+import Favoriteitems from '@content/homepage/Favoriteitems'
 import './Home.css';
 
 
@@ -9,7 +13,7 @@ const Home = () => {
 
     <div className='home-container'>
       <div className='left-container'>
-        <p>vasen marginaali</p>
+        <Leftsidebar />
       </div>
       <div className='mid-container'>
         <div className='uppercontent'>
@@ -19,12 +23,16 @@ const Home = () => {
           </div>
         </div>
         <div className='lowercontent'>
-          <p>alakontaineri</p>
-
+          <div className='lowerleftcontent'>
+            <Latestreviews />
+          </div>
+          <div className='lowerrightcontent'>
+            <Favoriteitems />
+          </div>
         </div>
       </div>
       <div className='right-container'>
-        <p>oikea marginaali</p>
+        <Rightsidebar />
       </div>
     </div>
   );
