@@ -21,12 +21,12 @@
 .event-item {
   flex: 1;
   transition: all 1s ease-in-out;
-  height: 45vmin;
+  height: 40vmin;
   position: relative;
 }
 
 .arrow {
-  height: 45vmin;
+  height: 40vmin;
 }
 
 .event-item img {
