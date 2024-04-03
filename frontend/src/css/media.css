@@ -1,27 +1,30 @@
 /*Suuremmat näytöt*/
 @media only screen and (min-width: 1025px) {
+    /*Kadottaa hampurilaisen*/
     .mobile-menu-icon {
         display: none;
       }
+      /*Näyttää valikon*/
       .menu-items {
         display: block;
       }
   }
 /*tabletti*/
 @media only screen and (min-width: 601px) and (max-width: 1024px) {
+    /*Kadottaa hampurilaisen*/
     .mobile-menu-icon {
         display: none;
       }
+      /*Näyttää valikon*/
       .menu-items {
         display: block;
       }
   }
 /*Mobiililaite*/
 @media only screen and (min-width: 600x) {
+    /*Näyttää hampurilaisen jolla saa valikon näkyviin*/
     .mobile-menu-icon {
       display: none;
     }
-    .menu-items {
-      display: block;
-    }
+
   }
