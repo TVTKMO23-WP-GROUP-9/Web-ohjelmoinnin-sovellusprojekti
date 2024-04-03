@@ -5,7 +5,6 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { ThemeProvider, useTheme } from './ThemeProvider';
 import '@css/styles.css';
 import '@css/media.css';
-import '@images/leffasovellus-r9.png'
 import Header from '@components/header/Header';
 import Footer from '@components/footer/Footer';
 import Home from '@content/homepage/Home';
