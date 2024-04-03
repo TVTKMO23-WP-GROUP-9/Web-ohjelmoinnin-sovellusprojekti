@@ -6,7 +6,7 @@ const Footer = ({ toggleTheme, theme }) => {
             <span className="gh-mark"></span> <a href="https://github.com/TVTKMO23-WP-GROUP-9/Web-ohjelmoinnin-sovellusprojekti">Siirry tästä Github repoon</a><br/>
             <p>© OAMK Tietotekniikan opiskelijat, 2024</p>
             
-            <button onClick={toggleTheme}>Vaihda teemaa</button>
+            <button className="basicbutton" onClick={toggleTheme}>Vaihda teemaa</button>
             {/*<p>Tämä on {theme === 'light' ? 'vaalea' : 'tumma'} teema.</p>*/}
             
         </div>
