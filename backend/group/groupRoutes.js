@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const groupService = require('./groupService');
+const groupService = require('./groupService')
+
+router.use(express.json());
 
 router.use(express.json());
 
