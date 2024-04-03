@@ -58,12 +58,40 @@ body {
 
 /******* HEADER WITH NAVIGATION BAR *******/
 
+
+.menu-items {
+  
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+}
+.menu-items ul{
+  
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  height: var(--header-height);
+  margin: 1rem;
+
+}
+.menu-items li{
+  list-style-type: none;
+  padding-right: 10px;
+}
+.menu-items.open {
+  display: block;
+}
 #header {
   margin: 0;
   margin-bottom: 100px;
 }
 
+
 #header-bar {
+  
   position: fixed;
   top: 0;
   height: 100px;
@@ -71,14 +99,16 @@ body {
   border-bottom: 1px solid #000000;
   background: linear-gradient(67deg, #0b0c0f, #0b2b55, #0b2b55, #0b2b55, #0b2b55, #0b0c0f);
   z-index: 2;
+
 }
 
 #header-bar .header-container {
+  
   margin: 0;
   margin-left: 50px;
   display: flex;
   max-width: 150vh;
-  /*place-items: center;*/
+  
 }
 
 #header-bar ul.navigate {
@@ -115,11 +145,30 @@ h1 /* this title is for @Header */ {
   font-weight: 400;
   font-style: normal;
   font-size: 2.6em;
-  color: #faf0e4;
+  color: #e4b8bc;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   animation: headerWave 5s infinite linear;
 }
+/******* LOGIN NAPPI *******/
+.login-dropdown-container {
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+  position: relative;
+}
+.login-menu {
+  position: absolute;
+  background-color: #8a8761;  /*vaiha taustaväri kirjaudu menuun tarvittaessa*/
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 250px;
+  top: 100px;
+  right: 50px
+}
 
+.login-menu.active {
+  display: block;
+}
 /******* FOOTER *******/
 
 #footer {
@@ -208,6 +257,19 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+/******* Hamppari *******/
+
+  @media only screen and (min-width: 768px) {
+    .mobile-menu-icon {
+      display: none;
+    }
+    .menu-items {
+      display: block;
+    }
+    h1 {
+      font-size: 80px; /* otsikon kiinteä koko */
+    }
+  }
 /******* BUTTONS *******/
 
 select {
