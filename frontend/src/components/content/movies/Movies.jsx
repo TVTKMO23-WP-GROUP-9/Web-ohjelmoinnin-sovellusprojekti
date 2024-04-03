@@ -139,7 +139,7 @@ const Movies = () => {
             </div>
         </div>
         <div>
-            <button onClick={handleSearch}>Hae</button>
+            <button className="basicbutton" onClick={handleSearch}>Hae</button>
         </div>
     </div>
 
