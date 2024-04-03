@@ -7,12 +7,9 @@ import '@css/styles.css';
 import Header from '@components/header/Header';
 import Footer from '@components/footer/Footer';
 import Home from '@content/homepage/Home';
-<<<<<<< HEAD
 import Login from '@components/header/Login';
-=======
 import Search from '@content/movies/Search';
 import MovieDetails from '@content/movies/MovieDetails';
->>>>>>> efa6c9321f6dff400e11fb65a3ca387a37da8f71
 // importtaa muut sivut
 
 function App() {

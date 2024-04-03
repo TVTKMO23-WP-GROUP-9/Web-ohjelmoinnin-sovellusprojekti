@@ -257,7 +257,6 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
-<<<<<<< HEAD
 /******* Hamppari *******/
 
   @media only screen and (min-width: 768px) {
@@ -271,7 +270,6 @@ button:focus-visible {
       font-size: 80px; /* otsikon kiinteä koko */
     }
   }
-=======
 /******* BUTTONS *******/
 
 select {
@@ -300,6 +298,5 @@ input  {
 }
 
 
->>>>>>> efa6c9321f6dff400e11fb65a3ca387a37da8f71
 /******* CLASSES incl. buttons, selects, inputs, labels, spans, ps, pretty much everything *******/
 
