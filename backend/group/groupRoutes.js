@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const groupService = require('./groupService');
 
+router.use(express.json());
+
 router.get('/group', groupService.getAllGroups);
 router.get('/group/groupname/:groupid', groupService.getGroupNameById);
 router.get('/group/groupid/:groupname', groupService.getGroupIdByName);

@@ -1,9 +1,10 @@
 const groupModel = require('./groupModel');
 
+
 // GET-endpoint hakee groupname taulusta Group_ annetun groupid-arvon perusteella
 async function getAllGroups(req, res) {
     try {
-        const query = 'SELECT * FROM Group_';
+        const query = 'SELECT * FROM group_';
         const groups = await groupModel.queryDatabase(query);
         res.json(groups);
         } catch (error) {
@@ -18,7 +19,7 @@ async function getGroupNameById(req, res) {
   
     try {
       const query = {
-        text: 'SELECT groupname FROM Group_ WHERE groupid = $1',
+        text: 'SELECT groupname FROM group_ WHERE groupid = $1',
         values: [groupid],
       };
   
@@ -40,7 +41,7 @@ async function getGroupNameById(req, res) {
   
     try {
       const query = {
-        text: 'SELECT groupid FROM Group_ WHERE groupname = $1',
+        text: 'SELECT groupid FROM group_ WHERE groupname = $1',
         values: [groupname],
       };
   
@@ -62,7 +63,7 @@ async function getGroupNameById(req, res) {
   
     try {
       const query = {
-        text: 'SELECT * FROM Group_ WHERE groupid = $1',
+        text: 'SELECT * FROM group_ WHERE groupid = $1',
         values: [groupid],
       };
   
@@ -84,7 +85,7 @@ async function getGroupNameById(req, res) {
   
     try {
       const query = {
-        text: 'DELETE FROM Group_ WHERE groupid = $1',
+        text: 'DELETE FROM group_ WHERE groupid = $1',
         values: [groupid],
       };
   
@@ -104,7 +105,7 @@ async function getGroupNameById(req, res) {
     try {
       const now = new Date();
       const query = {
-        text: 'UPDATE Group_ SET groupexplanation = $1, timestamp = $2 WHERE groupid = $3',
+        text: 'UPDATE group_ SET groupexplanation = $1, timestamp = $2 WHERE groupid = $3',
         values: [groupexplanation, now, groupid],
       };
   
@@ -122,7 +123,7 @@ async function getGroupNameById(req, res) {
     try {
       const now = new Date();
       const groupQuery = {
-        text: 'INSERT INTO Group_ (groupname, groupexplanation, timestamp) VALUES ($1, $2, $3) RETURNING groupid',
+        text: 'INSERT INTO group_ (groupname, groupexplanation, timestamp) VALUES ($1, $2, $3) RETURNING groupid',
         values: [groupname, groupexplanation, now],
       };
       
