@@ -21,13 +21,15 @@ const Header = ({ user, handleLogout }) => {
           <li><Link to="/">Etusivu</Link></li>
           <li><Link to="/search">Leffahaku</Link></li>
           <li><Link to="/community">Yhteisö</Link></li>
+          
           {user && <li><Link to="/myaccount">Oma tili</Link></li>}
           {user && <li><Link onClick={handleLogout}>Kirjaudu ulos</Link></li>}
-          <LoginDropdown />
         </ul>
-            </div>
         </div>
+        </div>
+        <LoginDropdown />
       </div>
+      
     </div>
     
   );

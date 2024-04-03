@@ -26,5 +26,8 @@
     .mobile-menu-icon {
       display: none;
     }
-
+    .menu-items.open {
+        flex-direction: column;
+    }
+      
   }
