@@ -10,6 +10,7 @@
   font-weight: 400;
 }
 
+
 body {
   position: relative;
   margin: 0;
@@ -256,6 +257,7 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+<<<<<<< HEAD
 /******* Hamppari *******/
 
   @media only screen and (min-width: 768px) {
@@ -269,4 +271,35 @@ button:focus-visible {
       font-size: 80px; /* otsikon kiinteä koko */
     }
   }
+=======
+/******* BUTTONS *******/
+
+select {
+  padding: 1em 1em;
+}
+
+label {
+  padding: 0.2em 1em;
+}
+
+input  {
+  padding: 1em;
+  margin-right: 1em;
+  margin-left: 1em;
+}
+
+.shortInput {
+  margin: 0 auto;
+  width: 80px;
+}
+
+.longInput {
+  margin: 0 auto;
+  margin-left: 0;
+  width: 180px;
+}
+
+
+>>>>>>> efa6c9321f6dff400e11fb65a3ca387a37da8f71
 /******* CLASSES incl. buttons, selects, inputs, labels, spans, ps, pretty much everything *******/
+

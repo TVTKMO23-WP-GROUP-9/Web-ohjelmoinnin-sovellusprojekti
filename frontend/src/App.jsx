@@ -7,7 +7,12 @@ import '@css/styles.css';
 import Header from '@components/header/Header';
 import Footer from '@components/footer/Footer';
 import Home from '@content/homepage/Home';
+<<<<<<< HEAD
 import Login from '@components/header/Login';
+=======
+import Search from '@content/movies/Search';
+import MovieDetails from '@content/movies/MovieDetails';
+>>>>>>> efa6c9321f6dff400e11fb65a3ca387a37da8f71
 // importtaa muut sivut
 
 function App() {
@@ -37,19 +42,20 @@ function App() {
       
         <ThemeProvider>
           <div className={`body ${theme}`}>
-            <Header user={user} handleLogout={handleLogout} />
-
+              <Header user={user} handleLogout={handleLogout} />  
             <Routes>
               <Route path="/" exact element={<Home />} />
+              <Route path="/search" element={<Search />} />
+              <Route path="/movie/:id" element={<MovieDetails/>} />
               {/****** Loput routet, esim.
-          <Route path="/search" element={<Search />} />
-          <Route path="/community" element={<Community />} />
-          <Route path="/login" element={<Login setUser={setUser}/>} />
-          <Route path="/myaccount" element={<MyAccount user={user} />} />
-          <Route path="/movie/:id" element={<MovieDetails/>} />
-          <Route path="/group/" element={<GroupDetails/>} />
-          <Route path="/profile/" element={<ProfileDetails/>} />
-          ********/}
+            
+            <Route path="/community" element={<Community />} />
+            <Route path="/login" element={<Login setUser={setUser}/>} />
+            <Route path="/myaccount" element={<MyAccount user={user} />} />
+            
+            <Route path="/group/" element={<GroupDetails/>} />
+            <Route path="/profile/" element={<ProfileDetails/>} />
+            ********/}
             </Routes>
 
             <Footer toggleTheme={toggleTheme} theme={theme} />
