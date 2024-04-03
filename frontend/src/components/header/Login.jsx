@@ -8,7 +8,7 @@ const LoginDropdown = () => {
   };
   return (
     <div className="login-dropdown-container">
-      <button className="login-dropdown-button" onClick={toggleMenu}>Kirjaudu</button>
+      <button className="login-dropdown-button loginbutton" onClick={toggleMenu}>Kirjaudu</button>
       {showMenu && (
         <div className="login-menu">
           <form>
