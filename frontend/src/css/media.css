@@ -1,0 +1,27 @@
+/*Suuremmat näytöt*/
+@media only screen and (min-width: 1025px) {
+    .mobile-menu-icon {
+        display: none;
+      }
+      .menu-items {
+        display: block;
+      }
+  }
+/*tabletti*/
+@media only screen and (min-width: 601px) and (max-width: 1024px) {
+    .mobile-menu-icon {
+        display: none;
+      }
+      .menu-items {
+        display: block;
+      }
+  }
+/*Mobiililaite*/
+@media only screen and (min-width: 600x) {
+    .mobile-menu-icon {
+      display: none;
+    }
+    .menu-items {
+      display: block;
+    }
+  }

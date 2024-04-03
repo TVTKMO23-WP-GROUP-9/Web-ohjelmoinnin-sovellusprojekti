@@ -259,17 +259,6 @@ button:focus-visible {
 
 /******* Hamppari *******/
 
-  @media only screen and (min-width: 768px) {
-    .mobile-menu-icon {
-      display: none;
-    }
-    .menu-items {
-      display: block;
-    }
-    h1 {
-      font-size: 80px; /* otsikon kiinteä koko */
-    }
-  }
 /******* BUTTONS *******/
 
 select {
