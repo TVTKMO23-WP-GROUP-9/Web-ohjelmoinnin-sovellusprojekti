@@ -12,7 +12,7 @@ const pool = new Pool({
   password: process.env.DB_PASSWORD,
   port: process.env.DB_PORT,
 });
-
+/*
 // hakee kaikki suosikkilistat
 router.get('/', async (req, res) => {
   try {
@@ -85,3 +85,4 @@ router.delete('/favoritelist/:favoritelistid', async (req, res) => {
 });
 
 module.exports = router;
+*/
