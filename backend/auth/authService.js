@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt');
 const authModel = require('./authModel');
 
-async function registerUser(username, password) {
+async function registerUser(username, password, email) {
     try {
         // tarkistetaan, onko käyttäjätunnus vapaana
         const existingUser = await authModel.getUserByUsername(username);
@@ -10,10 +10,10 @@ async function registerUser(username, password) {
         }
 
         // salasanan salaus (bcrypt)
-        const hashedPassword = await bcrypt.hash(password, 10);
+        const hashedpassword = await bcrypt.hash(password, 10);
 
         // tallennetaan uusi käyttäjä tietokantaan
-        await authModel.createUser(username, hashedPassword);
+        await authModel.createUser(username, hashedpassword, email);
 
         return { success: true, message: 'Rekisteröinti onnistui' };
     } catch (error) {
