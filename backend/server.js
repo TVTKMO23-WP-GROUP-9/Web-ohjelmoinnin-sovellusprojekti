@@ -4,16 +4,15 @@ const cors = require('cors');
 const app = express();
 
 const profile = require('./routes/profileRoutes'); // Tuo 'profile' reitityksen
-const group = require('./routes/groupRoutes'); // Tuo 'group' reitityksen
+const group = require('./group/groupRoutes'); // Tuo 'group' reitityksen
 const message = require('./routes/messageRoutes'); // Tuo 'message' reitityksen
-const register = require('./routes/authRoutes'); // Tuo 'register' reitityksen
-const login = require('./routes/authRoutes'); // Tuo 'login' reitityksen
-const search = require('./routes/movieRoutes'); // Tuo 'search' reitityksen
-const discover = require('./routes/movieRoutes'); // Tuo 'discover' reitityksen
-const find = require('./routes/movieRoutes'); // Tuo 'find' reitityksen
-const movie = require('./routes/movieRoutes'); // Tuo 'movie' reitityksen
+const register = require('./auth/authRoutes'); // Tuo 'register' reitityksen
+const login = require('./auth/authRoutes'); // Tuo 'login' reitityksen
+const search = require('./movie/movieRoutes'); // Tuo 'search' reitityksen
+const discover = require('./movie/movieRoutes'); // Tuo 'discover' reitityksen
+const find = require('./movie/movieRoutes'); // Tuo 'find' reitityksen
+const movie = require('./movie/movieRoutes'); // Tuo 'movie' reitityksen
 
-// backendin juuressa: npm install cors --no-fund || npm install cors
 app.use(cors({ origin: 'http://localhost:5173' })); // sallii CORS-pyynnöt alkuperästä localhost:5173 (react)
 app.use('/', message);  // Käytä 'message' reititystä juuressa
 app.use('/', profile);  // Käytä 'profile' reititystä juuressa
@@ -25,8 +24,6 @@ app.use('/', search); // Käytä 'search' reititystä juuressa
 app.use('/', discover); // Käytä 'discover' reititystä juuressa
 app.use('/', find); // Käytä 'find' reititystä juuressa
 app.use('/', movie); // Käytä 'movie' reititystä juuressa
-
-// ^rehellisesti en nyt oo ihan varma, tarviko noita kaikkii mitä lisäsin, kokeilin vähän sitäsuntätä meinaa :D
 
 const PORT = process.env.PORT || 3001; // Määritä portti
 
