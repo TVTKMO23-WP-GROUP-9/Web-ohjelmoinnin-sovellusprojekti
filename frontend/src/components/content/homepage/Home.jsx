@@ -22,10 +22,8 @@ const Home = () => {
           </div>
         </div>
         <div className='lowercontent'>
-          <div className='lowerleftcontent'>
             <h2>Tämän hetken suosituimmat</h2>
             <Popularmovies />
-          </div>
         </div>
       </div>
       <div className='right-container'>
