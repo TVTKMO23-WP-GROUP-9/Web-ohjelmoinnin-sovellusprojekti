@@ -1,6 +1,6 @@
 const axios = require('axios');
 const movieModel = require('./movieModel');
-const { param } = require('./movieRoutes');
+//const { param } = require('./movieRoutes');
 
 const with_genres = {
     "action": 28,
