@@ -14,6 +14,8 @@ async function getAllFavoritelist (req, res)  {
   // hakee tietyn suosikkilistan profiilista tai groupista
   async function getfavoritelist (req, res)  {
     const idfavoritelist = req.params.idfavoritelist;
+    const profileid = req.params.profileid;
+    const groupid = req.params.profileid;
     try {
       const query = {
   
@@ -21,12 +23,12 @@ async function getAllFavoritelist (req, res)  {
         text: `
         SELECT fl.*, p.profilename, g.groupname
         FROM favoritelist_ fl
-        LEFT JOIN profile_ p ON fl.profileid = p.id
-        LEFT JOIN group_ g ON fl.groupid = g.id
+        LEFT JOIN profile_ p ON fl.profileid = p.profileid
+        LEFT JOIN group_ g ON fl.groupid = g.groupid
         WHERE fl.idfavoritelist = $1
       `,
-        values: [idfavoritelist],
-      };
+        values: [idfavoritelist, profileid, groupid],
+      }; 
   
       const result = await favoritelistModel.queryDatabase(query);
       if (result.rows.length > 0) {
@@ -41,16 +43,17 @@ async function getAllFavoritelist (req, res)  {
   
   // lisää uuden suosikkilistan
   async function createFavoritelist (req, res)  {
+    const { favoriteditem, showtime, profileid, groupid } = req.body;
       try {
-        const { idfavoritelist, favoriteditem, showtime, timestamp } = req.body;
         const now = new Date();
-        
-        const favoritelistQuery = {
-          text: 'INSERT INTO "favoritelist" (idfavoritelist, favoriteditem, showtime, timestamp) VALUES ($1, $2, $3, $4)',
-          values: [idfavoritelist, favoriteditem, showtime, now],
-        };
-    
-        const favoritelistResult = await favoritelistModel.queryDatabase(query);
+      const favoritelistQuery = {
+        text: 'INSERT INTO favoritelist_ (profileid, groupid, favoriteditem, showtime, timestamp) VALUES ($1, $2, $3, $4, $5) RETURNING idfavoritelist',
+        values: [profileid, groupid, favoriteditem, showtime, now],
+    };
+  
+        const favoritelistResult = await favoritelistModel.queryDatabase(favoritelistQuery);
+        const idfavoritelist = favoritelistResult[0].idfavoritelist;
+      
         res.status(201).send('Suosikkilista lisätty onnistuneesti');
       } catch (error) {
         console.error('Virhe lisättäessä listaa:', error);
@@ -58,21 +61,26 @@ async function getAllFavoritelist (req, res)  {
     };
     
   
-  // poistaa tietyn suosikkilistan
-  async function deleteFavoritelist (req, res)  {
-    const idfavoritelist = req.params.idfavoritelist;
-    try {
-      const query = {
-        text: 'DELETE FROM favoritelist_ WHERE idfavoritelist = $1',
-        values: [idfavoritelist],
-      };
-  
-      const result = await favoritelistModel.queryDatabase(query);
-      res.send(`Lista poistettu onnistuneesti ${result.rowCount}`);
-    } catch (error) {
-      console.error('Virhe poistettaessa listaa:', error);
-    }
-  };
+    async function deleteFavoritelist(req, res) {
+      const idfavoritelist = req.params.idfavoritelist;
+      try {
+        const query = {
+          text: 'DELETE FROM favoritelist_ WHERE idfavoritelist = $1',
+          values: [idfavoritelist],
+        };
+    
+        const result = await favoritelistModel.queryDatabase(query);
+        if (result.rowCount > 0) {
+          res.send(`Lista poistettu onnistuneesti`);
+        } else {
+          res.status(404).send(`Suosikkilistaa ei löytynyt id:llä ${idfavoritelist}`);
+        }
+      } catch (error) {
+        console.error('Virhe poistettaessa listaa:', error);
+        res.status(500).send('Virhe poistettaessa listaa');
+      }
+    };
+    
   
   module.exports = {
     getAllFavoritelist,
