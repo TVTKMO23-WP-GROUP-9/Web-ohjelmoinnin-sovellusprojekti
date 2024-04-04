@@ -45,7 +45,6 @@ const MovieDetails = () => {
                 
               </div>
 
-
             </div>
             
 
@@ -61,7 +60,48 @@ const MovieDetails = () => {
                 Ehkä ei kuitenkaan. Annan silti runsaat viisi tähteä, koska voin. Koska tämähän oli vain.. esimerkki yhdestä arvostelusta?<br/><br/>
               </div>
 
+              <div className="reviewslisted">
+                <b>Lähetetty:</b> 00.00.2024 <br/>
+                <b>Käyttäjältä:</b> <i>Anonymous</i> <br/>
+                <b>Arvio:</b> &#11088;&#11088;&#11088;&#11088;&#11088; [5/5] tähteä <br/>
+                <b>Perustelut:</b> <br/>
+                Esimerkkiarvostelu, tämä on placeholder vaikkapa. Ihan kiva leffa ois, jos katsoa ehtis. Kaikki aika katoaa nykyään johonkin. Epäoleelliseen? 
+                Ehkä ei kuitenkaan. Annan silti runsaat viisi tähteä, koska voin. Koska tämähän oli vain.. esimerkki yhdestä arvostelusta?<br/><br/>
+              </div>
+
+              <div className="reviewslisted">
+                <b>Lähetetty:</b> 00.00.2024 <br/>
+                <b>Käyttäjältä:</b> <i>Anonymous</i> <br/>
+                <b>Arvio:</b> &#11088;&#11088;&#11088;&#11088;&#11088; [5/5] tähteä <br/>
+                <b>Perustelut:</b> <br/>
+                Esimerkkiarvostelu, tämä on placeholder vaikkapa. Ihan kiva leffa ois, jos katsoa ehtis. Kaikki aika katoaa nykyään johonkin. Epäoleelliseen? 
+                Ehkä ei kuitenkaan. Annan silti runsaat viisi tähteä, koska voin. Koska tämähän oli vain.. esimerkki yhdestä arvostelusta?<br/><br/>
+              </div>
+
+              <div className="reviewslisted">
+                <b>Lähetetty:</b> 00.00.2024 <br/>
+                <b>Käyttäjältä:</b> <i>Anonymous</i> <br/>
+                <b>Arvio:</b> &#11088;&#11088;&#11088;&#11088;&#11088; [5/5] tähteä <br/>
+                <b>Perustelut:</b> <br/>
+                Esimerkkiarvostelu, tämä on placeholder vaikkapa. Ihan kiva leffa ois, jos katsoa ehtis. Kaikki aika katoaa nykyään johonkin. Epäoleelliseen? 
+                Ehkä ei kuitenkaan. Annan silti runsaat viisi tähteä, koska voin. Koska tämähän oli vain.. esimerkki yhdestä arvostelusta?<br/><br/>
+              </div>
+
+              <div className="reviewslisted">
+                <b>Lähetetty:</b> 00.00.2024 <br/>
+                <b>Käyttäjältä:</b> <i>Anonymous</i> <br/>
+                <b>Arvio:</b> &#11088;&#11088;&#11088;&#11088;&#11088; [5/5] tähteä <br/>
+                <b>Perustelut:</b> <br/>
+                Esimerkkiarvostelu, tämä on placeholder vaikkapa. Ihan kiva leffa ois, jos katsoa ehtis. Kaikki aika katoaa nykyään johonkin. Epäoleelliseen? 
+                Ehkä ei kuitenkaan. Annan silti runsaat viisi tähteä, koska voin. Koska tämähän oli vain.. esimerkki yhdestä arvostelusta?<br/><br/>
+              </div>
+
             </div>
+
+            <div className="justMargins">
+            <Link to="/search">Tee uusi haku</Link> 
+            </div>
+
           </div>
           
         )}
