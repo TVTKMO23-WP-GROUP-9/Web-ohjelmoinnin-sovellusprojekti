@@ -61,6 +61,11 @@ body {
   --strongCoffee: #5a4938;
 }
 
+/******* MIDDLESECTION ********/
+.sivu {
+  min-height: 2800px;
+}
+
 /******* HEADER WITH NAVIGATION BAR *******/
 
 /*.menu-items {

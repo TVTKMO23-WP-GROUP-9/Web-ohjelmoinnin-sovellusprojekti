@@ -7,6 +7,7 @@ const Rightsidebar = () => {
   const [location, setLocation] = useState(null);
   const [error, setError] = useState(null);
   const [nearestTheater, setNearestTheater] = useState(null);
+  const [loading, setLoading] = useState(true);
   const teatterit = [
     { name: "1012", latitude: 60.206, longitude: 24.656 }, //Espoo
     { name: "1002", latitude: 60.166, longitude: 24.943 }, //Helsinki 
@@ -83,6 +84,8 @@ const Rightsidebar = () => {
 
   useEffect(() => {
     const fetchData = async () => {
+      setLoading(true); 
+
       if(nearestTheater) {
         const response = await fetch(`https://www.finnkino.fi/xml/Schedule/?area=${encodeURIComponent(nearestTheater.name)}`);
         const data = await response.text();
@@ -100,38 +103,39 @@ const Rightsidebar = () => {
     
         setShows(showData);
       }
+      setLoading(false); 
     };
 
     fetchData();
   }, []);
 
+  // Funktio muuntaa ajan muodon muotoon 'tunnit:minuutit'
+  const formatTime = (timeString) => {
+    const date = new Date(timeString);
+    const hours = date.getHours().toString().padStart(2, '0'); // Lisää etunolla, jos tunnit ovat yhden numeron mittaisia
+    const minutes = date.getMinutes().toString().padStart(2, '0'); // Lisää etunolla, jos minuutit ovat yhden numeron mittaisia
+    return `${hours}:${minutes}`;
+  };
+  
   return (
     <div className="event-list">
-    <h1>Käyttäjän sijainti</h1>
+    {loading && <p>Ladataan...</p>}
     {error && <p>{error}</p>}
     {location && (
       <div>
-        <p>Leveysaste: {location.latitude}</p>
-        <p>Pituusaste: {location.longitude}</p>
         {nearestTheater && (
           <div>
-            <p>Lähin teatteri on: {nearestTheater.name}</p>
-            <h2>Näytökset:</h2>
-            <ul>
-        {shows.map((show, index) => (
-          <li key={index}>
-            <img src={show.image} alt={show.title} />
-            <div>
-              <p>Teatteri: {show.auditorium}</p>
-              <p>Title: {show.title}</p>
-              <p>Year: {show.year}</p>
-              <p>Start Time: {show.startTime}</p>
-            </div>
-          </li>
-        ))}
-      </ul>
-          </div>
-          
+            <ul>   
+              {shows.map((show, index) => (
+            <li key={index}>
+              <div>
+                <h4>{show.auditorium}</h4>
+                <p>{formatTime(show.startTime)}<br/>{show.title}</p>
+              </div>
+            </li>
+            ))}
+            </ul>
+          </div> 
         )}
       </div>
     )}

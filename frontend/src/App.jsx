@@ -41,6 +41,7 @@ function App() {
         <ThemeProvider>
           <div className={`body ${theme}`}>
               <Header user={user} handleLogout={handleLogout} />  
+              <div className='sivu'>
             <Routes>
               <Route path="/" exact element={<Home />} />
               <Route path="/search" element={<Search />} />
@@ -55,7 +56,7 @@ function App() {
             <Route path="/profile/" element={<ProfileDetails/>} />
             ********/}
             </Routes>
-
+            </div>
             <Footer toggleTheme={toggleTheme} theme={theme} />
           </div>
 
