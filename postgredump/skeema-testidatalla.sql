@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS Profile_
     profileid SERIAL PRIMARY KEY,
     profilename VARCHAR(255) UNIQUE NOT NULL,
     hashedpassword VARCHAR(255) NOT NULL,
-    email text COLLATE pg_catalog."default",
+    email VARCHAR(100) UNIQUE NOT NULL COLLATE pg_catalog."default",
     profilepicurl text COLLATE pg_catalog."default",
     "timestamp" TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     description text COLLATE pg_catalog."default"
@@ -125,55 +125,55 @@ ALTER TABLE IF EXISTS Review_
 INSERT INTO Profile_ (profilename, hashedPassword, email, profilepicurl, "timestamp", description) VALUES
 -- testikäyttäjät id 1-10
 -- Viilipytty hashaamaton salasana: oivamato
-('Viilipytty', '$2b$10$Os132x/7gfQuEkIpTNvTG.XMrnQG/bOgj4AepLQ5u.wtgfEoTFpf.', NULL, NULL, CURRENT_TIMESTAMP, NULL),
+('Viilipytty', '$2b$10$Os132x/7gfQuEkIpTNvTG.XMrnQG/bOgj4AepLQ5u.wtgfEoTFpf.', 'viilipytty@example.com', NULL, CURRENT_TIMESTAMP, NULL),
 -- Jankka hashaamaton salasana: 8D94gvds0
-('Jankka', '$2b$10$ZarxfNZO1AYZp9VCg3Zjz.URJxUuZdcve5qd6A9QZQGWYRBln3rgm', NULL, NULL, CURRENT_TIMESTAMP, NULL),
+('Jankka', '$2b$10$ZarxfNZO1AYZp9VCg3Zjz.URJxUuZdcve5qd6A9QZQGWYRBln3rgm', 'jankka@example.com', NULL, CURRENT_TIMESTAMP, NULL),
 -- komediaa82 hashaamaton salasana: aaidemok
-('komediaa82', '$2b$10$9KLQoLOOd9PVGamFgdVoa.CoUDfXClGvAe6CCIW6vhdKbJfBzg89i', NULL, NULL, CURRENT_TIMESTAMP, NULL),
+('komediaa82', '$2b$10$9KLQoLOOd9PVGamFgdVoa.CoUDfXClGvAe6CCIW6vhdKbJfBzg89i', 'komediaa82@example.com', NULL, CURRENT_TIMESTAMP, NULL),
 -- Eloton hashaamaton salasana: sana5532
-('Eloton', '$2b$10$e8MfS6GQLuMWZnGyKowW7udiBNhys3/dH/YIgSbv3Z0MxggXBl9Lm', NULL, NULL, CURRENT_TIMESTAMP, NULL),
+('Eloton', '$2b$10$e8MfS6GQLuMWZnGyKowW7udiBNhys3/dH/YIgSbv3Z0MxggXBl9Lm', 'eloton@example.com', NULL, CURRENT_TIMESTAMP, NULL),
 -- vainse hashaamaton salasana: rekku6
-('vainse', '$2b$10$pYcfW1TE4lORryyRO6FJFOs8bF7m8ClPaXjDG/M/A4FsWVT917iDK', NULL, NULL, CURRENT_TIMESTAMP, NULL),
+('vainse', '$2b$10$pYcfW1TE4lORryyRO6FJFOs8bF7m8ClPaXjDG/M/A4FsWVT917iDK', 'vainse@example.com', NULL, CURRENT_TIMESTAMP, NULL),
 -- jokaToka hashaamaton salasana: lomakuume#1
-('jokaToka', '$2b$10$QGlrHI60xCT1JkERYAYQYuiEuQCJAuaY.w9DVxNo2L6dpHNR2Me4G', NULL, NULL, CURRENT_TIMESTAMP, NULL),
+('jokaToka', '$2b$10$QGlrHI60xCT1JkERYAYQYuiEuQCJAuaY.w9DVxNo2L6dpHNR2Me4G', 'jokatoka@example.com', NULL, CURRENT_TIMESTAMP, NULL),
 -- Mikk0 hashaamaton salasana: VIEROSKAT
-('Mikk0', '$2b$10$b9MMw4wALTbPDKXbgZIuJedz.tBhB1AAxBO21UW8gmVn34uvUDOEa', NULL, NULL, CURRENT_TIMESTAMP, NULL),
+('Mikk0', '$2b$10$b9MMw4wALTbPDKXbgZIuJedz.tBhB1AAxBO21UW8gmVn34uvUDOEa', 'mikk0@example.com', NULL, CURRENT_TIMESTAMP, NULL),
 -- dramaqueen hashaamaton salasana: unohdettu1010
-('dramaqueen', '$2b$10$SlZvRPqkAbEEO99f0gyRXubu/CKlkQo12ayYMyenik1ekELUtCc3W', NULL, NULL, CURRENT_TIMESTAMP, NULL),
+('dramaqueen', '$2b$10$SlZvRPqkAbEEO99f0gyRXubu/CKlkQo12ayYMyenik1ekELUtCc3W', 'dramaqueen@example.com', NULL, CURRENT_TIMESTAMP, NULL),
 -- kauhistus hashaamaton salasana: kauhuleffoja38
-('kauhistus', '$2b$10$XrLUGUbR77BVtDPVZ6cLIOsmvltN20QLnzQ5vm8cWQjSPviNrjJiG', NULL, NULL, CURRENT_TIMESTAMP, NULL),
+('kauhistus', '$2b$10$XrLUGUbR77BVtDPVZ6cLIOsmvltN20QLnzQ5vm8cWQjSPviNrjJiG', 'kauhistus@example.com', NULL, CURRENT_TIMESTAMP, NULL),
 -- Jest4s hashaamaton salasana: )3nvds98ETF
-('Jest4s', '$2b$10$IwMD52QfxJhT258LxwVNKeGGGDfix8oWApJt9Kd48DOGPhqbxi60K', NULL, NULL, CURRENT_TIMESTAMP, NULL),
+('Jest4s', '$2b$10$IwMD52QfxJhT258LxwVNKeGGGDfix8oWApJt9Kd48DOGPhqbxi60K', 'jest4s@example.com', NULL, CURRENT_TIMESTAMP, NULL),
 -- testikäyttäjät id 11-20
 -- AaveMaria hashaamaton salasana: #mvvdisCORD
-('AaveMaria', '$2b$10$FC1jbhISaPnald7BczUTp.myptklA36L0ntNz4fdyedZprQ1X4aWq', NULL, NULL, CURRENT_TIMESTAMP, NULL),
+('AaveMaria', '$2b$10$FC1jbhISaPnald7BczUTp.myptklA36L0ntNz4fdyedZprQ1X4aWq', 'aavemaria@example.com', NULL, CURRENT_TIMESTAMP, NULL),
 -- siippa5 hashaamaton salasana: siipaton000
-('siippa5', '$2b$10$is.bNU/5A4MdM9sZV/UdwO6qvMruQrfUbrkql371f9gmUs4TagBHa', NULL, NULL, CURRENT_TIMESTAMP, NULL),
+('siippa5', '$2b$10$is.bNU/5A4MdM9sZV/UdwO6qvMruQrfUbrkql371f9gmUs4TagBHa', 'siippa5@example.com', NULL, CURRENT_TIMESTAMP, NULL),
 -- Pastilli hashaamaton salasana: jukujes%
-('Pastilli', '$2b$10$3bQI9aUHy9wx2qfulRDdRu94wo.m2RPcswnHNt126onZOwf3W.E3O', NULL, NULL, CURRENT_TIMESTAMP, NULL),
+('Pastilli', '$2b$10$3bQI9aUHy9wx2qfulRDdRu94wo.m2RPcswnHNt126onZOwf3W.E3O', 'pastilli@example.com', NULL, CURRENT_TIMESTAMP, NULL),
 -- Huutista hashaamaton salasana: xDXDxdXD94
-('Huutista', '$2b$10$m1A0mr3RqW.FejzJskU9iuS2SiDqcXpRpX3Da08TleGxP4b3gui8e', NULL, NULL, CURRENT_TIMESTAMP, NULL),
+('Huutista', '$2b$10$m1A0mr3RqW.FejzJskU9iuS2SiDqcXpRpX3Da08TleGxP4b3gui8e', 'huutista@example.com', NULL, CURRENT_TIMESTAMP, NULL),
 -- salaakaato hashaamaton salasana: tuskaa4=
-('salaakaton', '$2b$10$RoF/XQbHpoLG8cm00ll/kuF1SUiLl/Vq0mEBio14./T.CfaGrh.F2', NULL, NULL, CURRENT_TIMESTAMP, NULL),
+('salaakaton', '$2b$10$RoF/XQbHpoLG8cm00ll/kuF1SUiLl/Vq0mEBio14./T.CfaGrh.F2', 'salaakaton@example.com', NULL, CURRENT_TIMESTAMP, NULL),
 -- Kan-Joni hashaamaton salasana: helppo
-('Kan-Joni', '$2b$10$8KeS4n.O2CLpUurqsQMBa.wej5SaNcSVC8XE9hl8uQ0Rj1lZzhN2a', NULL, NULL, CURRENT_TIMESTAMP, NULL),
+('Kan-Joni', '$2b$10$8KeS4n.O2CLpUurqsQMBa.wej5SaNcSVC8XE9hl8uQ0Rj1lZzhN2a', 'kanjoni@example.com', NULL, CURRENT_TIMESTAMP, NULL),
 -- poikamies hashaamaton salasana: vielkinEhtis
-('poikamies', '$2b$10$MxjsY3EsB25IjGQJsUCpqOClHnsNISN1slbYkhc9zX0.JAhAMPxtO', NULL, NULL, CURRENT_TIMESTAMP, NULL),
+('poikamies', '$2b$10$MxjsY3EsB25IjGQJsUCpqOClHnsNISN1slbYkhc9zX0.JAhAMPxtO', 'poikamies@example.com', NULL, CURRENT_TIMESTAMP, NULL),
 -- Misu01 hashaamaton salasana: 987654321
-('Misu01', '$2b$10$NI8.6kt3rXWmTTkb4uNZA.98JFcPnXm.AeLyNgB17V7aNWT.2tTQO', NULL, NULL, CURRENT_TIMESTAMP, NULL),
+('Misu01', '$2b$10$NI8.6kt3rXWmTTkb4uNZA.98JFcPnXm.AeLyNgB17V7aNWT.2tTQO', 'misu01@example.com', NULL, CURRENT_TIMESTAMP, NULL),
 -- maitotee hashaamaton salasana: EnJuoKahvia
-('maitotee', '$2b$10$BHetFB1YNwSCicx/I3YhE.2THqx2zBq1dzYr3enEKk4iSFOReVXuu', NULL, NULL, CURRENT_TIMESTAMP, NULL),
+('maitotee', '$2b$10$BHetFB1YNwSCicx/I3YhE.2THqx2zBq1dzYr3enEKk4iSFOReVXuu', 'maitotee@example.com', NULL, CURRENT_TIMESTAMP, NULL),
 -- lipettiin hashaamaton salasana: somaprinsessa666
-('lipettiin', '$2b$10$3IgL5lCJzcjp5HS0AWVcyOveJevU79cd9lNsPFvnWeECqT7YlNBf6', NULL, NULL, CURRENT_TIMESTAMP, NULL),
+('lipettiin', '$2b$10$3IgL5lCJzcjp5HS0AWVcyOveJevU79cd9lNsPFvnWeECqT7YlNBf6', 'lipettiin@example.com', NULL, CURRENT_TIMESTAMP, NULL),
 -- testikäyttäjät id 21 - 24
 -- Jenna hashaamaton salasana: annejjenna
-('Jenna', '$2b$10$DVgyW0Hc4jGIp/31Ck1oc.beiRyrR3DffdOGoFXrvWfShxeq9RjMu', NULL, NULL, CURRENT_TIMESTAMP, NULL),
+('Jenna', '$2b$10$DVgyW0Hc4jGIp/31Ck1oc.beiRyrR3DffdOGoFXrvWfShxeq9RjMu', 'jenna@example.com', NULL, CURRENT_TIMESTAMP, NULL),
 -- Siilinpieru hashaamaton salasana: hedgehog
-('Siilinpieru', '$2b$10$YWfQeOraJww3UCF3Ap0d6Of0bfnRn9uEJYdzuYfpLkAhyR2nyl0KK', NULL, NULL, CURRENT_TIMESTAMP, NULL),
+('Siilinpieru', '$2b$10$YWfQeOraJww3UCF3Ap0d6Of0bfnRn9uEJYdzuYfpLkAhyR2nyl0KK', 'siilinpieru@example.com', NULL, CURRENT_TIMESTAMP, NULL),
 -- PaijaanSUA hashaamaton salasana: byebye??0
-('PaijaanSUA', '$2b$10$EOakCcZdU0hk/jxPajsGaeq1SVAJpDn56P6gXL63M3y6aPSruY9rS', NULL, NULL, CURRENT_TIMESTAMP, NULL),
+('PaijaanSUA', '$2b$10$EOakCcZdU0hk/jxPajsGaeq1SVAJpDn56P6gXL63M3y6aPSruY9rS', 'paijaansua@example.com', NULL, CURRENT_TIMESTAMP, NULL),
 -- UUUseri hashaamaton salasana: 123456
-('UUUseri', '$2b$10$09CaL5r.JxvCl2rm2F5BBudYNinrgKKqPfcuVGEXJvdJwub0Q06te', NULL, NULL, CURRENT_TIMESTAMP, NULL)
+('UUUseri', '$2b$10$09CaL5r.JxvCl2rm2F5BBudYNinrgKKqPfcuVGEXJvdJwub0Q06te', 'uuuseri@example.com', NULL, CURRENT_TIMESTAMP, NULL);
 
 INSERT INTO Group_ (groupname, groupexplanation, "timestamp") VALUES
 -- id 1-5
