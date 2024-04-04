@@ -44,6 +44,7 @@ body {
   --lightCoffee: #dcc1a3;
   --strongCoffee: #5a4938;
   --toggleDivs: rgba(134, 106, 68, 0.9);
+  --moviedetails: rgba(134, 106, 68, 0.85);
 }
 
 .dark {
@@ -63,6 +64,7 @@ body {
   --lightCoffee: #dcc1a3;
   --strongCoffee: #5a4938;
   --toggleDivs: rgba(40, 33, 23, 0.94);
+  --moviedetails: rgba(40, 33, 23, 0.85);
 }
 
 /******* HEADER WITH NAVIGATION BAR *******/
