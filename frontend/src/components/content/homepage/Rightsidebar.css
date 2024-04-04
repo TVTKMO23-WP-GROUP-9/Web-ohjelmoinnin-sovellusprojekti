@@ -1,6 +1,6 @@
 .event-list {
-  /*justify-content: center; 
-  align-items: center; */
+  justify-content: center; 
+  align-items: center; 
 }
 
 .event-list ul {
@@ -15,8 +15,30 @@
 
 .nearby td {
   text-align: left;
+  display: block;
 }
 
+.nearby tr:hover td {
+  background-color: rgba(0, 0, 0, 0.1); /* Tummennettu tausta, voit säätää läpinäkyvyyttä tarvittaessa */
+}
+
+.nearby tr:hover td b {
+  font-weight: bold; /* Muuta fontin paino boldiksi solun sisällä */
+}
+
+.show-more-button {
+  background-color: transparent;/* Taustaväri näytä lisää -painikkeelle läpinäkyvyydellä */
+  border: none; /* Poista reunukset */
+  padding: 10px 20px; 
+  border-radius: 5px; 
+  cursor: pointer; /* Osoita, että painike on vuorovaikutteinen */
+  transition: background-color 0.3s ease; /* Lisää siirtymätauko taustavärin muutoksille */
+  color: grey;
+}
+
+.show-more-button:hover {
+  background-color: rgba(0, 0, 0, 0.1); /* Taustavärin muutos, kun hiiri on painikkeen päällä */
+}
 .event-list  ul a {
   text-decoration: none;
   color: #ffffff;

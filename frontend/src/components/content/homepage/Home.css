@@ -1,10 +1,12 @@
 .home-container {
-  /*height: 100vh;*/
+  height: 2500px;
+  display: flex;
+  flex-direction: row;
 }
 
 .left-container,
 .right-container {
-  width: 10%;
+  width: 15%;
 }
 
 .mid-container {
@@ -14,15 +16,28 @@
 }
 
 .uppercontent {
-  height: 2000px;
+  height: 700px;
   overflow: hidden;
   padding-top: 0%;
   padding-left: 15%;
   padding-right: 15%;
 }
-
+.uppermiddlecontent{
+  height: 700px;
+  overflow: hidden;
+  padding-top: 0%;
+  padding-left: 15%;
+  padding-right: 15%;
+}
+.lowermiddlecontent{
+  height: 700px;
+  overflow: hidden;
+  padding-top: 0%;
+  padding-left: 15%;
+  padding-right: 15%;
+}
 .lowercontent{
-  height: 2000px;
+  height: 700px;
   overflow: hidden;
   padding-top: 0%;
   padding-left: 15%;
