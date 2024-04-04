@@ -27,12 +27,13 @@ const MovieDetails = () => {
         {movie && (
 
           <div id="backdropbg">
+
             <div className="moviemain">
               <img className="posterimg" src={`https://image.tmdb.org/t/p/w342${movie.poster_path}`} alt={movie.title} />
 
+
               <div className="movieinfo">
-              <Link to="/search">Tee uusi haku</Link> 
-              <hr />
+  
               <h2>{movie.title}</h2>
               <p><b>Kuvaus:</b> {movie.overview}</p>
               <p><b>Kesto:</b> {movie.runtime} min</p>

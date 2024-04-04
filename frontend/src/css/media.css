@@ -1,14 +1,24 @@
-
   
+    @media (max-width: 1680px) {
+      .content {
+        width: 80%;
+      }
+
+    }
+
   @media (max-width: 1470px) {
     .menu-items li{
       list-style-type: none;
       padding-left: 25px;
     }
-    
 
+
+  
+    .posterimg {
+        max-height: 500px;
+    }
+  
   }
-
 
     @media (max-width: 1040px) {
       .menu-items-left {
@@ -30,12 +40,25 @@
       margin-right: 73px;
       font-size: 0.9em;
     }
-    
-    
 
+    .content {
+      width: 90%;
+
+    }
+
+    .login-menu {
+      right: 100px;
+    }
+
+    .posterimg {
+      max-height: 450px;
   }
+
   
-  @media (max-width: 630px) {
+  }
+
+
+  @media (max-width: 640px) {
 
     #header-bar .header-container {
       margin-left: 35px;
@@ -50,12 +73,11 @@
     }
     
     ul .whitelinks {
-
       display: none; 
     }
+
     #header-bar ul.username {
-      margin-right: 43px;
-      font-size: 0.9em;
+      display: none; 
     }
 
     .menu-items-left {
@@ -65,16 +87,33 @@
     #header-bar ul {
       font-size: 1.2em;
       margin-top: 45px;
-      
+    }
+
+    .moviemain {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .posterimg {
+      max-height: 350px;
     }
 
   }
 
     
-  @media (max-width: 420px) {
+  @media (max-width: 570px) {
+
+    .moviemain {
+      display: flex;
+      flex-wrap: wrap;
+    }
+  
+    #header-bar {
+      width: 100%;
+    }
 
     #header-bar .header-container {
-      margin-left: 50px;
+      margin-left: 30px;
     }
 
     #header-bar ul.whiteLinks {
@@ -86,9 +125,9 @@
     }
     
     ul .whitelinks {
-
       display: none; 
     }
+    
     #header-bar ul.username {
       display: none; 
     }
@@ -97,10 +136,20 @@
       display: none; 
     }
 
+    .reviewslisted {
+      display: contents;
+    }
+
+    .mobile-menu-icon {
+      margin-top: -8px;
+      margin-left: 10px;
+      font-size: 1.5em;
+    }
+
   }
 
   /*Lopullinen breakpoint, jolloin näyttö on liian pieni, kaikkeen display none ja screenerror tms*/
-  @media (max-width: 250px) {
+  @media (max-width: 340px) {
 
     #header-bar .header-container {
       margin-left: 50px;

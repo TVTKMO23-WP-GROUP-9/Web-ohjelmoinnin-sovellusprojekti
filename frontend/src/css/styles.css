@@ -96,7 +96,7 @@ body {
   height: var(--header-height);
   list-style-type: none;
   font-family: "Thasadith", sans-serif;
-  font-size: 1.5em;
+  font-size: 1.6em;
   color: #ffffff;
 }
 
@@ -161,7 +161,7 @@ body {
 #header-bar ul.username {
   color: #ffffff;
   margin-top: 7px;
-  margin-right: 123px;
+  margin-right: 113px;
   font-size: 0.9em;
 }
 
@@ -171,6 +171,7 @@ body {
 }
 
 #header-bar ul.sideLinks a:hover {
+  
   color: var(--sideLinksHover);
 }
 
@@ -221,7 +222,7 @@ h1 /* this title is for @Header */ {
   padding: 10px;
   width: 250px;
   top: 50px;
-  right: 20px;
+  right: 40px;
   font-size: 1em;
   padding-left: 30px;
 }
@@ -259,11 +260,9 @@ h1 /* this title is for @Header */ {
 .content {
   margin: 0 auto;
   padding-top: 20px;
-  padding-left: 25px;
-  padding-right: 25px;
+
   padding-bottom: 40px;
-  /*max-width: 1600px;*/
-  width: 65%;
+  width: 70vw;
   text-align: left;
 }
 
@@ -356,15 +355,14 @@ button:focus-visible {
 
 /******* Hamppari *******/
 
-  @media only screen and (min-width: 768px) {
-    .mobile-menu-icon {
-      display: block;
-      color: var(--lightCoffee);
-    }
-    .mobile-menu-icon :hover {
-      color: var(--strongCoffee);
-    }
-    
+  .mobile-menu-icon {
+    display: block;
+    font-size: 1.3em;
+    color: var(--lightCoffee);
+  }
+  
+  .mobile-menu-icon :hover {
+    color: var(--strongCoffee);
   }
 
   .burger-items {
