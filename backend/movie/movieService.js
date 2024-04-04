@@ -1,5 +1,6 @@
 const axios = require('axios');
 const movieModel = require('./movieModel');
+const { param } = require('./movieRoutes');
 
 const with_genres = {
     "action": 28,
@@ -22,6 +23,15 @@ const with_genres = {
     "war": 10752,
     "western": 37
   };
+
+
+function setUndefinedToEmptyStrings(param) {
+    if (param === undefined) {
+        return '';
+    } else {
+        return param; 
+    }
+}
 
 // Etsi elokuvia hakutermin perusteella
 async function searchMovies(req, res) {
@@ -50,13 +60,26 @@ async function discoverMovies(req, res) {
     const apiKey = process.env.TMDB_API_KEY;
     let genreId = '';
 
-    if (genre === 'all') {
+    if (genre === 'all' || genre === undefined) {
         genreId = '';
     } else {
         genreId = with_genres[genre]; 
     }
 
-    const url = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=${genreId}&sort_by=${sort_by}&page=${page}&primary_release_year=${year}&language=${language}`;
+    console.log(setUndefinedToEmptyStrings(genre));
+    paramYear = setUndefinedToEmptyStrings(year);
+    paramLanguage = setUndefinedToEmptyStrings(language);
+    paramPage = setUndefinedToEmptyStrings(page);
+    paramSort_by = setUndefinedToEmptyStrings(sort_by);
+
+    console.log('genreId:', genreId);
+    console.log('sort_by:', paramSort_by);   
+    console.log('page:', paramPage);
+    console.log('year:', paramYear);
+    console.log('language:', paramLanguage);
+    console.log('genre:', genre);
+
+    const url = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=${genreId}&sort_by=${paramSort_by}&page=${paramPage}&primary_release_year=${paramYear}&language=${paramLanguage}`;
 
     try {
         const response = await axios.get(url);

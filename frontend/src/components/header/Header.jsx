@@ -36,13 +36,13 @@ const Header = ({ user, handleLogout }) => {
 
           <div className="menu-items">
             <div className="menu-items-left">
-            <ul>
+            <ul className="whiteLinks">
               <li><Link to="/search">Leffat ja sarjat</Link></li>
               <li><Link to="/community">Yhteisö</Link></li>
             </ul>
             </div>
 
-            <ul className="menu-items-right">
+            <ul className="menu-items-right whiteLinks">
               <li className="lilogin"><Link onClick={toggleMenu}>Kirjautuminen</Link>
 
               {showMenu && (
