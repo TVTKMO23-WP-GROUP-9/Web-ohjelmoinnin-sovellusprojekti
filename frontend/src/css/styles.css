@@ -102,7 +102,7 @@ body {
 
 .menu-items-right {
   position: absolute;
-  right: 0;
+  right: -20px;
   top: 0;
   display: flex;
   align-items: center;
@@ -119,7 +119,7 @@ body {
 
 .menu-items li{
   list-style-type: none;
-  padding-left: 60px;
+  padding-left: 40px;
 }
 
 .menu-items.open {
@@ -156,6 +156,13 @@ body {
 
 #header-bar ul.whiteLinks a {
   color: #ffffff;
+}
+
+#header-bar ul.username {
+  color: #ffffff;
+  margin-top: 7px;
+  margin-right: 123px;
+  font-size: 0.9em;
 }
 
 #header-bar ul.sideLinks a {
