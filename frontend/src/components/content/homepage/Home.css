@@ -16,14 +16,18 @@
 }
 
 .uppercontent {
-  height: 55%;
+  height: 2000px;
   overflow: hidden;
   padding-top: 0%;
   padding-left: 15%;
   padding-right: 15%;
 }
 
-.coming-soon-container {
-  object-fit: cover;
+.lowercontent{
+  height: 2000px;
   overflow: hidden;
+  padding-top: 0%;
+  padding-left: 15%;
+  padding-right: 15%;
 }
+

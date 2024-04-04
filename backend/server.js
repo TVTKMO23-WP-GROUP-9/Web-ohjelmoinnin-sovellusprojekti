@@ -16,6 +16,7 @@ const discover = require('./movie/movieRoutes'); // Tuo 'discover' reitityksen
 const find = require('./movie/movieRoutes'); // Tuo 'find' reitityksen
 const movie = require('./movie/movieRoutes'); // Tuo 'movie' reitityksen
 
+
 app.use(cors({ origin: 'http://localhost:5173' })); // sallii CORS-pyynnöt alkuperästä localhost:5173 (react)
 app.use('/', message);  // Käytä 'message' reititystä juuressa
 app.use('/', profile);  // Käytä 'profile' reititystä juuressa

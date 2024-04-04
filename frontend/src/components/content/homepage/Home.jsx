@@ -1,6 +1,8 @@
 import React from 'react';
 import Comingsoon from '@content/homepage/Comingsoon'
 import Popularmovies from '@content/homepage/Popularmovies'
+import Leftsidebar from '@content/homepage/Leftsidebar'
+import Rightsidebar from '@content/homepage/Rightsidebar'
 import './Home.css';
 
 
@@ -8,9 +10,9 @@ const Home = () => {
 
   return (
 
-    /*<div className='home-container'>
+    <div className='home-container'>
       <div className='left-container'>
-        <p>vasen marginaali</p>
+        <Leftsidebar />
       </div>
       <div className='mid-container'>
         <div className='uppercontent'>
@@ -19,25 +21,19 @@ const Home = () => {
             <Comingsoon />
           </div>
         </div>
-          <div className='lowercontent'>
+        <div className='lowercontent'>
             <h2>Tämän hetken suosituimmat</h2>
             <Popularmovies />
-          </div>
         </div>
-      <div className='right-container'>
-        <p>oikea marginaali</p>
       </div>
-    </div>*/
+      <div className='right-container'>
+        <Rightsidebar />
+      </div>
+    </div>
 
     // katosi Comingsoon, kun käytin yo. osaa. Koitin sijoittaa tän seuraavan sisään sitten
 
-      <div class="content">
-        <h2>Tulossa Finnkinoon</h2>
-        <Comingsoon />
 
-        <h2>Tämän hetken suosituimmat</h2>
-        <Popularmovies />
-      </div>
 
   );
 };

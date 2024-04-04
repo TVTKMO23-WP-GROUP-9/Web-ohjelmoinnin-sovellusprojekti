@@ -69,10 +69,8 @@ function App() {
             <Route path="/profile/" element={<ProfileDetails/>} />
             ********/}
             </Routes>
-
+            </div>
             <Footer toggleTheme={toggleTheme} theme={theme} />
-          </div>
-
         </ThemeProvider>
       </Router>
     </>
