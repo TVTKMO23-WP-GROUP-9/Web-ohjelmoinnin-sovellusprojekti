@@ -24,50 +24,58 @@ const Rightsidebar = () => {
   ];
 
   useEffect(() => {
-    // Funktio sijainnin hakemiseksi
-    const getLocation = () => {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-          (position) => {
-            setLocation({
-              latitude: position.coords.latitude,
-              longitude: position.coords.longitude
-            });
-          },
-          (error) => {
-            setError(error.message);
-          }
-        );
-      } else {
-        setError('Geolocation ei ole käytettävissä tässä selaimessa');
-      }
-    };
+    const storedLocation = JSON.parse(sessionStorage.getItem('userLocation'));
+    const storedTheater = JSON.parse(sessionStorage.getItem('nearestTheater'));
 
-    getLocation(); // Kutsu sijainnin hakemisfunktiota
-  }, []); // Tyhjä taulukko varmistaa, että useEffect suoritetaan vain kerran
-
-  useEffect(() => {
-    if (location) {
-      let nearestTheater = null;
-      let minDistance = Infinity;
-
-      teatterit.forEach((teatteri) => {
-        const distance = calculateDistance(
-          location.latitude,
-          location.longitude,
-          teatteri.latitude,
-          teatteri.longitude
-        );
-        if (distance < minDistance) {
-          minDistance = distance;
-          nearestTheater = teatteri;
-        }
-      });
-
-      setNearestTheater(nearestTheater);
-
+    if (storedLocation && storedTheater) {
+      setLocation(storedLocation);
+      setNearestTheater(storedTheater);
+    } else {
+      getLocation();
     }
-  }, [location]); // Suorita uudelleen aina, kun sijainti muuttuu
+  }, []);
+
+  const getLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const userLocation = {
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude
+          };
+          sessionStorage.setItem('userLocation', JSON.stringify(userLocation));
+          setLocation(userLocation);
+          findNearestTheater(userLocation);
+        },
+        (error) => {
+          setError(error.message);
+        }
+      );
+    } else {
+      setError('Geolocation ei ole käytettävissä tässä selaimessa');
+    }
+  };
+
+  const findNearestTheater = (userLocation) => {
+    let nearestTheater = null;
+    let minDistance = Infinity;
+
+    teatterit.forEach((teatteri) => {
+      const distance = calculateDistance(
+        userLocation.latitude,
+        userLocation.longitude,
+        teatteri.latitude,
+        teatteri.longitude
+      );
+      if (distance < minDistance) {
+        minDistance = distance;
+        nearestTheater = teatteri;
+      }
+    });
+
+    sessionStorage.setItem('nearestTheater', JSON.stringify(nearestTheater));
+    setNearestTheater(nearestTheater);
+  };
 
   const calculateDistance = (lat1, lon1, lat2, lon2) => {
     const R = 6371; // Maapallon keskimääräinen säde kilometreinä
@@ -83,31 +91,36 @@ const Rightsidebar = () => {
   };
 
   useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true); 
+    if (nearestTheater) {
+      fetchData();
+    }
+  }, [nearestTheater]);
 
-      if(nearestTheater) {
-        const response = await fetch(`https://www.finnkino.fi/xml/Schedule/?area=${encodeURIComponent(nearestTheater.name)}`);
-        const data = await response.text();
-        const parser = new DOMParser();
-        const xmlData = parser.parseFromString(data, "application/xml");
-    
-        const showElements = xmlData.querySelectorAll("Show");
-        const showData = Array.from(showElements).map(show => ({  
-          auditorium: show.querySelector("TheatreAndAuditorium").textContent,
-          image: show.querySelector("Images EventSmallImagePortrait").textContent,
-          title: show.querySelector("OriginalTitle").textContent,
-          year: show.querySelector("ProductionYear").textContent,
-          startTime: show.querySelector("dttmShowStart").textContent
-        }));
-    
-        setShows(showData);
-      }
-      setLoading(false); 
-    };
+  const fetchData = async () => {
+    setLoading(true);
 
-    fetchData();
-  }, []);
+    try {
+      const response = await fetch(`https://www.finnkino.fi/xml/Schedule/?area=${encodeURIComponent(nearestTheater.name)}`);
+      const data = await response.text();
+      const parser = new DOMParser();
+      const xmlData = parser.parseFromString(data, "application/xml");
+
+      const showElements = xmlData.querySelectorAll("Show");
+      const showData = Array.from(showElements).map(show => ({
+        auditorium: show.querySelector("TheatreAndAuditorium").textContent,
+        image: show.querySelector("Images EventSmallImagePortrait").textContent,
+        title: show.querySelector("OriginalTitle").textContent,
+        year: show.querySelector("ProductionYear").textContent,
+        startTime: show.querySelector("dttmShowStart").textContent
+      }));
+
+      setShows(showData);
+      setLoading(false);
+    } catch (error) {
+      console.error('Virhe datan noudossa:', error);
+      setLoading(false);
+    }
+  };
 
   // Funktio muuntaa ajan muodon muotoon 'tunnit:minuutit'
   const formatTime = (timeString) => {
@@ -117,6 +130,21 @@ const Rightsidebar = () => {
     return `${hours}:${minutes}`;
   };
   
+  const handleClick = async (title, year) => {
+    try {
+      const response = await axios.get(`http://localhost:3001/movie/search?query=${encodeURIComponent(title)}&page=1&year=${encodeURIComponent(year)}&language=any`);
+      const movieId = response.data[0].id; // Oletetaan, että haluat ensimmäisen id:n
+      if (movieId) {
+        // Navigoi elokuvan sivulle suoraan
+        window.location.href = `/movie/${movieId}`;
+      } else {
+        console.error('Elokuvan id:tä ei löydy');
+      }
+    } catch (error) {
+      console.error('Virhe elokuvien haussa:', error);
+    }
+  }; 
+
   return (
     <div className="event-list">
     {loading && <p>Ladataan...</p>}
@@ -127,13 +155,13 @@ const Rightsidebar = () => {
           <div>
             <ul>   
               {shows.map((show, index) => (
-            <li key={index}>
-              <div>
+              <li key={index}>
+                <div onClick={() => handleClick(show.title, show.year)}>
                 <h4>{show.auditorium}</h4>
                 <p>{formatTime(show.startTime)}<br/>{show.title}</p>
-              </div>
-            </li>
-            ))}
+                </div>
+              </li>
+              ))}
             </ul>
           </div> 
         )}
