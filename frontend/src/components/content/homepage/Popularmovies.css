@@ -42,7 +42,7 @@
   filter: grayscale(100%)
 }
 
-.head {
+.fmovie-item head {
   color:black;
   background-color: white;
   padding: 0.5em;
