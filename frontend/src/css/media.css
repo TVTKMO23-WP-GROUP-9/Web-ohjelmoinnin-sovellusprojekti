@@ -151,28 +151,31 @@
   /*Lopullinen breakpoint, jolloin näyttö on liian pieni, kaikkeen display none ja screenerror tms*/
   @media (max-width: 340px) {
 
-    #header-bar .header-container {
-      margin-left: 50px;
+    .body > *:not(#screenError):not(h1):not(h2):not(h3) {
+      display: none;
     }
 
-    #header-bar ul.whiteLinks {
-      display: none; 
+    #footer {
+      display: none;
     }
 
-    .menu-items-right {
-      display: none; 
-    }
-    
-    ul .whitelinks {
-
-      display: none; 
-    }
-    #header-bar ul.username {
-      display: none; 
+    .body {
+      background-color: #ffffff;
     }
 
-    .menu-items-left {
-      display: none; 
+    #screenError {
+      display: block;
+    }
+
+    h1 {
+      font-family: "Grandstander", cursive;
+      font-weight: 400;
+      font-size: 3.2em;
+      color: #123d80;
+    }
+
+    h2, h3 {
+      color: #000000;
     }
 
   }

@@ -459,3 +459,8 @@ input  {
   background-size: contain;
   background-repeat: no-repeat;
 }
+
+
+#screenError {
+  display: none;
+}

@@ -31,7 +31,6 @@ const MovieDetails = () => {
             <div className="moviemain">
               <img className="posterimg" src={`https://image.tmdb.org/t/p/w342${movie.poster_path}`} alt={movie.title} />
 
-
               <div className="movieinfo">
   
               <h2>{movie.title}</h2>
@@ -42,7 +41,6 @@ const MovieDetails = () => {
               <p><b>Tuotantoyhtiöt:</b> {movie.production_companies.map(company => company.name).join(', ')}</p>
               <p><b>Kerännyt ääniä:</b> {movie.vote_count}</p>
               <p><b>Äänten keskiarvo:</b> {movie.vote_average} / 10 </p>
-
                 
               </div>
 
