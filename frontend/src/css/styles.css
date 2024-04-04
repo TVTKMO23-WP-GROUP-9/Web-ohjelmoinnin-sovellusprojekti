@@ -18,6 +18,8 @@ body {
 }
 
 .body {
+  display: flex;
+  flex-direction: column;
   margin: 0;
   min-height: 100vh;
   color: var(--text-color);
@@ -221,18 +223,14 @@ h1 /* this title is for @Header */ {
   display: block;
 }
 
-
 /******* FOOTER *******/
 
 #footer {
   position: absolute;
   bottom: 0;
-  left: 0;
   width: 100%;
   justify-content: center;
-  bottom: 0px;
   padding-top: 30px;
-  padding-bottom: 3px;
   align-items: center;
   border-top: 1px solid #000000;
   background: #342f2a;
@@ -257,7 +255,8 @@ h1 /* this title is for @Header */ {
   padding-left: 25px;
   padding-right: 25px;
   padding-bottom: 40px;
-  max-width: 1600px;
+  /*max-width: 1600px;*/
+  width: 65%;
   text-align: left;
 }
 
@@ -338,7 +337,6 @@ h3 /* hamburger */ {
   color: var(--button-text);
   cursor: pointer;
 }
-
 
 button:hover {
   border-color: #646cff;

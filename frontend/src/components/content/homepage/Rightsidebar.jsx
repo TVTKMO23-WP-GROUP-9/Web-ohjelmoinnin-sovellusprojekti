@@ -156,10 +156,15 @@ const Rightsidebar = () => {
             <ul>   
               {shows.map((show, index) => (
               <li key={index}>
-                <div onClick={() => handleClick(show.title, show.year)}>
-                <h4>{show.auditorium}</h4>
-                <p>{formatTime(show.startTime)}<br/>{show.title}</p>
-                </div>
+                <table className="nearby">
+                  <tbody>
+                    <tr>
+                      <td width="270px"><b>{show.auditorium}</b></td>
+                      <td width="120px"><b>{formatTime(show.startTime)}</b></td>
+                      <td>{show.title}</td>
+                    </tr>
+                  </tbody>
+                </table>
               </li>
               ))}
             </ul>

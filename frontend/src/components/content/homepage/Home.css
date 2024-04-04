@@ -1,7 +1,5 @@
 .home-container {
-  height: 100vh;
-  display: flex;
-  flex-direction: row;
+  /*height: 100vh;*/
 }
 
 .left-container,

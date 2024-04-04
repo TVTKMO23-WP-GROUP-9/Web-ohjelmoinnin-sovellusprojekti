@@ -1,7 +1,6 @@
 .event-list {
-  justify-content: center; 
-  align-items: center; 
-  
+  /*justify-content: center; 
+  align-items: center; */
 }
 
 .event-list ul {
@@ -12,6 +11,10 @@
   list-style-type: none;
   font-family: "Thasadith", sans-serif;
   font-size: 1em;
+}
+
+.nearby td {
+  text-align: left;
 }
 
 .event-list  ul a {
