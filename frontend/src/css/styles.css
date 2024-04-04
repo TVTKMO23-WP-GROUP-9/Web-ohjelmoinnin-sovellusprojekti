@@ -30,35 +30,41 @@ body {
 .light { 
   --background-color: #faf0e4;
   --text-color: #000000;
+  --h2: #000000;
   --github-image: url('../images/github-mark.png');
   --logo: url('../images/leffasovellus-r9.png');
   --button-bg: #282e37;
   --button-text: #ffffff;
   --create-bg: #b1b1b1;
-  --h2: #000000;
   --left-border: 9px solid #303030;
+  --hoverCoffee: #5a4938;
   --a-link: #25272d;
   --a-link-hover: #303030;
   --footer-hover: #ededed;
   --lightCoffee: #dcc1a3;
   --strongCoffee: #5a4938;
+  --toggleDivs: rgba(134, 106, 68, 0.9);
+  --moviedetails: rgba(134, 106, 68, 0.85);
 }
 
 .dark {
   --background-color: #1d1d1d;
   --text-color: #ffffff;
+  --h2: #ffffff;
   --github-image: url('../images/github-mark-white.png');
   --logo: url('../images/leffasovellus-r9.png');
   --button-bg: #1a1a1a;
   --button-text: #ffffff;
   --create-bg: #373737;
-  --h2: #ffffff;
   --left-border: 9px solid #ffffff;
+  --hoverCoffee: #dcc1a3;
   --a-link: #ffffff;
   --a-link-hover: #323640;
   --footer-hover: #ededed;
   --lightCoffee: #dcc1a3;
   --strongCoffee: #5a4938;
+  --toggleDivs: rgba(40, 33, 23, 0.94);
+  --moviedetails: rgba(40, 33, 23, 0.85);
 }
 
 /******* MIDDLESECTION ********/
@@ -76,6 +82,7 @@ body {
 
 .burger-items {
   display: none;
+  color: var(--text-color);
 }
 
 .menu-items ul {
@@ -97,7 +104,6 @@ body {
   top: 0;
   display: flex;
   align-items: center;
-
 }
 
 .menu-items ul a {
@@ -133,6 +139,7 @@ body {
   height: 100px;
   width: 100%;
   border-bottom: 1px solid #000000;
+  box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.5);
   background: linear-gradient(67deg, #0b0c0f, #0b2b55, #0b2b55, #0b2b55, #0b2b55, #0b0c0f);
   z-index: 2;
 }
@@ -144,25 +151,28 @@ body {
   min-width: 100%;
 }
 
-#header-bar ul.navigate {
+/*#header-bar ul.navigate {
   list-style-type: none;
   justify-content: left;
   display: inline-flex;
   font-family: "Thasadith", sans-serif;
   font-size: 1.5em;
+  color: var(--text-color);
+}*/
+
+#header-bar ul.whiteLinks a {
   color: #ffffff;
-  animation: headerWave 5s infinite linear;
 }
 
 #header-bar ul a {
   text-decoration: none;
-  color: #ffffff;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  color: #fff;
+  text-shadow: 0px 0px 4px rgba(0, 0, 0, 0.9);
 }
 
 #header-bar ul a:hover {
   text-decoration: none;
-  color: #dcc1a1;
+  color: var(--hoverCoffee);
 }
 
 #header-bar ul.navigate li {
@@ -194,9 +204,10 @@ h1 /* this title is for @Header */ {
 .login-menu {
   position: relative;
   background-color: var(--lightCoffee); 
-  background-color: rgba(172, 139, 95, 0.9);
+  background-color: var(--toggleDivs);
   border: 1px solid #000000;
   border-radius: 5px;
+  box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.5);
   padding: 10px;
   width: 250px;
   top: 4px;
@@ -242,7 +253,7 @@ h1 /* this title is for @Header */ {
   padding-left: 25px;
   padding-right: 25px;
   padding-bottom: 40px;
-  max-width: 1200px;
+  max-width: 1600px;
   text-align: left;
 }
 
@@ -261,7 +272,7 @@ a:hover {
 /******* TITLES *******/
 
 h2 /* titles for @Content */ {
-  font-family: "Thasadith", sans-serif;
+  font-family: "Roboto Condensed", sans-serif;
   font-weight: 400;
   font-style: normal;
   font-size: 1.6em;
@@ -344,16 +355,18 @@ button:focus-visible {
     top: 101px; 
     left: 0;
     border-right: 3px solid #000000;
-    background-color: rgba(40, 33, 23, 0.94);
+    background-color: var(--toggleDivs);
     box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.5);
     padding: 10px;
     width: 200px;
     height: 100em;
+    color: var(--text-color);
   }
   
   .burger-items ul {
     top: 101px; 
     left: 0;
+
   }
 
   .burger-items ul {
@@ -366,12 +379,13 @@ button:focus-visible {
     list-style-type: none;
     font-family: "Thasadith", sans-serif;
     font-size: 1.5em;
-    color: #ffffff;
+    color: var(--text-color);
+    color: #fff;
   }
   
   .burger-items ul a {
     text-decoration: none;
-    color: #ffffff;
+    color: var(--text-color);
   }
   
   .burger-items ul a:hover {
@@ -380,7 +394,6 @@ button:focus-visible {
   
   .burger-items li{
     list-style-type: none;
-
   }
   
 
