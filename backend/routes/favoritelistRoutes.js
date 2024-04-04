@@ -1,17 +1,10 @@
 const express = require('express');
-const { Pool } = require('pg');
+const pool = require('../database/db_connection');
 const favoritelistRouter = require('./favoritelistRouter');
 
 const router = express.Router();
 
-// PostgreSQL-yhteysasetukset
-const pool = new Pool({
-  user: process.env.DB_USER,
-  host: process.env.DB_HOST,
-  database: process.env.DB_DATABASE,
-  password: process.env.DB_PASSWORD,
-  port: process.env.DB_PORT,
-});
+
 /*
 // hakee kaikki suosikkilistat
 router.get('/', async (req, res) => {
@@ -52,21 +45,21 @@ router.get('/favoritelist/:favoritelistid', async (req, res) => {
 
 // lisää uuden suosikkilistan
 router.post('/favoritelist', async (req, res) => {
-    try {
-      const { favoritelistid, favoriteditem, showtime, timestamp } = req.body;
-      
-      const query = {
-        text: 'INSERT INTO favoritelist_ (favoritelistid, favoriteditem, showtime, timestamp) VALUES ($1, $2, $3, $4)',
-        values: [favoritelistid, favoriteditem, showtime, timestamp],
-      };
-  
-      await pool.query(query);
-      res.status(201).send('Suosikkilista lisätty onnistuneesti');
-    } catch (error) {
-      console.error('Virhe lisättäessä listaa:', error);
-    }
-  });
-  
+  try {
+    const { favoritelistid, favoriteditem, showtime, timestamp } = req.body;
+
+    const query = {
+      text: 'INSERT INTO favoritelist_ (favoritelistid, favoriteditem, showtime, timestamp) VALUES ($1, $2, $3, $4)',
+      values: [favoritelistid, favoriteditem, showtime, timestamp],
+    };
+
+    await pool.query(query);
+    res.status(201).send('Suosikkilista lisätty onnistuneesti');
+  } catch (error) {
+    console.error('Virhe lisättäessä listaa:', error);
+  }
+});
+
 
 // poistaa tietyn suosikkilistan
 router.delete('/favoritelist/:favoritelistid', async (req, res) => {

@@ -4,11 +4,11 @@ const cors = require('cors');
 const app = express();
 
 
-app.use(cors({ origin: 'http://localhost:5173', credentials: true })); 
+app.use(cors({ origin: 'http://localhost:5173', credentials: true }));
 //const profile = require(origin: './routes/profileRoutes', credentials: true); // Tuo 'profile' reitityksen
 const group = require('./group/groupRoutes'); // Tuo 'group' reitityksen
 const message = require('./routes/messageRoutes'); // Tuo 'message' reitityksen
-const profile = require('./routes/profileRoutes');
+const profile = require('./profile/profileRoutes'); // Tuo 'profile' reitityksen
 const register = require('./auth/authRoutes'); // Tuo 'register' reitityksen
 const login = require('./auth/authRoutes'); // Tuo 'login' reitityksen
 const search = require('./movie/movieRoutes'); // Tuo 'search' reitityksen
