@@ -29,6 +29,11 @@
   height: 40vmin;
 }
 
+.arrow img{
+  height: 100%;
+  width: auto;
+}
+
 .event-item img {
   width: 100%; 
   height: 100%; 

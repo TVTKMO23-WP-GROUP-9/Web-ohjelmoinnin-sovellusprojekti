@@ -3,6 +3,7 @@ import axios from 'axios';
 import './Rightsidebar.css'; // Sisällytä CSS-tiedosto suoraan komponenttiin
 
 const Rightsidebar = () => {
+  const [shows, setShows] = useState([]);
   const [location, setLocation] = useState(null);
   const [error, setError] = useState(null);
   const [nearestTheater, setNearestTheater] = useState(null);
@@ -80,7 +81,29 @@ const Rightsidebar = () => {
     return distance;
   };
 
+  useEffect(() => {
+    const fetchData = async () => {
+      if(nearestTheater) {
+        const response = await fetch(`https://www.finnkino.fi/xml/Schedule/?area=${encodeURIComponent(nearestTheater.name)}`);
+        const data = await response.text();
+        const parser = new DOMParser();
+        const xmlData = parser.parseFromString(data, "application/xml");
+    
+        const showElements = xmlData.querySelectorAll("Show");
+        const showData = Array.from(showElements).map(show => ({  
+          auditorium: show.querySelector("TheatreAndAuditorium").textContent,
+          image: show.querySelector("Images EventSmallImagePortrait").textContent,
+          title: show.querySelector("OriginalTitle").textContent,
+          year: show.querySelector("ProductionYear").textContent,
+          startTime: show.querySelector("dttmShowStart").textContent
+        }));
+    
+        setShows(showData);
+      }
+    };
 
+    fetchData();
+  }, []);
 
   return (
     <div className="event-list">
@@ -94,7 +117,21 @@ const Rightsidebar = () => {
           <div>
             <p>Lähin teatteri on: {nearestTheater.name}</p>
             <h2>Näytökset:</h2>
+            <ul>
+        {shows.map((show, index) => (
+          <li key={index}>
+            <img src={show.image} alt={show.title} />
+            <div>
+              <p>Teatteri: {show.auditorium}</p>
+              <p>Title: {show.title}</p>
+              <p>Year: {show.year}</p>
+              <p>Start Time: {show.startTime}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
           </div>
+          
         )}
       </div>
     )}

@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import './latestreviews.css'; // Sisällytä CSS-tiedosto suoraan komponenttiin
 
-const Leftsidebar = () => {
- 
+function Latestreviews() {
+
 
   return (
-    <div className="event-list">
-
-         <p>Viimeisimmät arvostelut</p>
-
+    <div>
+      <h1>Viimeisimmät arvostelut</h1>
+     
     </div>
   );
-};
+}
 
-export default Leftsidebar;
+export default Latestreviews;
