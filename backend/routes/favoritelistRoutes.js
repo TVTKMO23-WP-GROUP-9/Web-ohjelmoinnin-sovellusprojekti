@@ -1,7 +1,5 @@
 const express = require('express');
 const { Pool } = require('pg');
-const favoritelistRouter = require('./favoritelistRouter');
-
 const router = express.Router();
 
 // PostgreSQL-yhteysasetukset
@@ -12,11 +10,11 @@ const pool = new Pool({
   password: process.env.DB_PASSWORD,
   port: process.env.DB_PORT,
 });
-/*
+
 // hakee kaikki suosikkilistat
-router.get('/', async (req, res) => {
+router.get('/favoritelist', async (req, res) => {
   try {
-    const query = 'SELECT * FROM favoritelist';
+    const query = 'SELECT * FROM favoritelist_';
     const result = await pool.query(query);
     res.json(result.rows);
   } catch (error) {
@@ -29,12 +27,14 @@ router.get('/favoritelist/:favoritelistid', async (req, res) => {
   const favoritelistid = req.params.favoritelistid;
   try {
     const query = {
+
+      //???? 
       text: `
       SELECT fl.*, p.profilename, g.groupname
       FROM favoritelist_ fl
-      LEFT JOIN profile p ON fl.profilename = p.id
-      LEFT JOIN group g ON fl.groupname = g.id
-      WHERE fl.favoritelistid = $1
+      LEFT JOIN profile p ON fl.profileid = p.id
+      LEFT JOIN group g ON fl.groupid = g.id
+      WHERE fl.idfavoritelist = $1
     `,
       values: [favoritelistid],
     };
@@ -53,11 +53,12 @@ router.get('/favoritelist/:favoritelistid', async (req, res) => {
 // lisää uuden suosikkilistan
 router.post('/favoritelist', async (req, res) => {
     try {
-      const { favoritelistid, favoriteditem, showtime, timestamp } = req.body;
+      const { idfavoritelist, favoriteditem, showtime, timestamp } = req.body;
+      const now = new Date();
       
       const query = {
-        text: 'INSERT INTO favoritelist_ (favoritelistid, favoriteditem, showtime, timestamp) VALUES ($1, $2, $3, $4)',
-        values: [favoritelistid, favoriteditem, showtime, timestamp],
+        text: 'INSERT INTO "favoritelist_" (idfavoritelist, favoriteditem, showtime, timestamp) VALUES ($1, $2, $3, $4)',
+        values: [favoritelistid, favoriteditem, showtime, now],
       };
   
       await pool.query(query);
@@ -69,11 +70,11 @@ router.post('/favoritelist', async (req, res) => {
   
 
 // poistaa tietyn suosikkilistan
-router.delete('/favoritelist/:favoritelistid', async (req, res) => {
+router.delete('/favoritelist/:idfavoritelist', async (req, res) => {
   const favoritelistid = req.params.favoritelistid;
   try {
     const query = {
-      text: 'DELETE FROM favoritelist_ WHERE favoritelistid = $1',
+      text: 'DELETE FROM "favoritelist_" WHERE idfavoritelist = $1',
       values: [favoritelistid],
     };
 
@@ -85,4 +86,3 @@ router.delete('/favoritelist/:favoritelistid', async (req, res) => {
 });
 
 module.exports = router;
-*/
