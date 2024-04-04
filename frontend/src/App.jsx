@@ -71,8 +71,6 @@ function App() {
             </Routes>
             </div>
             <Footer toggleTheme={toggleTheme} theme={theme} />
-          </div>
-
         </ThemeProvider>
       </Router>
     </>
