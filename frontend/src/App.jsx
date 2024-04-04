@@ -1,5 +1,4 @@
 import React from 'react'
-// frontin juuressa " npm install react-router-dom --no-fund "
 import { useState, useEffect } from 'react'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { ThemeProvider, useTheme } from './ThemeProvider';
@@ -9,14 +8,19 @@ import Header from '@components/header/Header';
 import Footer from '@components/footer/Footer';
 import Home from '@content/homepage/Home';
 import Login from '@components/header/Login';
+import MyAccount from '@content/user/MyAccount';
 import Search from '@content/movies/Search';
 import MovieDetails from '@content/movies/MovieDetails';
 // importtaa muut sivut
 
 function App() {
   const { theme, toggleTheme } = useTheme();
-  const [user, setUser] = useState(null)
+  const [ user, setUser ] = useState(null)
   
+  const handleLogin = (userData) => {
+    setUser(userData);
+  };
+
 
   useEffect(() => {
     const savedTheme = localStorage.getItem('theme');
@@ -30,8 +34,20 @@ function App() {
   }, [theme]);
 
   const handleLogout = () => {
-    setUser(null);
-
+    fetch('http://localhost:3001/auth/logout', {
+      method: 'GET',
+      credentials: 'include',
+    })
+    .then(response => {
+      if (response.ok) {
+        setUser(null);
+      } else {
+        console.error('Uloskirjautuminen epäonnistui');
+      }
+    })
+    .catch(error => {
+      console.error('Virhe uloskirjautuessa:', error);
+    });
   }
 
   return (
@@ -40,17 +56,15 @@ function App() {
       
         <ThemeProvider>
           <div className={`body ${theme}`}>
-              <Header user={user} handleLogout={handleLogout} />  
+              <Header user={user} setUser={handleLogin} handleLogout={handleLogout} />  
             <Routes>
               <Route path="/" exact element={<Home />} />
               <Route path="/search" element={<Search />} />
               <Route path="/movie/:id" element={<MovieDetails/>} />
+              <Route path="/login" element={<Login setUser={handleLogin} />} />
+              <Route path="/myaccount" element={<MyAccount user={user} />} />
               {/****** Loput routet, esim.
-            
             <Route path="/community" element={<Community />} />
-            <Route path="/login" element={<Login setUser={setUser}/>} />
-            <Route path="/myaccount" element={<MyAccount user={user} />} />
-            
             <Route path="/group/" element={<GroupDetails/>} />
             <Route path="/profile/" element={<ProfileDetails/>} />
             ********/}
