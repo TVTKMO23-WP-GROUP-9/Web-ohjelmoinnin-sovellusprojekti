@@ -6,6 +6,7 @@ const app = express();
 const profile = require('./routes/profileRoutes'); // Tuo 'profile' reitityksen
 const group = require('./group/groupRoutes'); // Tuo 'group' reitityksen
 const message = require('./routes/messageRoutes'); // Tuo 'message' reitityksen
+const favoritelist = require('./favoritelist/favoritelistRoutes'); // tuo 'favoritelist' reitityksen
 const register = require('./auth/authRoutes'); // Tuo 'register' reitityksen
 const login = require('./auth/authRoutes'); // Tuo 'login' reitityksen
 const search = require('./movie/movieRoutes'); // Tuo 'search' reitityksen
@@ -19,6 +20,7 @@ app.use('/', profile);  // Käytä 'profile' reititystä juuressa
 app.use('/', group);  // Käytä 'group' reititystä juuressa
 app.use('/', register); // Käytä 'register' reititystä juuressa
 app.use('/', login); // Käytä 'login' reititystä juuressa
+app.use('/', favoritelist); // käytä 'favoritelist' reititystä juuressa
 // TMDB:
 app.use('/', search); // Käytä 'search' reititystä juuressa
 app.use('/', discover); // Käytä 'discover' reititystä juuressa
