@@ -45,6 +45,9 @@ body {
   --strongCoffee: #5a4938;
   --toggleDivs: rgba(134, 106, 68, 0.9);
   --moviedetails: rgba(134, 106, 68, 0.85);
+  --sideLinks: #000000;
+  --sideLinksHover: #01367b;
+  --blueish: #c8dbf2;
 }
 
 .dark {
@@ -65,6 +68,9 @@ body {
   --strongCoffee: #5a4938;
   --toggleDivs: rgba(40, 33, 23, 0.94);
   --moviedetails: rgba(40, 33, 23, 0.85);
+  --sideLinks: #f4dec4;
+  --sideLinksHover:#d7e5f9;
+  --blueish: #6daaff;
 }
 
 /******* MIDDLESECTION ********/
@@ -74,12 +80,6 @@ body {
 }*/
 
 /******* HEADER WITH NAVIGATION BAR *******/
-
-/*.menu-items {
-  display: block;
-  position: absolute;
-  width: 100%;
-}*/
 
 .burger-items {
   display: none;
@@ -91,7 +91,6 @@ body {
   display: inline-flex;
   flex-direction: row;
   align-items: flex-start;
-  /*justify-content: space-between;*/
   height: var(--header-height);
   list-style-type: none;
   font-family: "Thasadith", sans-serif;
@@ -149,36 +148,37 @@ body {
   margin: 0;
   margin-left: 70px;
   display: inline-flex;
+  text-align: left;
   min-width: 100%;
 }
-
-/*#header-bar ul.navigate {
-  list-style-type: none;
-  justify-content: left;
-  display: inline-flex;
-  font-family: "Thasadith", sans-serif;
-  font-size: 1.5em;
-  color: var(--text-color);
-}*/
 
 #header-bar ul.whiteLinks a {
   color: #ffffff;
 }
 
-#header-bar ul a {
-  text-decoration: none;
-  color: #fff;
-  text-shadow: 0px 0px 4px rgba(0, 0, 0, 0.9);
+#header-bar ul.sideLinks a {
+  font-weight: 600;
+  color: var(--sideLinks);
+}
+
+#header-bar ul.sideLinks a:hover {
+  color: var(--sideLinksHover);
 }
 
 #header-bar ul a:hover {
   text-decoration: none;
-  color: var(--hoverCoffee);
+  color: var(--blueish);
 }
 
 #header-bar ul.navigate li {
   padding-left: 15px;
   padding-right: 15px;
+}
+
+#header-bar .boxLink a {
+  margin-left: -70px;
+  padding-left: 30px;
+  font-size: 0.8em;
 }
 
 h1 /* this title is for @Header */ {
@@ -203,7 +203,7 @@ h1 /* this title is for @Header */ {
 }
 
 .login-menu {
-  position: relative;
+  position: absolute;
   background-color: var(--lightCoffee); 
   background-color: var(--toggleDivs);
   border: 1px solid #000000;
@@ -211,7 +211,10 @@ h1 /* this title is for @Header */ {
   box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.5);
   padding: 10px;
   width: 250px;
-  top: 4px;
+  top: 50px;
+  right: 20px;
+  font-size: 1em;
+  padding-left: 30px;
 }
 
 .login-menu.active {
@@ -270,6 +273,7 @@ a:hover {
   color: var(--a-link-hover);
 }
 
+
 /******* TITLES *******/
 
 h2 /* titles for @Content */ {
@@ -320,6 +324,21 @@ h3 /* hamburger */ {
   cursor: pointer;
   transition: border-color 0.25s;
 }
+
+.formButton {
+  margin-top: 15px;
+  margin-bottom: 10px;
+  margin-right: 8px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.2em 0.8em;
+  font-size: 0.8em;
+  font-family: inherit;
+  background-color: var(--button-bg);
+  color: var(--button-text);
+  cursor: pointer;
+}
+
 
 button:hover {
   border-color: #646cff;
