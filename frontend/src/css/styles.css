@@ -10,7 +10,6 @@
   font-weight: 400;
 }
 
-
 body {
   position: relative;
   margin: 0;
@@ -32,6 +31,7 @@ body {
   --background-color: #faf0e4;
   --text-color: #000000;
   --github-image: url('../images/github-mark.png');
+  --logo: url('../images/leffasovellus-r9.png');
   --button-bg: #282e37;
   --button-text: #ffffff;
   --create-bg: #b1b1b1;
@@ -40,12 +40,15 @@ body {
   --a-link: #25272d;
   --a-link-hover: #303030;
   --footer-hover: #ededed;
+  --lightCoffee: #dcc1a3;
+  --strongCoffee: #5a4938;
 }
 
 .dark {
   --background-color: #1d1d1d;
   --text-color: #ffffff;
   --github-image: url('../images/github-mark-white.png');
+  --logo: url('../images/leffasovellus-r9.png');
   --button-bg: #1a1a1a;
   --button-text: #ffffff;
   --create-bg: #373737;
@@ -54,36 +57,71 @@ body {
   --a-link: #ffffff;
   --a-link-hover: #323640;
   --footer-hover: #ededed;
+  --lightCoffee: #dcc1a3;
+  --strongCoffee: #5a4938;
 }
 
 /******* HEADER WITH NAVIGATION BAR *******/
 
-
-.menu-items {
-  
-  display: none;
+/*.menu-items {
+  display: block;
   position: absolute;
-  top: 50%;
-  left: 0;
   width: 100%;
+}*/
+
+.burger-items {
+  display: none;
 }
-.menu-items ul{
-  display: flex;
-  align-items: left;
-  justify-content: space-evenly;
-  position: relative;
+
+.menu-items ul {
+  margin-left: 0;
+  display: inline-flex;
+  flex-direction: row;
+  align-items: flex-start;
+  /*justify-content: space-between;*/
   height: var(--header-height);
+  list-style-type: none;
+  font-family: "Thasadith", sans-serif;
+  font-size: 1.5em;
+  color: #ffffff;
 }
+
+.menu-items-right {
+  position: absolute;
+  right: 0;
+  top: 0;
+  display: flex;
+  align-items: center;
+
+}
+
+.menu-items ul a {
+  text-decoration: none;
+  color: #ffffff;
+}
+
+.menu-items ul a:hover {
+  color: #dcc1a1;
+}
+
 .menu-items li{
   list-style-type: none;
+  padding-left: 60px;
 }
+
 .menu-items.open {
   display: block;
 }
+
+.lilogin {
+  width: 300px;
+}
+
 #header {
   margin: 0;
   margin-bottom: 100px;
 }
+
 #header-bar {
   position: fixed;
   top: 0;
@@ -95,9 +133,9 @@ body {
 }
 #header-bar .header-container {
   margin: 0;
-  margin-left: 50px;
-  display: flex;
-  max-width: 150vh;
+  margin-left: 70px;
+  display: inline-flex;
+  min-width: 100%;
 }
 
 #header-bar ul.navigate {
@@ -128,7 +166,7 @@ body {
 
 h1 /* this title is for @Header */ {
   margin: 0 auto;
-  margin-top: 7px;
+  margin-top: -9px;
   font-family: "Thasadith", sans-serif;
   font-optical-sizing: auto;
   font-weight: 400;
@@ -138,6 +176,7 @@ h1 /* this title is for @Header */ {
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   animation: headerWave 5s infinite linear;
   
+  
 }
 /******* LOGIN NAPPI *******/
 .login-dropdown-container {
@@ -146,19 +185,23 @@ h1 /* this title is for @Header */ {
   align-items: right; 
   position: relative;
 }
+
 .login-menu {
-  position: absolute;
-  background-color: #8a8761;  /*vaiha taustaväri kirjaudu menuun tarvittaessa*/
-  border: 1px solid #ccc;
+  position: relative;
+  background-color: var(--lightCoffee); 
+  background-color: rgba(172, 139, 95, 0.9);
+  border: 1px solid #000000;
   border-radius: 5px;
+  padding: 10px;
   width: 250px;
-  top: 100px;
-  right: 50px
+  top: 4px;
 }
 
 .login-menu.active {
   display: block;
 }
+
+
 /******* FOOTER *******/
 
 #footer {
@@ -220,9 +263,32 @@ h2 /* titles for @Content */ {
   color: var(--h2);
 }
 
+h3 /* hamburger */ {
+  font-family: "Thasadith", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 1.6em;
+  color: var(--lightCoffee);
+}
+
 /******* BUTTONS *******/
 
-button {
+.loginbutton {
+  margin-top: -14px;
+  padding-right: 8px;
+  border-radius: 8px;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: var(--button-bg);
+  color: var(--button-text);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+
+.basicbutton {
   margin-top: 20px;
   margin-bottom: 20px;
   margin-right: 8px;
@@ -246,6 +312,72 @@ button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
+
+/******* Hamppari *******/
+
+  @media only screen and (min-width: 768px) {
+    .mobile-menu-icon {
+      display: block;
+      color: var(--lightCoffee);
+    }
+    .mobile-menu-icon :hover {
+      color: var(--strongCoffee);
+    }
+    
+  }
+
+  .burger-items {
+    display: none;
+  }
+
+  .burger-items.open {
+    display: block; 
+  }
+
+  .burger-items {
+    position: absolute;
+    top: 101px; 
+    left: 0;
+    border-right: 3px solid #000000;
+    background-color: rgba(40, 33, 23, 0.94);
+    box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    width: 200px;
+    height: 100em;
+  }
+  
+  .burger-items ul {
+    top: 101px; 
+    left: 0;
+  }
+
+  .burger-items ul {
+    margin: 10px;
+    padding: 0;
+    display: block;
+    text-align: left;
+    padding-left: 10px;
+    height: var(--header-height);
+    list-style-type: none;
+    font-family: "Thasadith", sans-serif;
+    font-size: 1.5em;
+    color: #ffffff;
+  }
+  
+  .burger-items ul a {
+    text-decoration: none;
+    color: #ffffff;
+  }
+  
+  .burger-items ul a:hover {
+    color: #dcc1a1;
+  }
+  
+  .burger-items li{
+    list-style-type: none;
+
+  }
+  
 
 /******* BUTTONS *******/
 
@@ -277,3 +409,12 @@ input  {
 
 /******* CLASSES incl. buttons, selects, inputs, labels, spans, ps, pretty much everything *******/
 
+.logo {
+  width: 140px;
+  height: 100px; 
+  display: inline-block;
+  padding-right: 10px;
+  background-image: var(--logo);
+  background-size: contain;
+  background-repeat: no-repeat;
+}
