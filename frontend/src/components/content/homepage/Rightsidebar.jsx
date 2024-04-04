@@ -145,6 +145,7 @@ const Rightsidebar = () => {
     }
   }; 
 
+
   return (
     <div className="event-list">
     {loading && <p>Ladataan...</p>}
@@ -152,22 +153,20 @@ const Rightsidebar = () => {
     {location && (
       <div>
         {nearestTheater && (
-          <div>
-            <ul>   
+          <div className="nearbyEvents" >
+              
               {shows.map((show, index) => (
-              <li key={index}>
-                <table className="nearby">
+
+                <table className="nearby"  key={index}>
                   <tbody>
-                    <tr>
+                    <tr onClick={() => handleClick(show.title, show.year)}>
                       <td width="270px"><b>{show.auditorium}</b></td>
                       <td width="120px"><b>{formatTime(show.startTime)}</b></td>
                       <td>{show.title}</td>
                     </tr>
                   </tbody>
                 </table>
-              </li>
               ))}
-            </ul>
           </div> 
         )}
       </div>
