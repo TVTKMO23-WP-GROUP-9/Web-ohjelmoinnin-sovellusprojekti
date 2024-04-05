@@ -13,5 +13,6 @@ router.put('/group/:groupid', groupService.updateGroupById);
 router.post('/group', groupService.createGroup);
 router.post('/memberlist', groupService.createMember);
 router.post('/messages', groupService.createMessage);
+router.get('/grouplist/:profileid', groupService.getUserGroups);
 
 module.exports = router;

@@ -9,6 +9,7 @@ import Footer from '@components/footer/Footer';
 import Home from '@content/homepage/Home';
 import Login from '@components/header/Login';
 import MyAccount from '@content/user/MyAccount';
+import ProfileDetails from '@content/user/ProfileDetails';
 import Search from '@content/movies/Search';
 import MovieDetails from '@content/movies/MovieDetails';
 // importtaa muut sivut
@@ -63,10 +64,10 @@ function App() {
               <Route path="/movie/:id" element={<MovieDetails/>} />
               <Route path="/login" element={<Login setUser={handleLogin} />} />
               <Route path="/myaccount" element={<MyAccount user={user} />} />
+              <Route path="/profile/" element={<ProfileDetails/>} />
               {/****** Loput routet, esim.
             <Route path="/community" element={<Community />} />
             <Route path="/group/" element={<GroupDetails/>} />
-            <Route path="/profile/" element={<ProfileDetails/>} />
             ********/}
             </Routes>
             </div>

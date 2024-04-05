@@ -180,7 +180,34 @@ async function getGroupNameById(req, res) {
       res.status(500).send('Virhe lisättäessä uutta tietuetta ' + error.message);
     }
   }
-  
+
+// GET user groups (ryhmälista käyttäjän profiilisivulle)
+async function getUserGroups(req, res) {
+  const profileid = req.params.profileid; 
+
+  try {
+    const grouplistQuery = {
+      text: `
+        SELECT g.groupname FROM Group_ g
+        INNER JOIN Memberlist_ m ON g.groupid = m.groupid
+        WHERE m.profileid = $1;
+      `,
+      values: [profileid],
+    };
+
+    const result = await groupModel.queryDatabase(grouplistQuery);
+
+    if (result.length > 0) {
+      res.json(result);
+    } else {
+      res.status(404).send('Ryhmää ei löytynyt käyttäjälle');
+    }
+  } catch (error) {
+    console.error('Virhe haettaessa käyttäjän ryhmiä:', error);
+    res.status(500).send('Virhe haettaessa käyttäjän ryhmiä');
+  }
+}
+
   module.exports = {
     getAllGroups,
     getGroupNameById,
@@ -191,4 +218,5 @@ async function getGroupNameById(req, res) {
     createGroup,
     createMember,
     createMessage,
+    getUserGroups
   };
