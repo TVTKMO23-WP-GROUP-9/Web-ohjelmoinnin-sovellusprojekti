@@ -1,7 +1,181 @@
+  
+    @media (max-width: 1680px) {
+      .content {
+        width: 80%;
+      }
 
-  @media (max-width: 800px) {
+    }
+
+  @media (max-width: 1470px) {
+    .menu-items li{
+      list-style-type: none;
+      padding-left: 25px;
+    }
+
+
+  
+    .posterimg {
+        max-height: 500px;
+    }
+  
+  }
+
+    @media (max-width: 1040px) {
+      .menu-items-left {
+        display: none; 
+      }
+
+      .menu-items-right {
+        margin-right: -60px;
+      }
+      
+    .menu-items li{
+      list-style-type: none;
+      padding-left: 25px;
+    }
+
+    #header-bar ul.username {
+      color: #ffffff;
+      margin-top: 7px;
+      margin-right: 73px;
+      font-size: 0.9em;
+    }
+
+    .content {
+      width: 90%;
+
+    }
+
+    .login-menu {
+      right: 100px;
+    }
+
+    .posterimg {
+      max-height: 450px;
+  }
+
+  
+  }
+
+
+  @media (max-width: 640px) {
+
+    #header-bar .header-container {
+      margin-left: 35px;
+    }
+
+    #header-bar ul.whiteLinks {
+      display: none; 
+    }
+
+    .menu-items-right {
+      display: none; 
+    }
+    
+    ul .whitelinks {
+      display: none; 
+    }
+
+    #header-bar ul.username {
+      display: none; 
+    }
+
     .menu-items-left {
       display: none; 
+    }
+
+    #header-bar ul {
+      font-size: 1.2em;
+      margin-top: 45px;
+    }
+
+    .moviemain {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .posterimg {
+      max-height: 350px;
+    }
+
+  }
+
+    
+  @media (max-width: 570px) {
+
+    .moviemain {
+      display: flex;
+      flex-wrap: wrap;
+    }
+  
+    #header-bar {
+      width: 100%;
+    }
+
+    #header-bar .header-container {
+      margin-left: 30px;
+    }
+
+    #header-bar ul.whiteLinks {
+      display: none; 
+    }
+
+    .menu-items-right {
+      display: none; 
+    }
+    
+    ul .whitelinks {
+      display: none; 
+    }
+    
+    #header-bar ul.username {
+      display: none; 
+    }
+
+    .menu-items-left {
+      display: none; 
+    }
+
+    .reviewslisted {
+      display: contents;
+    }
+
+    .mobile-menu-icon {
+      margin-top: -8px;
+      margin-left: 10px;
+      font-size: 1.5em;
+    }
+
+  }
+
+  /*Lopullinen breakpoint, jolloin näyttö on liian pieni, kaikkeen display none ja screenerror tms*/
+  @media (max-width: 340px) {
+
+    .body > *:not(#screenError):not(h1):not(h2):not(h3) {
+      display: none;
+    }
+
+    #footer {
+      display: none;
+    }
+
+    .body {
+      background-color: #ffffff;
+    }
+
+    #screenError {
+      display: block;
+    }
+
+    h1 {
+      font-family: "Grandstander", cursive;
+      font-weight: 400;
+      font-size: 3.2em;
+      color: #123d80;
+    }
+
+    h2, h3 {
+      color: #000000;
     }
 
   }

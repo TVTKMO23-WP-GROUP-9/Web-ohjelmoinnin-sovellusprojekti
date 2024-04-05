@@ -41,8 +41,8 @@ router.get('/profile/:profilename', async (req, res) => {
 
     try {
         const query = {
-            text: 'SELECT * FROM "Profile" WHERE profilename = $1',
-            values: [profileName],
+            text: 'SELECT * FROM Profile_ WHERE profilename ILIKE $1',
+            values: [`%${profileName}%`], 
         };
 
         const result = await pool.query(query);

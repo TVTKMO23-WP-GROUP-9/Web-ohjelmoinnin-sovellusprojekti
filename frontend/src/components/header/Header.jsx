@@ -47,14 +47,19 @@ const Header = ({ user, setUser, handleLogout}) => {
               </ul>
             </div>
 
+            <ul className="menu-items-right username">
+              {user && <li><i>Tervetuloa, <b>{user.user}</b> !</i></li> }
+            </ul>
+
             <ul className="menu-items-right whiteLinks">
               {!user && <li className="lilogin"><Link onClick={toggleLogin}>Kirjautuminen</Link></li>}
               {!user && showLogin && <Login setUser={setUser} />}
-              {user && <li>{user.user} :</li> }
-               {user &&<li><Link to="/myaccount">Profiili</Link></li>}
-              {user && <li><Link to="/myaccount">Oma tili</Link></li>}
+
+              {user &&<li><Link to="/myaccount">Profiili</Link></li>}
+              {user && <li><Link to="/myaccount">Tili</Link></li>}
               {user && <li className="lilogin"><Link onClick={handleLogout}>Kirjaudu ulos</Link></li>}
             </ul>
+
           </div>
         </div>
       </div>

@@ -159,6 +159,7 @@ const Rightsidebar = () => {
     });
   };
 
+
   return (
     <div className="event-list">
       {loading && <p>Ladataan...</p>}
@@ -166,14 +167,14 @@ const Rightsidebar = () => {
       {location && (
         <div>
           {nearestTheater && (
-            <div>
-              <ul>   
+            <div className="nearbyEvents" >
+                
                 {shows.slice(showCount - 10, showCount).map((show, index) => (
-                  <li key={index}>
+    
                     <div onClick={() => handleClick(show.title, show.year)}>
-                      <table className="nearby">
+                      <table className="nearby"  key={index}>
                         <tbody>
-                          <tr>
+                          <tr onClick={() => handleClick(show.title, show.year)}>
                             <td width="270px"><b>{show.auditorium}</b></td>
                             <td width="120px"><b>{formatTime(show.startTime)}</b></td>
                             <td>{show.title}</td>
@@ -181,10 +182,8 @@ const Rightsidebar = () => {
                         </tbody>
                       </table>
                     </div>
-                  </li>
-                ))}
-              </ul>
-                
+                    ))}
+                  
                 <button onClick={showLess} className='show-more-button'>{'<'}</button>
 
                Selaa 
