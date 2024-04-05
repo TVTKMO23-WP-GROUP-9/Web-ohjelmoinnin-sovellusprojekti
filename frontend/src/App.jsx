@@ -4,15 +4,19 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { ThemeProvider, useTheme } from './ThemeProvider';
 import '@css/styles.css';
 import '@css/media.css';
+import '@css/emoji.css';
 import Header from '@components/header/Header';
 import Footer from '@components/footer/Footer';
 import Home from '@content/homepage/Home';
 import Login from '@components/header/Login';
+import Loginx from '@components/header/Loginx';
 import MyAccount from '@content/user/MyAccount';
 import ProfileDetails from '@content/user/ProfileDetails';
 import Search from '@content/movies/Search';
 import MovieDetails from '@content/movies/MovieDetails';
 import Community from '@content/community/Community';
+import Error from '@content/error/Error';
+// importtaa muut sivut
 
 function App() {
   const { theme, toggleTheme } = useTheme();
@@ -56,12 +60,14 @@ function App() {
       
         <ThemeProvider>
           <div className={`body ${theme}`}>
+              <Error />
               <Header user={user} setUser={handleLogin} handleLogout={handleLogout} />  
             <Routes>
               <Route path="/" exact element={<Home />} />
               <Route path="/search" element={<Search />} />
               <Route path="/movie/:id" element={<MovieDetails/>} />
               <Route path="/login" element={<Login setUser={handleLogin} />} />
+              <Route path="/loginx" element={<Loginx setUser={handleLogin} />} />
               <Route path="/myaccount" element={<MyAccount user={user} />} />
               <Route path="/profile/:profilename" element={<ProfileDetails user={user} />} />
               <Route path="/community" element={<Community />} />
@@ -69,6 +75,7 @@ function App() {
             <Route path="/group/" element={<GroupDetails/>} />
             ********/}
             </Routes>
+            
             </div>
             <Footer toggleTheme={toggleTheme} theme={theme} />
         </ThemeProvider>

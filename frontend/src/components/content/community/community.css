@@ -94,13 +94,14 @@
     background-color: var(--greyblue);
     border-bottom-right-radius: 40px;
     border-top-left-radius: 40px;
-    border: 1px solid #000000;
+    border: 3px solid #000000;
     color: var(--grp-text);
     display: flex;
     flex-direction: row;
     flex-wrap: wrap; 
     justify-content: space-between;
     padding: 1em;
+    box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.2);
 }
 
 .two-view h2 {
@@ -142,8 +143,8 @@
 }
 
 .results {
-    margin-left: -39px;
-    margin-bottom: -46px;
+    margin-left: -31px;
+    margin-bottom: -20px;
     display: block;
     padding-left: 12px;
 }
@@ -188,4 +189,42 @@ ul {
     height: 100vh;
     margin-bottom: 10px;
 }
+
+.communityTbl {
+    width: 100%;
+    background-color: var(--table-bg);
+    border-collapse: collapse;
+    border-bottom: 1px dashed #000000;
+  }
+  
+  .communityTbl td {
+    text-align: left;
+    margin-left: 0;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start;
+    list-style-type: none;
+    font-family: "Thasadith", sans-serif;
+    font-size: 1em;
+  }
+  
+  .communityTbl td {
+    padding: 14px;
+  }
+  
+  .communityTbl tr:hover {
+    background-color: var(--table-tr-hover);
+  }
+
+  .communityDiv {
+    width: 100%;
+    margin-left: -19px;
+    margin-bottom: -19px;
+    background-color: var(--table-bg);
+    border-radius: 10px;
+  }
+
+  .communityDiv a:hover {
+    color: var(--section2);
+  }
 

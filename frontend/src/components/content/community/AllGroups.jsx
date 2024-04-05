@@ -47,17 +47,29 @@ const AllGroups = () => {
                                 </ul>
                             )}
                     </div>
-                    <div className='results'>
-                        <ul>
-                            {currentGroups.map(group => (
-                                <li key={group.groupid}><Link to={`/group/${group.groupid}`}>{group.groupname}</Link></li>
-                            ))}
-                        </ul>
+                    <div className="communityDiv">
+                        {currentGroups.map(group => (
+
+                            <table className="communityTbl"  key={group.groupid}>
+                            <tbody>
+                                <tr>
+                                <td width="270px"><b><Link to={`/group/${group.groupid}`}>{group.groupname}</Link></b></td>
+                                <td width="120px"><b>---</b></td>
+                                </tr>
+                            </tbody>
+                            </table>
+                        ))}
                     </div>
                 </div>
                 <div className="two-right">
                     <h2>Muut ryhmätoiminnot</h2>
-                    <span className="communityinfo">Meillä on jo <b>{groups.length}</b> ryhmää!</span>
+
+                    <span className="communityinfo">Mikäs sen mukavampaa, kuin löytää samanhenkistä leffaporukkaa,</span> <br/>
+                    <span className="communityinfo">jonka kanssa jakaa leffa-elämyksiä ja chattailla reaaliajassa.</span> <br/><br/>
+
+                    <span className="communityinfo">Meillä on jo <b>{groups.length}</b> ryhmää, mistä valita.</span> <br/>
+                    <span className="communityinfo">Tai saitko uuden ryhmä-idean? Voit luoda sellaisen itsellesi ja kavereillesi</span> <br/>
+                    <span className="communityinfo">tai koko maailman parhaalle leffakansalle! <span className='emoji uni01'></span></span> <br/>
                     <button className='basicbutton'>Luo uusi ryhmä</button>
                 </div>
             </div>

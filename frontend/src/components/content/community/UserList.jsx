@@ -47,18 +47,26 @@ const UserList = () => {
                                 </ul>
                             )}
                     </div>
-                    <div className='results'>
-                        <ul>{currentProfiles.map(profile => (
-                            <li key={profile.profileid}><Link to={`/profile/${profile.profilename}`}>{profile.profilename}</Link></li>
-                            ))}
-                        </ul>
+
+                    <div className="communityDiv">
+                        {currentProfiles.map(profile => (
+
+                            <table className="communityTbl"  key={profile.profileid}>
+                            <tbody>
+                                <tr>
+                                <td width="270px"><b><Link to={`/profile/${profile.profilename}`}>{profile.profilename}</Link></b></td>
+                                <td width="120px"><b>---</b></td>
+                                </tr>
+                            </tbody>
+                            </table>
+                        ))}
                     </div>
-                    
                 </div>
                 <div className="two-right">
-                    <h2>Eläköön Elokuvayhteisö!</h2>
-                    <span className="communityinfo">Meillä on tänään <b>{profiles.length}</b></span><br/>
-                    <span className='communityinfo'>rekisteröitynyttä käyttäjää.</span> <br/><br/>
+                    <h2>Eläköön Elokuvayhteisö!</h2> 
+                    
+                    <span className="communityinfo">Meillä on täällä <b>{profiles.length}</b></span><br/>
+                    <span className='communityinfo'>rekisteröitynyttä käyttäjää. <span className="emoji uni03"></span></span> <br/><br/>
                     <span className="communityinfo">Liity mukaan jo tänään!</span><br/>
                     <button className='basicbutton'>Rekisteröidy</button>
                 </div>
