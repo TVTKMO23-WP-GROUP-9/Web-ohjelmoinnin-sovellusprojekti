@@ -45,7 +45,8 @@ async function searchMovies(req, res) {
         const movies = data.results.map(result => new movieModel(
             result.id,
             result.title,
-            result.poster_path
+            result.poster_path,
+            result.overview
         )).filter(movie => movie.poster_path !== null);
         res.json(movies);
     } catch (error) {
@@ -87,7 +88,8 @@ async function discoverMovies(req, res) {
         const movies = data.results.map(result => new movieModel (
             result.id,
             result.title,
-            result.poster_path
+            result.poster_path,
+            result.overview
         )).filter(movie => movie.poster_path !== null);
         res.json(movies);
     } catch (error) {
