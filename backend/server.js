@@ -8,11 +8,8 @@ app.use(cors({ origin: 'http://localhost:5173', credentials: true }));
 //const profile = require(origin: './routes/profileRoutes', credentials: true); // Tuo 'profile' reitityksen
 const group = require('./group/groupRoutes'); // Tuo 'group' reitityksen
 const message = require('./routes/messageRoutes'); // Tuo 'message' reitityksen
-<<<<<<< HEAD
 const favoritelist = require('./favoritelist/favoritelistRoutes'); // tuo 'favoritelist' reitityksen
-=======
 const profile = require('./routes/profileRoutes');
->>>>>>> 502dbb3ac5140f7fb614f500b88a3e7083be56fc
 const register = require('./auth/authRoutes'); // Tuo 'register' reitityksen
 const login = require('./auth/authRoutes'); // Tuo 'login' reitityksen
 const search = require('./movie/movieRoutes'); // Tuo 'search' reitityksen

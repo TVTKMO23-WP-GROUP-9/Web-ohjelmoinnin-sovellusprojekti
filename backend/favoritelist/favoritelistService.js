@@ -11,8 +11,49 @@ async function getAllFavoritelist (req, res)  {
     }
   };
   
-  // hakee tietyn suosikkilistan profiilista tai groupista
-  async function getfavoritelist (req, res)  {
+  // hakee tietyn suosikkilistan profiilista
+
+  async function getFavoritelistByProfile(req, res) {
+    const profileid = req.params.profileid;
+
+    try {
+        const query = {
+            text: `SELECT * FROM favoritelist_ WHERE profileid = $1`,
+            values: [profileid]
+        };
+        const result = await favoritelistModel.queryDatabase(query);
+
+        if (result.rows && result.rows.length > 0) {
+          res.json(result.rows);
+        } else {
+            res.status(404).send(`Suosikkilistaa ei löytynyt profiilista id:llä ${profileid}`);
+        }
+    } catch (error) {
+        console.error('Virhe haettaessa suosikkilistaa profiilista:', error);
+    }
+}
+//hakee tietyn suosikkilistan groupista
+async function getFavoritelistByGroup(req, res) {
+  const groupId = req.params.groupid;
+  try {
+      const query = {
+          text: 'SELECT * FROM favoritelist_ WHERE groupid = $1',
+          values: [groupId],
+      };
+      const result = await favoritelistModel.queryDatabase(query);
+
+      if (result.rows && result.rows.length > 0) {
+          res.json(result.rows);
+      } else {
+          res.status(404).send('Suosikkilistaa ei löytynyt tällä ryhmällä');
+      }
+  } catch (error) {
+      console.error('Virhe haettaessa suosikkilistaa ryhmän perusteella:', error);
+  }
+}
+// hakee profiilin tai gropin suosikkilistan (EI TOIMI)
+
+  /*async function getfavoritelist (req, res)  {
     const idfavoritelist = req.params.idfavoritelist;
     const profileid = req.params.profileid;
     const groupid = req.params.profileid;
@@ -39,27 +80,68 @@ async function getAllFavoritelist (req, res)  {
     } catch (error) {
       console.error('Virhe haettaessa Listaa:', error);
     }
-  };
-  
-  // lisää uuden suosikkilistan
-  async function createFavoritelist (req, res)  {
-    const { favoriteditem, showtime, profileid, groupid } = req.body;
-      try {
+  };*/
+
+  //lisää uuden suosikkilistan profiiliin tai grouppiin
+  async function createFavoritelist(req, res) {
+    const { favoriteditem, showtime, groupid, profileid } = req.body;
+    try {
         const now = new Date();
-      const favoritelistQuery = {
-        text: 'INSERT INTO favoritelist_ (profileid, groupid, favoriteditem, showtime, timestamp) VALUES ($1, $2, $3, $4, $5) RETURNING idfavoritelist',
-        values: [profileid, groupid, favoriteditem, showtime, now],
-    };
-  
-        const favoritelistResult = await favoritelistModel.queryDatabase(favoritelistQuery);
-        const idfavoritelist = favoritelistResult[0].idfavoritelist;
-      
+        let favoritelistQuery;
+        if (groupid) {
+            favoritelistQuery = {
+                text: 'INSERT INTO favoritelist_ (groupid, favoriteditem, showtime, timestamp) VALUES ($1, $2, $3, $4)',
+                values: [groupid, favoriteditem, showtime, now],
+                
+            };
+        } else if (profileid) {
+            favoritelistQuery = {
+                text: 'INSERT INTO favoritelist_ (profileid, favoriteditem, showtime, timestamp) VALUES ($1, $2, $3, $4)',
+                values: [profileid, favoriteditem, showtime, now],
+            };
+        } else {
+            return res.status(400).send('Ryhmän tai profiilin id:tä ei annettu.');
+        }
+        await favoritelistModel.queryDatabase(favoritelistQuery);
         res.status(201).send('Suosikkilista lisätty onnistuneesti');
-      } catch (error) {
-        console.error('Virhe lisättäessä listaa:', error);
-      }
-    };
-    
+    } catch (error) {
+        console.error('Virhe lisättäessä suosikkilistaa:', error);
+    }
+}
+/*  // lisää uuden suosikkilistan ryhmään
+
+  async function createGroupFavoritelist(req, res) {
+    const {groupid, favoriteditem, showtime } = req.body;
+    try {
+        const now = new Date();
+        const favoritelistQuery = {
+            text: 'INSERT INTO favoritelist_ (groupid, favoriteditem, showtime, timestamp) VALUES ($1, $2, $3, $4)',
+            values: [groupid, favoriteditem, showtime, now],
+        };
+        await favoritelistModel.queryDatabase(favoritelistQuery);
+       
+        res.status(201).send('Suosikkilista lisätty ryhmään onnistuneesti');
+    } catch (error) {
+        console.error('Virhe lisättäessä suosikkilistaa ryhmään:', error);
+    }
+}
+
+// Lisää uusi suosikkilista profiiliin
+
+async function createProfileFavoritelist(req, res) {
+    const { favoriteditem, showtime, profileid } = req.body;
+    try {
+        const now = new Date();
+        const favoritelistQuery = {
+            text: 'INSERT INTO favoritelist_ (profileid, favoriteditem, showtime, timestamp) VALUES ($1, $2, $3, $4)',
+            values: [profileid, favoriteditem, showtime, now],
+        };
+        await favoritelistModel.queryDatabase(favoritelistQuery);
+        res.status(201).send('Suosikkilista lisätty profiiliin onnistuneesti');
+    } catch (error) {
+        console.error('Virhe lisättäessä suosikkilistaa profiiliin:', error);
+    }
+}*/
   
     async function deleteFavoritelist(req, res) {
       const idfavoritelist = req.params.idfavoritelist;
@@ -70,11 +152,7 @@ async function getAllFavoritelist (req, res)  {
         };
     
         const result = await favoritelistModel.queryDatabase(query);
-        if (result.rowCount > 0) {
           res.send(`Lista poistettu onnistuneesti`);
-        } else {
-          res.status(404).send(`Suosikkilistaa ei löytynyt id:llä ${idfavoritelist}`);
-        }
       } catch (error) {
         console.error('Virhe poistettaessa listaa:', error);
         res.status(500).send('Virhe poistettaessa listaa');
@@ -84,7 +162,11 @@ async function getAllFavoritelist (req, res)  {
   
   module.exports = {
     getAllFavoritelist,
-    getfavoritelist,
+   // getfavoritelist,
     createFavoritelist,
     deleteFavoritelist,
+    getFavoritelistByProfile,
+    getFavoritelistByGroup,
+   // createGroupFavoritelist,
+   // createProfileFavoritelist,
   };

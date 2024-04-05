@@ -5,7 +5,11 @@ const favoritelistService = require('./favoritelistService')
 router.use(express.json());
 
 router.get('/favoritelist', favoritelistService.getAllFavoritelist);
-router.get('/favoritelist/:idfavoritelist', favoritelistService.getfavoritelist);
+//router.get('/favoritelist/:idfavoritelist', favoritelistService.getfavoritelist);
+router.get('/favoritelist/profile/:profileid', favoritelistService.getFavoritelistByProfile);
+router.get('/favoritelist/group/:groupid', favoritelistService.getFavoritelistByGroup);
+//router.post('/favoritelist/group', favoritelistService.createGroupFavoritelist);
+//router.post('/favoritelist/profile', favoritelistService.createProfileFavoritelist);
 router.post('/favoritelist', favoritelistService.createFavoritelist);
 router.delete('/favoritelist/:idfavoritelist', favoritelistService.deleteFavoritelist);
 

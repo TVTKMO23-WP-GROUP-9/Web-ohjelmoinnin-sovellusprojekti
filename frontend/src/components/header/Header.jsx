@@ -31,7 +31,7 @@ const Header = ({ user, setUser, handleLogout}) => {
               
               <br/><br/>
               {user && <li>Kirjautunut:</li>} 
-              {user && <li>{user.user}</li> } <br/>
+              {user && <li>{user.usesr}</li> } <br/>
 
               {user && <li><Link to="/myaccount">Oma profiili</Link></li>}
               {user && <li><Link to="/myaccount">Tilinhallinta</Link></li>}
@@ -58,7 +58,6 @@ const Header = ({ user, setUser, handleLogout}) => {
           </div>
         </div>
         </div>
-        <LoginDropdown />
       </div>
   );
 };
