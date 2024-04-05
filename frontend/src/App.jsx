@@ -12,6 +12,7 @@ import MyAccount from '@content/user/MyAccount';
 import ProfileDetails from '@content/user/ProfileDetails';
 import Search from '@content/movies/Search';
 import MovieDetails from '@content/movies/MovieDetails';
+import Error from '@content/error/Error';
 // importtaa muut sivut
 
 function App() {
@@ -57,6 +58,7 @@ function App() {
       
         <ThemeProvider>
           <div className={`body ${theme}`}>
+              <Error />
               <Header user={user} setUser={handleLogin} handleLogout={handleLogout} />  
             <Routes>
               <Route path="/" exact element={<Home />} />
@@ -70,6 +72,7 @@ function App() {
             <Route path="/group/" element={<GroupDetails/>} />
             ********/}
             </Routes>
+            
             </div>
             <Footer toggleTheme={toggleTheme} theme={theme} />
         </ThemeProvider>
