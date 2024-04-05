@@ -64,7 +64,7 @@ function App() {
               <Route path="/movie/:id" element={<MovieDetails/>} />
               <Route path="/login" element={<Login setUser={handleLogin} />} />
               <Route path="/myaccount" element={<MyAccount user={user} />} />
-              <Route path="/profile/" element={<ProfileDetails/>} />
+              <Route path="/profile/:profilename" element={<ProfileDetails user={user} />} />
               {/****** Loput routet, esim.
             <Route path="/community" element={<Community />} />
             <Route path="/group/" element={<GroupDetails/>} />
