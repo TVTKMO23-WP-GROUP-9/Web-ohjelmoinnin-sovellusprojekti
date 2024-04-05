@@ -96,6 +96,15 @@
     align-items: center;
     align-content: center;
 }
+.pdd-bottom {
+    position: absolute;
+    bottom: 250px;
+    padding-right: 25px;
+    align-items: center;
+    align-content: center;
+    z-index: 1; 
+}
+
 .group-view-item-left,
 .group-view-item-right {
     flex-basis: calc(90%/ 2);
