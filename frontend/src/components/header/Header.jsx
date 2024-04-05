@@ -60,10 +60,6 @@ const Header = ({ user, setUser, handleLogout}) => {
         </div>
         <LoginDropdown />
       </div>
-<<<<<<< HEAD
-=======
-    </div>
->>>>>>> 502dbb3ac5140f7fb614f500b88a3e7083be56fc
   );
 };
 
