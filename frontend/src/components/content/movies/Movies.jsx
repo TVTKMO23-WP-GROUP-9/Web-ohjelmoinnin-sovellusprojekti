@@ -138,14 +138,14 @@ const Movies = () => {
         <div key={movie.id} className="movie-item">
           <Link to={`/movie/${movie.id}`}>
           <img src={movie.poster_path} alt={movie.title} />
-          <div className="head">
+          <div className="headoverview">
             <div><h3>{movie.title}</h3></div>
             <div>{movie.overview}</div>
           </div>
           </Link>
         </div>
         ))}
-          <div className="pdd-right">         
+          <div className="pdd-bottom">         
             <br/>
             <button onClick={() => setPage(Page => Math.max(Page - 1, 1))} className='show-more-button'>{'<'}</button>
             <input

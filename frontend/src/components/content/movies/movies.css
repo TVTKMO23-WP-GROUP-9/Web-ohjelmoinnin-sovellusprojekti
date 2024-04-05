@@ -28,11 +28,11 @@
     flex-grow: 0.2;
 }
 
-.movie-item .head {
+.movie-item .headoverview {
     visibility: hidden;
 }
 
-.movie-item:hover .head {
+.movie-item:hover .headoverview {
     text-align: center;
     visibility: visible;
     color: white;
@@ -46,7 +46,7 @@
     left: 0;
     font-size: 1em;
     white-space: wrap;
-    z-index: 1; 
+    
 }
 
 .providers table {
@@ -108,6 +108,15 @@
     padding-right: 25px;
     align-items: center;
     align-content: center;
+}
+
+.pdd-bottom {
+    position: absolute;
+    bottom: 250px;
+    padding-right: 25px;
+    align-items: center;
+    align-content: center;
+    z-index: 1; 
 }
 
 .group-view-item-left,
