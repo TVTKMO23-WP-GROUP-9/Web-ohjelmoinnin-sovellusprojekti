@@ -12,7 +12,7 @@ import MyAccount from '@content/user/MyAccount';
 import ProfileDetails from '@content/user/ProfileDetails';
 import Search from '@content/movies/Search';
 import MovieDetails from '@content/movies/MovieDetails';
-// importtaa muut sivut
+import Community from '@content/community/Community';
 
 function App() {
   const { theme, toggleTheme } = useTheme();
@@ -21,8 +21,7 @@ function App() {
   const handleLogin = (userData) => {
     setUser(userData);
   };
-
-
+  
   useEffect(() => {
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme) {
@@ -65,8 +64,8 @@ function App() {
               <Route path="/login" element={<Login setUser={handleLogin} />} />
               <Route path="/myaccount" element={<MyAccount user={user} />} />
               <Route path="/profile/:profilename" element={<ProfileDetails user={user} />} />
+              <Route path="/community" element={<Community />} />
               {/****** Loput routet, esim.
-            <Route path="/community" element={<Community />} />
             <Route path="/group/" element={<GroupDetails/>} />
             ********/}
             </Routes>

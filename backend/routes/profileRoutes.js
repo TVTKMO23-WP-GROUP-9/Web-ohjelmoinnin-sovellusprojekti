@@ -26,7 +26,7 @@ pool.query('SELECT NOW()', (err, res) => {
 // GET-endpoint hakee kaikki tietueet taulusta profile
 router.get('/profile', async (req, res) => {
     try {
-        const query = 'SELECT * FROM "Profile"';
+        const query = 'SELECT * FROM Profile_';
         const result = await pool.query(query);
         res.json(result.rows);
     } catch (error) {

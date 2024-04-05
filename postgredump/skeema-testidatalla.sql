@@ -19,6 +19,7 @@ CREATE TABLE IF NOT EXISTS Profile_
     hashedpassword VARCHAR(255) NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
     profilepicurl text COLLATE pg_catalog."default",
+    is_private BOOLEAN DEFAULT FALSE, 
     "timestamp" TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     description text COLLATE pg_catalog."default"
 );
@@ -328,7 +329,6 @@ INSERT INTO Review_ (profileid, revieweditem, review, rating, "timestamp") VALUE
 
 
 -- updatella kuvaukset testikäyttäjille
-
 UPDATE Profile_
 SET description = 
     CASE 
@@ -360,7 +360,6 @@ SET description =
     END;
     
 -- updatella profiilikuvat testikäyttäjille
-
 UPDATE Profile_
 SET profilepicurl = 'https://i.postimg.cc/yYYqzpzp/profile1.jpg'
 WHERE profileid = '1';
@@ -452,3 +451,12 @@ WHERE profileid = '22';
 UPDATE Profile_
 SET profilepicurl = 'https://i.postimg.cc/cCFbHZN9/profile7.jpg'
 WHERE profileid = '23';
+
+-- vipu, että käyttäjä saa profiilinsa yksityiseksi
+ALTER TABLE Profile_
+ADD COLUMN is_private BOOLEAN DEFAULT FALSE;
+
+-- yksityinen tili käyttäjille 8-14
+UPDATE Profile_
+SET is_private = TRUE
+WHERE profileid BETWEEN 8 AND 14;
