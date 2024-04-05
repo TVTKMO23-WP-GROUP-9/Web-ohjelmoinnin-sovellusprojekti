@@ -2,7 +2,6 @@
   justify-content: center; 
   align-items: center; 
 }
-
 .event-list ul {
   margin-left: 0;
   display: inline-flex;
@@ -11,15 +10,6 @@
   list-style-type: none;
   font-family: "Thasadith", sans-serif;
   font-size: 1em;
-}
-
-.nearby {
-  width: 100%;
-  background-color: var(--table-bg);
-  border-collapse: collapse;
-  border-bottom: 1px dashed #000000;
-  padding: 40px;
-  border-radius: 10px;
 }
 
 .nearby td {
@@ -40,71 +30,35 @@
   border: none; 
   padding: 10px 20px; 
   border-radius: 5px; 
+
   cursor: pointer; 
   transition: background-color 0.3s ease; 
   color: grey;
 }
 
 .show-more-button:hover {
+
   background-color: rgba(0, 0, 0, 0.1); 
-  margin-left: 0;
-  display: inline-flex;
-  flex-direction: column;
-  align-items: flex-start;
-  list-style-type: none;
-  font-family: "Thasadith", sans-serif;
-  font-size: 1em;
-}
-
-.nearby td {
-  padding: 14px;
-}
-
-.nearby tr:hover {
-  background-color: var(--table-tr-hover);
-}
-
-.nearbyEvents {
-  width: 100%;
-  background-color: var(--table-bg);
-  border-radius: 10px;
 }
 
 .event-list  ul a {
   text-decoration: none;
   color: #ffffff;
 }
-
 .event-list ul a:hover {
   color: #dcc1a1;
 }
-
 .event-list li{
   list-style-type: none;
   padding-left: 0px;
 }
-
 .event-list li div p {
   margin-top: 0; 
 }
 .event-list li div p:hover {
   flex-grow: 3;
 }
-
 .event-list li div h4 {
   font-size: 1em;
   margin: 0; 
-}
-
-
-
-.light {
-  --table-bg: #dcc1a1;
-  --table-tr-hover: #F5F5F5;
-
-}
-
-.dark {
-  --table-bg: #273e5b;
-  --table-tr-hover: #343434;
 }

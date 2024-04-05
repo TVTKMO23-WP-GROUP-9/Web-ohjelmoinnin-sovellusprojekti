@@ -22,16 +22,13 @@
 .movie-details {
     padding: 1em;
 }
-
 .movie-item:hover {
     transition: all 0.5s ease-in-out;
     flex-grow: 0.2;
 }
-
 .movie-item .headoverview {
     visibility: hidden;
 }
-
 .movie-item:hover .headoverview {
     text-align: center;
     visibility: visible;
@@ -46,14 +43,13 @@
     left: 0;
     font-size: 1em;
     white-space: wrap;
-    
+    z-index: 1; 
 }
-
 .providers table {
     border-collapse: collapse;
     border-spacing: 0;
 }
-  
+
 .providers table td {
     padding: 5px;
 }
@@ -62,13 +58,10 @@
     height: 50px;
     width: auto;
 }
-
 .providers h3 {
     margin: 0;
     padding-right: 20px;
-
 }
-
 .flex-container > div {
     margin-bottom: 10px; 
 }
@@ -78,7 +71,6 @@
     flex-direction: row;
     flex-wrap: wrap;
 }
-
 .group-view {
     background-color: var(--grp-background);
     color: var(--grp-text);
@@ -87,38 +79,23 @@
     margin-top: 25px;
     margin-bottom: 25px;
 }
-
 .group-view > div {
     padding-left: 20px; 
     padding-right: 20px; 
-
   }
-
 .group-left {
     flex-basis: 70%;
     padding: 10px;
 }
-
 .group-right {
     flex-basis: 20%;
     padding: 10px;
 }
-
 .pdd-right {
     padding-right: 25px;
     align-items: center;
     align-content: center;
 }
-
-.pdd-bottom {
-    position: absolute;
-    bottom: 250px;
-    padding-right: 25px;
-    align-items: center;
-    align-content: center;
-    z-index: 1; 
-}
-
 .group-view-item-left,
 .group-view-item-right {
     flex-basis: calc(90%/ 2);
@@ -132,53 +109,44 @@
     flex-wrap: wrap; 
     padding: 1em;
 }
-
 .left-column,
 .middle-column,
 .right-column {
     flex-basis: calc(90%/ 3);
     padding: 10px;
 }
-
 #backdropbg {
     display: inline-block;
     height: 100vh;
     margin-bottom: 10px;
 }
-
 .moviemain {
     display: flex;
     background-color: var(--moviedetails);
     border-radius: 10px;
     margin-top: 25px;
-    padding: 30px;
+    padding: 40px;
 }
-
 .movieinfo {
-    margin-left: 30px;
+    margin-left: 80px;
 }
-
 .posterimg {
     box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 1);
     height: 100%;
     width: auto;
 }
-
 .moviereviews {
     background-color: var(--moviedetails);
     border-radius: 10px;
     margin-top: 25px;
-    padding: 25px;
+    padding: 40px;
 }
-
 .reviewslisted {
     padding: 20px;
 }
-
 .justMargins {
     margin-top: 25px;
 }
-
 @media screen and (max-width: 800px) {
     .left-column,
     .middle-column,
@@ -186,23 +154,19 @@
     flex-basis: 100%; 
     }
 }
-
 .light {
     --grp-background: #c5c5c5;
     --grp-text: #000000;
 }
-
 .dark {
     --grp-background: #c5c5c5;
     --grp-text: #000000;
 }
-
 @media screen and (max-width: 500px) {
     .group-view {
     display: flex;
     flex-direction: column;
     }
-
     .group-view-item-left {
     order: 2;
     }
