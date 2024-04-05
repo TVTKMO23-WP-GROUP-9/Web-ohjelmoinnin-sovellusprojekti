@@ -66,7 +66,7 @@ const MovieDetails = () => {
                         <td><h3>Katso</h3></td>
                         {providers.flatrate.map(provider => (
                           <td key={provider.provider_id}>
-                            <img src={`https://image.tmdb.org/t/p/w185${provider.logo_path}`} alt={provider.provider_name} />
+                            <a href={`https://www.themoviedb.org/movie/${movie.id}/watch`}><img src={`https://image.tmdb.org/t/p/w185${provider.logo_path}`} alt={provider.provider_name} /></a>
                           </td>
                         ))}
                         </tr>
@@ -74,7 +74,7 @@ const MovieDetails = () => {
                         <td><h3>Vuokraa</h3></td>
                         {providers.rent.map(provider => (
                         <td key={provider.provider_id}>
-                          <img src={`https://image.tmdb.org/t/p/w185${provider.logo_path}`} alt={provider.provider_name} />
+                          <a href={`https://www.themoviedb.org/movie/${movie.id}/watch`}><img src={`https://image.tmdb.org/t/p/w185${provider.logo_path}`} alt={provider.provider_name} /></a>
                         </td>
                         ))}
                         </tr>
@@ -120,7 +120,7 @@ const MovieDetails = () => {
               </div>
 
               <div className="reviewslisted">
-                <b>Lähetetty:</b> 00.00.2024 <br/>
+                <b>Lähetetty:</b> 00.00.2024 <br/>  
                 <b>Käyttäjältä:</b> <i>Anonymous</i> <br/>
                 <b>Arvio:</b> &#11088;&#11088;&#11088;&#11088;&#11088; [5/5] tähteä <br/>
                 <b>Perustelut:</b> <br/>
