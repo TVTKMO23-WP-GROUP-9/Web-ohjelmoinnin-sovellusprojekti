@@ -60,8 +60,8 @@ CREATE TABLE IF NOT EXISTS Message_
 CREATE TABLE IF NOT EXISTS Favoritelist_
 (
     idfavoritelist serial NOT NULL,
-    profileid integer NOT NULL,
-    groupid integer NOT NULL,
+    profileid integer,
+    groupid integer,
     favoriteditem text COLLATE pg_catalog."default" NOT NULL,
     showtime text COLLATE pg_catalog."default",
     "timestamp" timestamp without time zone NOT NULL,
@@ -460,3 +460,34 @@ ADD COLUMN is_private BOOLEAN DEFAULT FALSE;
 UPDATE Profile_
 SET is_private = TRUE
 WHERE profileid BETWEEN 8 AND 14;
+
+INSERT INTO Group_ (groupname, groupexplanation, "timestamp") VALUES
+('Kaikenkarvaiset koirat', 'tässä leffaryhmä koirien ystäville. Kaikki koirafilmit sallittuja ja erittäin toivottuja!', CURRENT_TIMESTAMP);
+
+INSERT INTO Memberlist_ (profileid, mainuser, groupid, pending) VALUES
+-- Kaikenkarvaiset koirat
+('1', 1, '46', 0),
+('2', 0, '46', 0),
+('3', 0, '46', 0),
+('4', 0, '46', 0),
+('5', 0, '46', 0),
+('6', 0, '46', 0),
+('7', 1, '46', 0),
+('8', 0, '46', 0),
+('9', 0, '46', 0),
+('10', 0, '46', 0),
+('11', 0, '46', 0),
+('12', 0, '46', 0),
+('13', 1, '46', 0),
+('14', 0, '46', 0),
+('15', 0, '46', 0),
+('16', 0, '46', 0),
+('17', 0, '46', 0),
+('17', 0, '46', 0),
+('18', 0, '46', 0),
+('19', 0, '46', 0),
+('20', 0, '46', 0),
+('21', 0, '46', 0),
+('22', 0, '46', 0),
+('23', 0, '46', 0);
+
