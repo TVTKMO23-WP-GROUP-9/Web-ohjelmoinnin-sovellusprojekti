@@ -112,8 +112,39 @@ async function getMovieById(req, res) {
     }
 }
 
+
+// Hae elokuvan saatavuus Suomessa ID:n perusteella MUISTA JUSTWATCH CREDITOINTI
+async function getMovieProvidersbyId(req, res) {
+    const apiKey = process.env.TMDB_API_KEY;
+    const movieId = req.params.id;
+    const url = `https://api.themoviedb.org/3/movie/${movieId}/watch/providers?api_key=${apiKey}`;
+
+    try {
+        const response = await axios.get(url);
+        const movieData = response.data;
+
+        // Haetaan haluttu maakoodi, esim. FI (Suomi)
+        const countryCode = "FI";
+
+        // Tarkistetaan, onko maakoodi saatavilla vastauksessa
+        if (movieData.results.hasOwnProperty(countryCode)) {
+            // Jos koodi on saatavilla, palautetaan sen tiedot
+            const countryData = movieData.results[countryCode];
+            res.json(countryData);
+        } else {
+            // Jos koodia ei ole saatavilla, annetaan virheilmoitus
+            res.status(404).json({ message: `Ei tietoja saatavilla maasta ${countryCode}` });
+        }
+ 
+    } catch (error) {
+        console.error('Virhe elokuvan hakemisessa:', error);
+        res.status(500).json({ message: 'Virhe palvelimella' });
+    }
+}
+
 module.exports = {
     searchMovies,
     discoverMovies,
-    getMovieById
+    getMovieById,
+    getMovieProvidersbyId
 };

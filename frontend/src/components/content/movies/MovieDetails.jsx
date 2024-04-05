@@ -5,7 +5,8 @@ import { useParams, Link } from 'react-router-dom';
 const MovieDetails = () => {
     const { id } = useParams(); 
     const [movie, setMovie] = useState(null); 
-  
+    const [providers, setProviders] = useState(null);
+
     useEffect(() => {
       const fetchMovie = async () => {
         try {
@@ -15,40 +16,72 @@ const MovieDetails = () => {
           console.error('Virhe elokuvan hakemisessa:', error);
         }
       };
-      
-      fetchMovie(); 
-    }, [id]); 
-  
+
+      const fetchProviders = async () => {
+        try {
+          const response = await axios.get(`http://localhost:3001/movie/provider/${id}`);
+          setProviders(response.data);
+        } catch (error) {
+          console.error('Virhe palveluntarjoajien hakemisessa:', error);
+        }
+      };
+
+      fetchMovie();
+      fetchProviders();
+    }, [id]);
+
     return (
       <div id="backdrop" style={movie && { backgroundImage: `url(https://image.tmdb.org/t/p/original${movie.backdrop_path})`, backgroundSize: 'cover' }}>
-      <div className="content">
+        <div className="content">
 
-    
-        {movie && (
+          {movie && (
+            <div id="backdropbg">
+              <div className="moviemain">
+                <img className="posterimg" src={`https://image.tmdb.org/t/p/w342${movie.poster_path}`} alt={movie.title} />
 
-          <div id="backdropbg">
-            <div className="moviemain">
-              <img className="posterimg" src={`https://image.tmdb.org/t/p/w342${movie.poster_path}`} alt={movie.title} />
-
-              <div className="movieinfo">
-              <Link to="/search">Tee uusi haku</Link> 
-              <hr />
-              <h2>{movie.title}</h2>
-              <p><b>Kuvaus:</b> {movie.overview}</p>
-              <p><b>Kesto:</b> {movie.runtime} min</p>
-              <p><b>Genre:</b> {movie.genres.map(genre => genre.name).join(', ')}</p>
-              <p><b>Julkaistu:</b> {movie.release_date}</p>
-              <p><b>Tuotantoyhtiöt:</b> {movie.production_companies.map(company => company.name).join(', ')}</p>
-              <p><b>Kerännyt ääniä:</b> {movie.vote_count}</p>
-              <p><b>Äänten keskiarvo:</b> {movie.vote_average} / 10 </p>
-
+                <div className="movieinfo">
+                  <hr />
+                  <h2>{movie.title}</h2>
+                  <p><b>Kuvaus:</b> {movie.overview}</p>
+                  <p><b>Kesto:</b> {movie.runtime} min</p>
+                  <p><b>Genre:</b> {movie.genres.map(genre => genre.name).join(', ')}</p>
+                  <p><b>Julkaistu:</b> {movie.release_date}</p>
+                  <p><b>Tuotantoyhtiöt:</b> {movie.production_companies.map(company => company.name).join(', ')}</p>
+                  <p><b>Kerännyt ääniä:</b> {movie.vote_count}</p>
+                  <p><b>Äänten keskiarvo:</b> {movie.vote_average} / 10 </p>
                 
+
+                {providers && (
+                    <table className='providers'>
+                    <tbody>
+                      <tr>
+                        <td><h3>Katso</h3></td>
+                        {providers.flatrate.map(provider => (
+                          <td key={provider.provider_id}>
+                            <img src={`https://image.tmdb.org/t/p/w185${provider.logo_path}`} alt={provider.provider_name} />
+                          </td>
+                        ))}
+                      </tr>
+                      <tr>
+                        <td><h3>Vuokraa</h3></td>
+                        {providers.rent.map(provider => (
+                          <td key={provider.provider_id}>
+                            <img src={`https://image.tmdb.org/t/p/w185${provider.logo_path}`} alt={provider.provider_name} />
+                          </td>
+                        ))}
+                      </tr>
+                      <tr>
+                        <td colSpan="6">
+                          <a href='https://www.justwatch.com/'>Saatavuus Suomessa JustWatch</a>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                )}
+                </div>
               </div>
 
-            </div>
-            
-
-            <div className="moviereviews">
+              <div className="moviereviews">
             <h2>Viimeisimmät arvostelut</h2>
 
               <div className="reviewslisted">
@@ -97,17 +130,13 @@ const MovieDetails = () => {
               </div>
 
             </div>
+              
 
-            <div className="justMargins">
-            <Link to="/search">Tee uusi haku</Link> 
             </div>
-
-          </div>
-          
-        )}
-      </div>
+          )}
+        </div>
       </div>
     );
-  };
-  
-  export default MovieDetails;
+};
+
+export default MovieDetails;
