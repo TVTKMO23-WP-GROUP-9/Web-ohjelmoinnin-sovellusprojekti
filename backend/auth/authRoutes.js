@@ -3,9 +3,9 @@ const express = require('express');
 const authService = require('./authService');
 const router = express.Router();
 
-router.post('/register', async (req, res) => {
-    const { username, password } = req.body;
-    const result = await authService.registerUser(username, password);
+router.post('/auth/register', async (req, res) => {
+    const { username, password, email } = req.body;
+    const result = await authService.registerUser(username, password, email);
     if (result.success) {
         res.status(201).json({ message: result.message });
     } else {
@@ -13,7 +13,7 @@ router.post('/register', async (req, res) => {
     }
 });
 
-router.post('/login', async (req, res) => {
+router.post('/auth/login', async (req, res) => {
     const { username, password } = req.body;
     const result = await authService.loginUser(username, password);
     if (result.success) {
@@ -22,5 +22,16 @@ router.post('/login', async (req, res) => {
         res.status(400).json({ message: result.message });
     }
 });
+
+router.get('/auth/logout', async (req, res) => {
+    try {
+        // session poisto tähän
+        res.status(200).json({ message: "Kirjaudu ulos onnistui" });
+    } catch (error) {
+        console.error('Virhe uloskirjautumisessa:', error);
+        res.status(500).json({ message: "Uloskirjautumisessa tapahtui virhe" });
+    }
+});
+
 
 module.exports = router;

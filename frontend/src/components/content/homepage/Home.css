@@ -1,7 +1,5 @@
 .home-container {
-  height: 100vh;
-  display: flex;
-  flex-direction: row;
+  /*height: 100vh;*/
 }
 
 .left-container,
@@ -16,14 +14,18 @@
 }
 
 .uppercontent {
-  height: 55%;
+  height: 2000px;
   overflow: hidden;
   padding-top: 0%;
   padding-left: 15%;
   padding-right: 15%;
 }
 
-.coming-soon-container {
-  object-fit: cover;
+.lowercontent{
+  height: 2000px;
   overflow: hidden;
+  padding-top: 0%;
+  padding-left: 15%;
+  padding-right: 15%;
 }
+

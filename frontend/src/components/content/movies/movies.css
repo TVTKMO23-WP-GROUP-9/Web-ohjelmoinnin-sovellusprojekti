@@ -80,6 +80,43 @@
     padding: 10px;
 }
 
+#backdropbg {
+    display: inline-block;
+    height: 100vh;
+    margin-bottom: 10px;
+}
+
+.moviemain {
+    display: flex;
+    background-color: var(--moviedetails);
+    border-radius: 10px;
+    margin-top: 25px;
+    padding: 40px;
+}
+
+.movieinfo {
+    margin-left: 80px;
+}
+
+.posterimg {
+    box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 1);
+}
+
+.moviereviews {
+    background-color: var(--moviedetails);
+    border-radius: 10px;
+    margin-top: 25px;
+    padding: 40px;
+}
+
+.reviewslisted {
+    padding: 20px;
+}
+
+.justMargins {
+    margin-top: 25px;
+}
+
 @media screen and (max-width: 800px) {
     .left-column,
     .middle-column,

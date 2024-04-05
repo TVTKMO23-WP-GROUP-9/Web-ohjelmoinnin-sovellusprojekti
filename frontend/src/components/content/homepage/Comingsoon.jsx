@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import './Comingsoon.css'; // Sisällytä CSS-tiedosto suoraan komponenttiin
 
 const Comingsoon = () => {
@@ -22,7 +23,9 @@ const Comingsoon = () => {
             id: eventNode.querySelector('ID').textContent,
             imageUrl: eventNode.querySelector('EventLargeImagePortrait').textContent,
             title: eventNode.querySelector('Title').textContent,
-            eventUrl: eventNode.querySelector('EventURL').textContent
+            eventUrl: eventNode.querySelector('EventURL').textContent,
+            originalTitle: eventNode.querySelector('OriginalTitle').textContent,
+            productionYear: eventNode.querySelector('ProductionYear').textContent
           };
         });
         setEvents(eventsData);
@@ -66,6 +69,22 @@ const Comingsoon = () => {
   const handleMouseLeave = () => {
     clearInterval(intervalId); // Pysäytä interval, kun hiiri poistuu nuolen päältä
   };
+  
+
+  const handleClick = async (originalTitle, productionYear) => {
+    try {
+      const response = await axios.get(`http://localhost:3001/movie/search?query=${encodeURIComponent(originalTitle)}&page=1&year=${encodeURIComponent(productionYear)}&language=any`);
+      const movieId = response.data[0].id; 
+      if (movieId) {
+        // Navigoi elokuvan sivulle suoraan
+        window.location.href = `/movie/${movieId}`;
+      } else {
+        console.error('Elokuvan id:tä ei löydy');
+      }
+    } catch (error) {
+      console.error('Virhe elokuvien haussa:', error);
+    }
+  };
 
   return (
     <div className="event-list">
@@ -87,11 +106,12 @@ const Comingsoon = () => {
               className="event-item"
               onMouseEnter={() => setHoveredEventIndex(index)}
               onMouseLeave={() => setHoveredEventIndex(-1)}
+              onClick={() => handleClick(event.originalTitle, event.productionYear)} 
             >
-              <a href={event.eventUrl} target="_blank" rel="noopener noreferrer">
-                <img src={event.imageUrl} alt="Event" />
-                <div className="head">{event.title}</div>
-              </a>
+
+            <img src={event.imageUrl} alt={event.title} />
+            <div className="head">{event.title}</div>
+
             </div>
           ))}
           <div className="arrow">
