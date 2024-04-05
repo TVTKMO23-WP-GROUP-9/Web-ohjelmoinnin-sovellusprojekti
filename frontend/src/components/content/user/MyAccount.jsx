@@ -22,7 +22,7 @@ export default function MyAccount ({user}) {
             <hr/>
 
                 <p>
-                Siirry <Link to={"/profile/"}>profiiliin</Link> | tai <a href="#">muokkaa profiilia</a> <br/><br />
+                Siirry <Link to={`/profile/${user.user}`}>profiiliin</Link> | tai <a href="#">muokkaa profiilia</a> <br/><br />
                 </p>
 
                 <p>Omasta profiilista löydät omat tietosi ja pääset hallinnoimaan niitä. <br/>
