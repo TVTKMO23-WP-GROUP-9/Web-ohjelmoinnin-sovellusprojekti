@@ -52,11 +52,11 @@
 .providers table {
     border-collapse: collapse;
     border-spacing: 0;
-  }
+}
   
-  .providers table td {
+.providers table td {
     padding: 5px;
-  }
+}
 
 .providers img{
     height: 50px;

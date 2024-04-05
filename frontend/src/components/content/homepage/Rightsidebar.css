@@ -19,26 +19,27 @@
 }
 
 .nearby tr:hover td {
-  background-color: rgba(0, 0, 0, 0.1); /* Tummennettu tausta, voit säätää läpinäkyvyyttä tarvittaessa */
+  background-color: rgba(0, 0, 0, 0.1); 
 }
 
 .nearby tr:hover td b {
-  font-weight: bold; /* Muuta fontin paino boldiksi solun sisällä */
+  font-weight: bold; 
 }
 
 .show-more-button {
-  background-color: transparent;/* Taustaväri näytä lisää -painikkeelle läpinäkyvyydellä */
-  border: none; /* Poista reunukset */
+  background-color: transparent;
+  border: none; 
   padding: 10px 20px; 
   border-radius: 5px; 
-  cursor: pointer; /* Osoita, että painike on vuorovaikutteinen */
-  transition: background-color 0.3s ease; /* Lisää siirtymätauko taustavärin muutoksille */
+  cursor: pointer; 
+  transition: background-color 0.3s ease; 
   color: grey;
 }
 
 .show-more-button:hover {
-  background-color: rgba(0, 0, 0, 0.1); /* Taustavärin muutos, kun hiiri on painikkeen päällä */
+  background-color: rgba(0, 0, 0, 0.1); 
 }
+
 .event-list  ul a {
   text-decoration: none;
   color: #ffffff;

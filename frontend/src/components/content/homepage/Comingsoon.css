@@ -56,6 +56,7 @@
   left: 0;
   font-size: 1em;
   white-space: nowrap;
+  visibility: visible;
 }
 
 .event-item:hover {

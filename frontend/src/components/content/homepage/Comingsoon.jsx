@@ -108,10 +108,8 @@ const Comingsoon = () => {
               onMouseLeave={() => setHoveredEventIndex(-1)}
               onClick={() => handleClick(event.originalTitle, event.productionYear)} 
             >
-
-            <img src={event.imageUrl} alt={event.title} />
+            <img src={event.imageUrl} alt="Event" />
             <div className="head">{event.title}</div>
-
             </div>
           ))}
           <div className="arrow">

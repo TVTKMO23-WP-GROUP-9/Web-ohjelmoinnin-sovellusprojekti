@@ -29,11 +29,11 @@ const Home = () => {
         </div>
         <div className='lowermiddlecontent'>
             <h2>Tuoreimmat arvostelut</h2>
-            <Comingsoon />
+            
         </div>
         <div className='lowercontent'>
             <h2>Lempileffat</h2>
-            <Popularmovies />
+            
         </div>
       </div>
 
