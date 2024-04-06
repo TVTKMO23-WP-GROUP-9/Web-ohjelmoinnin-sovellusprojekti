@@ -5,6 +5,7 @@ import { ThemeProvider, useTheme } from './ThemeProvider';
 import '@css/styles.css';
 import '@css/media.css';
 import '@css/emoji.css';
+import '@css/theme.css';
 import Header from '@components/header/Header';
 import Footer from '@components/footer/Footer';
 import Home from '@content/homepage/Home';
