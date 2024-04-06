@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const favoritelistService = require('./favoritelistService')
-
 router.use(express.json());
 
 router.get('/favoritelist', favoritelistService.getAllFavoritelist);
