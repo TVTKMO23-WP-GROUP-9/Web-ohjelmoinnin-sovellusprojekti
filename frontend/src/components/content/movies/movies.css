@@ -9,7 +9,7 @@
 .movie-item {
     position: relative;
     width: 300px; 
-    /*height: 500px;*/
+
     margin-top: 10px;
     margin-right: 10px; 
     margin-bottom: 10px;
@@ -29,13 +29,11 @@
 }
 
 .movie-item .headoverview {
-    /*visibility: hidden;*/
     display: none;
 }
 
 .movie-item:hover .headoverview {
     text-align: center;
-    /*visibility: visible;*/
     display: block;
     color: white;
     background-color: rgba(0, 0, 0, 0.8);
