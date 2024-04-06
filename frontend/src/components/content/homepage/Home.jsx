@@ -10,7 +10,7 @@ const Home = () => {
 
   return (
 
-    /*<div className='home-container'>
+    <div className='home-container'>
 
       <div className='left-container'>
         <Leftsidebar />
@@ -23,32 +23,21 @@ const Home = () => {
             <Comingsoon />
           </div>
         </div>
-        <div className='lowercontent'>
+        <div className='uppermiddlecontent'>
             <h2>Tämän hetken suosituimmat</h2>
             <Popularmovies />
         </div>
+        <div className='lowermiddlecontent'>
+            <h2>Tuoreimmat arvostelut</h2>
+        </div>
+        <div className='lowercontent'>
+            <h2>Lempileffat</h2> 
+        </div>
       </div>
-
       <div className='right-container'>
-        <Rightsidebar />
+          <Rightsidebar />
       </div>
-
-    </div>*/
-
-    <div className="content">
-
-      <h2>Tulossa Finnkinoon</h2>
-      <Comingsoon />
-
-      <h2>Tämän hetken suosituimmat</h2>
-      <Popularmovies />
-
-      <h2>Seuraavat elokuvat lähelläsi</h2>
-
-      <Rightsidebar />
-
     </div>
-
   );
 };
 

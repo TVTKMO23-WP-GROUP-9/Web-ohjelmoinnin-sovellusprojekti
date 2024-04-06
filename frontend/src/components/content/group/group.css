@@ -16,24 +16,15 @@
     --profile: #182156;
 }
 
-#accountinfo {
-    /*background-color: var(--moviedetails);
-    border-radius: 10px;
-    margin-top: 50px;
-    display: flex; 
-    flex-direction: column; 
-    border: 1px solid #000000;
-    box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.6);*/
-}
 
-.section1 {
+.gsection1 {
     margin-top: 50px;
     padding: 40px;
     background-color: var(--section1);
     border-radius: 10px;
 }
 
-.section2 {
+.gsection2 {
     margin-top: 50px;
     padding: 40px;
     background-color: var(--section2);
@@ -42,7 +33,7 @@
     box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.2);
 }
 
-.section3 {
+.gsection3 {
     margin-top: 50px;
     padding: 40px;
     background-color: var(--section3);
@@ -51,21 +42,15 @@
     box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.2);
 }
 
-#accountinfo h2 {
-    color: var(--h2);
-}
 
-#accountinfo h1 {
-    color: var(--h1);
-}
 
-.userinfo {
+.groupinfo {
     padding: 5px;
     font-size: 0.8em;
     font-weight: 100;
 }
 
-.inner-view {
+.ginner-view {
     background-color: var(--grp-background);
     border-radius: 10px;
     color: var(--grp-text);
@@ -77,18 +62,18 @@
     border: 1px solid #000000;
 }
 
-.inner-left {
+.ginner-left {
     flex-basis: 19%;
     padding: 10px;
     text-align: left;
 }
 
-.inner-right {
+.ginner-right {
     flex-basis: 78%;
     padding: 8px;
 }
 
-.three-view {
+.gthree-view {
     margin-top: 25px;
     background-color: var(--grp-background);
     border-radius: 10px;
@@ -100,27 +85,27 @@
     border: 1px solid #000000;
 }
 
-.three-left {
+.gthree-left {
     flex-basis: 30%;
     padding: 10px;
 }
 
-.three-middle {
+.gthree-middle {
     flex-basis: 30%;
     padding: 10px;
 }
 
-.three-right {
+.gthree-right {
     flex-basis: 30%;
     padding: 10px;
 }
 
-.inner-view h2, 
-.three-view h2 {
+.ginner-view h2, 
+.gthree-view h2 {
     color: var(--profile);
 }   
 
-.profilepic {
+.grouppic {
     border-radius: 5px;
     border: 1px solid #000000;
     box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.2);
