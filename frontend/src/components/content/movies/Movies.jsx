@@ -118,16 +118,6 @@ const Movies = () => {
             </div>
 
             <div className="pdd-right">
-                <b>Sivunumero:</b><br/>
-                <input
-                  className="field shortInput"
-                  type="number" 
-                  placeholder="..."
-                  value={page}
-                  onChange={handlePageChange}
-                />
-            </div>
-            <div className="pdd-right">
                 <b>Vuosi:</b><br/>
                 <input
                   className="field shortInput"
@@ -148,10 +138,26 @@ const Movies = () => {
         <div key={movie.id} className="movie-item">
           <Link to={`/movie/${movie.id}`}>
           <img src={movie.poster_path} alt={movie.title} />
+          <div className="headoverview">
+            <div><h3>{movie.title}</h3></div>
+            <div>{movie.overview}</div>
+          </div>
           </Link>
         </div>
         ))}
-    </div>
+          <div className="pdd-bottom">         
+            <br/>
+            <button onClick={() => setPage(Page => Math.max(Page - 1, 1))} className='show-more-button'>{'<'}</button>
+            <input
+              className="field shortInput"
+              type="number" 
+              placeholder="..."
+              value={page}
+              onChange={handlePageChange}
+            />
+            <button onClick={() => setPage(Page => Page + 1)} className='show-more-button'>{'>'}</button>
+          </div>
+      </div>
     </>
   );
 };

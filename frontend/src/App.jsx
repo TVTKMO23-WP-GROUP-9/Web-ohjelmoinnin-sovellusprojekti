@@ -68,6 +68,7 @@ function App() {
               <Route path="/myaccount" element={<MyAccount user={user} />} />
               <Route path="/profile/:profilename" element={<ProfileDetails user={user} />} />
               {/****** Loput routet, esim.
+               * 
             <Route path="/community" element={<Community />} />
             <Route path="/group/" element={<GroupDetails/>} />
             ********/}

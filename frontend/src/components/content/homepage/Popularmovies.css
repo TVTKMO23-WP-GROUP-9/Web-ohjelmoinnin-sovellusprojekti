@@ -42,7 +42,7 @@
   filter: grayscale(100%)
 }
 
-.head {
+.fmovie-item head {
   color:black;
   background-color: white;
   padding: 0.5em;
@@ -56,6 +56,7 @@
   left: 0;
   font-size: 1em;
   white-space: nowrap;
+  visibility: visible;
 }
 
 .fmovie-item:hover {
