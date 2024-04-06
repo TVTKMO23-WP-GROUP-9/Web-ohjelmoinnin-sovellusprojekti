@@ -139,7 +139,6 @@ body {
   background: linear-gradient(67deg, #0b0c0f, #0b2b55, #0b2b55, #0b2b55, #0b2b55, #0b0c0f);
   z-index: 2;
 }
-
 #header-bar .header-container {
   margin: 0;
   margin-left: 70px;
@@ -197,12 +196,13 @@ h1 /* this title is for @Header */ {
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   animation: headerWave 5s infinite linear;
   
+  
 }
 /******* LOGIN NAPPI *******/
 .login-dropdown-container {
   display: flex;
-  justify-content: center; 
-  align-items: center; 
+  justify-content: right; 
+  align-items: right; 
   position: relative;
 }
 
