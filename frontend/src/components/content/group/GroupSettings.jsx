@@ -1,14 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Navigate, Link } from 'react-router-dom';
-import './user.css';
+import './group.css';
 
-export default function MyAccount ({user}) {
+export default function GroupAccount () {
 
-    console.log(user);
-    if (user === null) {
-        return <Navigate to="/" />
-    } 
-
+    
   return (
 
     <div className="content">
@@ -18,11 +14,11 @@ export default function MyAccount ({user}) {
             <div className="section2">
 
             <h2>Olet kirjautunut käyttäjänä:</h2>
-            <h1>{user.user}</h1>
+            <h1></h1>
             <hr/>
 
                 <p>
-                Siirry <Link to={`/profile/${user.user}`}>profiiliin</Link> | tai <a href="#">muokkaa profiilia</a> <br/><br />
+                Siirry <br/><br />
                 </p>
 
                 <p>Omasta profiilista löydät omat tietosi ja pääset hallinnoimaan niitä. <br/>

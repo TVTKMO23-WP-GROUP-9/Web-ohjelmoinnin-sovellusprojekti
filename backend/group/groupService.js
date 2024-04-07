@@ -98,97 +98,156 @@ async function deleteGroupById(req, res) {
 }
 
 // PUT-endpoint päivittää tietueen groupexplanation- ja timestamp-kentät annetulla groupid-arvolla
-async function updateGroupById(req, res) {
-  const groupid = req.params.groupid;
-  const { groupexplanation } = req.body;
+  async function updateGroupById(req, res) {
+    const groupid = req.params.groupid;
+    const { groupexplanation } = req.body;
+  
+    try {
+      const now = new Date();
+      const query = {
+        text: 'UPDATE group_ SET groupexplanation = $1, timestamp = $2 WHERE groupid = $3',
+        values: [groupexplanation, now, groupid],
+      };
+  
+      const result = await groupModel.queryDatabase(query);
+      res.send(`Tietue päivitetty onnistuneesti: ${result.rowCount}`);
+    } catch (error) {
+      console.error('Virhe päivitettäessä tietuetta:', error);
+      res.status(500).send('Virhe päivitettäessä tietuetta');
+    }
+  }
+  
+  async function createGroup(req, res) {
+    const { groupname, groupexplanation, profileid } = req.body;
+  
+    try {
+      const now = new Date();
+      const groupQuery = {
+        text: 'INSERT INTO group_ (groupname, groupexplanation, timestamp) VALUES ($1, $2, $3) RETURNING groupid',
+        values: [groupname, groupexplanation, now],
+      };
+      
+      const groupResult = await groupModel.queryDatabase(groupQuery);
+      const groupid = groupResult[0].groupid;
+  
+      const memberListQuery = {
+        text: 'INSERT INTO memberlist_ (profileid, mainuser, groupid, pending) VALUES ($1, $2, $3, $4)',
+        values: [profileid, 1, groupid, 0],
+      };
+  
+      await groupModel.queryDatabase(memberListQuery);
+  
+      res.send('Uusi tietue lisätty onnistuneesti');
+    } catch (error) {
+      console.error('Virhe lisättäessä uutta tietuetta:', error);
+      res.status(500).send('Virhe lisättäessä uutta tietuetta ' + error.message);
+    }
+  }
+  
+  async function createMember(req, res) {
+    const { profileid, mainuser, groupid, pending } = req.body;
+  
+    try {
+      const memberListQuery = {
+        text: 'INSERT INTO memberlist_ (profileid, mainuser, groupid, pending) VALUES ($1, $2, $3, $4)',
+        values: [profileid, mainuser, groupid, pending],
+      };
+  
+      await groupModel.queryDatabase(memberListQuery);
+  
+      res.send('Uusi tietue lisätty onnistuneesti');
+    } catch (error) {
+      console.error('Virhe lisättäessä uutta tietuetta:', error);
+      res.status(500).send('Virhe lisättäessä uutta tietuetta ' + error.message);
+    }
+  }
+  
+  async function createMessage(req, res) {
+    const { profileid, groupid, message } = req.body;
+  
+    try {
+      const now = new Date();
+      const messageQuery = {
+        text: 'INSERT INTO message_ (profileid, groupid, message, timestamp) VALUES ($1, $2, $3, $4)',
+        values: [profileid, groupid, message, now],
+      };
+  
+      await groupModel.queryDatabase(messageQuery);
+  
+      res.send('Uusi tietue lisätty onnistuneesti');
+    } catch (error) {
+      console.error('Virhe lisättäessä uutta tietuetta:', error);
+      res.status(500).send('Virhe lisättäessä uutta tietuetta ' + error.message);
+    }
+  }
+
+// GET user groups (ryhmälista käyttäjän profiilisivulle)
+async function getUserGroups(req, res) {
+  const profileid = req.params.profileid; 
 
   try {
-    const now = new Date();
-    const query = {
-      text: 'UPDATE group_ SET groupexplanation = $1, timestamp = $2 WHERE groupid = $3',
-      values: [groupexplanation, now, groupid],
+    const grouplistQuery = {
+      text: `
+        SELECT g.groupname FROM Group_ g
+        INNER JOIN Memberlist_ m ON g.groupid = m.groupid
+        WHERE m.profileid = $1;
+      `,
+      values: [profileid],
     };
 
-    const result = await groupModel.queryDatabase(query);
-    res.send(`Tietue päivitetty onnistuneesti: ${result.rowCount}`);
+    const result = await groupModel.queryDatabase(grouplistQuery);
+
+    if (result.length > 0) {
+      res.json(result);
+    } else {
+      res.status(404).send('Ryhmää ei löytynyt käyttäjälle');
+    }
   } catch (error) {
-    console.error('Virhe päivitettäessä tietuetta:', error);
-    res.status(500).send('Virhe päivitettäessä tietuetta');
+    console.error('Virhe haettaessa käyttäjän ryhmiä:', error);
+    res.status(500).send('Virhe haettaessa käyttäjän ryhmiä');
   }
 }
 
-async function createGroup(req, res) {
-  const { groupname, groupexplanation, profileid } = req.body;
+
+// GET groups by profilename (ryhmälista käyttäjän profiilisivulle)
+async function getGroupsByProfilename(req, res) {
+  const profilename = req.params.profilename; 
 
   try {
-    const now = new Date();
-    const groupQuery = {
-      text: 'INSERT INTO group_ (groupname, groupexplanation, timestamp) VALUES ($1, $2, $3) RETURNING groupid',
-      values: [groupname, groupexplanation, now],
+    const grouplistQuery = {
+      text: `
+        SELECT g.groupname FROM Group_ g
+        INNER JOIN Memberlist_ m ON g.groupid = m.groupid
+        INNER JOIN Profile_ p ON m.profileid = p.profileid
+        WHERE p.profilename = $1;
+      `,
+      values: [profilename],
     };
 
-    const groupResult = await groupModel.queryDatabase(groupQuery);
-    const groupid = groupResult[0].groupid;
+    const result = await groupModel.queryDatabase(grouplistQuery);
 
-    const memberListQuery = {
-      text: 'INSERT INTO memberlist_ (profileid, mainuser, groupid, pending) VALUES ($1, $2, $3, $4)',
-      values: [profileid, 1, groupid, 0],
-    };
-
-    await groupModel.queryDatabase(memberListQuery);
-
-    res.send('Uusi tietue lisätty onnistuneesti');
+    if (result.length > 0) {
+      res.json(result);
+    } else {
+      res.status(404).send('Ryhmää ei löytynyt käyttäjälle');
+    }
   } catch (error) {
-    console.error('Virhe lisättäessä uutta tietuetta:', error);
-    res.status(500).send('Virhe lisättäessä uutta tietuetta ' + error.message);
+    console.error('Virhe haettaessa käyttäjän ryhmiä:', error);
+    res.status(500).send('Virhe haettaessa käyttäjän ryhmiä');
   }
 }
 
-async function createMember(req, res) {
-  const { profileid, mainuser, groupid, pending } = req.body;
 
-  try {
-    const memberListQuery = {
-      text: 'INSERT INTO memberlist_ (profileid, mainuser, groupid, pending) VALUES ($1, $2, $3, $4)',
-      values: [profileid, mainuser, groupid, pending],
-    };
-
-    await groupModel.queryDatabase(memberListQuery);
-
-    res.send('Uusi tietue lisätty onnistuneesti');
-  } catch (error) {
-    console.error('Virhe lisättäessä uutta tietuetta:', error);
-    res.status(500).send('Virhe lisättäessä uutta tietuetta ' + error.message);
-  }
-}
-
-async function createMessage(req, res) {
-  const { profileid, groupid, message } = req.body;
-
-  try {
-    const now = new Date();
-    const messageQuery = {
-      text: 'INSERT INTO message_ (profileid, groupid, message, timestamp) VALUES ($1, $2, $3, $4)',
-      values: [profileid, groupid, message, now],
-    };
-
-    await groupModel.queryDatabase(messageQuery);
-
-    res.send('Uusi tietue lisätty onnistuneesti');
-  } catch (error) {
-    console.error('Virhe lisättäessä uutta tietuetta:', error);
-    res.status(500).send('Virhe lisättäessä uutta tietuetta ' + error.message);
-  }
-}
-
-module.exports = {
-  getAllGroups,
-  getGroupNameById,
-  getGroupIdByName,
-  getGroupById,
-  deleteGroupById,
-  updateGroupById,
-  createGroup,
-  createMember,
-  createMessage,
-};
+  module.exports = {
+    getAllGroups,
+    getGroupNameById,
+    getGroupIdByName,
+    getGroupById,
+    deleteGroupById,
+    updateGroupById,
+    createGroup,
+    createMember,
+    createMessage,
+    getUserGroups,
+    getGroupsByProfilename
+  };

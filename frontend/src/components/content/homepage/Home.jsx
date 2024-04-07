@@ -10,31 +10,37 @@ const Home = () => {
 
   return (
 
+    <div className='content'>
+
     <div className='home-container'>
-      <div className='left-container'>
-        <Leftsidebar />
-      </div>
+
       <div className='mid-container'>
+
         <div className='uppercontent'>
           <div className="coming-soon-container">
             <h2>Tulossa Finnkinoon</h2>
             <Comingsoon />
           </div>
         </div>
-        <div className='lowercontent'>
+        <div className='uppermiddlecontent'>
             <h2>Tämän hetken suosituimmat</h2>
             <Popularmovies />
         </div>
+        <div className='lowermiddlecontent'>
+            <h2>Tuoreimmat arvostelut</h2>
+        </div>
+        <div className='lowercontent'>
+            <h2>Lempileffat</h2> 
+        </div>
+
       </div>
+      
       <div className='right-container'>
-        <Rightsidebar />
+          <Rightsidebar />
       </div>
+
     </div>
-
-    // katosi Comingsoon, kun käytin yo. osaa. Koitin sijoittaa tän seuraavan sisään sitten
-
-
-
+    </div>
   );
 };
 

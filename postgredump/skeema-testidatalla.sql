@@ -17,8 +17,9 @@ CREATE TABLE IF NOT EXISTS Profile_
     profileid SERIAL PRIMARY KEY,
     profilename VARCHAR(255) UNIQUE NOT NULL,
     hashedpassword VARCHAR(255) NOT NULL,
-    email VARCHAR(100) UNIQUE NOT NULL COLLATE pg_catalog."default",
+    email VARCHAR(100) UNIQUE NOT NULL,
     profilepicurl text COLLATE pg_catalog."default",
+    is_private BOOLEAN DEFAULT FALSE, 
     "timestamp" TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     description text COLLATE pg_catalog."default"
 );
@@ -59,8 +60,8 @@ CREATE TABLE IF NOT EXISTS Message_
 CREATE TABLE IF NOT EXISTS Favoritelist_
 (
     idfavoritelist serial NOT NULL,
-    profileid integer NOT NULL,
-    groupid integer NOT NULL,
+    profileid integer,
+    groupid integer,
     favoriteditem text COLLATE pg_catalog."default" NOT NULL,
     showtime text COLLATE pg_catalog."default",
     "timestamp" timestamp without time zone NOT NULL,
@@ -174,6 +175,7 @@ INSERT INTO Profile_ (profilename, hashedPassword, email, profilepicurl, "timest
 ('PaijaanSUA', '$2b$10$EOakCcZdU0hk/jxPajsGaeq1SVAJpDn56P6gXL63M3y6aPSruY9rS', 'paijaansua@example.com', NULL, CURRENT_TIMESTAMP, NULL),
 -- UUUseri hashaamaton salasana: 123456
 ('UUUseri', '$2b$10$09CaL5r.JxvCl2rm2F5BBudYNinrgKKqPfcuVGEXJvdJwub0Q06te', 'uuuseri@example.com', NULL, CURRENT_TIMESTAMP, NULL);
+
 
 INSERT INTO Group_ (groupname, groupexplanation, "timestamp") VALUES
 -- id 1-5
@@ -324,4 +326,168 @@ INSERT INTO Review_ (profileid, revieweditem, review, rating, "timestamp") VALUE
 ('8', 'reviewed_item_here', 'Test review', 4, CURRENT_TIMESTAMP),
 ('9', 'reviewed_item_here', 'Test review', 3, CURRENT_TIMESTAMP),
 ('10', 'reviewed_item_here', 'Test review', 2, CURRENT_TIMESTAMP);
+
+
+-- updatella kuvaukset testikäyttäjille
+UPDATE Profile_
+SET description = 
+    CASE 
+        WHEN profilename = 'Viilipytty' THEN 'Oon elokuvaharrastaja ja rakastan erityisesti komediaelokuvia. Hymyilen aina hyville vitseille ja nauran äänekkäästi lempikohtauksilleni.'
+        WHEN profilename = 'Jankka' THEN 'Mitähän tähän nyt kirjottais... no, oon kauhuelokuvien suurkuluttaja, joka ei säikähdä helpolla. Rakastan adrenaliinin kihinää ja jännitystä!'
+        WHEN profilename = 'komediaa82' THEN 'Moikka, olen komediaa82! Nimeni kertoo jo kaiken - rakastan komediaelokuvia ja nauran aina makeasti hyville vitseille.'
+        WHEN profilename = 'Eloton' THEN 'Tervehdys, olen Eloton! Draamaelokuvien ystävä, joka elää ja hengittää taide-elokuvia. Etsin aina syvällisiä tarinoita ja vangitsevia näyttelijäsuorituksia.'
+        WHEN profilename = 'vainse' THEN 'Täällä yksi elokuvaharrastaja, joka rakastaa löytää uusia helmiä valtavasta elokuvatarjonnasta. Olen aina valmis jakamaan suosikkileffojani muiden kanssa!'
+        WHEN profilename = 'jokaToka' THEN 'Morjens, olen jokaToka! Katson vähän kaikenlaista ja arvostan monipuolisuutta elokuvissa. Olen avoin uusille elokuvakokemuksille ja yllätyksille!'
+        WHEN profilename = 'Mikk0' THEN 'Moro. Oon Mikko. Toimintaelokuvista tykkään. En voi vastustaa jännittäviä toimintakohtauksia. Seuraan aktiivisesti uusimpia elokuvauutisia ja trailereita.'
+        WHEN profilename = 'dramaqueen' THEN 'Mä rakastan elokuvien tunnelmallisuutta ja taidokasta näyttelijäntyötä. Nautin erityisesti draamaelokuvien syvällisistä tarinoista ja emotionaalisista kohtauksista.'
+        WHEN profilename = 'kauhistus' THEN 'HUI! Kauhuelokuvien intohimoinen harrastaja, joka ei pelkää mennä pimeään. Rakastan jännitystä ja yllättäviä käänteitä!'
+        WHEN profilename = 'Jest4s' THEN 'Tervehdys, kulkija. Elokuva-analyytikko ja elokuvakriitikko, joka nauttii elokuvien syvällisestä analysoinnista. Rakastan pureutua elokuvien teemoihin ja symboliikkaan.'
+        WHEN profilename = 'AaveMaria' THEN 'Moikka, olen AaveMaria! Mysteerien ja jännityselokuvien fani, joka rakastaa arvoituksellisia tarinoita ja yllättäviä juonenkäänteitä. Olen aina valmiina seikkailuun!'
+        WHEN profilename = 'siippa5' THEN 'Hei, olen siippa5! Seikkailujen ja fantasiaelokuvien ystävä, joka rakastaa lumoutua mielikuvituksellisista maailmoista. Etsin aina uusia elokuvaseikkailuja ja unohtumattomia tarinoita!'
+        WHEN profilename = 'Pastilli' THEN 'Whiiiiii!!! Visuaalisten elämysten ja tyylikkäiden elokuvien rakastaja. Nautin kauniista kuvista ja elokuvien visuaalisesta toteutuksesta.'
+        WHEN profilename = 'Huutista' THEN 'Terve, olen Huutista! :D:D:D :) Elokuvafani, joka etsii jatkuvasti uusia elokuvaelämyksiä ja seuraa aktiivisesti elokuvamaailman tapahtumia. Rakastan elokuvien monimuotoisuutta ja erilaisia genrejä!'
+        WHEN profilename = 'salaakaton' THEN 'Hei, olen salaakaton! Rakastan elokuvien tunnelmaa ja hienovaraista kerrontaa. Etsin aina elokuvia, jotka herättävät ajatuksia ja jättävät jäljen.'
+        WHEN profilename = 'Kan-Joni' THEN 'Moikka, olen Kan-Joni! Kokenut elokuvafani, joka rakastaa klassisia elokuvia ja elokuvahistoriaa. Olen aina valmiina matkustamaan ajassa taaksepäin elokuvien maailmaan.'
+        WHEN profilename = 'poikamies' THEN 'Hei, olen poikamies! Ois kiva lyötää kultsikainaloon. Ja oon romanttisten komedioiden ja draamojen ystävä, joka uskoo rakkauden voimaan. Nautin elokuvista, jotka saavat sydämeni lämpenemään.'
+        WHEN profilename = 'Misu01' THEN 'Tervehdys, olen Misu01! Tarinoiden ja henkilöhahmojen ystävä, joka arvostaa elokuvien vaikuttavia tarinoita ja syvällisiä merkityksiä. Etsin aina elokuvia, jotka koskettavat syvältä.'
+        WHEN profilename = 'maitotee' THEN 'Moikka, olen maitotee Oulusta! Tunnelmallisten elokuvien ja musiikin rakastaja, joka nauttii elokuvien äänimaailmasta ja tunnelmasta. Rakastan uppoutua elokuvien maailmaan ja nauttia jokaisesta hetkestä.'
+        WHEN profilename = 'lipettiin' THEN 'Tässä tämmöinen elokuvaseikkailija, joka rakastaa odottamattomia juonenkäänteitä ja yllätyksiä. Olen aina valmis matkustamaan elokuvien mielikuvituksellisiin maailmoihin!'
+        WHEN profilename = 'Jenna' THEN 'Heippa, olen Jenna! Draamaelokuvien fani, joka nauttii elokuvien tunnelmallisista tarinoista ja syvällisistä henkilöhahmoista. Rakastan uppoutua elokuvien maailmaan ja elää mukana jokaisessa hetkessä.'
+        WHEN profilename = 'Siilinpieru' THEN 'Morjens. Oon sellanen elokuvien moniottelija, joka nauttii kaikenlaisista elokuvista ja seuraa innokkaasti elokuvamaailman tapahtumia. Rakastan löytää uusia elokuvahelmiä ja jakaa niitä muiden kanssa!'
+        WHEN profilename = 'PaijaanSUA' THEN 'Saako silittää? ^^ Olen elokuvien ystävä, joka arvostaa elokuvien monimuotoisuutta ja erilaisia genrejä. Olen aina valmiina löytämään uusia suosikkileffoja ja jakamaan niitä muiden kanssa!'
+        WHEN profilename = 'UUUseri' THEN 'Terve, olen UUUseri! Toimintaelokuvien suurkuluttaja, joka rakastaa jännitystä ja adrenaliinin kihinää. Olen aina valmiina seuraamaan uusimpia toimintaelokuvia ja ottamaan vastaan seikkailuja!'
+        ELSE 'En ole vielä kertonut itsestäni mitään.'
+    END;
+    
+-- updatella profiilikuvat testikäyttäjille
+UPDATE Profile_
+SET profilepicurl = 'https://i.postimg.cc/yYYqzpzp/profile1.jpg'
+WHERE profileid = '1';
+
+UPDATE Profile_
+SET profilepicurl = 'https://i.postimg.cc/ZnbQ4nXv/profile10.jpg'
+WHERE profileid = '2';
+
+UPDATE Profile_
+SET profilepicurl = 'https://i.postimg.cc/jd8pq6xx/profile2.jpg'
+WHERE profileid = '3';
+
+UPDATE Profile_
+SET profilepicurl = 'https://i.postimg.cc/zG64KJH4/profile3.jpg'
+WHERE profileid = '4';
+
+UPDATE Profile_
+SET profilepicurl = 'https://i.postimg.cc/nLmg16vr/profile4.jpg'
+WHERE profileid = '5';
+
+UPDATE Profile_
+SET profilepicurl = 'https://i.postimg.cc/MT843dDD/profile5.jpg'
+WHERE profileid = '6';
+
+UPDATE Profile_
+SET profilepicurl = 'https://i.postimg.cc/3r169jDX/profile6.jpg'
+WHERE profileid = '7';
+
+UPDATE Profile_
+SET profilepicurl = 'https://i.postimg.cc/cCFbHZN9/profile7.jpg'
+WHERE profileid = '8';
+
+UPDATE Profile_
+SET profilepicurl = 'https://i.postimg.cc/vBLKJf2d/profile8.jpg'
+WHERE profileid = '9';
+
+UPDATE Profile_
+SET profilepicurl = 'https://i.postimg.cc/526ZXHyw/profile9.jpg'
+WHERE profileid = '10';
+
+UPDATE Profile_
+SET profilepicurl = 'https://i.postimg.cc/MT843dDD/profile5.jpg'
+WHERE profileid = '11';
+
+UPDATE Profile_
+SET profilepicurl = 'https://i.postimg.cc/3r169jDX/profile6.jpg'
+WHERE profileid = '12';
+
+UPDATE Profile_
+SET profilepicurl = 'https://i.postimg.cc/cCFbHZN9/profile7.jpg'
+WHERE profileid = '13';
+
+UPDATE Profile_
+SET profilepicurl = 'https://i.postimg.cc/vBLKJf2d/profile8.jpg'
+WHERE profileid = '14';
+
+UPDATE Profile_
+SET profilepicurl = 'https://i.postimg.cc/526ZXHyw/profile9.jpg'
+WHERE profileid = '15';
+
+UPDATE Profile_
+SET profilepicurl = 'https://i.postimg.cc/yYYqzpzp/profile1.jpg'
+WHERE profileid = '16';
+
+UPDATE Profile_
+SET profilepicurl = 'https://i.postimg.cc/ZnbQ4nXv/profile10.jpg'
+WHERE profileid = '17';
+
+UPDATE Profile_
+SET profilepicurl = 'https://i.postimg.cc/jd8pq6xx/profile2.jpg'
+WHERE profileid = '18';
+
+UPDATE Profile_
+SET profilepicurl = 'https://i.postimg.cc/zG64KJH4/profile3.jpg'
+WHERE profileid = '19';
+
+UPDATE Profile_
+SET profilepicurl = 'https://i.postimg.cc/nLmg16vr/profile4.jpg'
+WHERE profileid = '20';
+
+UPDATE Profile_
+SET profilepicurl = 'https://i.postimg.cc/MT843dDD/profile5.jpg'
+WHERE profileid = '21';
+
+UPDATE Profile_
+SET profilepicurl = 'https://i.postimg.cc/3r169jDX/profile6.jpg'
+WHERE profileid = '22';
+
+UPDATE Profile_
+SET profilepicurl = 'https://i.postimg.cc/cCFbHZN9/profile7.jpg'
+WHERE profileid = '23';
+
+-- vipu, että käyttäjä saa profiilinsa yksityiseksi
+ALTER TABLE Profile_
+ADD COLUMN is_private BOOLEAN DEFAULT FALSE;
+
+-- yksityinen tili käyttäjille 8-14
+UPDATE Profile_
+SET is_private = TRUE
+WHERE profileid BETWEEN 8 AND 14;
+
+INSERT INTO Group_ (groupname, groupexplanation, "timestamp") VALUES
+('Kaikenkarvaiset koirat', 'tässä leffaryhmä koirien ystäville. Kaikki koirafilmit sallittuja ja erittäin toivottuja!', CURRENT_TIMESTAMP);
+
+INSERT INTO Memberlist_ (profileid, mainuser, groupid, pending) VALUES
+-- Kaikenkarvaiset koirat
+('1', 1, '46', 0),
+('2', 0, '46', 0),
+('3', 0, '46', 0),
+('4', 0, '46', 0),
+('5', 0, '46', 0),
+('6', 0, '46', 0),
+('7', 1, '46', 0),
+('8', 0, '46', 0),
+('9', 0, '46', 0),
+('10', 0, '46', 0),
+('11', 0, '46', 0),
+('12', 0, '46', 0),
+('13', 1, '46', 0),
+('14', 0, '46', 0),
+('15', 0, '46', 0),
+('16', 0, '46', 0),
+('17', 0, '46', 0),
+('17', 0, '46', 0),
+('18', 0, '46', 0),
+('19', 0, '46', 0),
+('20', 0, '46', 0),
+('21', 0, '46', 0),
+('22', 0, '46', 0),
+('23', 0, '46', 0);
 

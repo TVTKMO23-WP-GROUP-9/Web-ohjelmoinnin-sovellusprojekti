@@ -1,0 +1,101 @@
+
+/******* USING THEME PROVIDER? *******/
+/******* consume styles with: " var(--namehere) " and make sure to include that --namehere in both: " .light " and  " .dark " -modes *******/
+/******* Yleiskäyttöiset tyylimääritykset teemat light ja dark huomioiden *******/
+
+.light, .dark {
+    --logo: url('../images/leffasovellus-r9.png');
+    /*shadows*/
+    --shadow02: 0px 0px 10px 2px rgba(0, 0, 0, 0.2);
+    --shadow05: 0px 0px 10px 2px rgba(0, 0, 0, 0.5);
+    --shadow06: 0px 0px 10px 2px rgba(0, 0, 0, 0.6);
+    --shadow1: 0px 0px 10px 2px rgba(0, 0, 0, 1);
+    /*borders*/
+    --solid: 1px solid #000000;
+    --solid3: 3px solid #000000;
+    --dashed: 1px dashed #000000;
+    /*fonts*/
+    --thasadith: "Thasadith", sans-serif;
+    --roboto: "Roboto Condensed", sans-serif;
+    /*colors*/
+    --footerbg: #342f2a;
+}
+
+.light { 
+    --github-image: url('../images/github-mark.png');
+    /*borders*/
+    --left-border: 9px solid #303030;
+    /*colors*/
+    --toggleDivs: rgba(134, 106, 68, 0.9);
+    --moviedetails: rgba(134, 106, 68, 0.85);
+    --background-color: #faf0e4;
+    --text-color: #000000;
+    --grp-background: #c5c5c5;
+    --grp-text: #000000;
+    --h2: #000000;
+    --button-bg: #282e37;
+    --button-text: #ffffff;
+    --create-bg: #b1b1b1;
+    --hoverCoffee: #5a4938;
+    --a-link: #25272d;
+    --a-link-hover: #303030;
+    --footer-hover: #ededed;
+    --lightCoffee: #dcc1a3;
+    --strongCoffee: #5a4938;
+    --sideLinks: #000000;
+    --sideLinksHover: #01367b;
+    --blueish: #c8dbf2;
+    --section1: #d6a156;
+    --section2: #d8cfc5;
+    --section3: #bea280;
+    --h2: #182156;
+    --h1: #182156;
+    --profile: #182156;
+    --greyblue: #d6d6d6;
+    --li-under: #faf0e4;
+    --li-hover: #cfdaef;
+    --table-bg: #d8cfc5;
+    --table-tr-hover: #F5F5F5;
+    --table-link: #1c1303;
+    --table-linkH: #4a7ab8;
+  }
+  
+  .dark {
+    --github-image: url('../images/github-mark-white.png');
+    /*borders*/
+    --left-border: 9px solid #ffffff;
+    /*colors*/
+    --toggleDivs: rgba(40, 33, 23, 0.94);
+    --moviedetails: rgba(40, 33, 23, 0.85);
+    --background-color: #1d1d1d;
+    --text-color: #ffffff;
+    --grp-background: #c5c5c5;
+    --grp-text: #ebe6df;
+    --h2: #ffffff;
+    --button-bg: #1a1a1a;
+    --button-text: #ffffff;
+    --create-bg: #373737;
+    --hoverCoffee: #dcc1a3;
+    --a-link: #ffffff;
+    --a-link-hover: #323640;
+    --footer-hover: #ededed;
+    --lightCoffee: #dcc1a3;
+    --strongCoffee: #5a4938;
+    --sideLinks: #f4dec4;
+    --sideLinksHover:#d7e5f9;
+    --blueish: #6daaff;
+    --section1: #282118;
+    --section2: #0b2b55;
+    --section3: #342f2a;
+    --h2: #ebeff9;
+    --h1: #ebeff9;
+    --profile: #182156;
+    --greyblue: #0b274c;
+    --li-under: #0b121b;
+    --li-hover: #4c6380;
+    --table-bg: #273e5b;
+    --table-tr-hover: #343434;
+    --table-link: #ffffff;
+    --table-linkH: #ccc596;
+}
+  

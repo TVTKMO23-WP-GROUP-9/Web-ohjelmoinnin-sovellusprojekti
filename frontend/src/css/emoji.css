@@ -1,0 +1,18 @@
+/* unicode emoji 15.1 */
+.emoji {
+    font-family: 'Noto Color Emoji', sans-serif;
+    font-size: 28px;
+  }
+  
+  /*popcorn*/
+  .uni01::before { content: "\1F37F"; }
+  /*suurennuslasi*/
+  .uni02::before { content: "\1F50D"; }
+  /*party*/
+  .uni03::before { content: "\1F389"; }
+  /*lahja*/
+  .uni04::before { content: "\1F381"; }
+  /*chat*/
+.uni05::before { content: "\1F5E8"; }
+
+

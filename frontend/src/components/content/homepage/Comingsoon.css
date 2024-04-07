@@ -1,8 +1,3 @@
-.event-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center; /* Keskitä sisällön vaakasuunnassa */
-}
 
 .events-container {
   display: flex;
@@ -10,30 +5,26 @@
   align-items: center;
   margin-top: 0vmin;
   margin-bottom: 1vmin;
-  margin-left: 2vmin;
-  margin-right: 2vmin;
+  /*margin-left: 2vmin;
+  margin-right: 2vmin;*/
   font-family: sans-serif;
   overflow: hidden;
-  transform: skew(5deg);
-
+  /*transform: skew(5deg);*/
 }
 
 .event-item {
-  flex: 1;
+  flex: 1.1;
   transition: all 1s ease-in-out;
   height: 40vmin;
   position: relative;
 }
-
 .arrow {
   height: 40vmin;
 }
-
 .arrow img{
   height: 100%;
   width: auto;
 }
-
 .event-item img {
   width: 100%; 
   height: 100%; 
@@ -61,11 +52,9 @@
 .event-item:hover {
   flex-grow: 3;
 }
-
 .event-item:hover img {
   filter: grayscale(0);
 }
-
 .event-item:hover .head {
   text-align: center;
   top: calc(100%-2em);

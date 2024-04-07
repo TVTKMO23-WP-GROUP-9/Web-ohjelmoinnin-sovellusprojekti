@@ -8,6 +8,7 @@ const Rightsidebar = () => {
   const [error, setError] = useState(null);
   const [nearestTheater, setNearestTheater] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [showCount, setShowCount] = useState(10);
   const teatterit = [
     { name: "1012", latitude: 60.206, longitude: 24.656 }, //Espoo
     { name: "1002", latitude: 60.166, longitude: 24.943 }, //Helsinki 
@@ -129,7 +130,7 @@ const Rightsidebar = () => {
     const minutes = date.getMinutes().toString().padStart(2, '0'); // Lisää etunolla, jos minuutit ovat yhden numeron mittaisia
     return `${hours}:${minutes}`;
   };
-  
+
   const handleClick = async (title, year) => {
     try {
       const response = await axios.get(`http://localhost:3001/movie/search?query=${encodeURIComponent(title)}&page=1&year=${encodeURIComponent(year)}&language=any`);
@@ -145,31 +146,58 @@ const Rightsidebar = () => {
     }
   }; 
 
-  return (
-    <div className="event-list">
-    {loading && <p>Ladataan...</p>}
-    {error && <p>{error}</p>}
-    {location && (
-      <div>
-        {nearestTheater && (
-          <div>
-            <ul>   
-              {shows.map((show, index) => (
-              <li key={index}>
-                <div onClick={() => handleClick(show.title, show.year)}>
-                <h4>{show.auditorium}</h4>
-                <p>{formatTime(show.startTime)}<br/>{show.title}</p>
-                </div>
-              </li>
-              ))}
-            </ul>
-          </div> 
-        )}
-      </div>
-    )}
-  </div>
-);
-};
+  const showMore = () => {
+    setShowCount(prevCount => {
+      const nextCount = prevCount + 10;
+      return Math.min(nextCount, shows.length);
+    });
+  };
+  
+  const showLess = () => {
+    setShowCount(prevCount => {
+      return Math.max(prevCount - 10, 10);
+    });
+  };
 
+
+  return (
+    <>
+      {loading && <p>Ladataan...</p>}
+      {error && <p>{error}</p>}
+      {location && (
+        <div>
+          
+          {nearestTheater && (
+            <div className="nearbyEvents" >
+              <h2>Seuraavat näytökset lähelläsi</h2> 
+                
+                {shows.slice(showCount - 10, showCount).map((show, index) => (
+    
+                    <div onClick={() => handleClick(show.title, show.year)}>
+                      <table className="nearby"  key={index}>
+                        <tbody>
+                          <tr onClick={() => handleClick(show.title, show.year)}>
+                            <td><b>{show.auditorium}</b></td>
+                            <td>klo <b>{formatTime(show.startTime)}</b></td>
+                            <td>{show.title}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    ))}
+                  
+                <button onClick={showLess} className='show-more-button'>{'⯇'}</button>
+
+                &nbsp; Selaa &nbsp; 
+              
+                <button onClick={showMore} className='show-more-button'>{'⯈'}</button>
+                
+            </div> 
+          )}
+        </div>
+      )}
+    </>
+  );
+};
 
 export default Rightsidebar;

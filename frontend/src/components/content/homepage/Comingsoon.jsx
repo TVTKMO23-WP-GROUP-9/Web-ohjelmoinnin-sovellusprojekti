@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './Comingsoon.css'; // Sisällytä CSS-tiedosto suoraan komponenttiin
-
 const Comingsoon = () => {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -9,7 +8,6 @@ const Comingsoon = () => {
   const [currentEventIndex, setCurrentEventIndex] = useState(0);
   const [visibleEvents, setVisibleEvents] = useState([]);
   const [intervalId, setIntervalId] = useState(null); // Lisätty intervalId
-
   useEffect(() => {
     const fetchEvents = async () => {
       try {
@@ -35,42 +33,33 @@ const Comingsoon = () => {
         setLoading(false);
       }
     };
-
     fetchEvents();
   }, []);
-
   useEffect(() => {
     setVisibleEvents(events.slice(currentEventIndex, currentEventIndex + 5));
   }, [currentEventIndex, events]);
-
   const handleNext = () => {
     if (hoveredEventIndex === -1) {
       setCurrentEventIndex(prevIndex => Math.min(prevIndex + 1, events.length - 5));
     }
   };
-
   const handlePrev = () => {
     if (hoveredEventIndex === -1) {
       setCurrentEventIndex(prevIndex => Math.max(prevIndex - 1, 0));
     }
   };
-
   const handleMouseEnter = (handler) => {
     handler(); // Kutsu tapahtumakäsittelijää heti
-
     // Kutsu tapahtumakäsittelijää uudelleen 0.2 sekunnin välein
     const id = setInterval(handler, 200);
     setIntervalId(id); // Tallenna intervalin id
-
     // Pysäytä interval, kun hiiri poistuu nuolen päältä
     return () => clearInterval(id);
   };
-
   const handleMouseLeave = () => {
     clearInterval(intervalId); // Pysäytä interval, kun hiiri poistuu nuolen päältä
   };
   
-
   const handleClick = async (originalTitle, productionYear) => {
     try {
       const response = await axios.get(`http://localhost:3001/movie/search?query=${encodeURIComponent(originalTitle)}&page=1&year=${encodeURIComponent(productionYear)}&language=any`);
@@ -85,7 +74,6 @@ const Comingsoon = () => {
       console.error('Virhe elokuvien haussa:', error);
     }
   };
-
   return (
     <div className="event-list">
       {loading ? (
@@ -110,6 +98,7 @@ const Comingsoon = () => {
             >
 
             <img src={event.imageUrl} alt={event.title} />
+            <img src={event.imageUrl} alt="Event" />
             <div className="head">{event.title}</div>
 
             </div>
@@ -127,5 +116,4 @@ const Comingsoon = () => {
     </div>
   );
 };
-
 export default Comingsoon;

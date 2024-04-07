@@ -1,0 +1,215 @@
+
+#accountinfo {
+    /*background-color: var(--moviedetails);
+    border-radius: 10px;
+    margin-top: 50px;
+    display: flex; 
+    flex-direction: column; 
+    border: var(--solid);
+    box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.6);*/
+}
+
+.section1 {
+    margin-top: 50px;
+    padding: 40px;
+    background-color: var(--section1);
+    border-radius: 10px;
+}
+
+.section2 {
+    margin-top: 50px;
+    padding: 40px;
+    background-color: var(--section2);
+    border: var(--solid);
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.2);
+}
+
+.section3 {
+    margin-top: 50px;
+    padding: 40px;
+    background-color: var(--section3);
+    border: var(--solid);
+    border-radius: 10px;
+    box-shadow: var(--shadow02);
+}
+
+#accountinfo h2 {
+    color: var(--h2);
+}
+
+#accountinfo h1 {
+    color: var(--h1);
+}
+
+
+.inner-view {
+    background-color: var(--grp-background);
+    border-radius: 10px;
+    color: var(--grp-text);
+    display: flex; 
+    flex-direction: row;
+    flex-wrap: wrap; 
+    padding: 1em;
+    margin-top: 25px;
+    border: var(--solid);
+}
+
+.inner-left {
+    flex-basis: 19%;
+    padding: 10px;
+    text-align: left;
+}
+
+.inner-right {
+    flex-basis: 78%;
+    padding: 8px;
+}
+
+.two-view {
+    margin-top: 25px;
+    background-color: var(--greyblue);
+    border-bottom-right-radius: 40px;
+    border-top-left-radius: 40px;
+    border: 3px solid #000000;
+    color: var(--grp-text);
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap; 
+    justify-content: space-between;
+    padding: 1em;
+    box-shadow: var(--shadow02);
+}
+
+.two-view h2 {
+    padding-left: 10px;
+}
+
+.two-left, .two-right {
+    margin-top: -20px;
+    width: 36%;
+    flex-wrap: wrap; 
+}
+
+.two-right {
+    margin-right: -20px;
+}
+
+.two-extra {
+    border-top: var(--solid);
+}
+
+.three-right {
+    flex-basis: 30%;
+    padding: 10px;
+}
+
+.inner-view h2, 
+.three-view h2 {
+    color: var(--profile);
+}   
+
+.profilepic {
+    border-radius: 5px;
+    border: var(--solid);
+    box-shadow: var(--shadow02);
+    width: 250px;
+    height: 250px;
+    display: block;
+    object-fit: cover;
+}
+
+.results {
+    margin-left: -31px;
+    margin-bottom: -20px;
+    display: block;
+    padding-left: 12px;
+}
+
+.results li {
+    background-color: var(--li-under);
+    padding-left: 14px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    
+}
+
+.results li:hover {
+    background-color: var(--li-hover);
+    box-shadow: var(--shadow02);
+}
+
+.results a:hover {
+    color: var(--section2);
+}
+
+ul {
+    list-style-type: none;
+    padding: 8px;
+}
+
+.communityinfo {
+    color: var(--text-color);
+    padding: 5px;
+    font-size: 0.8em;
+    font-weight: 100;
+}
+
+.buttonnext {
+    font-size: 0.8em;
+    padding: 4px;
+    box-shadow: var(--shadow02);
+}
+
+#backdropbg {
+    display: inline-block;
+    height: 100vh;
+    margin-bottom: 10px;
+}
+
+.communityTbl {
+    width: 100%;
+    background-color: var(--table-bg);
+    border-collapse: collapse;
+    border-bottom: var(--dashed);
+  }
+  
+.communityTbl td {
+    text-align: left;
+    margin-left: 0;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start;
+    list-style-type: none;
+    font-family: var(--thasadith);
+    font-size: 1em;
+}
+  
+.communityTbl td {
+    padding: 14px;
+}
+  
+.communityTbl tr:hover {
+    background-color: var(--table-tr-hover);
+}
+
+.communityTbl a:hover {
+    color: var(--blueish);
+}
+
+.communityDiv {
+    width: 100%;
+    margin-left: -19px;
+    margin-bottom: -20px;
+    border-radius: 10px;
+}
+
+.communityDiv a {
+    font-weight: 600;
+    color: var(--table-link);
+}
+
+.communityDiv a:hover {
+    color: var(--table-linkH);
+}
+

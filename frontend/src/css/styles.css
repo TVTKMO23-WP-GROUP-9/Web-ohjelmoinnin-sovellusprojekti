@@ -18,66 +18,13 @@ body {
 }
 
 .body {
+  display: flex;
+  flex-direction: column;
   margin: 0;
   min-height: 100vh;
   color: var(--text-color);
   background-color: var(--background-color);
 }
-
-/******* USING THEME PROVIDER? *******/
-/******* consume styles with: " var(--namehere) " and make sure to include that --namehere in both: " .light " and  " .dark " -modes *******/
-
-.light { 
-  --background-color: #faf0e4;
-  --text-color: #000000;
-  --h2: #000000;
-  --github-image: url('../images/github-mark.png');
-  --logo: url('../images/leffasovellus-r9.png');
-  --button-bg: #282e37;
-  --button-text: #ffffff;
-  --create-bg: #b1b1b1;
-  --left-border: 9px solid #303030;
-  --hoverCoffee: #5a4938;
-  --a-link: #25272d;
-  --a-link-hover: #303030;
-  --footer-hover: #ededed;
-  --lightCoffee: #dcc1a3;
-  --strongCoffee: #5a4938;
-  --toggleDivs: rgba(134, 106, 68, 0.9);
-  --moviedetails: rgba(134, 106, 68, 0.85);
-  --sideLinks: #000000;
-  --sideLinksHover: #01367b;
-  --blueish: #c8dbf2;
-}
-
-.dark {
-  --background-color: #1d1d1d;
-  --text-color: #ffffff;
-  --h2: #ffffff;
-  --github-image: url('../images/github-mark-white.png');
-  --logo: url('../images/leffasovellus-r9.png');
-  --button-bg: #1a1a1a;
-  --button-text: #ffffff;
-  --create-bg: #373737;
-  --left-border: 9px solid #ffffff;
-  --hoverCoffee: #dcc1a3;
-  --a-link: #ffffff;
-  --a-link-hover: #323640;
-  --footer-hover: #ededed;
-  --lightCoffee: #dcc1a3;
-  --strongCoffee: #5a4938;
-  --toggleDivs: rgba(40, 33, 23, 0.94);
-  --moviedetails: rgba(40, 33, 23, 0.85);
-  --sideLinks: #f4dec4;
-  --sideLinksHover:#d7e5f9;
-  --blueish: #6daaff;
-}
-
-/******* MIDDLESECTION ********/
-/*
-.sivu {
-  min-height: 2800px;
-}*/
 
 /******* HEADER WITH NAVIGATION BAR *******/
 
@@ -93,35 +40,21 @@ body {
   align-items: flex-start;
   height: var(--header-height);
   list-style-type: none;
-  font-family: "Thasadith", sans-serif;
-  font-size: 1.5em;
-  color: #ffffff;
+  font-family: var(--thasadith);
+  font-size: 1.6em;
 }
 
 .menu-items-right {
   position: absolute;
-  right: 0;
+  right: -20px;
   top: 0;
   display: flex;
   align-items: center;
 }
 
-.menu-items ul a {
-  text-decoration: none;
-  color: #ffffff;
-}
-
-.menu-items ul a:hover {
-  color: #dcc1a1;
-}
-
 .menu-items li{
   list-style-type: none;
-  padding-left: 60px;
-}
-
-.menu-items.open {
-  display: block;
+  padding-left: 40px;
 }
 
 .lilogin {
@@ -138,12 +71,11 @@ body {
   top: 0;
   height: 100px;
   width: 100%;
-  border-bottom: 1px solid #000000;
-  box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.5);
+  border-bottom: var(--solid);
+  box-shadow: var(--shadow05);
   background: linear-gradient(67deg, #0b0c0f, #0b2b55, #0b2b55, #0b2b55, #0b2b55, #0b0c0f);
   z-index: 2;
 }
-
 #header-bar .header-container {
   margin: 0;
   margin-left: 70px;
@@ -156,12 +88,20 @@ body {
   color: #ffffff;
 }
 
+#header-bar ul.username {
+  color: #ffffff;
+  margin-top: 7px;
+  margin-right: 113px;
+  font-size: 0.9em;
+}
+
 #header-bar ul.sideLinks a {
   font-weight: 600;
   color: var(--sideLinks);
 }
 
 #header-bar ul.sideLinks a:hover {
+  
   color: var(--sideLinksHover);
 }
 
@@ -184,7 +124,7 @@ body {
 h1 /* this title is for @Header */ {
   margin: 0 auto;
   margin-top: -9px;
-  font-family: "Thasadith", sans-serif;
+  font-family: var(--thasadith);
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
@@ -193,12 +133,13 @@ h1 /* this title is for @Header */ {
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   animation: headerWave 5s infinite linear;
   
+  
 }
 /******* LOGIN NAPPI *******/
 .login-dropdown-container {
   display: flex;
-  justify-content: center; 
-  align-items: center; 
+  justify-content: right; 
+  align-items: right; 
   position: relative;
 }
 
@@ -206,13 +147,13 @@ h1 /* this title is for @Header */ {
   position: absolute;
   background-color: var(--lightCoffee); 
   background-color: var(--toggleDivs);
-  border: 1px solid #000000;
+  border: var(--solid);
   border-radius: 5px;
-  box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.5);
+  box-shadow: var(--shadow05);
   padding: 10px;
   width: 250px;
   top: 50px;
-  right: 20px;
+  right: 40px;
   font-size: 1em;
   padding-left: 30px;
 }
@@ -221,20 +162,16 @@ h1 /* this title is for @Header */ {
   display: block;
 }
 
-
 /******* FOOTER *******/
 
 #footer {
   position: absolute;
   bottom: 0;
-  left: 0;
   width: 100%;
   justify-content: center;
-  bottom: 0px;
   padding-top: 30px;
-  padding-bottom: 3px;
   align-items: center;
-  border-top: 1px solid #000000;
+  border-top: 3px solid #0b0c0f;
   background: #342f2a;
   color: #ffffff;
   font-size: 1.1em;
@@ -254,10 +191,9 @@ h1 /* this title is for @Header */ {
 .content {
   margin: 0 auto;
   padding-top: 20px;
-  padding-left: 25px;
-  padding-right: 25px;
+
   padding-bottom: 40px;
-  max-width: 1600px;
+  width: 70vw;
   text-align: left;
 }
 
@@ -273,11 +209,10 @@ a:hover {
   color: var(--a-link-hover);
 }
 
-
 /******* TITLES *******/
 
 h2 /* titles for @Content */ {
-  font-family: "Roboto Condensed", sans-serif;
+  font-family: var(--roboto);
   font-weight: 400;
   font-style: normal;
   font-size: 1.6em;
@@ -285,7 +220,7 @@ h2 /* titles for @Content */ {
 }
 
 h3 /* hamburger */ {
-  font-family: "Thasadith", sans-serif;
+  font-family: var(--thasadith);
   font-weight: 400;
   font-style: normal;
   font-size: 1.6em;
@@ -304,7 +239,7 @@ h3 /* hamburger */ {
   font-family: inherit;
   background-color: var(--button-bg);
   color: var(--button-text);
-  border: 1px solid transparent;
+  border: var(--solid);
   cursor: pointer;
   transition: border-color 0.25s;
 }
@@ -314,7 +249,7 @@ h3 /* hamburger */ {
   margin-bottom: 20px;
   margin-right: 8px;
   border-radius: 8px;
-  border: 1px solid transparent;
+  border: var(--solid);
   padding: 0.6em 1.2em;
   font-size: 1em;
   font-weight: 500;
@@ -330,7 +265,7 @@ h3 /* hamburger */ {
   margin-bottom: 10px;
   margin-right: 8px;
   border-radius: 8px;
-  border: 1px solid transparent;
+  border: var(--solid);
   padding: 0.2em 0.8em;
   font-size: 0.8em;
   font-family: inherit;
@@ -338,7 +273,6 @@ h3 /* hamburger */ {
   color: var(--button-text);
   cursor: pointer;
 }
-
 
 button:hover {
   border-color: #646cff;
@@ -351,71 +285,55 @@ button:focus-visible {
 
 /******* Hamppari *******/
 
-  @media only screen and (min-width: 768px) {
-    .mobile-menu-icon {
-      display: block;
-      color: var(--lightCoffee);
-    }
-    .mobile-menu-icon :hover {
-      color: var(--strongCoffee);
-    }
-    
-  }
+.mobile-menu-icon {
+  display: block;
+  font-size: 1.3em;
+  color: var(--lightCoffee);
+}
 
-  .burger-items {
-    display: none;
-  }
+.mobile-menu-icon :hover {
+  color: var(--strongCoffee);
+}
 
-  .burger-items.open {
-    display: block; 
-  }
+.burger-items {
+  display: none;
+}
 
-  .burger-items {
-    position: absolute;
-    top: 101px; 
-    left: 0;
-    border-right: 3px solid #000000;
-    background-color: var(--toggleDivs);
-    box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.5);
-    padding: 10px;
-    width: 200px;
-    height: 100em;
-    color: var(--text-color);
-  }
-  
-  .burger-items ul {
-    top: 101px; 
-    left: 0;
+.burger-items.open {
+  display: block; 
+}
 
-  }
+.burger-items {
+  position: absolute;
+  top: 101px; 
+  left: 0;
+  border-right: var(--solid3);
+  background-color: var(--toggleDivs);
+  box-shadow: var(--shadow05);
+  padding: 10px;
+  width: 200px;
+  height: 100em;
+  color: var(--text-color);
+}
 
-  .burger-items ul {
-    margin: 10px;
-    padding: 0;
-    display: block;
-    text-align: left;
-    padding-left: 10px;
-    height: var(--header-height);
-    list-style-type: none;
-    font-family: "Thasadith", sans-serif;
-    font-size: 1.5em;
-    color: var(--text-color);
-    color: #fff;
-  }
-  
-  .burger-items ul a {
-    text-decoration: none;
-    color: var(--text-color);
-  }
-  
-  .burger-items ul a:hover {
-    color: #dcc1a1;
-  }
-  
-  .burger-items li{
-    list-style-type: none;
-  }
-  
+.burger-items ul {
+  top: 101px; 
+  left: 0;
+}
+
+.burger-items ul {
+  margin: 10px;
+  padding: 0;
+  display: block;
+  text-align: left;
+  padding-left: 10px;
+  height: var(--header-height);
+  list-style-type: none;
+  font-family: var(--thasadith);
+  font-size: 1.5em;
+  color: var(--text-color);
+  color: #fff;
+}
 
 /******* BUTTONS *******/
 
@@ -455,4 +373,9 @@ input  {
   background-image: var(--logo);
   background-size: contain;
   background-repeat: no-repeat;
+}
+
+
+#screenError {
+  display: none;
 }

@@ -10,12 +10,11 @@
   align-items: center;
   margin-top: 0vmin;
   margin-bottom: 1vmin;
-  margin-left: 2vmin;
-  margin-right: 2vmin;
+  /*margin-left: 2vmin;
+  margin-right: 2vmin;*/
   font-family: sans-serif;
   overflow: hidden;
   transform: skew(-5deg);
-
 }
 
 .fmovie-item {
@@ -42,7 +41,7 @@
   filter: grayscale(100%)
 }
 
-.head {
+.fmovie-item head {
   color:black;
   background-color: white;
   padding: 0.5em;
@@ -56,6 +55,7 @@
   left: 0;
   font-size: 1em;
   white-space: nowrap;
+  visibility: visible;
 }
 
 .fmovie-item:hover {
