@@ -1,15 +1,32 @@
 const reviewModel = require('./reviewModel');
 
+
 // GET-endpoint hakee groupname taulusta review annetun groupid-arvon perusteella
 async function getAllReviews(req, res) {
   try {
-      const query = 'SELECT * FROM review_';
+      const query = 'SELECT * FROM Review_';
       const review = await reviewModel.queryDatabase(query);
       res.json(review);
-      } catch (error) {
+  } catch (error) {
       console.error('Virhe haettaessa tietueita:', error);
       res.status(500).send('Virhe haettaessa tietueita');
-      }
+  }
+};
+
+// arvostelut käyttäjältä x esim. profiilisivulle
+async function getReviewsByProfile(req, res) {
+  const id = req.params.id;
+  try {
+    const query = {
+      text: 'SELECT * FROM Review_ WHERE profileid = $1',
+      values: [id],
+    }; 
+    const reviews = await reviewModel.queryDatabase(query); 
+    res.json(reviews);
+  } catch (error) {
+    console.error('Virhe haettaessa arvosteluja:', error);
+    res.status(500).send('Virhe haettaessa arvosteluja');
+  }
 }
 
 async function getReviewById(req, res) {
@@ -56,16 +73,21 @@ async function createReview(req, res) {
 }
 
 async function updateReview(req, res) {
-  const id = req.params.id;
-  const { user_id, product_id, rating, comment, date_posted } = req.body;
+  const idreview = req.params.id;
+  const { profileid, revieweditem, review, rating } = req.body;
   try {
-    await reviewModel.updateReview(id, user_id, product_id, rating, comment, date_posted);
+    const query = {
+      text: 'UPDATE Review_ SET profileid = $1, revieweditem = $2, review = $3, rating = $4 WHERE idreview = $5',
+      values: [profileid, revieweditem, review, rating, idreview],
+    }; 
+    await reviewModel.queryDatabase(query); 
     res.send('Arvostelu päivitetty onnistuneesti');
   } catch (error) {
     console.error('Virhe päivitettäessä arvostelua:', error);
     res.status(500).send('Virhe päivitettäessä arvostelua');
   }
 }
+
 
 async function deleteReview(req, res) {
   const id = req.params.id;
@@ -84,5 +106,6 @@ module.exports = {
   getReviewById,
   createReview,
   updateReview,
-  deleteReview
+  deleteReview,
+  getReviewsByProfile,
 };

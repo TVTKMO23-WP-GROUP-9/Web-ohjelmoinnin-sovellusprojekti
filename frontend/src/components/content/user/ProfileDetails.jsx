@@ -3,6 +3,7 @@ import './user.css';
 import axios from 'axios';
 import { useParams, Link } from 'react-router-dom';
 import GroupList from './GroupList';
+import ReviewList from './ReviewList';
 
 const ProfileDetails = ({ user }) => {
     const [profile, setProfile] = useState(null);
@@ -55,10 +56,7 @@ const isOwnProfile = user && profile && user.username && profile.profilename ===
                 </div>
 
                 <div className="three-right">
-                    <h2>Arvostelut</h2>
-                    <ul>
-                        {/*ehkä tähän*/}
-                    </ul>
+                    <ReviewList profile={profile}/>
                 </div>
             </div>}
         </div>
