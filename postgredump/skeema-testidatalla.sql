@@ -19,6 +19,7 @@ CREATE TABLE IF NOT EXISTS Profile_
     hashedpassword VARCHAR(255) NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
     profilepicurl text COLLATE pg_catalog."default",
+    is_private BOOLEAN DEFAULT FALSE, 
     "timestamp" TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     description text COLLATE pg_catalog."default"
 );
@@ -59,8 +60,8 @@ CREATE TABLE IF NOT EXISTS Message_
 CREATE TABLE IF NOT EXISTS Favoritelist_
 (
     idfavoritelist serial NOT NULL,
-    profileid integer NOT NULL,
-    groupid integer NOT NULL,
+    profileid integer,
+    groupid integer,
     favoriteditem text COLLATE pg_catalog."default" NOT NULL,
     showtime text COLLATE pg_catalog."default",
     "timestamp" timestamp without time zone NOT NULL,
@@ -328,7 +329,6 @@ INSERT INTO Review_ (profileid, revieweditem, review, rating, "timestamp") VALUE
 
 
 -- updatella kuvaukset testikäyttäjille
-
 UPDATE Profile_
 SET description = 
     CASE 
@@ -360,7 +360,6 @@ SET description =
     END;
     
 -- updatella profiilikuvat testikäyttäjille
-
 UPDATE Profile_
 SET profilepicurl = 'https://i.postimg.cc/yYYqzpzp/profile1.jpg'
 WHERE profileid = '1';
@@ -452,3 +451,43 @@ WHERE profileid = '22';
 UPDATE Profile_
 SET profilepicurl = 'https://i.postimg.cc/cCFbHZN9/profile7.jpg'
 WHERE profileid = '23';
+
+-- vipu, että käyttäjä saa profiilinsa yksityiseksi
+ALTER TABLE Profile_
+ADD COLUMN is_private BOOLEAN DEFAULT FALSE;
+
+-- yksityinen tili käyttäjille 8-14
+UPDATE Profile_
+SET is_private = TRUE
+WHERE profileid BETWEEN 8 AND 14;
+
+INSERT INTO Group_ (groupname, groupexplanation, "timestamp") VALUES
+('Kaikenkarvaiset koirat', 'tässä leffaryhmä koirien ystäville. Kaikki koirafilmit sallittuja ja erittäin toivottuja!', CURRENT_TIMESTAMP);
+
+INSERT INTO Memberlist_ (profileid, mainuser, groupid, pending) VALUES
+-- Kaikenkarvaiset koirat
+('1', 1, '46', 0),
+('2', 0, '46', 0),
+('3', 0, '46', 0),
+('4', 0, '46', 0),
+('5', 0, '46', 0),
+('6', 0, '46', 0),
+('7', 1, '46', 0),
+('8', 0, '46', 0),
+('9', 0, '46', 0),
+('10', 0, '46', 0),
+('11', 0, '46', 0),
+('12', 0, '46', 0),
+('13', 1, '46', 0),
+('14', 0, '46', 0),
+('15', 0, '46', 0),
+('16', 0, '46', 0),
+('17', 0, '46', 0),
+('17', 0, '46', 0),
+('18', 0, '46', 0),
+('19', 0, '46', 0),
+('20', 0, '46', 0),
+('21', 0, '46', 0),
+('22', 0, '46', 0),
+('23', 0, '46', 0);
+

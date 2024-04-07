@@ -3,8 +3,6 @@ import './group.css';
 import axios from 'axios';
 import { useParams, Link } from 'react-router-dom';
 
-
-
 //koodinpätkän alkuja muistutuksena
   //const isMainMember = user && profile && user.username && profile.profilename === user.username;
  // const isMember = user && profile && user.username && profile.profilename === user.username;

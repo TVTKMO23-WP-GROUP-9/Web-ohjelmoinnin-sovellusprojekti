@@ -4,14 +4,18 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { ThemeProvider, useTheme } from './ThemeProvider';
 import '@css/styles.css';
 import '@css/media.css';
+import '@css/emoji.css';
+import '@css/theme.css';
 import Header from '@components/header/Header';
 import Footer from '@components/footer/Footer';
 import Home from '@content/homepage/Home';
 import Login from '@components/header/Login';
+import Loginx from '@components/header/Loginx';
 import MyAccount from '@content/user/MyAccount';
 import ProfileDetails from '@content/user/ProfileDetails';
 import Search from '@content/movies/Search';
 import MovieDetails from '@content/movies/MovieDetails';
+import Community from '@content/community/Community';
 import Error from '@content/error/Error';
 // importtaa muut sivut
 
@@ -22,8 +26,7 @@ function App() {
   const handleLogin = (userData) => {
     setUser(userData);
   };
-
-
+  
   useEffect(() => {
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme) {
@@ -65,11 +68,11 @@ function App() {
               <Route path="/search" element={<Search />} />
               <Route path="/movie/:id" element={<MovieDetails/>} />
               <Route path="/login" element={<Login setUser={handleLogin} />} />
+              <Route path="/loginx" element={<Loginx setUser={handleLogin} />} />
               <Route path="/myaccount" element={<MyAccount user={user} />} />
               <Route path="/profile/:profilename" element={<ProfileDetails user={user} />} />
+              <Route path="/community" element={<Community />} />
               {/****** Loput routet, esim.
-               * 
-            <Route path="/community" element={<Community />} />
             <Route path="/group/" element={<GroupDetails/>} />
             ********/}
             </Routes>

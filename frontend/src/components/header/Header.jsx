@@ -29,7 +29,9 @@ const Header = ({ user, setUser, handleLogout}) => {
               <li><Link to="/community">Yhteisö</Link></li>
               <li><Link to="/about">FAQ</Link></li>
               
+
               <br/><br/>
+              {!user && <li className="lilogin"><Link to="/loginx">Kirjautuminen</Link></li>}
               {user && <li>Kirjautunut:</li>} 
               {user && <li>{user.usesr}</li> } <br/>
 
@@ -42,7 +44,7 @@ const Header = ({ user, setUser, handleLogout}) => {
           <div className="menu-items">
             <div className="menu-items-left">
               <ul className="whiteLinks">
-                <li><Link to="/search">Leffat ja sarjat</Link></li>
+                <li><Link to="/search"><span className="emoji uni02"></span> Leffat ja sarjat</Link></li>
                 <li><Link to="/community">Yhteisö</Link></li>
               </ul>
             </div>

@@ -3,12 +3,13 @@
     justify-content: center;
     flex-wrap: wrap;
     margin-top: 0px;
+    margin-bottom: 40px;
  }
   
 .movie-item {
     position: relative;
     width: 300px; 
-    height: 500px;
+
     margin-top: 10px;
     margin-right: 10px; 
     margin-bottom: 10px;
@@ -26,12 +27,14 @@
     transition: all 0.5s ease-in-out;
     flex-grow: 0.2;
 }
+
 .movie-item .headoverview {
-    visibility: hidden;
+    display: none;
 }
+
 .movie-item:hover .headoverview {
     text-align: center;
-    visibility: visible;
+    display: block;
     color: white;
     background-color: rgba(0, 0, 0, 0.8);
     padding: 0.5em;
@@ -45,6 +48,7 @@
     white-space: wrap;
     z-index: 1; 
 }
+
 .providers table {
     border-collapse: collapse;
     border-spacing: 0;
@@ -72,7 +76,7 @@
     flex-wrap: wrap;
 }
 .group-view {
-    background-color: var(--grp-background);
+    background-color: var(--table-bg);
     color: var(--grp-text);
     padding: 1em; 
     border-radius: 10px;
@@ -83,6 +87,7 @@
     padding-left: 20px; 
     padding-right: 20px; 
   }
+  
 .group-left {
     flex-basis: 70%;
     padding: 10px;
@@ -140,7 +145,7 @@
     margin-left: 30px;
 }
 .posterimg {
-    box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 1);
+    box-shadow: var(--shadow1);
 }
 .justMargins {
     margin-top: 25px;
@@ -164,14 +169,7 @@
     flex-basis: 100%; 
     }
 }
-.light {
-    --grp-background: #c5c5c5;
-    --grp-text: #000000;
-}
-.dark {
-    --grp-background: #c5c5c5;
-    --grp-text: #000000;
-}
+
 @media screen and (max-width: 500px) {
     .group-view {
     display: flex;

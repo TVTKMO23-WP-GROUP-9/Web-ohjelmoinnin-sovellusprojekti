@@ -1,21 +1,3 @@
-.light {
-    --section1: #927853;
-    --section2: #f4dec4;
-    --section3: #bea280;
-    --h2: #182156;
-    --h1: #182156;
-    --profile: #182156;
-}
-
-.dark {
-    --section1: #282118;
-    --section2: #0b2b55;
-    --section3: #342f2a;
-    --h2: #ebeff9;
-    --h1: #ebeff9;
-    --profile: #182156;
-}
-
 #accountinfo {
     /*background-color: var(--moviedetails);
     border-radius: 10px;
@@ -23,39 +5,41 @@
     display: flex; 
     flex-direction: column; 
     border: 1px solid #000000;
-    box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.6);*/
+    box-shadow: var(--shadow06);*/
 }
 
-.section1 {
+#accountinfo .section1 {
     margin-top: 50px;
     padding: 40px;
-    background-color: var(--section1);
+    background-color: var(--greyblue);
     border-radius: 10px;
 }
 
-.section2 {
+#accountinfo .section2 {
     margin-top: 50px;
     padding: 40px;
-    background-color: var(--section2);
-    border: 1px solid #000000;
+    background-color: var(--table-bg);
+    border: var(--solid);
     border-radius: 10px;
-    box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.2);
+    box-shadow: var(--shadow02);
 }
 
-.section3 {
+#accountinfo .section3 {
     margin-top: 50px;
     padding: 40px;
-    background-color: var(--section3);
-    border: 1px solid #000000;
+    background-color:  var(--table-bg);
+    border: var(--solid);
     border-radius: 10px;
-    box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.2);
+    box-shadow: var(--shadow02);
 }
 
-#accountinfo h2 {
+#accountinfo .section2 h2,
+#accountinfo .section3 h2  {
     color: var(--h2);
 }
 
-#accountinfo h1 {
+#accountinfo .section2 h1,
+#accountinfo .section3 h1 {
     color: var(--h1);
 }
 
@@ -74,7 +58,7 @@
     flex-wrap: wrap; 
     padding: 1em;
     margin-top: 25px;
-    border: 1px solid #000000;
+    border: var(--solid);
 }
 
 .inner-left {
@@ -97,7 +81,7 @@
     flex-direction: row;
     flex-wrap: wrap; 
     padding: 1em;
-    border: 1px solid #000000;
+    border: var(--solid);
 }
 
 .three-left {
@@ -122,8 +106,8 @@
 
 .profilepic {
     border-radius: 5px;
-    border: 1px solid #000000;
-    box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.2);
+    border: var(--solid);
+    box-shadow: var(--shadow02);
     width: 250px;
     height: 250px;
     display: block;
