@@ -62,3 +62,8 @@
   background: black;
   transform: rotate(0deg);
 }
+
+.review-item img {
+  height: 300px;
+  width: auto;
+}

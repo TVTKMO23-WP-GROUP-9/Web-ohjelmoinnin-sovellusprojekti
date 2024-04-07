@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import './Popularmovies.css';
+import './Comingsoon.css';
 
 const PopularMovies = () => {
     const [movies, setMovies] = useState([]);
@@ -64,11 +64,11 @@ const PopularMovies = () => {
       };
       
     return (
-        <div className="fmovie-list">
+        <div className="event-list">
         {loading ? (
           <p>Hetkonen...</p>
         ) : (
-            <div className="fmovies-container">
+            <div className="events-container">
             <div className="arrow">
             <img
               src="../src/components/content/images/leftarrow.jpg"
@@ -80,7 +80,7 @@ const PopularMovies = () => {
               {visibleEvents.map((movie, index) => (
             <div
                 key={movie.id}
-                className="fmovie-item"
+                className="event-item"
                 onMouseEnter={() => setHoveredEventIndex(index)}
                 onMouseLeave={() => setHoveredEventIndex(-1)}
             >

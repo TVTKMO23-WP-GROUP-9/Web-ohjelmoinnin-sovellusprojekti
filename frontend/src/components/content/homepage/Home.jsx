@@ -1,9 +1,9 @@
 import React from 'react';
 import Comingsoon from '@content/homepage/Comingsoon'
 import Popularmovies from '@content/homepage/Popularmovies'
-import Leftsidebar from '@content/homepage/Leftsidebar'
 import Rightsidebar from '@content/homepage/Rightsidebar'
 import './Home.css';
+import Latestreviews from './Latestreviews';
 
 
 const Home = () => {
@@ -28,6 +28,7 @@ const Home = () => {
         </div>
         <div className='lowermiddlecontent'>
             <h2>Tuoreimmat arvostelut</h2>
+            <Latestreviews/>
         </div>
         <div className='lowercontent'>
             <h2>Lempileffat</h2> 

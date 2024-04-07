@@ -1,13 +1,15 @@
 const reviewModel = require('./reviewModel');
 
+// GET-endpoint hakee groupname taulusta review annetun groupid-arvon perusteella
 async function getAllReviews(req, res) {
   try {
-    const reviews = await reviewModel.getAllReviews();
-    res.json(reviews);
-  } catch (error) {
-    console.error('Virhe haettaessa arvosteluja:', error);
-    res.status(500).send('Virhe haettaessa arvosteluja');
-  }
+      const query = 'SELECT * FROM review_';
+      const review = await reviewModel.queryDatabase(query);
+      res.json(review);
+      } catch (error) {
+      console.error('Virhe haettaessa tietueita:', error);
+      res.status(500).send('Virhe haettaessa tietueita');
+      }
 }
 
 async function getReviewById(req, res) {
@@ -22,6 +24,23 @@ async function getReviewById(req, res) {
   } catch (error) {
     console.error('Virhe haettaessa arvostelua:', error);
     res.status(500).send('Virhe haettaessa arvostelua');
+  }
+}
+
+async function getNewestReviews(req, res) {
+  try {
+    const query = `
+      SELECT review_.*, profile_.profilename 
+      FROM review_ 
+      INNER JOIN profile_ ON review_.profileid = profile_.profileid
+      ORDER BY review_.timestamp DESC 
+      LIMIT 10
+    `;
+    const reviews = await reviewModel.queryDatabase(query);
+    res.json(reviews);
+  } catch (error) {
+    console.error('Virhe haettaessa arvosteluja:', error);
+    res.status(500).send('Virhe haettaessa arvosteluja');
   }
 }
 
@@ -61,8 +80,9 @@ async function deleteReview(req, res) {
 
 module.exports = {
   getAllReviews,
+  getNewestReviews,
   getReviewById,
   createReview,
   updateReview,
-  deleteReview,
+  deleteReview
 };
