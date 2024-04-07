@@ -55,8 +55,8 @@ async function createReview(req, res) {
 }
 
 async function updateReview(req, res) {
-  const id = req.params.id;
-  const { profileid, revieweditem, review, rating, idreview } = req.body;
+  const idreview = req.params.id;
+  const { profileid, revieweditem, review, rating } = req.body;
   try {
     const query = {
       text: 'UPDATE Review_ SET profileid = $1, revieweditem = $2, review = $3, rating = $4 WHERE idreview = $5',
@@ -69,6 +69,7 @@ async function updateReview(req, res) {
     res.status(500).send('Virhe päivitettäessä arvostelua');
   }
 }
+
 
 async function deleteReview(req, res) {
   const id = req.params.id;
