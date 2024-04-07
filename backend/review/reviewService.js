@@ -2,7 +2,24 @@ const reviewModel = require('./reviewModel');
 
 async function getAllReviews(req, res) {
   try {
-    const reviews = await reviewModel.getAllReviews();
+      const query = 'SELECT * FROM Review_';
+      const review = await reviewModel.queryDatabase(query);
+      res.json(review);
+  } catch (error) {
+      console.error('Virhe haettaessa tietueita:', error);
+      res.status(500).send('Virhe haettaessa tietueita');
+  }
+};
+
+// arvostelut käyttäjältä x esim. profiilisivulle
+async function getReviewsByProfile(req, res) {
+  const id = req.params.id;
+  try {
+    const query = {
+      text: 'SELECT * FROM Review_ WHERE profileid = $1',
+      values: [id],
+    }; 
+    const reviews = await reviewModel.queryDatabase(query); 
     res.json(reviews);
   } catch (error) {
     console.error('Virhe haettaessa arvosteluja:', error);
@@ -65,4 +82,5 @@ module.exports = {
   createReview,
   updateReview,
   deleteReview,
+  getReviewsByProfile,
 };
