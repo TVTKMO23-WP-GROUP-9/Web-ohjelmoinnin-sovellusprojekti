@@ -11,12 +11,13 @@ import Login from '@components/header/Login';
 import MyAccount from '@content/user/MyAccount';
 import Search from '@content/movies/Search';
 import MovieDetails from '@content/movies/MovieDetails';
+import { jwtToken } from './components/auth/authSignal';
 // importtaa muut sivut
 
 function App() {
   const { theme, toggleTheme } = useTheme();
-  const [ user, setUser ] = useState(null)
-  
+  const [user, setUser] = useState(null)
+
   const handleLogin = (userData) => {
     setUser(userData);
   };
@@ -38,29 +39,30 @@ function App() {
       method: 'GET',
       credentials: 'include',
     })
-    .then(response => {
-      if (response.ok) {
-        setUser(null);
-      } else {
-        console.error('Uloskirjautuminen epäonnistui');
-      }
-    })
-    .catch(error => {
-      console.error('Virhe uloskirjautuessa:', error);
-    });
+      .then(response => {
+        if (response.ok) {
+          setUser(null);
+          jwtToken.value = '';
+        } else {
+          console.error('Uloskirjautuminen epäonnistui');
+        }
+      })
+      .catch(error => {
+        console.error('Virhe uloskirjautuessa:', error);
+      });
   }
 
   return (
     <>
       <Router>
-      
+
         <ThemeProvider>
           <div className={`body ${theme}`}>
-              <Header user={user} setUser={handleLogin} handleLogout={handleLogout} />  
+            <Header user={user} setUser={handleLogin} handleLogout={handleLogout} />
             <Routes>
               <Route path="/" exact element={<Home />} />
               <Route path="/search" element={<Search />} />
-              <Route path="/movie/:id" element={<MovieDetails/>} />
+              <Route path="/movie/:id" element={<MovieDetails />} />
               <Route path="/login" element={<Login setUser={handleLogin} />} />
               <Route path="/myaccount" element={<MyAccount user={user} />} />
               {/****** Loput routet, esim.
@@ -69,8 +71,8 @@ function App() {
             <Route path="/profile/" element={<ProfileDetails/>} />
             ********/}
             </Routes>
-            </div>
-            <Footer toggleTheme={toggleTheme} theme={theme} />
+          </div>
+          <Footer toggleTheme={toggleTheme} theme={theme} />
         </ThemeProvider>
       </Router>
     </>

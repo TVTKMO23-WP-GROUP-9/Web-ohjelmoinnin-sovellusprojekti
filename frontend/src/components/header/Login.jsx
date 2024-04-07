@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { jwtToken } from '../auth/authSignal';
 
 
-export default function Login({ setUser }) { 
+export default function Login({ setUser }) {
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -16,32 +17,33 @@ export default function Login({ setUser }) {
         username: username,
         password: password
       });
-  
+
       if (response.status === 200) {
+        jwtToken.value = response.data.jwtToken;
         setUser({ user: username, password: password });
         console.log(username, password, setUsername);
         navigate('/myaccount');
-  
+
         //setShowLogin(!showLogin);
       }
     } catch (error) {
       console.error('Kirjautumisvirhe:', error);
     }
   };
-  
+
   return (
 
-        <div className="login-menu">
-          <form onSubmit={handleLogin}>
-            <input className="field" value={username} onChange={e => setUsername(e.target.value)} placeholder="Käyttäjänimi"></input>
-            <input className="field" type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Salasana"></input>
-            <button className="formButton" type="submit">Kirjaudu sisään</button>
-            <hr/>
-            <li className="boxLink"><a href="/forgotPW">Unohtuiko salasana?</a></li>
-            <li className="boxLink"><a href="/register">Rekisteröidy</a></li>
-            
-          </form>
-        </div>
+    <div className="login-menu">
+      <form onSubmit={handleLogin}>
+        <input className="field" value={username} onChange={e => setUsername(e.target.value)} placeholder="Käyttäjänimi"></input>
+        <input className="field" type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Salasana"></input>
+        <button className="formButton" type="submit">Kirjaudu sisään</button>
+        <hr />
+        <li className="boxLink"><a href="/forgotPW">Unohtuiko salasana?</a></li>
+        <li className="boxLink"><a href="/register">Rekisteröidy</a></li>
+
+      </form>
+    </div>
 
   );
 };
