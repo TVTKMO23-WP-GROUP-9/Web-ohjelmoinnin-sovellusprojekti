@@ -66,7 +66,6 @@ const Movies = () => {
     search();
   };
 
-
   return (
     <>
     <h2>Leffahaku</h2>
