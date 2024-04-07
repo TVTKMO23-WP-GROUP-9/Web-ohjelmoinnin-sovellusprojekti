@@ -18,6 +18,15 @@ async function getProfileById(id) {
     }
 }
 
+async function getProfileByName(profilename) {
+    try {
+        const profile = await profileModel.getProfileByName(profilename);
+        return { success: true, message: profile };
+    } catch (error) {
+        return { success: false, message: error.message };
+    }
+}
+
 async function deleteProfileById(id) {
     try {
         const deleted = await profileModel.deleteProfileById(id);
@@ -39,6 +48,7 @@ async function updateProfileById(profileid, profilename, email, profilepicurl, d
 module.exports = {
     getAllProfiles,
     getProfileById,
+    getProfileByName,
     deleteProfileById,
     updateProfileById
 };

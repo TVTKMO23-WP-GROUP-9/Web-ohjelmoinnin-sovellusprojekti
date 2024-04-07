@@ -13,9 +13,19 @@ router.get('/profile', async (req, res) => {
     }
 });
 
-router.get('/profile/:profileid', async (req, res) => {
+router.get('/profile/id/:profileid', async (req, res) => {
     const profileid = req.params.profileid;
     const result = await profileService.getProfileById(profileid);
+    if (result.success) {
+        res.status(200).json(result.message);
+    } else {
+        res.status(400).json({ message: result.message });
+    }
+});
+
+router.get('/profile/:profilename', async (req, res) => {
+    const profilename = req.params.profilename;
+    const result = await profileService.getProfileByName(profilename);
     if (result.success) {
         res.status(200).json(result.message);
     } else {

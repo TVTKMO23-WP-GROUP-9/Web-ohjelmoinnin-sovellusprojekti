@@ -15,6 +15,15 @@ async function getProfileById(profileId) {
     return result.rows[0];
 }
 
+async function getProfileByName(profilename) {
+    const query = {
+        text: 'SELECT profileid, profilename, email, profilepicurl, timestamp, description FROM "profile_" WHERE profilename = $1',
+        values: [profilename],
+    };
+    const result = await pool.query(query);
+    return result.rows[0];
+}
+
 async function deleteProfileById(profileid) {
     const query = {
         text: 'DELETE FROM "profile_" WHERE profileid = $1',
@@ -37,6 +46,7 @@ async function updateProfileById(profileid, profilename, email, profilepicurl, d
 module.exports = {
     getAllProfiles,
     getProfileById,
+    getProfileByName,
     deleteProfileById,
     updateProfileById
 };
