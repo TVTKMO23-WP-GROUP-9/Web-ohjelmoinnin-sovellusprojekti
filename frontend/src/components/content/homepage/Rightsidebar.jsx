@@ -166,8 +166,10 @@ const Rightsidebar = () => {
       {error && <p>{error}</p>}
       {location && (
         <div>
+          
           {nearestTheater && (
             <div className="nearbyEvents" >
+              <h2>Seuraavat näytökset lähelläsi</h2> 
                 
                 {shows.slice(showCount - 10, showCount).map((show, index) => (
     
@@ -186,7 +188,7 @@ const Rightsidebar = () => {
                   
                 <button onClick={showLess} className='show-more-button'>{'⯇'}</button>
 
-               Selaa 
+                &nbsp; Selaa &nbsp; 
               
                 <button onClick={showMore} className='show-more-button'>{'⯈'}</button>
                 

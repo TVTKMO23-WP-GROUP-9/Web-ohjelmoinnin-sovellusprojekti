@@ -6,6 +6,8 @@
 
 .nearbyEvents {
   margin: 0;
+  padding-left: 10%;
+  width: 300px;
 }
 
 .nearby {

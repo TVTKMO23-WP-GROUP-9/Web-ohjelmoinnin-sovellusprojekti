@@ -14,12 +14,6 @@ const Home = () => {
 
     <div className='home-container'>
 
-      {/*
-      <div className='left-container'>
-        <Leftsidebar />
-      </div>
-      */}
-
       <div className='mid-container'>
 
         <div className='uppercontent'>
@@ -42,7 +36,6 @@ const Home = () => {
       </div>
       
       <div className='right-container'>
-        <h2>Seuraavat näytökset lähelläsi</h2> 
           <Rightsidebar />
       </div>
 

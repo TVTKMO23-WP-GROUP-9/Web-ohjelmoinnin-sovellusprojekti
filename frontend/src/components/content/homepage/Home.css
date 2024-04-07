@@ -11,38 +11,20 @@
 }
 
 .mid-container {
-
   width: 80%;
   /*display: flex;
   flex-direction: column;*/
 }
 
-.uppercontent {
+.uppercontent,
+.uppermiddlecontent,
+.lowermiddlecontent,
+.lowercontent {
   max-height: 700px;
   overflow: hidden;
   padding-top: 0%;
   padding-left: 3%;
-  padding-right: 10%;
+  padding-right: 3%;
 }
-.uppermiddlecontent{
-  max-height: 700px;
-  overflow: hidden;
-  padding-top: 0%;
-  padding-left: 3%;
-  padding-right: 10%;
-}
-.lowermiddlecontent{
-  max-height: 700px;
-  overflow: hidden;
-  padding-top: 0%;
-  padding-left: 3%;
-  padding-right: 10%;
-}
-.lowercontent{
-  max-height: 700px;
-  overflow: hidden;
-  padding-top: 0%;
-  padding-left: 3%;
-  padding-right: 10%;
-}
+
 
