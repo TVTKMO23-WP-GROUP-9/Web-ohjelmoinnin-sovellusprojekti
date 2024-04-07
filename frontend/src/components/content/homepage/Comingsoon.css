@@ -1,22 +1,19 @@
-.event-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center; /* Keskitä sisällön vaakasuunnassa */
-}
+
 .events-container {
   display: flex;
   justify-content: center;
   align-items: center;
   margin-top: 0vmin;
   margin-bottom: 1vmin;
-  margin-left: 2vmin;
-  margin-right: 2vmin;
+  /*margin-left: 2vmin;
+  margin-right: 2vmin;*/
   font-family: sans-serif;
   overflow: hidden;
-  transform: skew(5deg);
+  /*transform: skew(5deg);*/
 }
+
 .event-item {
-  flex: 1;
+  flex: 1.1;
   transition: all 1s ease-in-out;
   height: 40vmin;
   position: relative;
