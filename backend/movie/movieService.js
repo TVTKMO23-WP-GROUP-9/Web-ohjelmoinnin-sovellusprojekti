@@ -144,6 +144,9 @@ async function getMovieProvidersbyId(req, res) {
     }
 }
 
+
+
+
 module.exports = {
     searchMovies,
     discoverMovies,

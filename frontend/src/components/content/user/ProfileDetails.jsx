@@ -30,6 +30,7 @@ const isOwnProfile = user && profile && user.username && profile.profilename ===
             <div className="inner-view">
                 <div className="inner-left">
                     <img src={profile?.profilepicurl || ''} className="profilepic" alt="Käyttäjän kuva" />
+                    <span>Viimeksi kirjautuneena: {profile?.lastLoggedIn}</span>
                     <br />
                     {isOwnProfile && <Link to={`/profile/${profilename}/edit`} className="basicbutton">Muokkaa profiilia</Link>}
                 </div>

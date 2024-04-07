@@ -236,6 +236,58 @@ async function getGroupsByProfilename(req, res) {
     res.status(500).send('Virhe haettaessa käyttäjän ryhmiä');
   }
 }
+// Hakee tietyn groupin memberlistin
+async function GetMemeberList(req, res) {
+  const groupid = req.params.groupid;
+  try {
+    const query = {
+        text: `SELECT * FROM memberlist_ WHERE groupid = $1`,
+        values: [groupid],
+    };
+    const result = await groupModel.queryDatabase(query);
+    if (result.length > 0) {
+      res.json(result);
+    } else {
+      res.status(404).send('groupid:llä ei löytynyt jäsenluetteloa');
+    }
+  } catch (error) {
+    console.error('Virhe haettaessa jäsenluetteloa:', error);
+    res.status(500).send('Virhe haettaessa jäsenluetteloa');
+  }
+}
+// poistetaan memberlist tietyltä groupilta
+async function deleteMemberlist(req, res) {
+  const memberlist = req.params.groupid;
+  try {
+    const query = {
+      text: 'DELETE FROM Memberlist_ WHERE groupid = $1',
+      values: [memberlist],
+    };
+
+    const result = await groupModel.queryDatabase(query);
+      res.send(`jäsenluettelo poistettu onnistuneesti`);
+  } catch (error) {
+    console.error('Virhe poistettaessa jäsenluetteloa:', error);
+    res.status(500).send('Virhe poistettaessa jäsenluetteloa');
+  }
+};
+// luodaan memberlist tietylle groupille
+async function createMemberList(req, res) {
+  const { profileid, mainuser, groupid, pending } = req.body;
+
+  try {
+    const query = {
+      text: 'INSERT INTO memberlist_ (profileid, mainuser, groupid, pending) VALUES ($1, $2, $3, $4)',
+      values: [profileid, mainuser, groupid, pending],
+    };
+    await groupModel.queryDatabase(query);
+
+    res.status(201).send('Jäsen lisätty onnistuneesti ryhmään');
+  } catch (error) {
+    console.error('Virhe lisättäessä jäsentä ryhmään:', error);
+    res.status(500).send('Virhe lisättäessä jäsentä ryhmään');
+  }
+}
 
 
   module.exports = {
@@ -249,5 +301,8 @@ async function getGroupsByProfilename(req, res) {
     createMember,
     createMessage,
     getUserGroups,
-    getGroupsByProfilename
+    getGroupsByProfilename,
+    GetMemeberList,
+    deleteMemberlist,
+    createMemberList
   };

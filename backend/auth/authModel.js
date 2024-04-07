@@ -25,8 +25,16 @@ async function createUser(username, hashedpassword, email) {
     };
     await pool.query(query);
 }
+async function LastLoggedIn(username) {
+    const query = {
+        text: 'UPDATE Profile_ SET timestamp = CURRENT_TIMESTAMP WHERE profilename = $1',
+        values: [username],
+    };
+    await pool.query(query);
+}
 
 module.exports = {
     getUserByUsername,
-    createUser
+    createUser,
+    LastLoggedIn
 };
