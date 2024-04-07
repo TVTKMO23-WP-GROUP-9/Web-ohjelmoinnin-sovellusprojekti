@@ -1,46 +1,48 @@
 .home-container {
-  height: 2500px;
+  /*height: 2500px;*/
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
 }
 
 .left-container,
 .right-container {
-  width: 15%;
+  width: 18%;
 }
 
 .mid-container {
+
   width: 80%;
-  display: flex;
-  flex-direction: column;
+  /*display: flex;
+  flex-direction: column;*/
 }
 
 .uppercontent {
-  height: 700px;
+  max-height: 700px;
   overflow: hidden;
   padding-top: 0%;
-  padding-left: 15%;
-  padding-right: 15%;
+  padding-left: 3%;
+  padding-right: 10%;
 }
 .uppermiddlecontent{
-  height: 700px;
+  max-height: 700px;
   overflow: hidden;
   padding-top: 0%;
-  padding-left: 15%;
-  padding-right: 15%;
+  padding-left: 3%;
+  padding-right: 10%;
 }
 .lowermiddlecontent{
-  height: 700px;
+  max-height: 700px;
   overflow: hidden;
   padding-top: 0%;
-  padding-left: 15%;
-  padding-right: 15%;
+  padding-left: 3%;
+  padding-right: 10%;
 }
 .lowercontent{
-  height: 700px;
+  max-height: 700px;
   overflow: hidden;
   padding-top: 0%;
-  padding-left: 15%;
-  padding-right: 15%;
+  padding-left: 3%;
+  padding-right: 10%;
 }
 

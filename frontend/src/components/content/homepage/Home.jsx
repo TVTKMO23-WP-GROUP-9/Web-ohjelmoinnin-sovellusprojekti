@@ -10,13 +10,18 @@ const Home = () => {
 
   return (
 
+    <div className='content'>
+
     <div className='home-container'>
 
+      {/*
       <div className='left-container'>
         <Leftsidebar />
       </div>
+      */}
 
       <div className='mid-container'>
+
         <div className='uppercontent'>
           <div className="coming-soon-container">
             <h2>Tulossa Finnkinoon</h2>
@@ -33,10 +38,15 @@ const Home = () => {
         <div className='lowercontent'>
             <h2>Lempileffat</h2> 
         </div>
+
       </div>
+      
       <div className='right-container'>
+        <h2>Seuraavat näytökset lähelläsi</h2> 
           <Rightsidebar />
       </div>
+
+    </div>
     </div>
   );
 };

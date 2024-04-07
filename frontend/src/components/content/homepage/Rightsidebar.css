@@ -1,7 +1,17 @@
 .event-list {
+  background-color: #ffffff;
   justify-content: center; 
   align-items: center; 
 }
+
+.nearbyEvents {
+  margin: 0;
+}
+
+.nearby {
+  margin: 0;
+}
+
 .event-list ul {
   margin-left: 0;
   display: inline-flex;
@@ -12,32 +22,35 @@
   font-size: 1em;
 }
 
-.nearby td {
-  text-align: left;
-  display: block;
+.nearby tr {
+  width: 100%;
 }
 
-.nearby tr:hover td {
+.nearby td {
+  width: 300px;
+  text-align: left;
+  display: block;
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+
+.nearby tr:hover {
   background-color: rgba(0, 0, 0, 0.1); 
 }
 
-.nearby tr:hover td b {
-  font-weight: bold; 
-}
-
 .show-more-button {
+  margin-top: 9px;
   background-color: transparent;
   border: none; 
   padding: 10px 20px; 
   border-radius: 5px; 
-
   cursor: pointer; 
   transition: background-color 0.3s ease; 
   color: grey;
+  font-size: 1.1em;
 }
 
 .show-more-button:hover {
-
   background-color: rgba(0, 0, 0, 0.1); 
 }
 

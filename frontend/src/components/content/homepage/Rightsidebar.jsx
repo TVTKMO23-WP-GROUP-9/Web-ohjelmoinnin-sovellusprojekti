@@ -161,7 +161,7 @@ const Rightsidebar = () => {
 
 
   return (
-    <div className="event-list">
+    <>
       {loading && <p>Ladataan...</p>}
       {error && <p>{error}</p>}
       {location && (
@@ -175,8 +175,8 @@ const Rightsidebar = () => {
                       <table className="nearby"  key={index}>
                         <tbody>
                           <tr onClick={() => handleClick(show.title, show.year)}>
-                            <td width="270px"><b>{show.auditorium}</b></td>
-                            <td width="120px"><b>{formatTime(show.startTime)}</b></td>
+                            <td><b>{show.auditorium}</b></td>
+                            <td>klo <b>{formatTime(show.startTime)}</b></td>
                             <td>{show.title}</td>
                           </tr>
                         </tbody>
@@ -184,17 +184,17 @@ const Rightsidebar = () => {
                     </div>
                     ))}
                   
-                <button onClick={showLess} className='show-more-button'>{'<'}</button>
+                <button onClick={showLess} className='show-more-button'>{'⯇'}</button>
 
                Selaa 
               
-                <button onClick={showMore} className='show-more-button'>{'>'}</button>
+                <button onClick={showMore} className='show-more-button'>{'⯈'}</button>
                 
             </div> 
           )}
         </div>
       )}
-    </div>
+    </>
   );
 };
 
