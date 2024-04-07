@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { jwtToken } from '../auth/authSignal';
 
 
-export default function Loginx({ setUser }) { 
+export default function Loginx({ setUser }) {
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -16,10 +17,10 @@ export default function Loginx({ setUser }) {
         username: username,
         password: password
       });
-  
+
       if (response.status === 200) {
-        setUser({ user: username, password: password });
-        console.log(username, password, setUsername);
+        jwtToken.value = response.data.jwtToken;
+        setUser({ user: username });
         navigate('/myaccount');
         //setShowLogin(!showLogin);
       }
@@ -27,21 +28,21 @@ export default function Loginx({ setUser }) {
       console.error('Kirjautumisvirhe:', error);
     }
   };
-  
+
   return (
 
-        <div className="content">
-            <p>"Varaloginin" rakentaminen tänne, koska pikkunäytöillä ei saa ikkunaa auki ja burgerista pääsee</p>
-          <form onSubmit={handleLogin}>
-            <input className="field" value={username} onChange={e => setUsername(e.target.value)} placeholder="Käyttäjänimi"></input>
-            <input className="field" type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Salasana"></input>
-            <button className="formButton" type="submit">Kirjaudu sisään</button>
-            <hr/>
-            <li className="boxLink"><a href="/forgotPW">Unohtuiko salasana?</a></li>
-            <li className="boxLink"><a href="/register">Rekisteröidy</a></li>
-            
-          </form>
-        </div>
+    <div className="content">
+      <p>"Varaloginin" rakentaminen tänne, koska pikkunäytöillä ei saa ikkunaa auki ja burgerista pääsee</p>
+      <form onSubmit={handleLogin}>
+        <input className="field" value={username} onChange={e => setUsername(e.target.value)} placeholder="Käyttäjänimi"></input>
+        <input className="field" type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Salasana"></input>
+        <button className="formButton" type="submit">Kirjaudu sisään</button>
+        <hr />
+        <li className="boxLink"><a href="/forgotPW">Unohtuiko salasana?</a></li>
+        <li className="boxLink"><a href="/register">Rekisteröidy</a></li>
+
+      </form>
+    </div>
 
   );
 };

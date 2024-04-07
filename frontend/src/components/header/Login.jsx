@@ -20,8 +20,7 @@ export default function Login({ setUser }) {
 
       if (response.status === 200) {
         jwtToken.value = response.data.jwtToken;
-        setUser({ user: username, password: password });
-        console.log(username, password, setUsername);
+        setUser({ user: username });
         navigate('/myaccount');
 
         //setShowLogin(!showLogin);

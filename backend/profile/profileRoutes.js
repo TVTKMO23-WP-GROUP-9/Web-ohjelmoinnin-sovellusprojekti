@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const profileService = require('./profileService');
+const { auth } = require('../middleware/auth');
+
 
 router.get('/profile', async (req, res) => {
     const result = await profileService.getAllProfiles();
