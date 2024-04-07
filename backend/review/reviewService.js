@@ -1,5 +1,6 @@
 const reviewModel = require('./reviewModel');
 
+
 async function getAllReviews(req, res) {
   try {
       const query = 'SELECT * FROM Review_';
@@ -54,16 +55,21 @@ async function createReview(req, res) {
 }
 
 async function updateReview(req, res) {
-  const id = req.params.id;
-  const { user_id, product_id, rating, comment, date_posted } = req.body;
+  const idreview = req.params.id;
+  const { profileid, revieweditem, review, rating } = req.body;
   try {
-    await reviewModel.updateReview(id, user_id, product_id, rating, comment, date_posted);
+    const query = {
+      text: 'UPDATE Review_ SET profileid = $1, revieweditem = $2, review = $3, rating = $4 WHERE idreview = $5',
+      values: [profileid, revieweditem, review, rating, idreview],
+    }; 
+    await reviewModel.queryDatabase(query); 
     res.send('Arvostelu päivitetty onnistuneesti');
   } catch (error) {
     console.error('Virhe päivitettäessä arvostelua:', error);
     res.status(500).send('Virhe päivitettäessä arvostelua');
   }
 }
+
 
 async function deleteReview(req, res) {
   const id = req.params.id;
