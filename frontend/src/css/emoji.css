@@ -3,6 +3,12 @@
     font-family: 'Noto Color Emoji', sans-serif;
     font-size: 28px;
   }
+
+.review {
+    font-family: 'Noto Color Emoji', sans-serif;
+    font-size: 0.9em;
+    padding: 0.02em;
+  }
   
   /*popcorn*/
   .uni01::before { content: "\1F37F"; }
@@ -13,6 +19,8 @@
   /*lahja*/
   .uni04::before { content: "\1F381"; }
   /*chat*/
-.uni05::before { content: "\1F5E8"; }
+  .uni05::before { content: "\1F5E8"; }
+  /*star*/
+  .uni06::before { content: "\2B50"; }
 
 

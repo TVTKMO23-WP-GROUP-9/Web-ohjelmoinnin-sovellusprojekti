@@ -20,7 +20,6 @@
 .uppermiddlecontent,
 .lowermiddlecontent,
 .lowercontent {
-  max-height: 700px;
   overflow: hidden;
   padding-top: 0%;
   padding-left: 3%;

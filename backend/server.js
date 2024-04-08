@@ -3,8 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 
-
-app.use(cors({ origin: 'http://localhost:5173', credentials: true }));
+app.use(cors({ origin: 'http://localhost:5173', credentials: true })); 
 //const profile = require(origin: './routes/profileRoutes', credentials: true); // Tuo 'profile' reitityksen
 const group = require('./group/groupRoutes'); // Tuo 'group' reitityksen
 const message = require('./routes/messageRoutes'); // Tuo 'message' reitityksen
@@ -16,7 +15,7 @@ const search = require('./movie/movieRoutes'); // Tuo 'search' reitityksen
 const discover = require('./movie/movieRoutes'); // Tuo 'discover' reitityksen
 const find = require('./movie/movieRoutes'); // Tuo 'find' reitityksen
 const movie = require('./movie/movieRoutes'); // Tuo 'movie' reitityksen
-
+const review = require('./review/reviewRoutes'); // Tuo 'review' reitityksen
 
 app.use(cors({ origin: 'http://localhost:5173' })); // sallii CORS-pyynnöt alkuperästä localhost:5173 (react)
 app.use('/', message);  // Käytä 'message' reititystä juuressa
@@ -30,6 +29,7 @@ app.use('/', search); // Käytä 'search' reititystä juuressa
 app.use('/', discover); // Käytä 'discover' reititystä juuressa
 app.use('/', find); // Käytä 'find' reititystä juuressa
 app.use('/', movie); // Käytä 'movie' reititystä juuressa
+app.use('/', review); // Käytä 'review' reititystä juuressa
 
 const PORT = process.env.PORT || 3001; // Määritä portti
 
