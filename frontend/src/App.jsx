@@ -17,12 +17,13 @@ import Search from '@content/movies/Search';
 import MovieDetails from '@content/movies/MovieDetails';
 import Community from '@content/community/Community';
 import Error from '@content/error/Error';
+import { jwtToken } from './components/auth/authSignal';
 // importtaa muut sivut
 
 function App() {
   const { theme, toggleTheme } = useTheme();
-  const [ user, setUser ] = useState(null)
-  
+  const [user, setUser] = useState(null)
+
   const handleLogin = (userData) => {
     setUser(userData);
   };
@@ -43,22 +44,23 @@ function App() {
       method: 'GET',
       credentials: 'include',
     })
-    .then(response => {
-      if (response.ok) {
-        setUser(null);
-      } else {
-        console.error('Uloskirjautuminen epäonnistui');
-      }
-    })
-    .catch(error => {
-      console.error('Virhe uloskirjautuessa:', error);
-    });
+      .then(response => {
+        if (response.ok) {
+          setUser(null);
+          jwtToken.value = '';
+        } else {
+          console.error('Uloskirjautuminen epäonnistui');
+        }
+      })
+      .catch(error => {
+        console.error('Virhe uloskirjautuessa:', error);
+      });
   }
 
   return (
     <>
       <Router>
-      
+
         <ThemeProvider>
           <div className={`body ${theme}`}>
               <Error />
@@ -66,7 +68,7 @@ function App() {
             <Routes>
               <Route path="/" exact element={<Home />} />
               <Route path="/search" element={<Search />} />
-              <Route path="/movie/:id" element={<MovieDetails/>} />
+              <Route path="/movie/:id" element={<MovieDetails />} />
               <Route path="/login" element={<Login setUser={handleLogin} />} />
               <Route path="/loginx" element={<Loginx setUser={handleLogin} />} />
               <Route path="/myaccount" element={<MyAccount user={user} />} />

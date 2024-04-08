@@ -3,100 +3,100 @@ const groupModel = require('./groupModel');
 
 // GET-endpoint hakee groupname taulusta Group_ annetun groupid-arvon perusteella
 async function getAllGroups(req, res) {
-    try {
-        const query = 'SELECT * FROM group_';
-        const groups = await groupModel.queryDatabase(query);
-        res.json(groups);
-        } catch (error) {
-        console.error('Virhe haettaessa tietueita:', error);
-        res.status(500).send('Virhe haettaessa tietueita');
-        }
+  try {
+    const query = 'SELECT * FROM group_';
+    const groups = await groupModel.queryDatabase(query);
+    res.json(groups);
+  } catch (error) {
+    console.error('Virhe haettaessa tietueita:', error);
+    res.status(500).send('Virhe haettaessa tietueita');
+  }
 }
 
 // GET-endpoint hakee groupname taulusta Group_ annetun groupid-arvon perusteella
 async function getGroupNameById(req, res) {
-    const groupid = req.params.groupid;
-  
-    try {
-      const query = {
-        text: 'SELECT groupname FROM group_ WHERE groupid = $1',
-        values: [groupid],
-      };
-  
-      const result = await groupModel.queryDatabase(query);
-      if (result.length > 0) {
-        res.json(result[0]);
-      } else {
-        res.status(404).send('nimeä ei löytynyt');
-      }
-    } catch (error) {
-      console.error('Virhe haettaessa tietuetta:', error);
-      res.status(500).send('Virhe haettaessa tietuetta');
+  const groupid = req.params.groupid;
+
+  try {
+    const query = {
+      text: 'SELECT groupname FROM group_ WHERE groupid = $1',
+      values: [groupid],
+    };
+
+    const result = await groupModel.queryDatabase(query);
+    if (result.length > 0) {
+      res.json(result[0]);
+    } else {
+      res.status(404).send('nimeä ei löytynyt');
     }
+  } catch (error) {
+    console.error('Virhe haettaessa tietuetta:', error);
+    res.status(500).send('Virhe haettaessa tietuetta');
   }
+}
 
 // GET-endpoint hakee groupid taulusta Group_ annetun groupname-arvon perusteella
-  async function getGroupIdByName(req, res) {
-    const groupname = req.params.groupname;
-  
-    try {
-      const query = {
-        text: 'SELECT groupid FROM group_ WHERE groupname = $1',
-        values: [groupname],
-      };
-  
-      const result = await groupModel.queryDatabase(query);
-      if (result.length > 0) {
-        res.json(result[0]);
-      } else {
-        res.status(404).send('id:tä ei löytynyt');
-      }
-    } catch (error) {
-      console.error('Virhe haettaessa tietuetta:', error);
-      res.status(500).send('Virhe haettaessa tietuetta');
+async function getGroupIdByName(req, res) {
+  const groupname = req.params.groupname;
+
+  try {
+    const query = {
+      text: 'SELECT groupid FROM group_ WHERE groupname = $1',
+      values: [groupname],
+    };
+
+    const result = await groupModel.queryDatabase(query);
+    if (result.length > 0) {
+      res.json(result[0]);
+    } else {
+      res.status(404).send('id:tä ei löytynyt');
     }
+  } catch (error) {
+    console.error('Virhe haettaessa tietuetta:', error);
+    res.status(500).send('Virhe haettaessa tietuetta');
   }
-  
+}
+
 // GET-endpoint hakee tietyn tietueen taulusta Group_ annetun groupid-arvon perusteella
-  async function getGroupById(req, res) {
-    const groupid = req.params.groupid;
-  
-    try {
-      const query = {
-        text: 'SELECT * FROM group_ WHERE groupid = $1',
-        values: [groupid],
-      };
-  
-      const result = await groupModel.queryDatabase(query);
-      if (result.length > 0) {
-        res.json(result[0]);
-      } else {
-        res.status(404).send('Tietuetta ei löytynyt');
-      }
-    } catch (error) {
-      console.error('Virhe haettaessa tietuetta:', error);
-      res.status(500).send('Virhe haettaessa tietuetta');
+async function getGroupById(req, res) {
+  const groupid = req.params.groupid;
+
+  try {
+    const query = {
+      text: 'SELECT * FROM group_ WHERE groupid = $1',
+      values: [groupid],
+    };
+
+    const result = await groupModel.queryDatabase(query);
+    if (result.length > 0) {
+      res.json(result[0]);
+    } else {
+      res.status(404).send('Tietuetta ei löytynyt');
     }
+  } catch (error) {
+    console.error('Virhe haettaessa tietuetta:', error);
+    res.status(500).send('Virhe haettaessa tietuetta');
   }
-  
-  // DELETE-endpoint poistaa tietueen annetulla groupid-arvolla
-  async function deleteGroupById(req, res) {
-    const groupid = req.params.groupid;
-  
-    try {
-      const query = {
-        text: 'DELETE FROM group_ WHERE groupid = $1',
-        values: [groupid],
-      };
-  
-      const result = await groupModel.queryDatabase(query);
-      res.send(`Tietue poistettu onnistuneesti: ${result.rowCount}`);
-    } catch (error) {
-      console.error('Virhe poistettaessa tietuetta:', error);
-      res.status(500).send('Virhe poistettaessa tietuetta');
-    }
+}
+
+// DELETE-endpoint poistaa tietueen annetulla groupid-arvolla
+async function deleteGroupById(req, res) {
+  const groupid = req.params.groupid;
+
+  try {
+    const query = {
+      text: 'DELETE FROM group_ WHERE groupid = $1',
+      values: [groupid],
+    };
+
+    const result = await groupModel.queryDatabase(query);
+    res.send(`Tietue poistettu onnistuneesti: ${result.rowCount}`);
+  } catch (error) {
+    console.error('Virhe poistettaessa tietuetta:', error);
+    res.status(500).send('Virhe poistettaessa tietuetta');
   }
-  
+}
+
 // PUT-endpoint päivittää tietueen groupexplanation- ja timestamp-kentät annetulla groupid-arvolla
   async function updateGroupById(req, res) {
     const groupid = req.params.groupid;

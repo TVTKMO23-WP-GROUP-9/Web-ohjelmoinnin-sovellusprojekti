@@ -10,19 +10,21 @@ const ProfileDetails = ({ user }) => {
     const { profilename } = useParams();
     const [lastLoggedIn, setLastLoggedIn] = useState(null);
 
-useEffect(() => {
-    const fetchProfile = async () => {
-        try {
-            const username = user?.username || '';
-            const response = await axios.get(`http://localhost:3001/profile/${user?.username || profilename || username}`);
-            setProfile(response.data);
-        } catch (error) {
-            console.error('Virhe haettaessa profiilitietoja:', error);
-        }
-    };
-    
-    fetchProfile();
-}, [user, user?.username, profilename]);
+    useEffect(() => {
+        const fetchProfile = async () => {
+            try {
+                const response = await axios.get(`http://localhost:3001/profile/${profilename}`);
+                setProfile(response.data);
+            } catch (error) {
+                console.error('Virhe haettaessa profiilitietoja:', error);
+            }
+        };
+        
+        fetchProfile();
+    }, [user, user?.username, profilename]);
+
+
+   //const isOwnProfile = user && profile && user.username === profile.username;
 
 //Viimeksi kirjautunu
   /*useEffect(() => {
@@ -34,6 +36,7 @@ useEffect(() => {
 }, [user]); */
 
 const isOwnProfile = user && profile && user.username && profile.profilename === user.username;
+
 
     return (
         <div className="content">
@@ -52,13 +55,14 @@ const isOwnProfile = user && profile && user.username && profile.profilename ===
                 </div>
             </div>
 
-                {(!profile?.is_private || isOwnProfile) &&
-                <div className="three-view">
-                    <div className="three-left">
-                        <h2>Suosikit</h2>
-                        <ul>
-                            {/*ehkä vaikka tähän*/}
-                        </ul>
+            {(!profile?.is_private || isOwnProfile) &&
+        
+            <div className="three-view">
+                <div className="three-left">
+                    <h2>Suosikit</h2>
+                    <ul>
+                        {/*ehkä vaikka tähän*/}
+                    </ul>
                 </div>
 
                 <div className="three-middle">

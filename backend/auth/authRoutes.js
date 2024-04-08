@@ -1,7 +1,9 @@
-
+require('dotenv').config();
 const express = require('express');
 const authService = require('./authService');
 const router = express.Router();
+const jwt = require('jsonwebtoken');
+
 
 router.post('/auth/register', async (req, res) => {
     const { username, password, email } = req.body;
@@ -17,7 +19,8 @@ router.post('/auth/login', async (req, res) => {
     const { username, password } = req.body;
     const result = await authService.loginUser(username, password);
     if (result.success) {
-        res.status(200).json({ message: result.message });
+        const token = jwt.sign({ username: username }, process.env.JWT_SECRET);
+        res.status(200).json({ jwtToken: token });
     } else {
         res.status(400).json({ message: result.message });
     }
