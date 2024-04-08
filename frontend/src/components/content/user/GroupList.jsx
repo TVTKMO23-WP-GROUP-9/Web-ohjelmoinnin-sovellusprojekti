@@ -23,7 +23,7 @@ const GroupList = ({ profile }) => {
 
   return (
     <div className="group-middle">
-      <h2>Käyttäjän ryhmät</h2>
+      <h2>Ryhmät</h2>
       <ul>
       {groups.map((group, index) => (
         <li key={index}>- <Link to="#">{group.groupname}</Link></li>
