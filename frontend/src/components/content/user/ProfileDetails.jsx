@@ -9,6 +9,7 @@ const ProfileDetails = ({ user }) => {
     const [profile, setProfile] = useState(null);
     const { profilename } = useParams();
     const [lastLoggedIn, setLastLoggedIn] = useState(null);
+    const isOwnProfile = user && profile && user.username === profile.username;
 
     useEffect(() => {
         const fetchProfile = async () => {
@@ -24,8 +25,7 @@ const ProfileDetails = ({ user }) => {
     }, [profilename]);
 
 
-    const isOwnProfile = user && profile && user.username === profile.username;
-
+  
 //Viimeksi kirjautunu
 useEffect(() => {
     const simulateLogin = async () => {
@@ -35,7 +35,6 @@ useEffect(() => {
 
     simulateLogin();
 }, [user]);
-const isOwnProfile = user && profile && user.username && profile.profilename === user.username;
 
 
 
