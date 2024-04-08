@@ -11,7 +11,6 @@ DROP TABLE IF EXISTS Message_ CASCADE;
 DROP TABLE IF EXISTS Profile_ CASCADE;
 DROP TABLE IF EXISTS Review_ CASCADE;
 
-
 CREATE TABLE IF NOT EXISTS Profile_
 (
     profileid SERIAL PRIMARY KEY,
@@ -23,7 +22,6 @@ CREATE TABLE IF NOT EXISTS Profile_
     "timestamp" TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     description text COLLATE pg_catalog."default"
 );
-
 
 CREATE TABLE IF NOT EXISTS Group_
 (
@@ -123,59 +121,71 @@ ALTER TABLE IF EXISTS Review_
     ON UPDATE CASCADE
     ON DELETE CASCADE;
 
-INSERT INTO Profile_ (profilename, hashedPassword, email, profilepicurl, "timestamp", description) VALUES
--- testikäyttäjät id 1-10
--- Viilipytty hashaamaton salasana: oivamato
-('Viilipytty', '$2b$10$Os132x/7gfQuEkIpTNvTG.XMrnQG/bOgj4AepLQ5u.wtgfEoTFpf.', 'viilipytty@example.com', NULL, CURRENT_TIMESTAMP, NULL),
--- Jankka hashaamaton salasana: 8D94gvds0
-('Jankka', '$2b$10$ZarxfNZO1AYZp9VCg3Zjz.URJxUuZdcve5qd6A9QZQGWYRBln3rgm', 'jankka@example.com', NULL, CURRENT_TIMESTAMP, NULL),
--- komediaa82 hashaamaton salasana: aaidemok
-('komediaa82', '$2b$10$9KLQoLOOd9PVGamFgdVoa.CoUDfXClGvAe6CCIW6vhdKbJfBzg89i', 'komediaa82@example.com', NULL, CURRENT_TIMESTAMP, NULL),
--- Eloton hashaamaton salasana: sana5532
-('Eloton', '$2b$10$e8MfS6GQLuMWZnGyKowW7udiBNhys3/dH/YIgSbv3Z0MxggXBl9Lm', 'eloton@example.com', NULL, CURRENT_TIMESTAMP, NULL),
--- vainse hashaamaton salasana: rekku6
-('vainse', '$2b$10$pYcfW1TE4lORryyRO6FJFOs8bF7m8ClPaXjDG/M/A4FsWVT917iDK', 'vainse@example.com', NULL, CURRENT_TIMESTAMP, NULL),
--- jokaToka hashaamaton salasana: lomakuume#1
-('jokaToka', '$2b$10$QGlrHI60xCT1JkERYAYQYuiEuQCJAuaY.w9DVxNo2L6dpHNR2Me4G', 'jokatoka@example.com', NULL, CURRENT_TIMESTAMP, NULL),
--- Mikk0 hashaamaton salasana: VIEROSKAT
-('Mikk0', '$2b$10$b9MMw4wALTbPDKXbgZIuJedz.tBhB1AAxBO21UW8gmVn34uvUDOEa', 'mikk0@example.com', NULL, CURRENT_TIMESTAMP, NULL),
--- dramaqueen hashaamaton salasana: unohdettu1010
-('dramaqueen', '$2b$10$SlZvRPqkAbEEO99f0gyRXubu/CKlkQo12ayYMyenik1ekELUtCc3W', 'dramaqueen@example.com', NULL, CURRENT_TIMESTAMP, NULL),
--- kauhistus hashaamaton salasana: kauhuleffoja38
-('kauhistus', '$2b$10$XrLUGUbR77BVtDPVZ6cLIOsmvltN20QLnzQ5vm8cWQjSPviNrjJiG', 'kauhistus@example.com', NULL, CURRENT_TIMESTAMP, NULL),
--- Jest4s hashaamaton salasana: )3nvds98ETF
-('Jest4s', '$2b$10$IwMD52QfxJhT258LxwVNKeGGGDfix8oWApJt9Kd48DOGPhqbxi60K', 'jest4s@example.com', NULL, CURRENT_TIMESTAMP, NULL),
--- testikäyttäjät id 11-20
--- AaveMaria hashaamaton salasana: #mvvdisCORD
-('AaveMaria', '$2b$10$FC1jbhISaPnald7BczUTp.myptklA36L0ntNz4fdyedZprQ1X4aWq', 'aavemaria@example.com', NULL, CURRENT_TIMESTAMP, NULL),
--- siippa5 hashaamaton salasana: siipaton000
-('siippa5', '$2b$10$is.bNU/5A4MdM9sZV/UdwO6qvMruQrfUbrkql371f9gmUs4TagBHa', 'siippa5@example.com', NULL, CURRENT_TIMESTAMP, NULL),
--- Pastilli hashaamaton salasana: jukujes%
-('Pastilli', '$2b$10$3bQI9aUHy9wx2qfulRDdRu94wo.m2RPcswnHNt126onZOwf3W.E3O', 'pastilli@example.com', NULL, CURRENT_TIMESTAMP, NULL),
--- Huutista hashaamaton salasana: xDXDxdXD94
-('Huutista', '$2b$10$m1A0mr3RqW.FejzJskU9iuS2SiDqcXpRpX3Da08TleGxP4b3gui8e', 'huutista@example.com', NULL, CURRENT_TIMESTAMP, NULL),
--- salaakaato hashaamaton salasana: tuskaa4=
-('salaakaton', '$2b$10$RoF/XQbHpoLG8cm00ll/kuF1SUiLl/Vq0mEBio14./T.CfaGrh.F2', 'salaakaton@example.com', NULL, CURRENT_TIMESTAMP, NULL),
--- Kan-Joni hashaamaton salasana: helppo
-('Kan-Joni', '$2b$10$8KeS4n.O2CLpUurqsQMBa.wej5SaNcSVC8XE9hl8uQ0Rj1lZzhN2a', 'kanjoni@example.com', NULL, CURRENT_TIMESTAMP, NULL),
--- poikamies hashaamaton salasana: vielkinEhtis
-('poikamies', '$2b$10$MxjsY3EsB25IjGQJsUCpqOClHnsNISN1slbYkhc9zX0.JAhAMPxtO', 'poikamies@example.com', NULL, CURRENT_TIMESTAMP, NULL),
--- Misu01 hashaamaton salasana: 987654321
-('Misu01', '$2b$10$NI8.6kt3rXWmTTkb4uNZA.98JFcPnXm.AeLyNgB17V7aNWT.2tTQO', 'misu01@example.com', NULL, CURRENT_TIMESTAMP, NULL),
--- maitotee hashaamaton salasana: EnJuoKahvia
-('maitotee', '$2b$10$BHetFB1YNwSCicx/I3YhE.2THqx2zBq1dzYr3enEKk4iSFOReVXuu', 'maitotee@example.com', NULL, CURRENT_TIMESTAMP, NULL),
--- lipettiin hashaamaton salasana: somaprinsessa666
-('lipettiin', '$2b$10$3IgL5lCJzcjp5HS0AWVcyOveJevU79cd9lNsPFvnWeECqT7YlNBf6', 'lipettiin@example.com', NULL, CURRENT_TIMESTAMP, NULL),
--- testikäyttäjät id 21 - 24
--- Jenna hashaamaton salasana: annejjenna
-('Jenna', '$2b$10$DVgyW0Hc4jGIp/31Ck1oc.beiRyrR3DffdOGoFXrvWfShxeq9RjMu', 'jenna@example.com', NULL, CURRENT_TIMESTAMP, NULL),
--- Siilinpieru hashaamaton salasana: hedgehog
-('Siilinpieru', '$2b$10$YWfQeOraJww3UCF3Ap0d6Of0bfnRn9uEJYdzuYfpLkAhyR2nyl0KK', 'siilinpieru@example.com', NULL, CURRENT_TIMESTAMP, NULL),
--- PaijaanSUA hashaamaton salasana: byebye??0
-('PaijaanSUA', '$2b$10$EOakCcZdU0hk/jxPajsGaeq1SVAJpDn56P6gXL63M3y6aPSruY9rS', 'paijaansua@example.com', NULL, CURRENT_TIMESTAMP, NULL),
--- UUUseri hashaamaton salasana: 123456
-('UUUseri', '$2b$10$09CaL5r.JxvCl2rm2F5BBudYNinrgKKqPfcuVGEXJvdJwub0Q06te', 'uuuseri@example.com', NULL, CURRENT_TIMESTAMP, NULL);
+-- vipu, että käyttäjä saa profiilinsa yksityiseksi
+ALTER TABLE Profile_
+ADD COLUMN is_private BOOLEAN DEFAULT FALSE;
 
+INSERT INTO Profile_ (profilename, hashedpassword, email, profilepicurl, "timestamp", description) VALUES
+-- testikäyttäjät id 1-10
+('Viilipytty', '$2b$10$Os132x/7gfQuEkIpTNvTG.XMrnQG/bOgj4AepLQ5u.wtgfEoTFpf.', 'viilipytty@example.com', 'https://i.postimg.cc/yYYqzpzp/profile1.jpg', CURRENT_TIMESTAMP, 'Oon elokuvaharrastaja ja rakastan erityisesti komediaelokuvia. Hymyilen aina hyville vitseille ja nauran äänekkäästi lempikohtauksilleni.'),
+('Jankka', '$2b$10$ZarxfNZO1AYZp9VCg3Zjz.URJxUuZdcve5qd6A9QZQGWYRBln3rgm', 'jankka@example.com', 'https://i.postimg.cc/ZnbQ4nXv/profile10.jpg', CURRENT_TIMESTAMP, 'Mitähän tähän nyt kirjottais... no, oon kauhuelokuvien suurkuluttaja, joka ei säikähdä helpolla. Rakastan adrenaliinin kihinää ja jännitystä.'),
+('komediaa82', '$2b$10$9KLQoLOOd9PVGamFgdVoa.CoUDfXClGvAe6CCIW6vhdKbJfBzg89i', 'komediaa82@example.com', 'https://i.postimg.cc/jd8pq6xx/profile2.jpg', CURRENT_TIMESTAMP, 'Moikka, olen komediaa82! Nimeni kertoo jo kaiken - rakastan komediaelokuvia ja nauran aina makeasti hyville vitseille.'),
+('Eloton', '$2b$10$e8MfS6GQLuMWZnGyKowW7udiBNhys3/dH/YIgSbv3Z0MxggXBl9Lm', 'eloton@example.com', 'https://i.postimg.cc/zG64KJH4/profile3.jpg', CURRENT_TIMESTAMP, 'Tervehdys, olen Eloton! Draamaelokuvien ystävä, joka elää ja hengittää taide-elokuvia. Etsin aina syvällisiä tarinoita ja vangitsevia näyttelijäsuorituksia.'),
+('vainse', '$2b$10$pYcfW1TE4lORryyRO6FJFOs8bF7m8ClPaXjDG/M/A4FsWVT917iDK', 'vainse@example.com', 'https://i.postimg.cc/nLmg16vr/profile4.jpg', CURRENT_TIMESTAMP, 'Täällä yksi elokuvaharrastaja, joka rakastaa löytää uusia helmiä valtavasta elokuvatarjonnasta. Olen aina valmis jakamaan suosikkileff'),
+('jokaToka', '$2b$10$QGlrHI60xCT1JkERYAYQYuiEuQCJAuaY.w9DVxNo2L6dpHNR2Me4G', 'jokatoka@example.com', 'https://i.postimg.cc/MT843dDD/profile5.jpg', CURRENT_TIMESTAMP, 'Morjens, olen jokaToka! Katson vähän kaikenlaista ja arvostan monipuolisuutta elokuvissa. Olen avoin uusille elokuvakokemuksille ja yllätyksille!'),
+('Mikk0', '$2b$10$b9MMw4wALTbPDKXbgZIuJedz.tBhB1AAxBO21UW8gmVn34uvUDOEa', 'mikk0@example.com', 'https://i.postimg.cc/3r169jDX/profile6.jpg', CURRENT_TIMESTAMP, 'Moro. Oon Mikko. Toimintaelokuvista tykkään. En voi vastustaa jännittäviä toimintakohtauksia. Seuraan aktiivisesti uusimpia elokuvauutisia ja trailereita.'),
+('dramaqueen', '$2b$10$SlZvRPqkAbEEO99f0gyRXubu/CKlkQo12ayYMyenik1ekELUtCc3W', 'dramaqueen@example.com', 'https://i.postimg.cc/cCFbHZN9/profile7.jpg', CURRENT_TIMESTAMP, 'Mä rakastan elokuvien tunnelmallisuutta ja taidokasta näyttelijäntyötä. Nautin erityisesti draamaelokuvien syvällisistä tarinoista ja emotionaalisista kohtauksista.'),
+('kauhistus', '$2b$10$XrLUGUbR77BVtDPVZ6cLIOsmvltN20QLnzQ5vm8cWQjSPviNrjJiG', 'kauhistus@example.com', 'https://i.postimg.cc/vBLKJf2d/profile8.jpg', CURRENT_TIMESTAMP, 'HUI! Kauhuelokuvien intohimoinen harrastaja, joka ei pelkää mennä pimeään. Rakastan jännitystä ja yllättäviä käänteitä!'),
+('Jest4s', '$2b$10$IwMD52QfxJhT258LxwVNKeGGGDfix8oWApJt9Kd48DOGPhqbxi60K', 'jest4s@example.com', 'https://i.postimg.cc/526ZXHyw/profile9.jpg', CURRENT_TIMESTAMP, 'Tervehdys, kulkija. Elokuva-analyytikko ja elokuvakriitikko, joka nauttii elokuvien syvällisestä analysoinnista. Rakastan pureutua elokuvien teemoihin ja symboliikkaan.'),
+('AaveMaria', '$2b$10$FC1jbhISaPnald7BczUTp.myptklA36L0ntNz4fdyedZprQ1X4aWq', 'aavemaria@example.com', 'https://i.postimg.cc/yYYqzpzp/profile1.jpg', CURRENT_TIMESTAMP, 'Moikka, olen AaveMaria! Mysteerien ja jännityselokuvien fani, joka rakastaa arvoituksellisia tarinoita ja yllättäviä juonenkäänteitä. Olen aina valmiina seikkailuun!'),
+('siippa5', '$2b$10$is.bNU/5A4MdM9sZV/UdwO6qvMruQrfUbrkql371f9gmUs4TagBHa', 'siippa5@example.com', 'https://i.postimg.cc/ZnbQ4nXv/profile10.jpg', CURRENT_TIMESTAMP, 'Hei, olen siippa5! Seikkailujen ja fantasiaelokuvien ystävä, joka rakastaa lumoutua mielikuvituksellisista maailmoista. Etsin aina uusia elokuvaseikkailuja ja unohtumattomia tarinoita!'),
+('Pastilli', '$2b$10$3bQI9aUHy9wx2qfulRDdRu94wo.m2RPcswnHNt126onZOwf3W.E3O', 'pastilli@example.com', 'https://i.postimg.cc/jd8pq6xx/profile2.jpg', CURRENT_TIMESTAMP, 'Whiiiiii!!! Visuaalisten elämysten ja tyylikkäiden elokuvien rakastaja. Nautin kauniista kuvista ja elokuvien visuaalisesta toteutuksesta.'),
+('Huutista', '$2b$10$m1A0mr3RqW.FejzJskU9iuS2SiDqcXpRpX3Da08TleGxP4b3gui8e', 'huutista@example.com', 'https://i.postimg.cc/zG64KJH4/profile3.jpg', CURRENT_TIMESTAMP, 'Terve, olen Huutista! :D:D:D :) Elokuvafani, joka etsii jatkuvasti uusia elokuvaelämyksiä ja seuraa aktiivisesti elokuvamaailman tapahtumia. Rakastan elokuvien monimuotoisuutta ja erilaisia genrejä!'),
+('salaakaton', '$2b$10$RoF/XQbHpoLG8cm00ll/kuF1SUiLl/Vq0mEBio14./T.CfaGrh.F2', 'salaakaton@example.com', 'https://i.postimg.cc/nLmg16vr/profile4.jpg', CURRENT_TIMESTAMP, 'Hei, olen salaakaton! Rakastan elokuvien tunnelmaa ja hienovaraista kerrontaa. Etsin aina elokuvia, jotka herättävät ajatuksia ja jättävät jäljen.'),
+('Kan-Joni', '$2b$10$8KeS4n.O2CLpUurqsQMBa.wej5SaNcSVC8XE9hl8uQ0Rj1lZzhN2a', 'kanjoni@example.com', 'https://i.postimg.cc/MT843dDD/profile5.jpg', CURRENT_TIMESTAMP, 'Moikka, olen Kan-Joni! Kokenut elokuvafani, joka rakastaa klassisia elokuvia ja elokuvahistoriaa. Olen aina valmiina matkustamaan ajassa taaksepäin elokuvien maailmaan.'),
+('poikamies', '$2b$10$MxjsY3EsB25IjGQJsUCpqOClHnsNISN1slbYkhc9zX0.JAhAMPxtO', 'poikamies@example.com', 'https://i.postimg.cc/3r169jDX/profile6.jpg', CURRENT_TIMESTAMP, 'Hei, olen poikamies! Ois kiva lyötää kultsikainaloon. Ja oon romanttisten komedioiden ja draamojen ystävä, joka uskoo rakkauden voimaan. Nautin elokuvista, jotka saavat sydämeni lämpenemään.'),
+('Misu01', '$2b$10$NI8.6kt3rXWmTTkb4uNZA.98JFcPnXm.AeLyNgB17V7aNWT.2tTQO', 'misu01@example.com', 'https://i.postimg.cc/cCFbHZN9/profile7.jpg', CURRENT_TIMESTAMP, 'Tervehdys, olen Misu01! Tarinoiden ja henkilöhahmojen ystävä, joka arvostaa elokuvien vaikuttavia tarinoita ja syvällisiä merkityksiä. Etsin aina elokuvia, jotka herättävät tunteita ja ajatuksia.'),
+('MrMovie', '$2b$10$5o7E9zEk00RGHhcH8BLFyOYHyINiojV7VKgozjphqGg2ENQBXkqtm', 'mrmovie@example.com', 'https://i.postimg.cc/vBLKJf2d/profile8.jpg', CURRENT_TIMESTAMP, 'Terve, olen MrMovie! Leffafriikki ja elokuvien suurkuluttaja, joka rakastaa elokuvien maailmaa. Olen aina valmis keskustelemaan lempileffoista ja jakamaan elokuvavinkkejä.'),
+('ElokuvaEnkeli', '$2b$10$Db3XX.QsnU2FfV0cIi.XUeR.klmiCMfPCgXrjM/xFPy0JVD3aLXc2', 'elokuvaenkeli@example.com', 'https://i.postimg.cc/526ZXHyw/profile9.jpg', CURRENT_TIMESTAMP, 'Moi! Olen ElokuvaEnkeli, joka rakastaa elokuvien maailmaa ja taiteellisia elokuvia. Etsin aina uusia elokuvia, jotka koskettavat sydäntä ja sielua.'),
+('KameraKaveri', '$2b$10$YbLms1Z/w/5xkVB4dr1DZOizwBIZT0S3yDZSHsv.1buQ.MZb8cZBK', 'kamerakaveri@example.com', 'https://i.postimg.cc/yYYqzpzp/profile1.jpg', CURRENT_TIMESTAMP, 'Tervehdys, olen KameraKaveri! Valokuvauksen ja elokuvien ystävä, joka nauttii visuaalisesta taiteesta ja kuvakerronnasta. Rakastan elokuvia, jotka ovat kuin visuaalisia taideteoksia.'),
+('elokuvafani', '$2b$10$zZy1NG/U96n8OL2PddN9V.4NKIuudrrT3S13.vv.bEjWlXhQPuhSi', 'elokuvafani@example.com', 'https://i.postimg.cc/ZnbQ4nXv/profile10.jpg', CURRENT_TIMESTAMP, 'Hei, olen elokuvafani! Rakastan elokuvien monimuotoisuutta ja eri genrejä. Etsin aina uusia elokuvia, jotka tarjoavat unohtumattomia elämyksiä ja vaikuttavia tarinoita.'),
+('Kamutari', '$2b$10$lv21Fv3av2qpgGfn92J3Q.B6aV5QFm9SUHq8fI0WgCR/f7TVeKbP6', 'kamutari@example.com', 'https://i.postimg.cc/jd8pq6xx/profile2.jpg', CURRENT_TIMESTAMP, 'Moro, olen Kamutari! Elokuvaharrastaja, joka rakastaa elokuvien katsomista ystävien kanssa. Olen aina valmis leffailtaan hyvän seuran ja herkkujen kera.'),
+('Filmifriikki', '$2b$10$o/Sa6r3Xcno6OMs2Xabk6uGBuqK4ERJRnMM1O.w2n9VdQuF2K2A5G', 'filmifriikki@example.com', 'https://i.postimg.cc/zG64KJH4/profile3.jpg', CURRENT_TIMESTAMP, 'Tervehdys, olen Filmifriikki! Elokuvanörtti ja leffahullu, joka rakastaa elokuvien maailmaa ja seuraa aktiivisesti elokuvamaailman tapahtumia. Olen aina valmis leffaseuraan ja keskustelemaan lempileffoista!'),
+('ElokuvaAddikti', '$2b$10$VcZxej6IUeVX3G/dFl/qUOc3hXzT4a2Tqw/XqjtbQxJAS5eCmuDLC', 'elokuvaaddikti@example.com', 'https://i.postimg.cc/nLmg16vr/profile4.jpg', CURRENT_TIMESTAMP, 'Moi! Olen ElokuvaAddikti, joka rakastaa elokuvien maailmaa ja elokuvien katsomista. Olen aina valmis jakamaan leffavinkkejä ja keskustelemaan uusista leffatrendeistä.'),
+('Leffakeiju', '$2b$10$WkC/gWyK0n9JStqNeI1YZeTQQPL0/08ABmhaevdDh.98iFZB7IyDu', 'leffakeiju@example.com', 'https://i.postimg.cc/MT843dDD/profile5.jpg', CURRENT_TIMESTAMP, 'Moikka! Olen Leffakeiju, joka rakastaa elokuvien maailmaa ja seuraa aktiivisesti elokuvamaailman tapahtumia. Olen aina valmis leffailtaan ja keskustelemaan lempileffoista!'),
+('ElokuvaGuru', '$2b$10$3Q0dAWZV0sDhXyCZ0fvvheN4Xik6LQCG0vpi.b6EwGyB50hJ8Vn0.', 'elokuvaguru@example.com', 'https://i.postimg.cc/3r169jDX/profile6.jpg', CURRENT_TIMESTAMP, 'Terve, olen ElokuvaGuru! Leffafriikki ja elokuvien suurkuluttaja, joka rakastaa elokuvien maailmaa. Olen aina valmis jakamaan leffavinkkejä ja keskustelemaan uusimmista elokuvista.'),
+('LeffaLintu', '$2b$10$rO5j0WhsTZQ0UEvz6pHVd.M7DtK1lJDFaF/sO1d6OYR9LlSZTkL/u', 'leffalintu@example.com', 'https://i.postimg.cc/cCFbHZN9/profile7.jpg', CURRENT_TIMESTAMP, 'Hei, olen LeffaLintu! Elokuvien ystävä, joka rakastaa elokuvien katsomista ja seuraa aktiivisesti elokuvamaailman tapahtumia. Olen aina valmis jakamaan leffavinkkejä ja keskustelemaan uusimmista elokuvista.'),
+
+-- testikäyttäjät id 1-10
+-------------------------------------
+-- Viilipytty hashaamaton salasana: oivamato
+-- Jankka hashaamaton salasana: 8D94gvds0
+-- komediaa82 hashaamaton salasana: aaidemok
+-- Eloton hashaamaton salasana: sana5532
+-- vainse hashaamaton salasana: rekku6
+-- jokaToka hashaamaton salasana: lomakuume#1
+-- Mikk0 hashaamaton salasana: VIEROSKAT
+-- dramaqueen hashaamaton salasana: unohdettu1010
+-- kauhistus hashaamaton salasana: kauhuleffoja38
+-- Jest4s hashaamaton salasana: )3nvds98ETF
+-- testikäyttäjät id 11-20
+-------------------------------------
+-- AaveMaria hashaamaton salasana: #mvvdisCORD
+-- siippa5 hashaamaton salasana: siipaton000
+-- Pastilli hashaamaton salasana: jukujes%
+-- Huutista hashaamaton salasana: xDXDxdXD94
+-- salaakaato hashaamaton salasana: tuskaa4=
+-- Kan-Joni hashaamaton salasana: helppo
+-- poikamies hashaamaton salasana: vielkinEhtis
+-- Misu01 hashaamaton salasana: 987654321
+-- maitotee hashaamaton salasana: EnJuoKahvia
+-- lipettiin hashaamaton salasana: somaprinsessa666
+-- testikäyttäjät id 21 - 24
+-------------------------------------
+-- Jenna hashaamaton salasana: annejjenna
+-- Siilinpieru hashaamaton salasana: hedgehog
+-- PaijaanSUA hashaamaton salasana: byebye??0
+-- UUUseri hashaamaton salasana: 123456
 
 INSERT INTO Group_ (groupname, groupexplanation, "timestamp") VALUES
 -- id 1-5
@@ -195,10 +205,11 @@ INSERT INTO Group_ (groupname, groupexplanation, "timestamp") VALUES
 ('lastenleffat', 'kuvaus', CURRENT_TIMESTAMP),
 ('Äksönittäret', 'kuvaus', CURRENT_TIMESTAMP),
 ('Hevosaiheiset elokuvat', 'kuvaus', CURRENT_TIMESTAMP),
-('Oulun oikeamieliset', 'kuvaus', CURRENT_TIMESTAMP);
+('Oulun oikeamieliset', 'kuvaus', CURRENT_TIMESTAMP),
+-- id 16
+('Kaikenkarvaiset koirat', 'tässä leffaryhmä koirien ystäville. Kaikki koirafilmit sallittuja ja erittäin toivottuja!', CURRENT_TIMESTAMP);
 
 INSERT INTO Memberlist_ (profileid, mainuser, groupid, pending) VALUES
-
 -- Ryhmä Ryhmärämä
 ('1', 1, '1', 0),
 ('2', 0, '1', 0),
@@ -285,6 +296,31 @@ INSERT INTO Memberlist_ (profileid, mainuser, groupid, pending) VALUES
 ('8', 0, '15', 0),
 ('18', 0, '15', 0),
 ('14', 0, '15', 0);
+-- Kaikenkarvaiset koirat
+('1', 1, '16', 0),
+('2', 0, '16', 0),
+('3', 0, '16', 0),
+('4', 0, '16', 0),
+('5', 0, '16', 0),
+('6', 0, '16', 0),
+('7', 1, '16', 0),
+('8', 0, '16', 0),
+('9', 0, '16', 0),
+('10', 0, '16', 0),
+('11', 0, '16', 0),
+('12', 0, '16', 0),
+('13', 1, '16', 0),
+('14', 0, '16', 0),
+('15', 0, '16', 0),
+('16', 0, '16', 0),
+('17', 0, '16', 0),
+('17', 0, '16', 0),
+('18', 0, '16', 0),
+('19', 0, '16', 0),
+('20', 0, '16', 0),
+('21', 0, '16', 0),
+('22', 0, '16', 0),
+('23', 0, '16', 0);
 
 INSERT INTO Favoritelist_ (profileid, groupid, favoriteditem, showtime, "timestamp") VALUES
 ('1', '1', 'favorited_item_here', NULL, CURRENT_TIMESTAMP),
@@ -315,183 +351,6 @@ INSERT INTO Message_ (groupid, profileid, message, "timestamp") VALUES
 ('14', '14', 'Test message here', CURRENT_TIMESTAMP),
 ('15', '15', 'Test message here', CURRENT_TIMESTAMP);
 
-INSERT INTO Review_ (profileid, revieweditem, review, rating, "timestamp") VALUES
-('1', 'reviewed_item_here', 'Test review', 5, CURRENT_TIMESTAMP),
-('2', 'reviewed_item_here', 'Test review', 4, CURRENT_TIMESTAMP),
-('3', 'reviewed_item_here', 'Test review', 3, CURRENT_TIMESTAMP),
-('4', 'reviewed_item_here', 'Test review', 2, CURRENT_TIMESTAMP),
-('5', 'reviewed_item_here', 'Test review', 4, CURRENT_TIMESTAMP),
-('6', 'reviewed_item_here', 'Test review', 3, CURRENT_TIMESTAMP),
-('7', 'reviewed_item_here', 'Test review', 5, CURRENT_TIMESTAMP),
-('8', 'reviewed_item_here', 'Test review', 4, CURRENT_TIMESTAMP),
-('9', 'reviewed_item_here', 'Test review', 3, CURRENT_TIMESTAMP),
-('10', 'reviewed_item_here', 'Test review', 2, CURRENT_TIMESTAMP);
-
-
--- updatella kuvaukset testikäyttäjille
-UPDATE Profile_
-SET description = 
-    CASE 
-        WHEN profilename = 'Viilipytty' THEN 'Oon elokuvaharrastaja ja rakastan erityisesti komediaelokuvia. Hymyilen aina hyville vitseille ja nauran äänekkäästi lempikohtauksilleni.'
-        WHEN profilename = 'Jankka' THEN 'Mitähän tähän nyt kirjottais... no, oon kauhuelokuvien suurkuluttaja, joka ei säikähdä helpolla. Rakastan adrenaliinin kihinää ja jännitystä!'
-        WHEN profilename = 'komediaa82' THEN 'Moikka, olen komediaa82! Nimeni kertoo jo kaiken - rakastan komediaelokuvia ja nauran aina makeasti hyville vitseille.'
-        WHEN profilename = 'Eloton' THEN 'Tervehdys, olen Eloton! Draamaelokuvien ystävä, joka elää ja hengittää taide-elokuvia. Etsin aina syvällisiä tarinoita ja vangitsevia näyttelijäsuorituksia.'
-        WHEN profilename = 'vainse' THEN 'Täällä yksi elokuvaharrastaja, joka rakastaa löytää uusia helmiä valtavasta elokuvatarjonnasta. Olen aina valmis jakamaan suosikkileffojani muiden kanssa!'
-        WHEN profilename = 'jokaToka' THEN 'Morjens, olen jokaToka! Katson vähän kaikenlaista ja arvostan monipuolisuutta elokuvissa. Olen avoin uusille elokuvakokemuksille ja yllätyksille!'
-        WHEN profilename = 'Mikk0' THEN 'Moro. Oon Mikko. Toimintaelokuvista tykkään. En voi vastustaa jännittäviä toimintakohtauksia. Seuraan aktiivisesti uusimpia elokuvauutisia ja trailereita.'
-        WHEN profilename = 'dramaqueen' THEN 'Mä rakastan elokuvien tunnelmallisuutta ja taidokasta näyttelijäntyötä. Nautin erityisesti draamaelokuvien syvällisistä tarinoista ja emotionaalisista kohtauksista.'
-        WHEN profilename = 'kauhistus' THEN 'HUI! Kauhuelokuvien intohimoinen harrastaja, joka ei pelkää mennä pimeään. Rakastan jännitystä ja yllättäviä käänteitä!'
-        WHEN profilename = 'Jest4s' THEN 'Tervehdys, kulkija. Elokuva-analyytikko ja elokuvakriitikko, joka nauttii elokuvien syvällisestä analysoinnista. Rakastan pureutua elokuvien teemoihin ja symboliikkaan.'
-        WHEN profilename = 'AaveMaria' THEN 'Moikka, olen AaveMaria! Mysteerien ja jännityselokuvien fani, joka rakastaa arvoituksellisia tarinoita ja yllättäviä juonenkäänteitä. Olen aina valmiina seikkailuun!'
-        WHEN profilename = 'siippa5' THEN 'Hei, olen siippa5! Seikkailujen ja fantasiaelokuvien ystävä, joka rakastaa lumoutua mielikuvituksellisista maailmoista. Etsin aina uusia elokuvaseikkailuja ja unohtumattomia tarinoita!'
-        WHEN profilename = 'Pastilli' THEN 'Whiiiiii!!! Visuaalisten elämysten ja tyylikkäiden elokuvien rakastaja. Nautin kauniista kuvista ja elokuvien visuaalisesta toteutuksesta.'
-        WHEN profilename = 'Huutista' THEN 'Terve, olen Huutista! :D:D:D :) Elokuvafani, joka etsii jatkuvasti uusia elokuvaelämyksiä ja seuraa aktiivisesti elokuvamaailman tapahtumia. Rakastan elokuvien monimuotoisuutta ja erilaisia genrejä!'
-        WHEN profilename = 'salaakaton' THEN 'Hei, olen salaakaton! Rakastan elokuvien tunnelmaa ja hienovaraista kerrontaa. Etsin aina elokuvia, jotka herättävät ajatuksia ja jättävät jäljen.'
-        WHEN profilename = 'Kan-Joni' THEN 'Moikka, olen Kan-Joni! Kokenut elokuvafani, joka rakastaa klassisia elokuvia ja elokuvahistoriaa. Olen aina valmiina matkustamaan ajassa taaksepäin elokuvien maailmaan.'
-        WHEN profilename = 'poikamies' THEN 'Hei, olen poikamies! Ois kiva lyötää kultsikainaloon. Ja oon romanttisten komedioiden ja draamojen ystävä, joka uskoo rakkauden voimaan. Nautin elokuvista, jotka saavat sydämeni lämpenemään.'
-        WHEN profilename = 'Misu01' THEN 'Tervehdys, olen Misu01! Tarinoiden ja henkilöhahmojen ystävä, joka arvostaa elokuvien vaikuttavia tarinoita ja syvällisiä merkityksiä. Etsin aina elokuvia, jotka koskettavat syvältä.'
-        WHEN profilename = 'maitotee' THEN 'Moikka, olen maitotee Oulusta! Tunnelmallisten elokuvien ja musiikin rakastaja, joka nauttii elokuvien äänimaailmasta ja tunnelmasta. Rakastan uppoutua elokuvien maailmaan ja nauttia jokaisesta hetkestä.'
-        WHEN profilename = 'lipettiin' THEN 'Tässä tämmöinen elokuvaseikkailija, joka rakastaa odottamattomia juonenkäänteitä ja yllätyksiä. Olen aina valmis matkustamaan elokuvien mielikuvituksellisiin maailmoihin!'
-        WHEN profilename = 'Jenna' THEN 'Heippa, olen Jenna! Draamaelokuvien fani, joka nauttii elokuvien tunnelmallisista tarinoista ja syvällisistä henkilöhahmoista. Rakastan uppoutua elokuvien maailmaan ja elää mukana jokaisessa hetkessä.'
-        WHEN profilename = 'Siilinpieru' THEN 'Morjens. Oon sellanen elokuvien moniottelija, joka nauttii kaikenlaisista elokuvista ja seuraa innokkaasti elokuvamaailman tapahtumia. Rakastan löytää uusia elokuvahelmiä ja jakaa niitä muiden kanssa!'
-        WHEN profilename = 'PaijaanSUA' THEN 'Saako silittää? ^^ Olen elokuvien ystävä, joka arvostaa elokuvien monimuotoisuutta ja erilaisia genrejä. Olen aina valmiina löytämään uusia suosikkileffoja ja jakamaan niitä muiden kanssa!'
-        WHEN profilename = 'UUUseri' THEN 'Terve, olen UUUseri! Toimintaelokuvien suurkuluttaja, joka rakastaa jännitystä ja adrenaliinin kihinää. Olen aina valmiina seuraamaan uusimpia toimintaelokuvia ja ottamaan vastaan seikkailuja!'
-        ELSE 'En ole vielä kertonut itsestäni mitään.'
-    END;
-    
--- updatella profiilikuvat testikäyttäjille
-UPDATE Profile_
-SET profilepicurl = 'https://i.postimg.cc/yYYqzpzp/profile1.jpg'
-WHERE profileid = '1';
-
-UPDATE Profile_
-SET profilepicurl = 'https://i.postimg.cc/ZnbQ4nXv/profile10.jpg'
-WHERE profileid = '2';
-
-UPDATE Profile_
-SET profilepicurl = 'https://i.postimg.cc/jd8pq6xx/profile2.jpg'
-WHERE profileid = '3';
-
-UPDATE Profile_
-SET profilepicurl = 'https://i.postimg.cc/zG64KJH4/profile3.jpg'
-WHERE profileid = '4';
-
-UPDATE Profile_
-SET profilepicurl = 'https://i.postimg.cc/nLmg16vr/profile4.jpg'
-WHERE profileid = '5';
-
-UPDATE Profile_
-SET profilepicurl = 'https://i.postimg.cc/MT843dDD/profile5.jpg'
-WHERE profileid = '6';
-
-UPDATE Profile_
-SET profilepicurl = 'https://i.postimg.cc/3r169jDX/profile6.jpg'
-WHERE profileid = '7';
-
-UPDATE Profile_
-SET profilepicurl = 'https://i.postimg.cc/cCFbHZN9/profile7.jpg'
-WHERE profileid = '8';
-
-UPDATE Profile_
-SET profilepicurl = 'https://i.postimg.cc/vBLKJf2d/profile8.jpg'
-WHERE profileid = '9';
-
-UPDATE Profile_
-SET profilepicurl = 'https://i.postimg.cc/526ZXHyw/profile9.jpg'
-WHERE profileid = '10';
-
-UPDATE Profile_
-SET profilepicurl = 'https://i.postimg.cc/MT843dDD/profile5.jpg'
-WHERE profileid = '11';
-
-UPDATE Profile_
-SET profilepicurl = 'https://i.postimg.cc/3r169jDX/profile6.jpg'
-WHERE profileid = '12';
-
-UPDATE Profile_
-SET profilepicurl = 'https://i.postimg.cc/cCFbHZN9/profile7.jpg'
-WHERE profileid = '13';
-
-UPDATE Profile_
-SET profilepicurl = 'https://i.postimg.cc/vBLKJf2d/profile8.jpg'
-WHERE profileid = '14';
-
-UPDATE Profile_
-SET profilepicurl = 'https://i.postimg.cc/526ZXHyw/profile9.jpg'
-WHERE profileid = '15';
-
-UPDATE Profile_
-SET profilepicurl = 'https://i.postimg.cc/yYYqzpzp/profile1.jpg'
-WHERE profileid = '16';
-
-UPDATE Profile_
-SET profilepicurl = 'https://i.postimg.cc/ZnbQ4nXv/profile10.jpg'
-WHERE profileid = '17';
-
-UPDATE Profile_
-SET profilepicurl = 'https://i.postimg.cc/jd8pq6xx/profile2.jpg'
-WHERE profileid = '18';
-
-UPDATE Profile_
-SET profilepicurl = 'https://i.postimg.cc/zG64KJH4/profile3.jpg'
-WHERE profileid = '19';
-
-UPDATE Profile_
-SET profilepicurl = 'https://i.postimg.cc/nLmg16vr/profile4.jpg'
-WHERE profileid = '20';
-
-UPDATE Profile_
-SET profilepicurl = 'https://i.postimg.cc/MT843dDD/profile5.jpg'
-WHERE profileid = '21';
-
-UPDATE Profile_
-SET profilepicurl = 'https://i.postimg.cc/3r169jDX/profile6.jpg'
-WHERE profileid = '22';
-
-UPDATE Profile_
-SET profilepicurl = 'https://i.postimg.cc/cCFbHZN9/profile7.jpg'
-WHERE profileid = '23';
-
--- vipu, että käyttäjä saa profiilinsa yksityiseksi
-ALTER TABLE Profile_
-ADD COLUMN is_private BOOLEAN DEFAULT FALSE;
-
--- yksityinen tili käyttäjille 8-14
-UPDATE Profile_
-SET is_private = TRUE
-WHERE profileid BETWEEN 8 AND 14;
-
-INSERT INTO Group_ (groupname, groupexplanation, "timestamp") VALUES
-('Kaikenkarvaiset koirat', 'tässä leffaryhmä koirien ystäville. Kaikki koirafilmit sallittuja ja erittäin toivottuja!', CURRENT_TIMESTAMP);
-
-INSERT INTO Memberlist_ (profileid, mainuser, groupid, pending) VALUES
--- Kaikenkarvaiset koirat
-('1', 1, '46', 0),
-('2', 0, '46', 0),
-('3', 0, '46', 0),
-('4', 0, '46', 0),
-('5', 0, '46', 0),
-('6', 0, '46', 0),
-('7', 1, '46', 0),
-('8', 0, '46', 0),
-('9', 0, '46', 0),
-('10', 0, '46', 0),
-('11', 0, '46', 0),
-('12', 0, '46', 0),
-('13', 1, '46', 0),
-('14', 0, '46', 0),
-('15', 0, '46', 0),
-('16', 0, '46', 0),
-('17', 0, '46', 0),
-('17', 0, '46', 0),
-('18', 0, '46', 0),
-('19', 0, '46', 0),
-('20', 0, '46', 0),
-('21', 0, '46', 0),
-('22', 0, '46', 0),
-('23', 0, '46', 0);
-
--- arvosteluista testidataa käyttäjille
 INSERT INTO Review_ (profileid, revieweditem, review, rating, "timestamp") VALUES
 ('1', '1011985', 'Hyvä elokuva!', 4, CURRENT_TIMESTAMP),
 ('1', '373571', 'Hieno elokuva!', 5, CURRENT_TIMESTAMP),
@@ -541,3 +400,9 @@ INSERT INTO Review_ (profileid, revieweditem, review, rating, "timestamp") VALUE
 ('23', '373571', 'Paras!', 5, CURRENT_TIMESTAMP),
 ('24', '1022796', 'Ei suositeltava', 2, CURRENT_TIMESTAMP),
 ('24', '695721', 'Viihdyttävä', 4, CURRENT_TIMESTAMP);
+
+-- yksityinen tili käyttäjille 8-14
+UPDATE Profile_
+SET is_private = TRUE
+WHERE profileid BETWEEN 8 AND 14;
+

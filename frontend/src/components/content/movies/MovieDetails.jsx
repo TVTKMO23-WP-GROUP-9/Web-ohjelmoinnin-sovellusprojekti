@@ -7,35 +7,36 @@ const MovieDetails = () => {
     const [movie, setMovie] = useState(null); 
     const [providers, setProviders] = useState(null);
 
-    useEffect(() => {
-      const fetchData = async () => {
+ useEffect(() => {
+      const fetchMovie = async () => {
         try {
-      const [movieResponse, providersResponse] = await Promise.all([
-        axios.get(`http://localhost:3001/movie/${id}`),
-        axios.get(`http://localhost:3001/movie/provider/${id}`)
-      ]);
-
-          setMovie(movieResponse.data);
-          setProviders(providersResponse.data);
-
+          const response = await axios.get(`http://localhost:3001/movie/${id}`);
+          setMovie(response.data);
         } catch (error) {
-
-          if (error.response && error.response.status === 404) {
           console.error('Virhe elokuvan hakemisessa:', error);
-        } else {
-          console.error('Jokin meni peileen:', error);
         }
-      }
-    };
+      };
     
-      fetchData();
+      const fetchProviders = async () => {
+        try {
+          const response = await axios.get(`http://localhost:3001/movie/provider/${id}`);
+          setProviders(response.data);
+        } catch (error) {
+          console.error('Virhe palveluntarjoajien hakemisessa:', error);
+          // Jos pyyntö epäonnistuu, asetetaan providers-tila tyhjään JSON-objektiin
+          setProviders({});
+        }
+      };
+
+      fetchMovie();
       
       // Asetetaan timeout fetchProviders-funktiolle 5 sekunniksi
-      const timeoutId = setTimeout(fetchData, 100);
+      const timeoutId = setTimeout(fetchProviders, 100);
     
       // Palautetaan poisto-funktio, joka suoritetaan komponentin purkamisen yhteydessä
       return () => clearTimeout(timeoutId);
     }, [id]);
+
 
 
       return (
