@@ -35,6 +35,14 @@ useEffect(() => {
     simulateLogin();
 }, [user]);
 
+const formatDate = (timestamp) => {
+    const date = new Date(timestamp);
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+    return `${day}.${month}.${year}`;
+  };
+
 const isOwnProfile = user && profile && user.username === profile.username;
 
     return (
@@ -42,8 +50,8 @@ const isOwnProfile = user && profile && user.username === profile.username;
             <div className="inner-view">
                 <div className="inner-left">
                     <img src={profile?.profilepicurl || ''} className="profilepic" alt="Käyttäjän kuva" />
-                    <span>Viimeksi kirjautuneena: {lastLoggedIn}</span>
-                    <br />
+                    {(!profile?.is_private || isOwnProfile) && <span className='userinfo'>Viimeksi kirjautuneena: {formatDate(lastLoggedIn)}</span>}
+
                     {isOwnProfile && <Link to={`/profile/${profilename}/edit`} className="basicbutton">Muokkaa profiilia</Link>}
                 </div>
 
