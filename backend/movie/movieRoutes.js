@@ -14,4 +14,5 @@ router.get('/movie/:id', movieService.getMovieById);
 // find by id -haku, etsitään mistä Suomessa tuotteen voi katsoa. Käyttö vaatii JustWatch creditointia sillä uhalla että apin oikeudet menettää jos ei kreditoi
 router.get('/movie/provider/:id', movieService.getMovieProvidersbyId);
 
+
 module.exports = router;

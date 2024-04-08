@@ -8,6 +8,7 @@ import ReviewList from './ReviewList';
 const ProfileDetails = ({ user }) => {
     const [profile, setProfile] = useState(null);
     const { profilename } = useParams();
+    const [lastLoggedIn, setLastLoggedIn] = useState(null);
 
 useEffect(() => {
     const fetchProfile = async () => {
@@ -23,14 +24,24 @@ useEffect(() => {
     fetchProfile();
 }, [user, user?.username, profilename]);
 
-  //const isOwnProfile = user && profile && profile.profilename === user.username;
+//Viimeksi kirjautunu
+useEffect(() => {
+    const simulateLogin = async () => {
+        const timestamp = new Date().toLocaleString();
+        setLastLoggedIn(timestamp);
+    };
+
+    simulateLogin();
+}, [user]);
 const isOwnProfile = user && profile && user.username && profile.profilename === user.username;
+
 
     return (
         <div className="content">
             <div className="inner-view">
                 <div className="inner-left">
                     <img src={profile?.profilepicurl || ''} className="profilepic" alt="Käyttäjän kuva" />
+                    <span>Viimeksi kirjautuneena: {lastLoggedIn}</span>
                     <br />
                     {isOwnProfile && <Link to={`/profile/${profilename}/edit`} className="basicbutton">Muokkaa profiilia</Link>}
                 </div>
