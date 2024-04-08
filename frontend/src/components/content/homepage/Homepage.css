@@ -63,7 +63,33 @@
   transform: rotate(0deg);
 }
 
+.reviewmain {
+  align-items: flex-start;
+}
+
+.review-info {
+  align-content: left;
+  text-align: left;
+  min-width: 400px;
+}
+
+.reviewmain h2 {
+  padding-top: 0;
+  margin-top: 0;
+}
+
 .review-item img {
-  height: 300px;
+  height: 200px;
   width: auto;
+  padding-right: 20px;
+  margin-top: 0;
+  padding-top: 0;
+}
+
+.review-item {
+  background-color: var(--moviedetails);
+  width: 600px;
+  border-radius: 10px;
+  margin-top: 15px;
+  padding: 20px;
 }

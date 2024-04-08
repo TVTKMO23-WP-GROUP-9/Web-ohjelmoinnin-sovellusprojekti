@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './Comingsoon.css'; // Sisällytä CSS-tiedosto suoraan komponenttiin
+import './Homepage.css'; // Sisällytä CSS-tiedosto suoraan komponenttiin
 
 const Comingsoon = () => {
   const [events, setEvents] = useState([]);

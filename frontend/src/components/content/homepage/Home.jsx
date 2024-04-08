@@ -30,10 +30,6 @@ const Home = () => {
             <h2>Tuoreimmat arvostelut</h2>
             <Latestreviews/>
         </div>
-        <div className='lowercontent'>
-            <h2>Lempileffat</h2> 
-        </div>
-
       </div>
       
       <div className='right-container'>
