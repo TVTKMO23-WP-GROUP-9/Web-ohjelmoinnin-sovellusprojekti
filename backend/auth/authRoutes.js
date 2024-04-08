@@ -25,6 +25,8 @@ router.post('/auth/login', async (req, res) => {
 
 router.get('/auth/logout', async (req, res) => {
     try {
+        const username = req.user.username; // Olettaen, että käyttäjänimi tallennetaan req.user.username -kenttään istunnon aikana
+        await authService.updateLastLoggedIn(username);
         // session poisto tähän
         res.status(200).json({ message: "Kirjaudu ulos onnistui" });
     } catch (error) {
@@ -32,6 +34,8 @@ router.get('/auth/logout', async (req, res) => {
         res.status(500).json({ message: "Uloskirjautumisessa tapahtui virhe" });
     }
 });
+
+
 
 
 module.exports = router;

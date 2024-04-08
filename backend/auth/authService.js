@@ -32,8 +32,7 @@ async function loginUser(username, password) {
 
         // salasanan tarkistus bcryptillä
         const passwordMatch = await bcrypt.compare(password, user.hashedpassword);
-        if (passwordMatch) {
-            await authModel.LastLoggedIn(profileid);
+        if (passwordMatch) { 
             return { success: true, message: 'Kirjautuminen onnistui' };
         } else {
             return { success: false, message: 'Kirjautuminen epäonnistui' };

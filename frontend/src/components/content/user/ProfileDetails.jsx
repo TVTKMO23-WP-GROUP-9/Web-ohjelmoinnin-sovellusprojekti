@@ -25,23 +25,22 @@ useEffect(() => {
 }, [user, user?.username, profilename]);
 
 //Viimeksi kirjautunu
-useEffect(() => {
+  /*useEffect(() => {
     const simulateLogin = async () => {
-        const timestamp = new Date().toLocaleString();
-        setLastLoggedIn(timestamp);
+        const currentTime = new Date().toLocaleString();
+        setLastLoggedIn(currentTime);
     };
-
     simulateLogin();
-}, [user]);
-const isOwnProfile = user && profile && user.username && profile.profilename === user.username;
+}, [user]); */
 
+const isOwnProfile = user && profile && user.username && profile.profilename === user.username;
 
     return (
         <div className="content">
             <div className="inner-view">
                 <div className="inner-left">
                     <img src={profile?.profilepicurl || ''} className="profilepic" alt="Käyttäjän kuva" />
-                    <span>Viimeksi kirjautuneena: {lastLoggedIn}</span>
+      <span>Viimeksi kirjautuneena: {lastLoggedIn}</span> 
                     <br />
                     {isOwnProfile && <Link to={`/profile/${profilename}/edit`} className="basicbutton">Muokkaa profiilia</Link>}
                 </div>
