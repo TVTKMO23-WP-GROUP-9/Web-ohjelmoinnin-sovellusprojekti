@@ -25,20 +25,23 @@ const Latestreviews = () => {
             };
           } catch (error) {
             console.error('Virhe elokuvan hakemisessa:', error);
-            return review; // Jos elokuvan haku epäonnistuu, palauta vain arvostelu
+            // Palauta tyhjä objekti, jos elokuvan hakeminen epäonnistuu
+            return {};
           }
         }));
         
-        setReviews(reviewsWithMovies);
+        // Suodata pois tyhjät arvostelut ja aseta arvostelut
+        setReviews(reviewsWithMovies.filter(review => Object.keys(review).length !== 0));
         setLoading(false);
       } catch (error) {
         console.error('Virhe haettaessa arvosteluja:', error);
         setLoading(false);
       }
     };
-
+  
     fetchReviews();
   }, []);
+  
 
 
   return (
