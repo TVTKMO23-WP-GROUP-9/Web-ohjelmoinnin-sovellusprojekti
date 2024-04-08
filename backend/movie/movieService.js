@@ -1,6 +1,6 @@
 const axios = require('axios');
 const movieModel = require('./movieModel');
-const { param } = require('./movieRoutes');
+//const { param } = require('./movieRoutes');
 
 const with_genres = {
     "action": 28,
@@ -22,14 +22,14 @@ const with_genres = {
     "thriller": 53,
     "war": 10752,
     "western": 37
-  };
+};
 
 
 function setUndefinedToEmptyStrings(param) {
     if (param === undefined) {
         return '';
     } else {
-        return param; 
+        return param;
     }
 }
 
@@ -38,7 +38,7 @@ async function searchMovies(req, res) {
     const { query, page, year, language } = req.query;
     const apiKey = process.env.TMDB_API_KEY;
     const url = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${query}&page=${page}&year=${year}&language=${language}`;
-    
+
     try {
         const response = await axios.get(url);
         const data = response.data;
@@ -64,7 +64,7 @@ async function discoverMovies(req, res) {
     if (genre === 'all' || genre === undefined) {
         genreId = '';
     } else {
-        genreId = with_genres[genre]; 
+        genreId = with_genres[genre];
     }
 
     console.log(setUndefinedToEmptyStrings(genre));
@@ -74,7 +74,7 @@ async function discoverMovies(req, res) {
     paramSort_by = setUndefinedToEmptyStrings(sort_by);
 
     console.log('genreId:', genreId);
-    console.log('sort_by:', paramSort_by);   
+    console.log('sort_by:', paramSort_by);
     console.log('page:', paramPage);
     console.log('year:', paramYear);
     console.log('language:', paramLanguage);
@@ -85,7 +85,7 @@ async function discoverMovies(req, res) {
     try {
         const response = await axios.get(url);
         const data = response.data;
-        const movies = data.results.map(result => new movieModel (
+        const movies = data.results.map(result => new movieModel(
             result.id,
             result.title,
             result.poster_path,

@@ -1,17 +1,8 @@
-const { Pool } = require('pg');
-
-const pool = new Pool({
-    user: process.env.DB_USER,
-    host: process.env.DB_HOST,
-    database: process.env.DB_DATABASE,
-    password: process.env.DB_PASSWORD,
-    port: process.env.DB_PORT,
-    ssl: process.env.DB_SSL,
-});
+const pool = require('../database/db_connection');
 
 async function getUserByUsername(username) {
     const query = {
-        text: 'SELECT * FROM Profile_ WHERE profilename = $1',
+        text: 'SELECT * FROM profile_ WHERE profilename = $1',
         values: [username],
     };
     const result = await pool.query(query);
@@ -20,7 +11,7 @@ async function getUserByUsername(username) {
 
 async function createUser(username, hashedpassword, email) {
     const query = {
-        text: 'INSERT INTO Profile_ (profilename, hashedpassword, email) VALUES ($1, $2, $3)',
+        text: 'INSERT INTO profile_ (profilename, hashedpassword, email) VALUES ($1, $2, $3)',
         values: [username, hashedpassword, email],
     };
     await pool.query(query);
