@@ -22,10 +22,11 @@ const ProfileDetails = ({ user }) => {
         };
         
         fetchProfile();
-    }, [profilename]);
+    }, [user, user?.username, profilename]);
 
 
-  
+ //   const isOwnProfile = user && profile && user.username === profile.username;
+
 //Viimeksi kirjautunu
 useEffect(() => {
     const simulateLogin = async () => {
