@@ -19,5 +19,6 @@ async function createUser(username, hashedpassword, email) {
 
 module.exports = {
     getUserByUsername,
-    createUser
+    createUser,
+
 };
