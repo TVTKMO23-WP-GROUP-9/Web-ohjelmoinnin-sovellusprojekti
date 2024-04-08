@@ -174,7 +174,7 @@ const Rightsidebar = () => {
                 {shows.slice(showCount - 10, showCount).map((show, index) => (
     
                     <div onClick={() => handleClick(show.title, show.year)}>
-                      <table className="nearby"  key={index}>
+                      <table className="nearby"  key={index + 1} >
                         <tbody>
                           <tr onClick={() => handleClick(show.title, show.year)}>
                             <td><b>{show.auditorium}</b></td>

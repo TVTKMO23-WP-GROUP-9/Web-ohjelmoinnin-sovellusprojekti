@@ -66,7 +66,6 @@ const Movies = () => {
     search();
   };
 
-
   return (
     <>
     <h2>Leffahaku</h2>
@@ -140,7 +139,7 @@ const Movies = () => {
           <img src={movie.poster_path} alt={movie.title} />
           <div className="headoverview">
             <div><h3>{movie.title}</h3></div>
-            <div>{movie.overview}</div>
+            <div>{movie.overview.length > 200 ? `${movie.overview.substring(0, 200)}...` : movie.overview}</div>
           </div>
           </Link>
         </div>
