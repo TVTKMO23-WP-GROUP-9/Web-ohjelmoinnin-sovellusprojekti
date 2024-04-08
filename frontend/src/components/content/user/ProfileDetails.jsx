@@ -23,9 +23,10 @@ useEffect(() => {
     
     fetchProfile();
 }, [user, user?.username, profilename]);
+
+//Viimeksi kirjautunu
 useEffect(() => {
     const simulateLogin = async () => {
-        // Tässä voit esimerkiksi hakea kirjautumisajan palvelimelta
         const currentTime = new Date().toLocaleString();
         setLastLoggedIn(currentTime);
     };
@@ -33,6 +34,8 @@ useEffect(() => {
     simulateLogin();
 }, [user]);
 const isOwnProfile = user && profile && user.username && profile.profilename === user.username;
+
+
     return (
         <div className="content">
             <div className="inner-view">
