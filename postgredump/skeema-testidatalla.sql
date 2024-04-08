@@ -62,7 +62,7 @@ CREATE TABLE IF NOT EXISTS Favoritelist_
     idfavoritelist serial NOT NULL,
     profileid integer,
     groupid integer,
-    favoriteditem text COLLATE pg_catalog."default" NOT NULL,
+    favoriteditem text COLLATE pg_catalog."default" ,
     showtime text COLLATE pg_catalog."default",
     "timestamp" timestamp without time zone NOT NULL,
     CONSTRAINT "Favoritelist_pkey" PRIMARY KEY (idfavoritelist),
@@ -74,7 +74,7 @@ CREATE TABLE IF NOT EXISTS Review_
 (
     idreview serial NOT NULL,
     profileid integer NOT NULL,
-    revieweditem text COLLATE pg_catalog."default" NOT NULL,
+    revieweditem text COLLATE pg_catalog."default",
     review text COLLATE pg_catalog."default",
     rating smallint NOT NULL,
     "timestamp" timestamp without time zone NOT NULL,
