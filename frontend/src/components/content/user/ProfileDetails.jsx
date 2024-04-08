@@ -27,8 +27,8 @@ useEffect(() => {
 //Viimeksi kirjautunu
 useEffect(() => {
     const simulateLogin = async () => {
-        const currentTime = new Date().toLocaleString();
-        setLastLoggedIn(currentTime);
+        const timestamp = new Date().toLocaleString();
+        setLastLoggedIn(timestamp);
     };
 
     simulateLogin();
