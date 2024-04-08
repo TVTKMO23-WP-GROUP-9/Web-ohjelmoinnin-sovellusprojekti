@@ -2,8 +2,9 @@ import React from 'react';
 import Comingsoon from '@content/homepage/Comingsoon'
 import Popularmovies from '@content/homepage/Popularmovies'
 import Rightsidebar from '@content/homepage/Rightsidebar'
-import './Home.css';
 import Latestreviews from './Latestreviews';
+import './Home.css';
+
 
 
 const Home = () => {
