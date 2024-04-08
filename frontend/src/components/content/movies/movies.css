@@ -155,6 +155,8 @@
 }
 .posterimg {
     box-shadow: var(--shadow1);
+    height: 100%;
+    width: auto;
 }
 .justMargins {
     margin-top: 25px;
