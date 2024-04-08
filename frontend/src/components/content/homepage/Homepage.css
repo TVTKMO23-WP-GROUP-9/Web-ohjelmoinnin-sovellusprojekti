@@ -65,12 +65,17 @@
 
 .reviewmain {
   align-items: flex-start;
+  display: flex;
+  flex-wrap: wrap;
+  vertical-align: top;
+  
 }
+
 
 .review-info {
   align-content: left;
   text-align: left;
-  min-width: 400px;
+  min-width: 300px;
 }
 
 .reviewmain h2 {
@@ -88,8 +93,13 @@
 
 .review-item {
   background-color: var(--moviedetails);
-  width: 600px;
+  width: 500px;
+  height: 350px;
   border-radius: 10px;
   margin-top: 15px;
   padding: 20px;
+  margin-right: 5px;
+  display: flex; /* Aseta elementin sisällön alkamaan yläreunasta */
+  flex-direction: column;
 }
+
