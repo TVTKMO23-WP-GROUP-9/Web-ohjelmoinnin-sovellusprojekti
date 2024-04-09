@@ -44,9 +44,8 @@
   .posterimg {
       max-height: 500px;
   }
-
+  
 }
-
 
 @media (max-width: 1250px) {
   .home-container {
@@ -58,8 +57,6 @@
   .mid-container {
     display: contents;
     width: 100%;
-    /*display: flex;
-    flex-direction: column;*/
   }
 
   .uppercontent,
@@ -93,6 +90,31 @@
   .lowermiddlecontent,
   .lowercontent {
     margin-left: 0%;
+  }
+
+  .inner-view ul,
+  .three-view ul {
+    padding-left: 36px;
+  }
+
+  .inner-view li,
+  .three-view li {
+    padding-left: 8px;
+  }
+
+  .three-left {
+    min-width: 70%;
+    flex: 100%;
+  }
+
+  .three-middle {
+    min-width: 70%;
+    flex: 100%;
+  }
+
+  .three-right {
+    min-width: 70%;
+    flex: 100%;
   }
 
 }
@@ -132,6 +154,7 @@
   }
 
 }
+
 
 
 @media (max-width: 640px) {
@@ -182,6 +205,16 @@
     font-size: 1.4em;
   }
 
+  .inner-view ul,
+  .three-view ul {
+    padding-left: 16px;
+  }
+
+  .inner-view li,
+  .three-view li {
+    padding-left: 8px;
+  }
+
 }
 
 @media (max-width: 575px) {
@@ -227,7 +260,31 @@
     padding-left: 10px;
   }
 
+  .inner-view ul,
+  .three-view ul {
+    padding-left: 10px;
+  }
 
+  .inner-view li,
+  .three-view li {
+    padding-left: 4px;
+  }
+
+  .three-left {
+    min-width: 270px;
+    flex: 100%;
+  }
+
+  .three-middle {
+    min-width: 270px;
+    flex: 100%;
+  }
+
+  .three-right {
+    min-width: 270px;
+    
+    flex: 100%;
+  }
 
 }
 
