@@ -1,3 +1,17 @@
+@media (max-width: 2140px) {
+  .content {
+    width: 80%;
+  }
+
+  .uppercontent,
+  .uppermiddlecontent,
+  .lowermiddlecontent,
+  .lowercontent {
+    margin-left: -5%;
+  }
+
+}
+
 @media (max-width: 1680px) {
   .content {
     width: 80%;
@@ -153,13 +167,22 @@
     margin-top: 45px;
   }
 
-  .moviemain {
-    display: flex;
-    flex-wrap: wrap;
+  .reviewmain .review-item img {
+    height: 180px;
+  }
+
+  .reviewmain .review-item {
+    margin: 9px;
+    padding: 10px;
+    font-size: 0.85em;
   }
 
   .posterimg {
     max-height: 350px;
+  }
+  
+  .review-item h2 {
+    font-size: 1.4em;
   }
 
   .inner-view ul,
@@ -172,13 +195,19 @@
     padding-left: 8px;
   }
 
+
+  .inner-view li,
+  .three-view li {
+    padding-left: 8px;
+  }
+
 }
 
 @media (max-width: 570px) {
-  .moviemain {
+  /*.moviemain {
     display: flex;
     flex-wrap: wrap;
-  }
+  }*/
 
   #header-bar {
     width: 100%;
