@@ -11,18 +11,17 @@ DROP TABLE IF EXISTS Message_ CASCADE;
 DROP TABLE IF EXISTS Profile_ CASCADE;
 DROP TABLE IF EXISTS Review_ CASCADE;
 
-
 CREATE TABLE IF NOT EXISTS Profile_
 (
     profileid SERIAL PRIMARY KEY,
     profilename VARCHAR(255) UNIQUE NOT NULL,
     hashedpassword VARCHAR(255) NOT NULL,
-    email text COLLATE pg_catalog."default",
+    email VARCHAR(100) UNIQUE NOT NULL,
     profilepicurl text COLLATE pg_catalog."default",
+    is_private BOOLEAN DEFAULT FALSE, 
     "timestamp" TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     description text COLLATE pg_catalog."default"
 );
-
 
 CREATE TABLE IF NOT EXISTS Group_
 (
@@ -59,9 +58,9 @@ CREATE TABLE IF NOT EXISTS Message_
 CREATE TABLE IF NOT EXISTS Favoritelist_
 (
     idfavoritelist serial NOT NULL,
-    profileid integer NOT NULL,
-    groupid integer NOT NULL,
-    favoriteditem text COLLATE pg_catalog."default" NOT NULL,
+    profileid integer,
+    groupid integer,
+    favoriteditem text COLLATE pg_catalog."default" ,
     showtime text COLLATE pg_catalog."default",
     "timestamp" timestamp without time zone NOT NULL,
     CONSTRAINT "Favoritelist_pkey" PRIMARY KEY (idfavoritelist),
@@ -73,7 +72,7 @@ CREATE TABLE IF NOT EXISTS Review_
 (
     idreview serial NOT NULL,
     profileid integer NOT NULL,
-    revieweditem text COLLATE pg_catalog."default" NOT NULL,
+    revieweditem text COLLATE pg_catalog."default",
     review text COLLATE pg_catalog."default",
     rating smallint NOT NULL,
     "timestamp" timestamp without time zone NOT NULL,
