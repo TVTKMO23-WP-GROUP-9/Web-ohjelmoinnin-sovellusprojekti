@@ -64,7 +64,7 @@
 }
 
 .reviewmain {
-  align-items: flex-start;
+  align-items: stretch;
   display: flex;
   flex-wrap: wrap;
   vertical-align: top;
@@ -74,7 +74,7 @@
   vertical-align: top;
   align-content: left;
   text-align: left;
-  min-width: 300px;
+  width: 300px;
 }
 
 .reviewmain h2 {
@@ -98,8 +98,8 @@
 .review-item {
   margin: 10px; 
   background-color: var(--moviedetails);
-  width: 500px;
-  height: 350px;
+  max-width: 500px;
+  height: auto;
   border-radius: 10px;
   margin-top: 15px;
   padding: 20px;

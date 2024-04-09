@@ -45,7 +45,7 @@ const Latestreviews = () => {
 
 
   return (
-    <div className="review-list">
+    <>
       {loading ? (
         <p>Ladataan arvosteluja...</p>
       ) : (
@@ -55,22 +55,20 @@ const Latestreviews = () => {
               <tbody>
                 <tr>
                   <td className='tdimg'>
-                    
-                        <Link to={`/movie/${review.revieweditem}`} className="link-style">
-                        <img src={`https://image.tmdb.org/t/p/w342${review.movie.poster_path}`} alt={review.title} />
-                        <div>             
+                    <Link to={`/movie/${review.revieweditem}`} className="link-style">
+                    <img src={`https://image.tmdb.org/t/p/w342${review.movie.poster_path}`} alt={review.title} />
+                      <div>             
                         {[...Array(review.rating)].map((_, i) => (
                           <span key={i} >&#11088;</span>
                         ))}
                         {[...Array(5 - review.rating)].map((_, i) => (
                           <span key={i + review.rating}>&#x2605;</span>
                         ))}
-                        </div>
-                      </Link>
-                      </td>
-                      <td>
+                      </div>
+                    </Link>
+                  </td>
+                  <td>
 
-                    
                   </td>
                   <td className="review-info">
                     <h2>{review.movie.title}</h2>
@@ -90,7 +88,7 @@ const Latestreviews = () => {
           ))}
         </div>
       )}
-    </div>
+    </>
   );  
 };
 

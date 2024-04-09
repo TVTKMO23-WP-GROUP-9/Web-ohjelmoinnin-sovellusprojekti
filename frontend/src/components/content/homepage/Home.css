@@ -1,6 +1,6 @@
 .home-container {
-  /*height: 2500px;*/
   display: flex;
+  position: relative;
   flex-direction: row;
   flex-wrap: wrap;
 }
@@ -10,7 +10,8 @@
 }
 
 .mid-container {
-  width: 95%;
+  width: 80%;
+  position: relative;
   /*display: flex;
   flex-direction: column;*/
 }
@@ -23,6 +24,24 @@
   padding-top: 0%;
   padding-left: 0%;
   padding-right: 4%;
+}
+
+.right-container {
+  position: relative;
+  left: 0;
+  width: 15%;
+  z-index: 1;
+  order: 1;
+}
+
+.lowermiddlecontent {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: calc(100% + 30%); 
+  z-index: 1;
+  order: 2;
 }
 
 
