@@ -22,14 +22,13 @@ const GroupList = ({ profile }) => {
   }, [profile]);
 
   return (
-    <div className="group-middle">
-      <h2>Ryhmät</h2>
-      <ul>
+    <>
+      <ul className="profileSections">
       {groups.map((group, index) => (
-        <li key={index}>- <Link to="#">{group.groupname}</Link></li>
+        <li key={index}><Link to="#">{group.groupname}</Link></li>
         ))}
       </ul>
-    </div>
+    </>
   );
 };
 

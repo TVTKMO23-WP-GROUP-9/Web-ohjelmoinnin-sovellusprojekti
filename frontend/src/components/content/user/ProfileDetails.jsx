@@ -47,6 +47,7 @@ const isOwnProfile = user && profile && user.username === profile.username;
 
     return (
         <div className="content">
+
             <div className="inner-view">
                 <div className="inner-left">
                     <img src={profile?.profilepicurl || ''} className="profilepic" alt="Käyttäjän kuva" />
@@ -66,17 +67,19 @@ const isOwnProfile = user && profile && user.username === profile.username;
         
             <div className="three-view">
                 <div className="three-left">
-                    <h2>Suosikit</h2>
+                    <h2>Suosikit &nbsp;<span className='emoji uni10'></span></h2>
                     <ul>
-                        {/*ehkä vaikka tähän*/}
+                        <li><span className='userinfo'>Ei vielä suosikkeja</span></li>
                     </ul>
                 </div>
 
                 <div className="three-middle">
+                <h2>Ryhmät &nbsp;<span className='emoji uni07'></span></h2>  
                     <GroupList profile={profile} />
                 </div>
 
                 <div className="three-right">
+                <h2>Arvostelut  &nbsp;<span className='emoji uni08'></span></h2>
                     <ReviewList profile={profile}/>
                 </div>
             </div>}

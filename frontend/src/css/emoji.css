@@ -9,6 +9,8 @@
     font-size: 0.9em;
     padding: 0.02em;
   }
+
+  
   
   /*popcorn*/
   .uni01::before { content: "\1F37F"; }
@@ -22,5 +24,14 @@
   .uni05::before { content: "\1F5E8"; }
   /*star*/
   .uni06::before { content: "\2B50"; }
+  /*chat2*/
+  .uni07::before { content: "\1F4AC"; }
+  /*megaphone*/
+  .uni08::before { content: "\1F4E3"; }
+  /*favorites*/
+  .uni09::before { content: "\1F496"; }
+  /*favorites2*/
+  .uni10::before { content: "\1F5A4"; }
 
 
+  /*1F516*/
