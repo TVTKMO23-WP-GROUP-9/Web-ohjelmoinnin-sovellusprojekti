@@ -49,10 +49,11 @@
     font-weight: 100;
 }
 
-.inner-view {
+.inner-view,
+.three-view {
     background-color: var(--grp-background);
     border-radius: 10px;
-    color: var(--grp-text);
+    color: var(--profile);
     display: flex; 
     flex-direction: row;
     flex-wrap: wrap; 
@@ -76,14 +77,6 @@
 
 .three-view {
     margin-top: 25px;
-    background-color: var(--grp-background);
-    border-radius: 10px;
-    color: var(--profile);
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap; 
-    padding: 1em;
-    border: var(--solid);
 }
 
 .three-view a {

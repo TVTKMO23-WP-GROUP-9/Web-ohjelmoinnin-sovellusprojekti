@@ -57,9 +57,11 @@ const isOwnProfile = user && profile && user.username === profile.username;
                 </div>
 
                 <div className="inner-right">
-                    <h2>{profile?.profilename}</h2>
-                    {(!profile?.is_private || isOwnProfile) && <p className="info">{profile?.description || ''} </p>}
-                    {profile?.is_private && !isOwnProfile && <span className="userinfo">Tämä profiili on yksityinen.</span>}
+                <h2>{profile?.profilename}</h2>
+                    <ul>
+                        {(!profile?.is_private || isOwnProfile) && <p className="info">{profile?.description || ''} </p>}
+                        {profile?.is_private && !isOwnProfile && <span className="userinfo">Tämä profiili on yksityinen.</span>}
+                    </ul>
                 </div>
             </div>
 
