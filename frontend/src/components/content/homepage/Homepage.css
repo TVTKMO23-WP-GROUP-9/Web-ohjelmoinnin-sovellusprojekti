@@ -64,18 +64,17 @@
 }
 
 .reviewmain {
-  align-items: flex-start;
+  align-items: stretch;
   display: flex;
   flex-wrap: wrap;
   vertical-align: top;
-  
 }
 
-
 .review-info {
+  vertical-align: top;
   align-content: left;
   text-align: left;
-  min-width: 300px;
+  width: 300px;
 }
 
 .reviewmain h2 {
@@ -83,18 +82,24 @@
   margin-top: 0;
 }
 
+.tdimg  {
+  vertical-align: top;
+  padding-right: 20px;
+}
+
 .review-item img {
+  margin: 0 auto 10px; 
+  display: block; 
+  box-shadow: var(--shadow02);
   height: 200px;
   width: auto;
-  padding-right: 20px;
-  margin-top: 0;
-  padding-top: 0;
 }
 
 .review-item {
+  margin: 10px; 
   background-color: var(--moviedetails);
-  width: 500px;
-  height: 350px;
+  max-width: 500px;
+  height: auto;
   border-radius: 10px;
   margin-top: 15px;
   padding: 20px;
@@ -103,3 +108,17 @@
   flex-direction: column;
 }
 
+.review-item:hover,
+.review-item:hover a {
+  color: var(--table-Link);
+  background-color: var(--table-bg);
+  box-shadow: var(--shadow1);
+}
+
+.review-item:hover img {
+  box-shadow: var(--shadow06);
+}
+
+.review-item:hover h2 {
+  color: var(--td-review-hover);
+}
