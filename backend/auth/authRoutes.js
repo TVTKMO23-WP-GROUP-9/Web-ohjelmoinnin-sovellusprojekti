@@ -19,7 +19,8 @@ router.post('/auth/login', async (req, res) => {
     const { username, password } = req.body;
     const result = await authService.loginUser(username, password);
     if (result.success) {
-        const token = jwt.sign({ username: username }, process.env.JWT_SECRET);
+        const profileid = await authService.getProfileIdByName(username);
+        const token = jwt.sign({ username: username, profileid: profileid }, process.env.JWT_SECRET);
         res.status(200).json({ jwtToken: token });
     } else {
         res.status(400).json({ message: result.message });
