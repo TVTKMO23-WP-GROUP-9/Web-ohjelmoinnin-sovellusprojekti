@@ -20,6 +20,7 @@
     /*colors*/
     --footerbg: #342f2a;
     --profile-link: #4a7ab8;
+    --reviewbox: #d6d6d6;
 }
 
 .light { 
@@ -59,6 +60,7 @@
     --table-tr-hover: #F5F5F5;
     --table-link: #1c1303;
     --table-linkH: #4a7ab8;
+    --td-review-hover: #0b2b55;
   }
   
   .dark {
@@ -98,5 +100,5 @@
     --table-tr-hover: #343434;
     --table-link: #ffffff;
     --table-linkH: #ccc596;
+    --td-review-hover: #6daaff;
 }
-  
