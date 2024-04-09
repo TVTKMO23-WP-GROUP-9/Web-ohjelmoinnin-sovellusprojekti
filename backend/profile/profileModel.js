@@ -17,7 +17,7 @@ async function getProfileById(profileId) {
 
 async function getProfileByName(profilename) {
     const query = {
-        text: 'SELECT profileid, profilename, email, profilepicurl, timestamp, description, is_private FROM Profile_ WHERE profilename = $1',
+        text: 'SELECT profileid, profilename, email, profilepicurl, timestamp, description, is_private FROM profile_ WHERE profilename = $1',
         values: [profilename],
     };
 

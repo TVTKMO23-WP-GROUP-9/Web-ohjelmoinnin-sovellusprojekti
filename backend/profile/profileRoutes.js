@@ -33,8 +33,8 @@ router.get('/profile/:profilename', async (req, res) => {
     }
 });
 
-router.delete('/profile/:profileid', async (req, res) => {
-    const profileid = req.params.profileid;
+router.delete('/profile', auth, async (req, res) => {
+    const profileid = res.locals.profileid;
     const result = await profileService.deleteProfileById(profileid);
     if (result.success) {
         res.status(200).json({ message: `Tietue poistettu onnistuneesti: ${result.message}` });
@@ -43,8 +43,8 @@ router.delete('/profile/:profileid', async (req, res) => {
     }
 });
 
-router.put('/profile/:profileid', async (req, res) => {
-    const profileid = req.params.profileid;
+router.put('/profile', auth, async (req, res) => {
+    const profileid = res.locals.profileid;
     const { profilename, email, profilepicurl, description } = req.body;
     const result = await profileService.updateProfileById(profileid, profilename, email, profilepicurl, description);
     if (result.success) {
