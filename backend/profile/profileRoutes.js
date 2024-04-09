@@ -54,4 +54,20 @@ router.put('/profile/:profileid', async (req, res) => {
     }
 });
 
+router.put('/profile/details/:profilename', auth, async (req, res) => {
+    const profilename = req.params.profilename;
+    const { profilepicurl, description } = req.body;
+    const loggedInProfilename = res.locals.profilename; 
+    if (profilename !== loggedInProfilename) {
+        return res.status(403).json({ message: 'Ei oikeutta päivittää profiilitietoja' });
+    }
+    const result = await profileService.updateProfileDetails(profilename, profilepicurl, description);
+    if (result.success) {
+        res.status(200).json({ message: `Tietue päivitetty onnistuneesti: ${result.message}` });
+    } else {
+        res.status(400).json({ message: result.message });
+    }
+});
+
+
 module.exports = router;

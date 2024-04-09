@@ -44,10 +44,21 @@ async function updateProfileById(profileid, profilename, email, profilepicurl, d
     return result.rowCount;
 }
 
+async function updateProfileDetails(profilename, profilepicurl, description) {
+    const now = new Date();
+    const query = {
+        text: 'UPDATE Profile_ SET profilepicurl = $2, timestamp = $3, description = $4 WHERE profilename = $1',
+        values: [profilename, profilepicurl, now, description],
+    };
+    const result = await pool.query(query);
+    return result.rowCount;
+}
+
 module.exports = {
     getAllProfiles,
     getProfileById,
     getProfileByName,
     deleteProfileById,
-    updateProfileById
+    updateProfileById,
+    updateProfileDetails
 };

@@ -45,10 +45,20 @@ async function updateProfileById(profileid, profilename, email, profilepicurl, d
     }
 }
 
+async function updateProfileDetails(profilename, profilepicurl, description) {
+    try {
+        const updated = await profileModel.updateProfileDetails(profilename, profilepicurl, description);
+        return { success: true, message: updated };
+    } catch (error) {
+        return { success: false, message: error.message };
+    }
+}
+
 module.exports = {
     getAllProfiles,
     getProfileById,
     getProfileByName,
     deleteProfileById,
-    updateProfileById
+    updateProfileById,
+    updateProfileDetails
 };
