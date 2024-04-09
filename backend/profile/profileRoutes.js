@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const profileService = require('./profileService');
-const { auth } = require('../middleware/auth');
+const { auth, optionalAuth } = require('../middleware/auth');
 
 
 router.get('/profile', async (req, res) => {
@@ -23,21 +23,38 @@ router.get('/profile/id/:profileid', async (req, res) => {
     }
 });
 
-router.get('/profile/:profilename', async (req, res) => {
-    const profilename = req.params.profilename;
-    const result = await profileService.getProfileByName(profilename);
+router.get('/profile/:profilename', optionalAuth, async (req, res) => {
+    const loggedInUsername = res.locals.username;
+    const requestedProfileName = req.params.profilename;
+    
+    const isOwnProfile = loggedInUsername === requestedProfileName;
+
+    const result = await profileService.getProfileByName(requestedProfileName, loggedInUsername);
+
     if (result.success) {
+        result.message.isOwnProfile = isOwnProfile;
         res.status(200).json(result.message);
     } else {
         res.status(400).json({ message: result.message });
-    }
-});
+    }    
+}); 
 
 router.delete('/profile', auth, async (req, res) => {
     const profileid = res.locals.profileid;
     const result = await profileService.deleteProfileById(profileid);
     if (result.success) {
         res.status(200).json({ message: `Tietue poistettu onnistuneesti: ${result.message}` });
+    } else {
+        res.status(400).json({ message: result.message });
+    }
+});
+
+router.put('/profile', auth, async (req, res) => {
+    const profileid = res.locals.profileid;
+    const { profilepicurl, description } = req.body;
+    const result = await profileService.updateProfileDetails(profileid, profilepicurl, description);
+    if (result.success) {
+        res.status(200).json({ message: `Tietue päivitetty onnistuneesti: ${result.message}` });
     } else {
         res.status(400).json({ message: result.message });
     }
@@ -53,21 +70,5 @@ router.put('/profile', auth, async (req, res) => {
         res.status(400).json({ message: result.message });
     }
 });
-
-router.put('/profile/details/:profilename', auth, async (req, res) => {
-    const profilename = req.params.profilename;
-    const { profilepicurl, description } = req.body;
-    const loggedInProfilename = res.locals.profilename; 
-    if (profilename !== loggedInProfilename) {
-        return res.status(403).json({ message: 'Ei oikeutta päivittää profiilitietoja' });
-    }
-    const result = await profileService.updateProfileDetails(profilename, profilepicurl, description);
-    if (result.success) {
-        res.status(200).json({ message: `Tietue päivitetty onnistuneesti: ${result.message}` });
-    } else {
-        res.status(400).json({ message: result.message });
-    }
-});
-
 
 module.exports = router;

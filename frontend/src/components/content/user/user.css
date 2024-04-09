@@ -62,6 +62,16 @@
     border: var(--solid);
 }
 
+.form-view {
+    background-color: var(--grp-background);
+    border-radius: 10px;
+    color: var(--profile);
+
+    padding: 1em;
+    margin-top: 25px;
+    border: var(--solid);
+}
+
 .inner-view .inner-left {
     padding: 10px;
     margin-right: 10px;
