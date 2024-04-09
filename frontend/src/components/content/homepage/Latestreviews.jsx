@@ -54,9 +54,9 @@ const Latestreviews = () => {
             <table className="review-item" key={index + 1}>
               <tbody>
                 <tr>
-                  <td>
-                    <div className='reviewimg'>
-                      <Link to={`/movie/${review.revieweditem}`} className="link-style">
+                  <td className='tdimg'>
+                    
+                        <Link to={`/movie/${review.revieweditem}`} className="link-style">
                         <img src={`https://image.tmdb.org/t/p/w342${review.movie.poster_path}`} alt={review.title} />
                         <div>             
                         {[...Array(review.rating)].map((_, i) => (
@@ -67,7 +67,10 @@ const Latestreviews = () => {
                         ))}
                         </div>
                       </Link>
-                    </div>
+                      </td>
+                      <td>
+
+                    
                   </td>
                   <td className="review-info">
                     <h2>{review.movie.title}</h2>
