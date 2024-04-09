@@ -112,6 +112,7 @@
 .review-item:hover a {
   color: var(--table-Link);
   background-color: var(--table-bg);
+  box-shadow: var(--shadow1);
 }
 
 .review-item:hover img {
