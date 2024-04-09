@@ -92,8 +92,6 @@
     margin-left: 0%;
   }
 
-}
-
   .inner-view ul,
   .three-view ul {
     padding-left: 36px;
@@ -118,7 +116,7 @@
     min-width: 70%;
     flex: 100%;
   }
-  
+
 }
 
 @media (max-width: 1040px) {
