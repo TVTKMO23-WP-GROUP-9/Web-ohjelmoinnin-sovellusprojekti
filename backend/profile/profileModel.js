@@ -17,7 +17,7 @@ async function getProfileById(profileId) {
 
 async function getProfileByName(profilename) {
     const query = {
-        text: 'SELECT profileid, profilename, email, profilepicurl, timestamp, description, is_private FROM profile_ WHERE profilename = $1',
+        text: 'SELECT profileid, profilename, profilepicurl, description, is_private FROM profile_ WHERE profilename = $1',
         values: [profilename],
     };
 
@@ -44,10 +44,21 @@ async function updateProfileById(profileid, profilename, email, profilepicurl, d
     return result.rowCount;
 }
 
+async function updateProfileDetails(profileid, profilepicurl, description) {
+    const now = new Date();
+    const query = {
+        text: 'UPDATE Profile_ SET profilepicurl = $2, timestamp = $3, description = $4 WHERE profileid = $1',
+        values: [profileid, profilepicurl, now, description],
+    };
+    const result = await pool.query(query);
+    return result.rowCount;
+}
+
 module.exports = {
     getAllProfiles,
     getProfileById,
     getProfileByName,
     deleteProfileById,
-    updateProfileById
+    updateProfileById,
+    updateProfileDetails
 };

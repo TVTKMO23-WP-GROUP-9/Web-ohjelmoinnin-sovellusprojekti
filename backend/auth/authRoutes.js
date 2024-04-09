@@ -29,13 +29,12 @@ router.post('/auth/login', async (req, res) => {
 
 router.get('/auth/logout', async (req, res) => {
     try {
-        // session poisto tähän
+        //delete req.session.token;
         res.status(200).json({ message: "Kirjaudu ulos onnistui" });
     } catch (error) {
         console.error('Virhe uloskirjautumisessa:', error);
         res.status(500).json({ message: "Uloskirjautumisessa tapahtui virhe" });
     }
 });
-
 
 module.exports = router;
