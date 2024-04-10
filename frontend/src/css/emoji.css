@@ -32,6 +32,12 @@
   .uni09::before { content: "\1F496"; }
   /*favorites2*/
   .uni10::before { content: "\1F5A4"; }
+  /*edit*/
+  .uni11::before { content: "\270F"; }
+  /*delete*/
+  .uni12::before { content: "\274C"; }
+  /*checkmark*/
+  .uni13::before { content: "\2705"; }
 
 
   /*1F516*/
