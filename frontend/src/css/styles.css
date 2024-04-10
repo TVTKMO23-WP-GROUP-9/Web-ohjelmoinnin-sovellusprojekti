@@ -260,6 +260,40 @@ h3 /* hamburger */ {
   transition: border-color 0.25s;
 }
 
+.confirm {
+  background-color: var(--confirm-red);
+  color: #ffffff;
+}
+
+.confirm {
+  margin-top: 12px;
+  margin-bottom: 4px;
+  margin-right: 8px;
+  padding: 11px;
+  border-radius: 4px;
+  border: var(--dashed);
+  background-color: var(--confirm-red);
+  color: #ffffff;
+}
+
+.confirm:hover {
+  background-color: var(--confirm-hover);
+  color: #ffffff;
+}
+
+.compactButton {
+  margin-top: 12px;
+  margin-bottom: 4px;
+  margin-right: 8px;
+  padding: 11px;
+  border-radius: 4px;
+  border: var(--dashed);
+}
+
+.compactButton:hover {
+  background-color: var(--soft-hover);
+}
+
 .formButton {
   margin-top: 15px;
   margin-bottom: 10px;
@@ -375,6 +409,10 @@ input  {
   height: 300px;
 }
 
+.updateReview {
+  width: 270px;
+  height: 300px;
+}
 
 /******* CLASSES incl. buttons, selects, inputs, labels, spans, ps, pretty much everything *******/
 
