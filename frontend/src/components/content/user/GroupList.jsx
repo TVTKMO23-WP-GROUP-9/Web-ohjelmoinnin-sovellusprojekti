@@ -23,6 +23,10 @@ const GroupList = ({ profile }) => {
 
   return (
     <>
+        <span className="userinfo">
+          Käyttäjällä on <b>{groups.length}</b> ryhmää.<br />
+        </span>
+        
       <ul className="profileSections">
       {groups.map((group, index) => (
         <li key={index}><Link to="#">{group.groupname}</Link></li>
