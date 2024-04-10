@@ -33,11 +33,11 @@ const Header = ({ user, setUser, handleLogout}) => {
               <br/><br/>
               {!user && <li className="lilogin"><Link to="/loginx">Kirjautuminen</Link></li>}
               {user && <li>Kirjautunut:</li>} 
-              {user && <li>{user.usesr}</li> } <br/>
+              {user && <li>{user.user}</li> } <br/>
 
-              {user && <li><Link to="/myaccount">Oma profiili</Link></li>}
+              {user && <li><Link to={`/profile/${user.user}`}>Oma profiili</Link></li>}
               {user && <li><Link to="/myaccount">Tilinhallinta</Link></li>}
-              {user && <li className="lilogin"><Link onClick={handleLogout}>Kirjaudu ulos</Link></li>}
+              {user && <li><Link onClick={handleLogout}>Kirjaudu ulos</Link></li>}
             </ul>
           </div>
 
@@ -57,7 +57,7 @@ const Header = ({ user, setUser, handleLogout}) => {
               {!user && <li className="lilogin"><Link onClick={toggleLogin}>Kirjautuminen</Link></li>}
               {!user && showLogin && <Login setUser={setUser} />}
 
-              {user &&<li><Link to="/myaccount">Profiili</Link></li>}
+              {user && <li><Link to={`/profile/${user.user}`}>Profiili</Link></li>}
               {user && <li><Link to="/myaccount">Tili</Link></li>}
               {user && <li className="lilogin"><Link onClick={handleLogout}>Kirjaudu ulos</Link></li>}
             </ul>

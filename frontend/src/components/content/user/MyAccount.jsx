@@ -22,7 +22,7 @@ export default function MyAccount ({user}) {
             <hr/>
 
                 <p>
-                Siirry <Link to={`/profile/${user.user}`}>profiiliin</Link> | tai <a href="#">muokkaa profiilia</a> <br/><br />
+                Siirry <Link to={`/profile/${user.user}`}>profiiliin</Link> | tai <Link to={`/profile/${user.user}`} onClick={() => setEditMode(true)}>Muokkaa profiilia</Link> {/* Muokkaa profiilia -ei vielä avaa profiilimuokkausta sivua ladatessa*/} <br/><br />
                 </p>
 
                 <p>Omasta profiilista löydät omat tietosi ja pääset hallinnoimaan niitä. <br/>
@@ -32,6 +32,10 @@ export default function MyAccount ({user}) {
 
             <div className="section3">
             <h1>Tilin hallinta</h1>
+
+                <h2>Profiilin näkyvyys</h2>
+
+                <p>Aseta profiili yksityiseksi tai julkiseksi tästä.</p>
 
                 <h2>Vaihda salasana</h2>
 
