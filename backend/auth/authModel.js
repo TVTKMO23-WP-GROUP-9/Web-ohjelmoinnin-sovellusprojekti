@@ -17,10 +17,18 @@ async function createUser(username, hashedpassword, email) {
     await pool.query(query);
 }
 
+async function getProfileIdByName(profilename) {
+    const query = {
+        text: 'SELECT profileid FROM profile_ WHERE profilename = $1',
+        values: [profilename],
+    };
 
+    const result = await pool.query(query);
+    return result.rows[0];
+}
 
 module.exports = {
     getUserByUsername,
     createUser,
-
+    getProfileIdByName
 };

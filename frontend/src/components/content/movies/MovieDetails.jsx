@@ -23,7 +23,7 @@ const MovieDetails = () => {
           if (error.response && error.response.status === 404) {
           console.error('Virhe elokuvan hakemisessa:', error);
         } else {
-          console.error('Jokin meni peileen:', error);
+          console.error('Jokin meni pieleen:', error);
         }
       }
     };

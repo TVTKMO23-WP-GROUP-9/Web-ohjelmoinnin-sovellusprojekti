@@ -44,8 +44,18 @@ async function loginUser(username, password) {
     }
 }
 
+async function getProfileIdByName(profilename) {
+    try {
+        const result = await authModel.getProfileIdByName(profilename);
+        return result.profileid;
+    } catch (error) {
+        console.error('Virhe profiilin id:n haussa:', error);
+        return { success: false, message: 'Profiilin id:n haku epäonnistui', error };
+    }
+}
+
 module.exports = {
     registerUser,
     loginUser,
-    
+    getProfileIdByName
 };

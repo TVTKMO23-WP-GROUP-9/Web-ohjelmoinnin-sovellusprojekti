@@ -18,10 +18,14 @@ async function getProfileById(id) {
     }
 }
 
-async function getProfileByName(profilename) {
+async function getProfileByName(profilename, loggedInUsername) {
     try {
         const profile = await profileModel.getProfileByName(profilename);
-        return { success: true, message: profile };
+        if(profile.profilename === loggedInUsername || profile.is_private === false) {
+            return { success: true, message: profile };
+        } else {
+            return { success: true, message: { profilename: profile.profilename, profilepicurl: profile.profilepicurl,  is_private: profile.is_private } }
+        }
     } catch (error) {
         return { success: false, message: error.message };
     }
@@ -45,10 +49,20 @@ async function updateProfileById(profileid, profilename, email, profilepicurl, d
     }
 }
 
+async function updateProfileDetails(profileid, profilepicurl, description) {
+    try {
+        const updated = await profileModel.updateProfileDetails(profileid, profilepicurl, description);
+        return { success: true, message: updated };
+    } catch (error) {
+        return { success: false, message: error.message };
+    }
+}
+
 module.exports = {
     getAllProfiles,
     getProfileById,
     getProfileByName,
     deleteProfileById,
-    updateProfileById
+    updateProfileById,
+    updateProfileDetails
 };

@@ -4,73 +4,106 @@ import axios from 'axios';
 import { useParams, Link } from 'react-router-dom';
 import GroupList from './GroupList';
 import ReviewList from './ReviewList';
+import ProfileEdit from './ProfileEdit'; 
 
 const ProfileDetails = ({ user }) => {
     const [profile, setProfile] = useState(null);
     const { profilename } = useParams();
     const [lastLoggedIn, setLastLoggedIn] = useState(null);
-
+    const [editMode, setEditMode] = useState(false); 
+    const [isOwnProfile, setOwnProfile] = useState(false);
+    const [isPrivate, setPrivate] = useState(false);
 
     useEffect(() => {
         const fetchProfile = async () => {
             try {
-                const response = await axios.get(`http://localhost:3001/profile/${profilename}`);
+                const token = sessionStorage.getItem('token');
+                const headers = {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                };
+    
+                const response = await axios.get(`http://localhost:3001/profile/${profilename}`, { headers });
+    
+                console.log("Token from sessionStorage:", token);
+                console.log("Profilename from token:", profilename);
+                console.log("Response from profile:", response.data);
+    
                 setProfile(response.data);
+                setOwnProfile(response.data.isOwnProfile);
+                setPrivate(response.data.is_private);
+
+
             } catch (error) {
                 console.error('Virhe haettaessa profiilitietoja:', error);
             }
         };
-        
+    
         fetchProfile();
-    }, [user, user?.username, profilename]);
+    }, [profilename]);
 
+    useEffect(() => {
+        const simulateLogin = async () => {
+            const timestamp = new Date().toLocaleString();
+            setLastLoggedIn(timestamp);
+        };
 
-//Viimeksi kirjautunu
-  /*useEffect(() => {
-    const simulateLogin = async () => {
-        const currentTime = new Date().toLocaleString();
-        setLastLoggedIn(currentTime);
+        simulateLogin();
+    }, [user]);
+
+    const formatDate = (timestamp) => {
+        const date = new Date(timestamp);
+        const day = date.getDate();
+        const month = date.getMonth() + 1;
+        const year = date.getFullYear();
+        return `${day}.${month}.${year}`;
     };
-    simulateLogin();
-}, [user]); */
 
-const isOwnProfile = user && profile && user.username && profile.profilename === user.username;
+    const handleEditClick = () => {
+        setEditMode(true); 
+    };
 
     return (
         <div className="content">
             <div className="inner-view">
                 <div className="inner-left">
                     <img src={profile?.profilepicurl || ''} className="profilepic" alt="Käyttäjän kuva" />
-      <span>Viimeksi kirjautuneena: {lastLoggedIn}</span> 
-                    <br />
-                    {isOwnProfile && <Link to={`/profile/${profilename}/edit`} className="basicbutton">Muokkaa profiilia</Link>}
+                    {(!isPrivate || isOwnProfile) && <span className='userinfo'>Viimeksi kirjautuneena: {formatDate(lastLoggedIn)}</span>}
+
+                    {(isOwnProfile && !editMode) && <button onClick={handleEditClick} className="basicbutton">Muokkaa profiilia</button>}
                 </div>
 
                 <div className="inner-right">
                     <h2>{profile?.profilename}</h2>
-                    {(!profile?.is_private || isOwnProfile) && <p className="info">{profile?.description || ''} </p>}
-                    {profile?.is_private && !isOwnProfile && <span className="userinfo">Tämä profiili on yksityinen.</span>}
-                </div>
-            </div>
-
-            {(!profile?.is_private || isOwnProfile) &&
-        
-            <div className="three-view">
-                <div className="three-left">
-                    <h2>Suosikit</h2>
                     <ul>
-                        {/*ehkä vaikka tähän*/}
+                        {(!isPrivate  || isOwnProfile) && <p className="info">{profile?.description || ''} </p>}
+                        {isPrivate && !isOwnProfile && <span className="userinfo">Tämä profiili on yksityinen.</span>}
                     </ul>
                 </div>
+            </div>
+           
+            {editMode && <ProfileEdit profilename={profilename} />}
 
-                <div className="three-middle">
-                    <GroupList profile={profile} />
-                </div>
+            {(!isPrivate || isOwnProfile) && (
+                <div className="three-view">
+                    <div className="three-left">
+                        <h2>Suosikit &nbsp;<span className='emoji uni10'></span></h2>
+                        <ul>
+                            <li><span className='userinfo'>Ei vielä suosikkeja</span></li>
+                        </ul>
+                    </div>
 
-                <div className="three-right">
-                    <ReviewList profile={profile}/>
+                    <div className="three-middle">
+                        <h2>Ryhmät &nbsp;<span className='emoji uni07'></span></h2>  
+                        <GroupList profile={profile} />
+                    </div>
+
+                    <div className="three-right">
+                        <h2>Arvostelut  &nbsp;<span className='emoji uni08'></span></h2>
+                        <ReviewList profile={profile}/>
+                    </div>
                 </div>
-            </div>}
+            )}
         </div>
     );
 };
