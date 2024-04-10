@@ -3,10 +3,11 @@ import './community.css';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
-const UserList = () => {
+const UserList = ({ searchTerm, setSearchTerm }) => {
     const [profiles, setProfiles] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [profilesPerPage, setProfilesPerPage] = useState(10);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchProfiles = async () => {
@@ -14,65 +15,75 @@ const UserList = () => {
                 const response = await axios.get('http://localhost:3001/profile');
                 const sortedProfiles = response.data.sort((a, b) => a.profilename.localeCompare(b.profilename));
                 setProfiles(sortedProfiles);
+                setLoading(false);
             } catch (error) {
                 console.error('Error fetching profiles:', error);
+                setLoading(false);
             }
         };
 
         fetchProfiles();
     }, []);
 
-    //prfls
+    const filteredProfiles = profiles.filter(profile =>
+        profile.profilename.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
     const indexOfLastProfile = currentPage * profilesPerPage;
     const indexOfFirstProfile = indexOfLastProfile - profilesPerPage;
-    const currentProfiles = profiles.slice(indexOfFirstProfile, indexOfLastProfile);
+    const currentProfiles = filteredProfiles.slice(indexOfFirstProfile, indexOfLastProfile);
 
     return (
-        <>
-            <div className="two-view">
-                <div className="two-left">
-                    <h2>Käyttäjät</h2> 
-                    <div>
-                            {profiles.length > profilesPerPage && (
-                                <ul className="pagination">
-                                    <li>
-                                        <button className="buttonnext" onClick={() => setCurrentPage(currentPage > 1 ? currentPage - 1 : 1)}>
-                                        ⯇ 
-                                        </button>
-                                        &nbsp; <span className="communityinfo">selaa</span> &nbsp;
-                                        <button className="buttonnext" onClick={() => setCurrentPage(currentPage < Math.ceil(profiles.length / profilesPerPage) ? currentPage + 1 : Math.ceil(profiles.length / profilesPerPage))}>
+        <div className="two-view">
+            <div className="two-left">
+                <h2>Käyttäjät</h2>
+                {loading ? (
+                    <div className="loading-text">Ladataan käyttäjiä...</div>
+                ) : (
+                    <>
+                        {profiles.length > profilesPerPage && (
+                            <ul className="pagination">
+                                <li>
+                                    <button className="buttonnext" onClick={() => setCurrentPage(currentPage > 1 ? currentPage - 1 : 1)}>
+                                        ⯇
+                                    </button>
+                                    &nbsp; <span className="communityinfo">selaa</span> &nbsp;
+                                    <button className="buttonnext" onClick={() => setCurrentPage(currentPage < Math.ceil(filteredProfiles.length / profilesPerPage) ? currentPage + 1 : Math.ceil(filteredProfiles.length / profilesPerPage))}>
                                         ⯈
-                                        </button>
-                                    </li>
-                                </ul>
-                            )}
-                    </div>
+                                    </button>
+                                </li>
+                            </ul>
+                        )}
 
-                    <div className="communityDiv">
-                        {currentProfiles.map(profile => (
-
-                            <table className="communityTbl"  key={profile.profileid}>
-                            <tbody>
-                                <tr>
-                                <td width="270px"><b><Link to={`/profile/${profile.profilename}`}>{profile.profilename}</Link></b></td>
-                                <td width="120px"><b>---</b></td>
-                                </tr>
-                            </tbody>
-                            </table>
-                        ))}
-                    </div>
-                </div>
-                <div className="two-right">
-                    <h2>Eläköön Elokuvayhteisö!</h2> 
-                    
-                    <span className="communityinfo">Meillä on täällä <b>{profiles.length}</b></span><br/>
-                    <span className='communityinfo'>rekisteröitynyttä käyttäjää. <span className="emoji uni03"></span></span> <br/><br/>
-                    <span className="communityinfo">Liity mukaan jo tänään!</span><br/>
-                    <button className='basicbutton'>Rekisteröidy</button>
-                </div>
+                        <div className="communityDiv">
+                            <input
+                                type="text"
+                                placeholder="Etsi käyttäjää..."
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                            />
+                            {currentProfiles.map(profile => (
+                                <table className="communityTbl" key={profile.profileid}>
+                                    <tbody>
+                                        <tr>
+                                            <td width="270px"><b><Link to={`/profile/${profile.profilename}`}>{profile.profilename}</Link></b></td>
+                                            <td width="120px"><b>---</b></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            ))}
+                        </div>
+                    </>
+                )}
             </div>
-
-        </>
+            <div className="two-right">
+                <h2>Eläköön Elokuvayhteisö!</h2>
+                <span className="communityinfo">Meillä on täällä <b>{filteredProfiles.length}</b></span><br />
+                <span className='communityinfo'>rekisteröitynyttä käyttäjää. <span className="emoji uni03"></span></span> <br /><br />
+                <span className="communityinfo">Liity mukaan jo tänään!</span><br />
+                <button className='basicbutton'>Rekisteröidy</button>
+            </div>
+        </div>
     );
 };
 
