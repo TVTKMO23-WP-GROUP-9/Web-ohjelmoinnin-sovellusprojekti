@@ -72,13 +72,15 @@ async function createReview(req, res) {
   }
 }
 
+// arvostelun päivittäminen reviewid:n perusteella
 async function updateReview(req, res) {
   const idreview = req.params.id;
-  const { profileid, revieweditem, review, rating } = req.body;
+  const { review, rating } = req.body;
+  
   try {
     const query = {
-      text: 'UPDATE Review_ SET profileid = $1, revieweditem = $2, review = $3, rating = $4 WHERE idreview = $5',
-      values: [profileid, revieweditem, review, rating, idreview],
+      text: 'UPDATE Review_ SET review = $2, rating = $3 WHERE idreview = $1',
+      values: [idreview, review, rating ],
     }; 
     await reviewModel.queryDatabase(query); 
     res.send('Arvostelu päivitetty onnistuneesti');
@@ -88,17 +90,23 @@ async function updateReview(req, res) {
   }
 }
 
-
+// arvostekun poistaminen reviewid:n perusteella
 async function deleteReview(req, res) {
   const id = req.params.id;
+  
   try {
-    await reviewModel.deleteReview(id);
+    const query = {
+      text: 'DELETE FROM Review_ WHERE idreview = $1',
+      values: [id],
+    };
+    await reviewModel.queryDatabase(query);
     res.send('Arvostelu poistettu onnistuneesti');
   } catch (error) {
     console.error('Virhe poistettaessa arvostelua:', error);
     res.status(500).send('Virhe poistettaessa arvostelua');
   }
 }
+
 
 module.exports = {
   getAllReviews,
