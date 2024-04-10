@@ -26,12 +26,20 @@ function App() {
 
   const handleLogin = (userData) => {
     setUser(userData);
+    localStorage.setItem('user', JSON.stringify(userData));
   };
   
   useEffect(() => {
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme) {
       toggleTheme(savedTheme);
+    }
+  }, []);
+
+  useEffect(() => {
+    const savedUser = localStorage.getItem('user');
+    if (savedUser) {
+      setUser(JSON.parse(savedUser));
     }
   }, []);
 
@@ -47,6 +55,7 @@ function App() {
       .then(response => {
         if (response.ok) {
           setUser(null);
+          localStorage.removeItem('user');
           jwtToken.value = '';
         } else {
           console.error('Uloskirjautuminen epäonnistui');
