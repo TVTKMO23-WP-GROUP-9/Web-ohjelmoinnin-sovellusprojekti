@@ -51,7 +51,7 @@ async function getNewestReviews(req, res) {
       FROM review_ 
       INNER JOIN profile_ ON review_.profileid = profile_.profileid
       ORDER BY review_.timestamp DESC 
-      LIMIT 10
+      LIMIT 12
     `;
     const reviews = await reviewModel.queryDatabase(query);
     res.json(reviews);
