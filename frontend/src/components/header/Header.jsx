@@ -29,9 +29,9 @@ const Header = ({ user, setUser, handleLogout}) => {
               <li><Link to="/community">Yhteisö</Link></li>
               <li><Link to="/about">FAQ</Link></li>
               
-
               <br/><br/>
-              {!user && <li className="lilogin"><Link to="/loginx">Kirjautuminen</Link></li>}
+              {!user && <li><Link to="/login">Kirjautuminen</Link></li>}
+              
               {user && <li>Kirjautunut:</li>} 
               {user && <li>{user.user}</li> } <br/>
 
@@ -55,7 +55,7 @@ const Header = ({ user, setUser, handleLogout}) => {
 
             <ul className="menu-items-right whiteLinks">
               {!user && <li className="lilogin"><Link onClick={toggleLogin}>Kirjautuminen</Link></li>}
-              {!user && showLogin && <Login setUser={setUser} />}
+              {!user && showLogin && <Login setUser={setUser} window={true} />}
 
               {user && <li><Link to={`/profile/${user.user}`}>Profiili</Link></li>}
               {user && <li><Link to="/myaccount">Tili</Link></li>}

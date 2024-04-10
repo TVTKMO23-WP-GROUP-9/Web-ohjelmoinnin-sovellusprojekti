@@ -11,7 +11,6 @@ import Footer from '@components/footer/Footer';
 import ScrollToTop from '@components/scrolling/ScrollToTop';
 import Home from '@content/homepage/Home';
 import Login from '@components/header/Login';
-import Loginx from '@components/header/Loginx';
 import MyAccount from '@content/user/MyAccount';
 import ProfileDetails from '@content/user/ProfileDetails';
 import Search from '@content/movies/Search';
@@ -82,7 +81,6 @@ function App() {
               <Route path="/search" element={<Search />} />
               <Route path="/movie/:id" element={<MovieDetails />} />
               <Route path="/login" element={<Login setUser={handleLogin} />} />
-              <Route path="/loginx" element={<Loginx setUser={handleLogin} />} />
               <Route path="/myaccount" element={<MyAccount user={user} />} />
               <Route path="/profile/:profilename" element={<ProfileDetails user={user} />} />
               <Route path="/profile/:profilename/edit" element={<ProfileEdit />} />
