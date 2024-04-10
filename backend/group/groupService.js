@@ -237,7 +237,7 @@ async function getGroupsByProfilename(req, res) {
   }
 }
 // Hakee tietyn groupin memberlistin
-async function GetMemeberList(req, res) {
+async function GetMemberList(req, res) {
   const groupid = req.params.groupid;
   try {
     const query = {
@@ -302,7 +302,7 @@ async function createMemberList(req, res) {
     createMessage,
     getUserGroups,
     getGroupsByProfilename,
-    GetMemeberList,
+    GetMemberList,
     deleteMemberlist,
     createMemberList
   };

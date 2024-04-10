@@ -15,6 +15,7 @@ import MyAccount from '@content/user/MyAccount';
 import ProfileDetails from '@content/user/ProfileDetails';
 import Search from '@content/movies/Search';
 import MovieDetails from '@content/movies/MovieDetails';
+import GroupDetails from '@content/group/GroupDetails';
 import Community from '@content/community/Community';
 import Error from '@content/error/Error';
 import ProfileEdit from '@content/user/ProfileEdit';
@@ -85,7 +86,7 @@ function App() {
               <Route path="/profile/:profilename" element={<ProfileDetails user={user} />} />
               <Route path="/profile/:profilename/edit" element={<ProfileEdit />} />
               <Route path="/community" element={<Community />} />
-              {/*<Route path="/group/" element={<GroupDetails/>} /> */}
+              <Route path="/group/:id" element={<GroupDetails user={user}/>} /> 
               {/* ja loput puuttuvat routet myös */}
             </Routes>
             
