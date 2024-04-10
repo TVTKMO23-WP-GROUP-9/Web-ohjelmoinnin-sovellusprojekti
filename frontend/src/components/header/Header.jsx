@@ -55,7 +55,7 @@ const Header = ({ user, setUser, handleLogout}) => {
 
             <ul className="menu-items-right whiteLinks">
               {!user && <li className="lilogin"><Link onClick={toggleLogin}>Kirjautuminen</Link></li>}
-              {!user && showLogin && <Link to="/login"><Login setUser={setUser} window={true} /></Link>}
+              {!user && showLogin && <Login setUser={setUser} window={true} />}
 
               {user && <li><Link to={`/profile/${user.user}`}>Profiili</Link></li>}
               {user && <li><Link to="/myaccount">Tili</Link></li>}
