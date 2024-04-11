@@ -130,6 +130,12 @@ const ReviewList = ({ profile }) => {
   const indexOfFirstReview = indexOfLastReview - reviewsPerPage;
   const currentReviews = filteredReviews.slice(indexOfFirstReview, indexOfLastReview);
 
+  function truncateLongWords(text, maxLength) {
+    return text.split(' ').map(word => {
+      return word.length > maxLength ? word.substring(0, maxLength) + '...' : word;
+    }).join(' ');
+  }
+
   return (
     <>
       <ul className="review-list">
@@ -163,7 +169,7 @@ const ReviewList = ({ profile }) => {
             <br />
             <span>{renderRatingIcons(review.rating)}</span>
             <span className='userinfo'>| <b>{review.rating}/5</b> tähteä</span> <br />
-            <span className='userinfo'>{review.review}</span> <br />
+            <span className='userinfo'>{truncateLongWords(review.review, 25)}</span> <br />
             {!editReviewId && isOwnProfile && (
               <button className="compactButton" onClick={() => handleReviewEdit(review.idreview)}><span className='review uni11'></span> Muokkaa arvostelua</button>
             )}
