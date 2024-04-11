@@ -10,7 +10,7 @@ const MemberList = ({ id }) => {
   useEffect(() => {
     const fetchMembers = async () => {
       try {
-          const response = await axios.get(`http://localhost:3001/memberlist/group/${id}`);
+          const response = await axios.get(`http://localhost:3001/memberlist/group/${id}/0`);
           const memberData = response.data;
 
           const membersWithnames = await Promise.all(memberData.map(async member => {

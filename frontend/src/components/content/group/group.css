@@ -143,3 +143,91 @@ ul {
 .groupSections li {
     color: var(--profile);
 }
+
+
+.greviews-view {
+    background-color: var(--grp-background);
+    border-radius: 10px;
+    color: var(--profile);
+    display: flex-table;
+    flex-wrap: wrap;
+    padding: 1em;
+    padding-left: 2%;
+    padding-right: 2%;
+    margin-top: 25px;
+    border: var(--solid);
+}
+
+.group-between {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.group-view {
+    display: flex-table;
+    flex-wrap: wrap;
+    width: 42%;
+    margin-top: 25px;
+    border-top-left-radius: 60px;
+    border-bottom-right-radius: 60px;
+    background-color: var(--profile-view);
+    color: var(--profile);
+    padding: 1em;
+    padding-left: 3%;
+    border: var(--solid);
+}
+
+.group-view a {
+    color: var(--profile);
+}
+
+.group-view a:hover {
+    color: var(--profile-link);
+}
+
+.group-content {
+    flex-basis: 90%;
+    padding: 10px;
+    margin: 0 auto;
+}
+
+.group-middle {
+    flex-basis: 30%;
+    padding: 10px;
+    margin: 0 auto;
+}
+
+.group-right {
+    flex-basis: 30%;
+    padding: 10px;
+    margin: 0 auto;
+}
+
+.reviewinfo {
+    color: var(--profile);
+    font-size: 0.9em;
+    font-weight: 100;
+}
+
+.reviewtitle {
+    color: var(--profile);
+    font-size: 1em;
+    font-weight: 500;
+}
+
+.reviewimg {
+    float: left;
+    margin-right: 20px;
+    height: 170px;
+    box-shadow: var(--shadow02);
+}
+
+.minheight {
+    min-height: 180px;
+    padding: 20px;
+    border-bottom: var(--dashedGr);
+}
+
+.minheight:hover {
+    background-color: var(--grey-hover);
+}
