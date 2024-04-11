@@ -160,9 +160,9 @@ const ReviewList = ({ profile }) => {
   
         {currentReviews.map((review, index) => (
           <li key={index}>
-            <span>{formatDate(review.timestamp)}</span> <br />
+            <span className='reviewinfo'>{formatDate(review.timestamp)}</span> <br />
             {review.movie ? (
-              <Link to={`/movie/${review.revieweditem}`}>{review.movie.title}</Link>
+              <Link className='reviewtitle' to={`/movie/${review.revieweditem}`}>{review.movie.title}</Link>
             ) : (
                <span>{review.revieweditem}</span>
             )}

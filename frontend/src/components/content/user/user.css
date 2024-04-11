@@ -116,9 +116,12 @@
 }
 
 .inner-view h2, 
-.three-view h2 {
+.three-view h2,
+.profile-view h2,
+.reviews-view h2 {
     color: var(--profile);
 }   
+
 
 .profilepic {
     border-radius: 5px;
@@ -142,4 +145,78 @@ ul {
 
 .profileSections li {
     color: var(--profile);
+}
+
+.reviews-view {
+    background-color: var(--grp-background);
+    border-radius: 10px;
+    color: var(--profile);
+    display: flex-table;
+    flex-wrap: wrap;
+    padding: 1em;
+    padding-left: 3%;
+    margin-top: 25px;
+    border: var(--solid);
+}
+
+.profile-between {
+    display: flex;
+    padding: 20px;
+}
+
+.profile-view {
+    display: flex-table;
+    flex-wrap: wrap;
+    width: 50%;
+    margin-right: 20px;
+    margin-left: 20px;
+    border-top-left-radius: 60px;
+    border-bottom-right-radius: 60px;
+    background-color: var(--profile-view);
+    color: var(--profile);
+    padding: 1em;
+    padding-left: 5%;
+    border: var(--solid);
+}
+
+.profile-view {
+    margin-top: 25px;
+}
+
+.profile-view a {
+    color: var(--profile);
+}
+
+.profile-view a:hover {
+    color: var(--profile-link);
+}
+
+.profile-content {
+    flex-basis: 90%;
+    padding: 10px;
+    margin: 0 auto;
+}
+
+.profile-middle {
+    flex-basis: 30%;
+    padding: 10px;
+    margin: 0 auto;
+}
+
+.profile-right {
+    flex-basis: 30%;
+    padding: 10px;
+    margin: 0 auto;
+}
+
+.reviewinfo {
+    color: var(--profile);
+    font-size: 0.9em;
+    font-weight: 100;
+}
+
+.reviewtitle {
+    color: var(--profile);
+    font-size: 1em;
+    font-weight: 500;
 }
