@@ -212,6 +212,14 @@
     padding-left: 8px;
   }
 
+  .veryLongInput {
+    width: 450px;
+  }
+
+  .textBox {
+    width: 450px;
+    height: 220px;
+  }
 
 }
 
@@ -286,6 +294,21 @@
   .three-right {
     min-width: 270px;
     flex: 100%;
+  }
+
+  .veryLongInput {
+    width: 250px;
+  }
+
+  .textBox {
+    width: 270px;
+    height: 160px;
+  }
+  
+  .updateReview {
+    max-width: 260px;
+    min-width: 250px;
+    height: 160px;
   }
 
 }

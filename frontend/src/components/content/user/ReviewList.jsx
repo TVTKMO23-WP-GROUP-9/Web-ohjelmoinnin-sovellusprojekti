@@ -177,7 +177,7 @@ const ReviewList = ({ profile }) => {
             {editReviewId === review.idreview && (
               <div className="edit-review">
                 <b>Tähdet välillä 1-5</b> <br />
-                <input type="number" min="1" max="5" value={updatedReview.rating} onChange={setRating} /> <br />
+                <input className='updateRating' type="number" min="1" max="5" value={updatedReview.rating} onChange={setRating} /> <br />
                 <b>Kommentti</b> <br />
                 <textarea className="updateReview" value={updatedReview.review} onChange={setReview} /> <br />
                 <button className="compactButton" onClick={() => handleUpdateReview(review.idreview)}><span className='review uni13'></span> Tallenna muutokset</button>

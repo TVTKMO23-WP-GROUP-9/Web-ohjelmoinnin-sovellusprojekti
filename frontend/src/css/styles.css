@@ -430,9 +430,14 @@ input  {
 }
 
 .updateReview {
-  max-width: 380px;
-  min-width: 340px;
+  max-width: 480px;
+  min-width: 440px;
   height: 200px;
+}
+
+.updateRating {
+  margin: 0 auto;
+  width: 40px;
 }
 
 /******* CLASSES incl. buttons, selects, inputs, labels, spans, ps, pretty much everything *******/
