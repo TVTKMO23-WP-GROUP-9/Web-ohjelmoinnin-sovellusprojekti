@@ -523,3 +523,7 @@ INSERT INTO Review_ (profileid, revieweditem, review, rating, "timestamp") VALUE
 UPDATE Profile_
 SET is_private = TRUE
 WHERE profileid BETWEEN 8 AND 14;
+
+-- rajoite review_ -tauluun: yksi revieweditem id käyttäjällä vain kerran
+ALTER TABLE Review_
+ADD CONSTRAINT unique_review UNIQUE (profileid, revieweditem);
