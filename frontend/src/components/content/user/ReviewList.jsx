@@ -10,8 +10,11 @@ const ReviewList = ({ profile }) => {
   const [updatedReview, setUpdatedReview] = useState({
     review: '', rating: 0 });
   const [confirmDeleteId, setConfirmDeleteId] = useState(null);
+  const [reviewsPerPage, setReviewsPerPage] = useState(4);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [searchTerm, setSearchTerm] = useState('');
   const isOwnProfile = profile && profile.isOwnProfile;
-
+  
 
   const fetchReviews = async () => {
     try {
@@ -40,7 +43,8 @@ const ReviewList = ({ profile }) => {
           }
         }));
 
-        setReviews(reviewsWithMovies);
+        const sortedReviews = reviewsWithMovies.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+        setReviews(reviewsWithMovies, sortedReviews);
       }
     } catch (error) {
       console.error('Hakuvirhe:', error);
@@ -118,35 +122,69 @@ const ReviewList = ({ profile }) => {
     return `${day}.${month}.${year}`;
   };
 
+  const filteredReviews = reviews.filter(review =>
+    review.review.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const indexOfLastReview = currentPage * reviewsPerPage;
+  const indexOfFirstReview = indexOfLastReview - reviewsPerPage;
+  const currentReviews = filteredReviews.slice(indexOfFirstReview, indexOfLastReview);
+
+  function truncateLongWords(text, maxLength) {
+    return text.split(' ').map(word => {
+      return word.length > maxLength ? word.substring(0, maxLength) + '...' : word;
+    }).join(' ');
+  }
+
   return (
     <>
-      <ul>
-        {reviews.map((review, index) => (
-          <li key={index}>
-            <span>{formatDate(review.timestamp)}</span> <br/>
+      <ul className="review-list">
+        <li className="userinfo">
+          Kirjoittanut <b>{filteredReviews.length}</b> arvostelua. <br />
+          Arvostelujen keskiarvo on <b>{filteredReviews.length > 0 && (filteredReviews.reduce((sum, review) => sum + review.rating, 0) / filteredReviews.length).toFixed(1)}</b>.<br /><br />
+        </li>
+
+        <ul className="pagination">
+        <li>
+          <button className="buttonnext" onClick={() => setCurrentPage(currentPage > 1 ? currentPage - 1 : 1)}>
+            ⯇
+          </button>
+          &nbsp; <span className="communityinfo">selaa</span> &nbsp;
+          <button className="buttonnext" onClick={() => setCurrentPage(currentPage < Math.ceil(filteredReviews.length / reviewsPerPage) ? currentPage + 1 : Math.ceil(filteredReviews.length / reviewsPerPage))}>
+            ⯈
+          </button>
+        </li>
+      </ul>
+
+      <hr/>
+  
+        {currentReviews.map((review, index) => (
+          <li className='minheight' key={index}>
+            <Link to={`/movie/${review.revieweditem}`}><img className='reviewimg' src={`https://image.tmdb.org/t/p/w342${review.movie.poster_path}`} alt={review.title} /></Link>
+            <span className='reviewinfo'>{formatDate(review.timestamp)}</span> <br />
             {review.movie ? (
-              <Link to={`/movie/${review.revieweditem}`}>{review.movie.title}</Link>
+              <Link className='reviewtitle' to={`/movie/${review.revieweditem}`}>{review.movie.title}</Link>
             ) : (
-              <span>{review.revieweditem}</span>
+               <span>{review.revieweditem}</span>
             )}
             <br />
             <span>{renderRatingIcons(review.rating)}</span>
-            <span className='userinfo'>| <b>{review.rating}/5</b> tähteä</span> <br/>
-            <span className='userinfo'>{review.review}</span> <br />
+            <span className='userinfo'>| <b>{review.rating}/5</b> tähteä</span> <br />
+            <span className='userinfo'>{truncateLongWords(review.review, 25)}</span> <br />
             {!editReviewId && isOwnProfile && (
               <button className="compactButton" onClick={() => handleReviewEdit(review.idreview)}><span className='review uni11'></span> Muokkaa arvostelua</button>
             )}
             {editReviewId === review.idreview && (
               <div className="edit-review">
                 <b>Tähdet välillä 1-5</b> <br />
-                <input type="number" min="1" max="5" value={updatedReview.rating} onChange={setRating} /> <br/>
+                <input className='updateRating' type="number" min="1" max="5" value={updatedReview.rating} onChange={setRating} /> <br />
                 <b>Kommentti</b> <br />
-                <textarea className="updateReview" value={updatedReview.review} onChange={setReview} /> <br/>
+                <textarea className="updateReview" value={updatedReview.review} onChange={setReview} /> <br />
                 <button className="compactButton" onClick={() => handleUpdateReview(review.idreview)}><span className='review uni13'></span> Tallenna muutokset</button>
                 <button className="compactButton" onClick={() => setEditReviewId(null)}>Peruuta muutokset</button>
               </div>
             )}
-
+  
             {!editReviewId && isOwnProfile && (
               <>
                 {confirmDeleteId === review.idreview ? (
@@ -159,15 +197,12 @@ const ReviewList = ({ profile }) => {
                 )}
               </>
             )}
-
-            <hr />
+            
           </li>
-
         ))}
       </ul>
+  
     </>
-
   );
-};
-
+}
 export default ReviewList;

@@ -430,8 +430,14 @@ input  {
 }
 
 .updateReview {
-  width: 270px;
-  height: 300px;
+  max-width: 480px;
+  min-width: 440px;
+  height: 200px;
+}
+
+.updateRating {
+  margin: 0 auto;
+  width: 40px;
 }
 
 /******* CLASSES incl. buttons, selects, inputs, labels, spans, ps, pretty much everything *******/
@@ -445,7 +451,6 @@ input  {
   background-size: contain;
   background-repeat: no-repeat;
 }
-
 
 #screenError {
   display: none;
