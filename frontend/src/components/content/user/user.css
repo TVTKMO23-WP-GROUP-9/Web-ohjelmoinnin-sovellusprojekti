@@ -161,26 +161,22 @@ ul {
 
 .profile-between {
     display: flex;
-    padding: 20px;
+
+    justify-content: space-evenly;
 }
 
 .profile-view {
     display: flex-table;
     flex-wrap: wrap;
-    width: 50%;
-    margin-right: 20px;
-    margin-left: 20px;
+    width: 42%;
+    margin-top: 25px;
     border-top-left-radius: 60px;
     border-bottom-right-radius: 60px;
     background-color: var(--profile-view);
     color: var(--profile);
     padding: 1em;
-    padding-left: 5%;
+    padding-left: 3%;
     border: var(--solid);
-}
-
-.profile-view {
-    margin-top: 25px;
 }
 
 .profile-view a {

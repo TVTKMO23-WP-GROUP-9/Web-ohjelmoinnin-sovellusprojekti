@@ -97,6 +97,7 @@ const ProfileDetails = ({ user }) => {
                         </div>
                     </div>
 
+
                     <div className="profile-view">
                         <div className="profile-content">
                             <h2>Ryhmät &nbsp;<span className='emoji uni07'></span></h2>  

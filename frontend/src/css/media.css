@@ -96,6 +96,18 @@
     min-width: 70%;
     flex: 100%;
   }
+
+  .profile-between {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .profile-view {
+    display: block;
+    min-width: 90%;
+  }
   
 }
 
@@ -133,9 +145,9 @@
     max-height: 450px;
   }
 
+
+
 }
-
-
 
 @media (max-width: 640px) {
   #header-bar .header-container {
@@ -195,11 +207,11 @@
     padding-left: 8px;
   }
 
-
   .inner-view li,
   .three-view li {
     padding-left: 8px;
   }
+
 
 }
 
@@ -273,7 +285,6 @@
 
   .three-right {
     min-width: 270px;
-    
     flex: 100%;
   }
 
