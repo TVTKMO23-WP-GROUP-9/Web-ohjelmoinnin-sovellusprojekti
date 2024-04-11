@@ -526,4 +526,5 @@ WHERE profileid BETWEEN 8 AND 14;
 
 -- rajoite review_ -tauluun: yksi revieweditem id käyttäjällä vain kerran
 ALTER TABLE Review_
-ADD CONSTRAINT unique_review UNIQUE (profileid, revieweditem);
+ADD CONSTRAINT unique_review UNIQUE (profileid, revieweditem),
+ADD CONSTRAINT check_rating_range CHECK (rating >= 1 AND rating <= 5);
