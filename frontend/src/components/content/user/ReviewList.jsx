@@ -134,7 +134,7 @@ const ReviewList = ({ profile }) => {
     <>
       <ul className="review-list">
         <li className="userinfo">
-          Käyttäjä on kirjoittanut <b>{filteredReviews.length}</b> arvostelua. <br />
+          Kirjoittanut <b>{filteredReviews.length}</b> arvostelua. <br />
           Arvostelujen keskiarvo on <b>{filteredReviews.length > 0 && (filteredReviews.reduce((sum, review) => sum + review.rating, 0) / filteredReviews.length).toFixed(1)}</b>.<br /><br />
         </li>
 
