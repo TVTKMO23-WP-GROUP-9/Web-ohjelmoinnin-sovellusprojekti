@@ -159,7 +159,8 @@ const ReviewList = ({ profile }) => {
       <hr/>
   
         {currentReviews.map((review, index) => (
-          <li key={index}>
+          <li className='minheight' key={index}>
+            <Link to={`/movie/${review.revieweditem}`}><img className='reviewimg' src={`https://image.tmdb.org/t/p/w342${review.movie.poster_path}`} alt={review.title} /></Link>
             <span className='reviewinfo'>{formatDate(review.timestamp)}</span> <br />
             {review.movie ? (
               <Link className='reviewtitle' to={`/movie/${review.revieweditem}`}>{review.movie.title}</Link>
@@ -196,7 +197,7 @@ const ReviewList = ({ profile }) => {
                 )}
               </>
             )}
-            <hr />
+            
           </li>
         ))}
       </ul>
