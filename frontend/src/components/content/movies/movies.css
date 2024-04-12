@@ -204,6 +204,18 @@
     text-shadow: var(--tShadow1);
 }
 
+.pdd-right .bigArrow {
+    width: 40px;
+    margin-left: 2px;
+    margin-right: 10px;;
+    font-size: 1em;
+    background: none;
+    border: none;
+  }
+  
+.pdd-right .bigArrow:hover {
+    text-shadow: var(--tShadow1);
+  }
 
 @media screen and (max-width: 800px) {
     .left-column,

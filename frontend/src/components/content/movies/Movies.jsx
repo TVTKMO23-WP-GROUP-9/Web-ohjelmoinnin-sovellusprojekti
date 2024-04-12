@@ -161,6 +161,22 @@ const Movies = () => {
                   onChange={handleYearChange}
                 />
             </div>
+
+            <div className="pdd-right">
+                <b>Syötä sivu tai selaa tuloksia:</b><br/>
+                <button onClick={() => setPage(Page => Math.max(Page - 1, 1))} className='bigArrow'>{'⯇'}</button>
+                <input
+                  className="field shortInput"
+                  type="number" 
+                  placeholder="..."
+                  value={page}
+                  onChange={handlePageChange}
+                />
+                <button onClick={() => setPage(Page => Page + 1)} className='bigArrow'>{'⯈'}</button>
+                
+            </div>
+
+           
         </div>
         <div>
             <button className="basicbutton" onClick={handleSearch}>Hae</button>
@@ -202,19 +218,6 @@ const Movies = () => {
           </Link>
         </div>
       ))}
-
-        {showTitles && (<div className="pdd-bottom">         
-          <br/>
-          <button onClick={() => setPage(Page => Math.max(Page - 1, 1))} className='show-more-button'>{'⯇'}</button>
-          <input
-            className="field shortInput"
-            type="number" 
-            placeholder="..."
-            value={page}
-            onChange={handlePageChange}
-          />
-          <button onClick={() => setPage(Page => Page + 1)} className='show-more-button'>{'⯈'}</button>
-        </div>)}
 
       </div>
     </>
