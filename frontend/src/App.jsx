@@ -15,6 +15,7 @@ import MyAccount from '@content/user/MyAccount';
 import ProfileDetails from '@content/user/ProfileDetails';
 import Search from '@content/movies/Search';
 import MovieDetails from '@content/movies/MovieDetails';
+import SeriesDetails from '@content/movies/SeriesDetails';
 import Community from '@content/community/Community';
 import Error from '@content/error/Error';
 import ProfileEdit from '@content/user/ProfileEdit';
@@ -75,11 +76,12 @@ function App() {
 
           <div className={`body ${theme}`}>
               <Error />
-              <Header user={user} setUser={handleLogin} handleLogout={handleLogout} />  
+              <Header user={user} setUser={handleLogin} handleLogout={handleLogout} toggleTheme={toggleTheme} theme={theme} />  
             <Routes>
               <Route path="/" exact element={<Home />} />
               <Route path="/search" element={<Search />} />
               <Route path="/movie/:id" element={<MovieDetails />} />
+              <Route path="/series/:id" element={<SeriesDetails />} />
               <Route path="/login" element={<Login setUser={handleLogin} />} />
               <Route path="/myaccount" element={<MyAccount user={user} />} />
               <Route path="/profile/:profilename" element={<ProfileDetails user={user} />} />
