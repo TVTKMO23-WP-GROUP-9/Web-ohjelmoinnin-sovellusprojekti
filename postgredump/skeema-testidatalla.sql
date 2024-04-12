@@ -14,7 +14,7 @@ DROP TABLE IF EXISTS Review_ CASCADE;
 CREATE TABLE IF NOT EXISTS Profile_
 (
     profileid SERIAL PRIMARY KEY,
-    profilename VARCHAR(255) UNIQUE NOT NULL,
+    profilename VARCHAR(40) UNIQUE NOT NULL,
     hashedpassword VARCHAR(255) NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
     profilepicurl text COLLATE pg_catalog."default",
