@@ -10,6 +10,8 @@ const Movies = () => {
   const [page, setPage] = useState(1);
   const [year, setYear] = useState('');
   const [movies, setMovies] = useState([]);
+  const [series, setSeries] = useState([]);
+  
 
   useEffect(() => {
     search();
@@ -17,9 +19,19 @@ const Movies = () => {
 
   const search = async () => {
     try {
-      let response;
+      let moviesResponse;
+      let seriesResponse;
+  
       if (query !== '') {
-        response = await axios.get('http://localhost:3001/movie/search', {
+        moviesResponse = await axios.get(`http://localhost:3001/movie/search`, {
+          params: {
+            query: query,
+            page: page,
+            year: year
+          }
+        });
+  
+        seriesResponse = await axios.get(`http://localhost:3001/series/search`, {
           params: {
             query: query,
             page: page,
@@ -27,7 +39,16 @@ const Movies = () => {
           }
         });
       } else {
-        response = await axios.get('http://localhost:3001/movie/discover', {
+        moviesResponse = await axios.get(`http://localhost:3001/movie/discover`, {
+          params: {
+            genre: genre,
+            sort_by: 'popularity.desc',
+            page: page,
+            year: year
+          }
+        });
+  
+        seriesResponse = await axios.get(`http://localhost:3001/series/discover`, {
           params: {
             genre: genre,
             sort_by: 'popularity.desc',
@@ -36,8 +57,12 @@ const Movies = () => {
           }
         });
       }
-      console.log(response.data); 
-      setMovies(response.data); 
+  
+      const moviesData = moviesResponse.data;
+      const seriesData = seriesResponse.data;
+  
+      setMovies(moviesData);
+      setSeries(seriesData);
     } catch (error) {
       console.error('Hakuvirhe:', error);
     }
@@ -63,6 +88,7 @@ const Movies = () => {
 
   const handleSearch = () => {
     setMovies([]);
+    setSeries([]);
     search();
   };
 
@@ -100,7 +126,7 @@ const Movies = () => {
                 <option value="horror">Kauhu</option>
                 <option value="romance">Romantiikka</option>
                 <option value="thriller">Jännitys</option>
-                <option value="scifi">Scifi</option>
+                <option value="science fiction">Scifi</option>
                 <option value="fantasy">Fantasia</option>
                 <option value="documentary">Dokumentti</option>
                 <option value="animation">Animaatio</option>
@@ -133,17 +159,29 @@ const Movies = () => {
     </div>
 
     <div className="movie-container">
-        {movies.map(movie => (
-        <div key={movie.id} className="movie-item">
-          <Link to={`/movie/${movie.id}`}>
-          <img src={movie.poster_path} alt={movie.title} />
-          <div className="headoverview">
-            <div><h3>{movie.title}</h3></div>
-            <div>{movie.overview.length > 200 ? `${movie.overview.substring(0, 200)}...` : movie.overview}</div>
-          </div>
-          </Link>
-        </div>
-        ))}
+        {/* Näytetään sekä elokuvat että sarjat yhdessä osassa */}
+        {movies.map((result) => (
+  <div key={result.id} className="movie-item">
+    <Link to={`/movie/${result.id}`}>
+      <img src={result.poster_path} alt={result.title} />
+      <div className="headoverview">
+        <div><h3>{result.title}</h3></div>
+        <div>{result.overview.length > 200 ? `${result.overview.substring(0, 200)}...` : result.overview}</div>
+      </div>
+    </Link>
+  </div>
+))}
+{series.map((result) => (
+  <div key={result.id} className="movie-item">
+    <Link to={`/series/${result.id}`}>
+      <img src={result.poster_path} alt={result.title} />
+      <div className="headoverview">
+        <div><h3>{result.title}</h3></div>
+        <div>{result.overview.length > 200 ? `${result.overview.substring(0, 200)}...` : result.overview}</div>
+      </div>
+    </Link>
+  </div>
+))}
           <div className="pdd-bottom">         
             <br/>
             <button onClick={() => setPage(Page => Math.max(Page - 1, 1))} className='show-more-button'>{'<'}</button>
