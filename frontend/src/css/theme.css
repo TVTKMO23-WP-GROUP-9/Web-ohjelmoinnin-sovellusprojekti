@@ -64,6 +64,7 @@
     --table-link: #1c1303;
     --table-linkH: #4a7ab8;
     --td-review-hover: #0b2b55;
+    --tShadow1: 0px 0px 22px #3c51f3;
   }
   
   .dark {
@@ -104,4 +105,5 @@
     --table-link: #ffffff;
     --table-linkH: #ccc596;
     --td-review-hover: #6daaff;
+    --tShadow1: 0px 0px 22px #ffc746;
 }

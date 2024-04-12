@@ -173,6 +173,38 @@
 .justMargins {
     margin-top: 25px;
 }
+
+.resultsTitle {
+    width: 100%;
+    display: flex;  
+    justify-content: center;
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+
+.resultsTitle h2 {
+    font-size: 2.3em;
+    text-shadow: var(--tShadow1);
+    color: var(--text-color);
+}
+
+.bigArrow {
+    background: none;
+    border: none;
+    font-size: 2.3em;
+    color: var(--text-color);
+    padding-left: 14px;
+    padding-right: 14px;;
+
+}
+
+.bigArrow:hover {
+    font-size: 2.3em;
+    color: var(--td-review-hover);
+    text-shadow: var(--tShadow1);
+}
+
+
 @media screen and (max-width: 800px) {
     .left-column,
     .middle-column,
