@@ -14,6 +14,7 @@
     --solid: 1px solid #000000;
     --solid3: 3px solid #000000;
     --dashed: 1px dashed #000000;
+    --dashedGr: 1px dashed #737373;
     /*fonts*/
     --thasadith: "Thasadith", sans-serif;
     --roboto: "Roboto Condensed", sans-serif;
@@ -24,6 +25,7 @@
     --reviewbox: #d6d6d6;
     --confirm-red: #a54b43;
     --confirm-hover:  #792929;
+    --grey-hover: #cecece;
 } 
 
 .light { 
@@ -64,9 +66,10 @@
     --table-link: #1c1303;
     --table-linkH: #4a7ab8;
     --td-review-hover: #0b2b55;
+    --profile-view: #eadec8;
     --tShadow1: 0px 0px 22px #3c51f3;
   }
-  
+
   .dark {
     --github-image: url('../images/github-mark-white.png');
     /*borders*/
@@ -105,5 +108,6 @@
     --table-link: #ffffff;
     --table-linkH: #ccc596;
     --td-review-hover: #6daaff;
+    --profile-view: #cdcccb;
     --tShadow1: 0px 0px 22px #ffc746;
 }

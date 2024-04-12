@@ -6,6 +6,9 @@ import { Link } from 'react-router-dom';
 const GroupList = ({ profile }) => {
   const [groups, setGroups] = useState([]);
 
+  const [groupsPerPage, setGroupsPerPage] = useState(10);
+  const [currentPage, setCurrentPage] = useState(1);
+  
   useEffect(() => {
     const fetchGroups = async () => {
       try {
@@ -21,10 +24,32 @@ const GroupList = ({ profile }) => {
     fetchGroups();
   }, [profile]);
 
+  const indexOfLastGroup = currentPage * groupsPerPage;
+  const indexOfFirstGroup = indexOfLastGroup - groupsPerPage;
+  const currentGroups = groups.slice(indexOfFirstGroup, indexOfLastGroup);
+
   return (
     <>
+        <span className="userinfo">
+          Löytyi <b>{groups.length}</b> ryhmää.<br />
+        </span>
+
+        <ul className="pagination">
+        <li>
+          <button className="buttonnext" onClick={() => setCurrentPage(currentPage > 1 ? currentPage - 1 : 1)}>
+            ⯇
+          </button>
+          &nbsp; <span className="communityinfo">selaa</span> &nbsp;
+          <button className="buttonnext" onClick={() => 
+            setCurrentPage(currentPage < Math.ceil(groups.length / groupsPerPage) ? 
+            currentPage + 1 : Math.ceil(groups.length / groupsPerPage))}>
+            ⯈
+          </button>
+        </li>
+      </ul>
+        
       <ul className="profileSections">
-      {groups.map((group, index) => (
+      {currentGroups.map((group, index) => (
         <li key={index}><Link to="#">{group.groupname}</Link></li>
         ))}
       </ul>

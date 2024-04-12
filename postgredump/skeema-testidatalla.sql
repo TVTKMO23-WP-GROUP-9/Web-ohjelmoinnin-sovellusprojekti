@@ -510,9 +510,21 @@ INSERT INTO Review_ (profileid, revieweditem, review, rating, "timestamp") VALUE
 ('23', '76600', 'Jännittävä!', 4, CURRENT_TIMESTAMP),
 ('23', '373571', 'Paras!', 5, CURRENT_TIMESTAMP),
 ('24', '1022796', 'Ei suositeltava', 2, CURRENT_TIMESTAMP),
-('24', '695721', 'Viihdyttävä', 4, CURRENT_TIMESTAMP);
+('24', '695721', 'Viihdyttävä', 4, CURRENT_TIMESTAMP),
+('21', '135397', 'Aiiiiivan ihania dinosia', 4, CURRENT_TIMESTAMP),
+('21', '507086', 'Tommosen ottais lemmikiksikin', 4, CURRENT_TIMESTAMP),
+('21', '1010581', 'Se on ihan huti', 1, CURRENT_TIMESTAMP),
+('21', '346698', 'Melko PINKKI leffa oli. :) Voi Ken ressua', 5, CURRENT_TIMESTAMP),
+('21', '395990', 'Mmmmmmm........ se on jotain niiin........ rrrrr', 4, CURRENT_TIMESTAMP),
+('21', '634649', 'Ei mulle, mut ehkä sulle?', 2, CURRENT_TIMESTAMP),
+('21', '1966', 'Hieno heppi <3', 3, CURRENT_TIMESTAMP);
 
 -- yksityinen tili käyttäjille 8-14
 UPDATE Profile_
 SET is_private = TRUE
 WHERE profileid BETWEEN 8 AND 14;
+
+-- rajoite review_ -tauluun: yksi revieweditem id käyttäjällä vain kerran
+ALTER TABLE Review_
+ADD CONSTRAINT unique_review UNIQUE (profileid, revieweditem),
+ADD CONSTRAINT check_rating_range CHECK (rating >= 1 AND rating <= 5);

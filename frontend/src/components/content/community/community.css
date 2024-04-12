@@ -149,7 +149,7 @@ ul {
 }
 
 .communityinfo {
-    color: var(--text-color);
+    color: var(--profile);
     padding: 5px;
     font-size: 0.8em;
     font-weight: 100;

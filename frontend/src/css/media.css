@@ -96,6 +96,18 @@
     min-width: 70%;
     flex: 100%;
   }
+
+  .profile-between {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .profile-view {
+    display: block;
+    min-width: 90%;
+  }
   
 }
 
@@ -133,9 +145,9 @@
     max-height: 450px;
   }
 
+
+
 }
-
-
 
 @media (max-width: 640px) {
   #header-bar .header-container {
@@ -195,10 +207,18 @@
     padding-left: 8px;
   }
 
-
   .inner-view li,
   .three-view li {
     padding-left: 8px;
+  }
+
+  .veryLongInput {
+    width: 450px;
+  }
+
+  .textBox {
+    width: 450px;
+    height: 220px;
   }
 
 }
@@ -273,8 +293,22 @@
 
   .three-right {
     min-width: 270px;
-    
     flex: 100%;
+  }
+
+  .veryLongInput {
+    width: 250px;
+  }
+
+  .textBox {
+    width: 270px;
+    height: 160px;
+  }
+  
+  .updateReview {
+    max-width: 260px;
+    min-width: 250px;
+    height: 160px;
   }
 
 }
