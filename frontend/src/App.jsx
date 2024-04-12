@@ -23,7 +23,7 @@ import { jwtToken } from './components/auth/authSignal';
 
 function App() {
   const { theme, toggleTheme } = useTheme();
-  const [user, setUser] = useState(null)
+  const [user, setUser] = useState(null);
 
   const handleLogin = (userData) => {
     setUser(userData);
@@ -58,6 +58,7 @@ function App() {
           setUser(null);
           localStorage.removeItem('user');
           jwtToken.value = '';
+          window.location.href = '/';
         } else {
           console.error('Uloskirjautuminen epäonnistui');
         }
