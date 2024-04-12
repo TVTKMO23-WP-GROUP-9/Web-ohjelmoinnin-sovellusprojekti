@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Login from './Login';
 
-const Header = ({ user, setUser, handleLogout}) => {
+const Header = ({ user, setUser, handleLogout, toggleTheme }) => {
   const [isburgerOpen, setIsburgerOpen] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
 
@@ -38,6 +38,8 @@ const Header = ({ user, setUser, handleLogout}) => {
               {user && <li><Link to={`/profile/${user.user}`}>Oma profiili</Link></li>}
               {user && <li><Link to="/myaccount">Tilinhallinta</Link></li>}
               {user && <li><Link onClick={handleLogout}>Kirjaudu ulos</Link></li>}
+
+              <button className="basicbutton" onClick={toggleTheme}>Vaihda teemaa</button>
             </ul>
           </div>
 

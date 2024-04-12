@@ -76,7 +76,7 @@ function App() {
 
           <div className={`body ${theme}`}>
               <Error />
-              <Header user={user} setUser={handleLogin} handleLogout={handleLogout} />  
+              <Header user={user} setUser={handleLogin} handleLogout={handleLogout} toggleTheme={toggleTheme} theme={theme} />  
             <Routes>
               <Route path="/" exact element={<Home />} />
               <Route path="/search" element={<Search />} />
