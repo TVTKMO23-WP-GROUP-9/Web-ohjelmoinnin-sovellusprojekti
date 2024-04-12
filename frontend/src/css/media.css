@@ -120,10 +120,10 @@
     margin-right: -60px;
   }
   
-.menu-items li{
-  list-style-type: none;
-  padding-left: 25px;
-}
+  .menu-items li{
+    list-style-type: none;
+    padding-left: 25px;
+  }
 
   #header-bar ul.username {
     color: #ffffff;
@@ -145,9 +145,27 @@
     max-height: 450px;
   }
 
+}
 
+
+@media (max-width: 850px) {
+
+  .two-view {
+    flex-direction: column;
+  }
+
+  .two-left {
+    min-width: 100%; /* Leveys täyteen ruutuun */
+  }
+
+  .two-right {
+    min-width: 100%; /* Leveys täyteen ruutuun */
+    border-left-width: 0;
+    border-left: none !important;
+  }
 
 }
+
 
 @media (max-width: 640px) {
   #header-bar .header-container {
@@ -310,6 +328,18 @@
     min-width: 250px;
     height: 160px;
   }
+
+  .justMargin {
+    margin-left: 10px;
+  }
+
+  .two-view h2 {
+    padding-left: 10px !important;
+ }
+
+ .communityBox {
+   margin-left: 10px !important;
+ }
 
 }
 

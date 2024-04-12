@@ -72,8 +72,8 @@ const AllGroups = ({ searchTerm, setSearchTerm }) => {
                             <table className="communityTbl" key={group.groupid}>
                                 <tbody>
                                     <tr>
-                                        <td width="270px"><b><Link to={`/group/${group.groupid}`}>{group.groupname}</Link></b></td>
-                                        <td width="120px"><b>---</b></td>
+                                        <td width="250px"><b><Link to={`/group/${group.groupid}`}>{group.groupname}</Link></b></td>
+                                        <td><b>---</b></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -85,11 +85,11 @@ const AllGroups = ({ searchTerm, setSearchTerm }) => {
 
                 <div className="two-right">
                     <h2>Muut ryhmätoiminnot</h2>
-                    <span className="communityBox">Mikäs sen mukavampaa, kuin löytää samanhenkistä leffaporukkaa,</span> <br />
-                    <span className="communityBox">jonka kanssa jakaa leffa-elämyksiä ja chattailla reaaliajassa.</span> <br /><br />
-                    <span className="communityBox">Meillä on jo <b>{filteredGroups.length}</b> ryhmää, mistä valita.</span> <br />
-                    <span className="communityBox">Tai saitko uuden ryhmä-idean? Voit luoda sellaisen itsellesi ja kavereillesi</span> <br />
-                    <span className="communityBox">tai koko maailman parhaalle leffakansalle! <span className='emoji uni01'></span></span> <br />
+                    <div className="communityBox">Mikäs sen mukavampaa, kuin löytää samanhenkistä leffaporukkaa,<br />
+                    jonka kanssa jakaa leffa-elämyksiä ja chattailla reaaliajassa. <br /><br />
+                    Meillä on jo <b>{filteredGroups.length}</b> ryhmää, mistä valita <br />
+                    Tai saitko uuden ryhmä-idean? Voit luoda sellaisen itsellesi ja kavereillesi <br />
+                    tai koko maailman parhaalle leffakansalle! <span className='emoji uni01'></span></div> <br />
                     <button className='basicbutton justMargin'>Luo uusi ryhmä</button>
                 </div>
 

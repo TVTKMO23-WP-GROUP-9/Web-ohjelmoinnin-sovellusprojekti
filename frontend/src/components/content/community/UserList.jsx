@@ -74,8 +74,8 @@ const UserList = ({ searchTerm, setSearchTerm }) => {
                         <table className="communityTbl" key={profile.profileid}>
                             <tbody>
                                 <tr>
-                                    <td width="270px"><b><Link to={`/profile/${profile.profilename}`}>{profile.profilename}</Link></b></td>
-                                    <td width="120px"><b>---</b></td>
+                                    <td width="250px"><b><Link to={`/profile/${profile.profilename}`}>{profile.profilename}</Link></b></td>
+                                    <td><b>---</b></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -88,9 +88,11 @@ const UserList = ({ searchTerm, setSearchTerm }) => {
             
             <div className="two-right">
                     <h2>Eläköön Elokuvayhteisö!</h2>
-                    <span className="communityBox">Meillä on täällä <b>{filteredProfiles.length}</b></span><br />
-                    <span className='communityBox'>rekisteröitynyttä käyttäjää. <span className="emoji uni03"></span></span> <br /><br />
-                    <span className="communityBox">Liity mukaan jo tänään!</span><br />
+
+                    <div className="communityBox">
+                    Meillä on täällä <b>{filteredProfiles.length}</b><br />
+                    rekisteröitynyttä käyttäjää. <span className="emoji uni03"></span> <br /><br />
+                    Liity mukaan jo tänään!</div>
                     <button className='basicbutton justMargin'>Rekisteröidy</button>
                 </div>  
 
