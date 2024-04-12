@@ -67,8 +67,9 @@
     --table-linkH: #4a7ab8;
     --td-review-hover: #0b2b55;
     --profile-view: #eadec8;
+    --tShadow1: 0px 0px 22px #3c51f3;
   }
-  
+
   .dark {
     --github-image: url('../images/github-mark-white.png');
     /*borders*/
@@ -108,4 +109,5 @@
     --table-linkH: #ccc596;
     --td-review-hover: #6daaff;
     --profile-view: #cdcccb;
+    --tShadow1: 0px 0px 22px #ffc746;
 }
