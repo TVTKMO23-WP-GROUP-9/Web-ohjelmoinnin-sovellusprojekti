@@ -56,13 +56,23 @@ export default function MyAccount({ user }) {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.put(VITE_APP_BACKEND_URL + `/profile/nameandemail`, formData, { headers });
-            alert('Tiedot päivitetty');
-            localStorage.setItem('user', JSON.stringify({ user: formData.profilename }));
+            const usernameChanged = formData.profilename !== profilename;
+
+            if (!usernameChanged) {
+                await axios.put(VITE_APP_BACKEND_URL + `/profile/nameandemail`, formData, { headers });
+                alert('Tiedot päivitetty');
+            } else {
+                await axios.put(VITE_APP_BACKEND_URL + `/profile/nameandemail`, formData, { headers });
+                alert('Käyttäjätunnusta päivitetty. Sinut kirjataan ulos.');
+                localStorage.removeItem('user');
+                sessionStorage.removeItem('token');
+                window.location.href = '/';
+            }
         } catch (error) {
             console.error('Hakuvirhe:', error);
         }
     };
+
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
