@@ -13,8 +13,8 @@ const MovieDetails = () => {
     const fetchData = async () => {
       try {
     const [movieResponse, providersResponse] = await Promise.all([
-      axios.get(`${VITE_APP_BACKEND_URL}//movie/${id}`),
-      axios.get(`${VITE_APP_BACKEND_URL}//movie/provider/${id}`)
+      axios.get(`${VITE_APP_BACKEND_URL}/movie/${id}`),
+      axios.get(`${VITE_APP_BACKEND_URL}/movie/provider/${id}`)
     ]);
 
         setMovie(movieResponse.data);

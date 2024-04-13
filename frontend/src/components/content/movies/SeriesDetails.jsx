@@ -12,7 +12,7 @@ const SeriesDetails = () => {
   useEffect(() => {
     const fetchSeries = async () => {
       try {
-        const response = await axios.get(`${VITE_APP_BACKEND_URL}//series/${id}`);
+        const response = await axios.get(`${VITE_APP_BACKEND_URL}/series/${id}`);
         setSeries(response.data);
       } catch (error) {
         console.error('Hakuvirhe', error);

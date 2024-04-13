@@ -19,7 +19,7 @@ const ProfileEdit = ({ profilename }) => {
                     'Content-Type': 'application/json'
                 };
 
-                const response = await axios.get(`${VITE_APP_BACKEND_URL}/${profilename}`, { headers });
+                const response = await axios.get(`${VITE_APP_BACKEND_URL}/profile/${profilename}`, { headers });
 
                 const { profilepicurl, description } = response.data;
                 setFormData({ profilepicurl, description });

@@ -60,7 +60,7 @@ const ReviewList = ({ profile }) => {
 
   {/*const handleDeleteReview = async (idreview) => {
       try {
-        const response = await axios.delete(`${VITE_APP_BACKEND_URL}//review/${idreview}`);
+        const response = await axios.delete(`${VITE_APP_BACKEND_URL}/review/${idreview}`);
         console.log(response.data);
         setReviews(reviews.filter(review => review.idreview !== idreview));
       } catch (error) {
@@ -70,7 +70,7 @@ const ReviewList = ({ profile }) => {
 
   const handleConfirmDelete = async (idreview) => {
     try {
-      const response = await axios.delete(`${VITE_APP_BACKEND_URL}//review/${idreview}`);
+      const response = await axios.delete(`${VITE_APP_BACKEND_URL}/review/${idreview}`);
       console.log(response.data);
       setReviews(reviews.filter(review => review.idreview !== idreview));
       setConfirmDeleteId(null);
@@ -85,7 +85,7 @@ const ReviewList = ({ profile }) => {
 
   const handleUpdateReview = async (idreview) => {
     try {
-      const response = await axios.put(`${VITE_APP_BACKEND_URL}//reviews/update/${idreview}`, updatedReview);
+      const response = await axios.put(`${VITE_APP_BACKEND_URL}/reviews/update/${idreview}`, updatedReview);
       setEditReviewId(null);
       fetchReviews();
     } catch (error) {
