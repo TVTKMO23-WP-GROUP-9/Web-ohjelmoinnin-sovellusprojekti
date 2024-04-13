@@ -5,6 +5,7 @@ import { useParams, Link } from 'react-router-dom';
 const SeriesDetails = () => {
     const { id } = useParams(); 
     const [series, setSeries] = useState(null); 
+    const [providers, setProviders] = useState(null);
 
     useEffect(() => {
       const fetchSeries = async () => {
@@ -16,9 +17,25 @@ const SeriesDetails = () => {
         }
       };
 
+      const fetchProviders = async () => {
+        try {
+          const response = await axios.get(`http://localhost:3001/tv/provider/${id}`);
+          setProviders(response.data);
+        } catch (error) {
+          console.error('Virhe palveluntarjoajien hakemisessa:', error);
+          // Jos pyyntö epäonnistuu, asetetaan providers-tila tyhjään JSON-objektiin
+          setProviders({});
+        }
+      };
+
+
       fetchSeries();
       
-      return () => setSeries(null);
+      // Asetetaan timeout fetchProviders-funktiolle 5 sekunniksi
+      const timeoutId = setTimeout(fetchProviders, 100);
+    
+      // Palautetaan poisto-funktio, joka suoritetaan komponentin purkamisen yhteydessä
+      return () => clearTimeout(timeoutId);
     }, [id]);
 
 
@@ -43,6 +60,26 @@ const SeriesDetails = () => {
                     <p><b>Kerännyt ääniä:</b> {series.vote_count}</p>
                     <p><b>Äänten keskiarvo:</b> {series.vote_average} / 10 </p>
                   
+                  
+                  {providers && providers.flatrate && (
+                  <table className='providers'>
+                    <tbody>
+                      <tr>
+                      <td><h3>Katso</h3></td>
+                      {providers.flatrate.map(provider => (
+                        <td key={provider.provider_id}>
+                          <a href={`https://www.themoviedb.org/tv/${series.id}/watch`}><img src={`https://image.tmdb.org/t/p/w185${provider.logo_path}`} alt={provider.provider_name} /></a>
+                        </td>
+                      ))}
+                      </tr>
+                      <tr>
+                      <td colSpan="6">
+                        <a href='https://www.justwatch.com/'>Saatavuus Suomessa JustWatch</a>
+                      </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  )}
                 </div>
               </div>
   

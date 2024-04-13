@@ -15,7 +15,7 @@ router.post('/memberlist', groupService.createMember);
 router.post('/messages', groupService.createMessage);
 router.get('/grouplist/:profileid', groupService.getUserGroups);
 router.get('/grouplist/profile/:profilename', groupService.getGroupsByProfilename);
-router.get('/memberlist/group/:groupid', groupService.GetMemeberList);
+router.get('/memberlist/group/:groupid/:pending', groupService.GetMemberList);
 router.delete('/memberlist/:groupid', groupService.deleteMemberlist);
 router.post('/memberlist', groupService.createMemberList);
 

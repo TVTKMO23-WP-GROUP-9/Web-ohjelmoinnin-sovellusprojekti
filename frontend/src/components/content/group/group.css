@@ -1,29 +1,47 @@
+#groupinfo {
+    background-color: var(--moviedetails);
+    border-radius: 10px;
+    margin-top: 50px;
+    display: flex; 
+    flex-direction: column; 
+    border: 1px solid #000000;
+    box-shadow: var(--shadow06);
+}
 
-.gsection1 {
+#groupinfo .gsection1 {
     margin-top: 50px;
     padding: 40px;
-    background-color: var(--section1);
+    background-color: var(--greyblue);
     border-radius: 10px;
 }
 
-.gsection2 {
+#groupinfo .gsection2 {
     margin-top: 50px;
     padding: 40px;
-    background-color: var(--section2);
+    background-color: var(--table-bg);
     border: var(--solid);
     border-radius: 10px;
     box-shadow: var(--shadow02);
 }
 
-.gsection3 {
+#groupinfo .gsection3 {
     margin-top: 50px;
     padding: 40px;
-    background-color: var(--section3);
+    background-color:  var(--table-bg);
     border: var(--solid);
     border-radius: 10px;
     box-shadow: var(--shadow02);
 }
 
+#groupinfo .gsection2 h2,
+#groupinfo .gsection3 h2  {
+    color: var(--h2);
+}
+
+#groupinfo .gsection2 h1,
+#groupinfo .gsection3 h1 {
+    color: var(--h1);
+}
 
 .groupinfo {
     padding: 5px;
@@ -31,10 +49,11 @@
     font-weight: 100;
 }
 
-.ginner-view {
+.ginner-view,
+.gthree-view {
     background-color: var(--grp-background);
     border-radius: 10px;
-    color: var(--grp-text);
+    color: var(--profile);
     display: flex; 
     flex-direction: row;
     flex-wrap: wrap; 
@@ -43,42 +62,57 @@
     border: var(--solid);
 }
 
-.ginner-left {
-    flex-basis: 19%;
+.gform-view {
+    background-color: var(--grp-background);
+    border-radius: 10px;
+    color: var(--profile);
+
+    padding: 1em;
+    margin-top: 25px;
+    border: var(--solid);
+}
+
+.ginner-view .ginner-left {
     padding: 10px;
+    margin-right: 10px;
+    color: var(--profile);
     text-align: left;
 }
 
-.ginner-right {
-    flex-basis: 78%;
+.ginner-view .ginner-right {
+    flex: 70%;
     padding: 8px;
+    color: var(--profile);
 }
 
 .gthree-view {
     margin-top: 25px;
-    background-color: var(--grp-background);
-    border-radius: 10px;
-    color: var(--grp-text);
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap; 
-    padding: 1em;
-    border: var(--solid);
+}
+
+.gthree-view a {
+    color: var(--profile);
+}
+
+.gthree-view a:hover {
+    color: var(--profile-link);
 }
 
 .gthree-left {
     flex-basis: 30%;
     padding: 10px;
+    margin: 0 auto;
 }
 
 .gthree-middle {
     flex-basis: 30%;
     padding: 10px;
+    margin: 0 auto;
 }
 
 .gthree-right {
     flex-basis: 30%;
     padding: 10px;
+    margin: 0 auto;
 }
 
 .ginner-view h2, 
@@ -99,4 +133,101 @@
 ul {
     list-style-type: none;
     padding: 8px;
+}
+
+.groupSections {
+    line-height: 1.8em;
+    list-style: decimal;
+}
+
+.groupSections li {
+    color: var(--profile);
+}
+
+
+.greviews-view {
+    background-color: var(--grp-background);
+    border-radius: 10px;
+    color: var(--profile);
+    display: flex-table;
+    flex-wrap: wrap;
+    padding: 1em;
+    padding-left: 2%;
+    padding-right: 2%;
+    margin-top: 25px;
+    border: var(--solid);
+}
+
+.group-between {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.group-view {
+    display: flex-table;
+    flex-wrap: wrap;
+    width: 42%;
+    margin-top: 25px;
+    border-top-left-radius: 60px;
+    border-bottom-right-radius: 60px;
+    background-color: var(--profile-view);
+    color: var(--profile);
+    padding: 1em;
+    padding-left: 3%;
+    border: var(--solid);
+}
+
+.group-view a {
+    color: var(--profile);
+}
+
+.group-view a:hover {
+    color: var(--profile-link);
+}
+
+.group-content {
+    flex-basis: 90%;
+    padding: 10px;
+    margin: 0 auto;
+}
+
+.group-middle {
+    flex-basis: 30%;
+    padding: 10px;
+    margin: 0 auto;
+}
+
+.group-right {
+    flex-basis: 30%;
+    padding: 10px;
+    margin: 0 auto;
+}
+
+.reviewinfo {
+    color: var(--profile);
+    font-size: 0.9em;
+    font-weight: 100;
+}
+
+.reviewtitle {
+    color: var(--profile);
+    font-size: 1em;
+    font-weight: 500;
+}
+
+.reviewimg {
+    float: left;
+    margin-right: 20px;
+    height: 170px;
+    box-shadow: var(--shadow02);
+}
+
+.minheight {
+    min-height: 180px;
+    padding: 20px;
+    border-bottom: var(--dashedGr);
+}
+
+.minheight:hover {
+    background-color: var(--grey-hover);
 }
