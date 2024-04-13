@@ -531,3 +531,12 @@ ADD CONSTRAINT check_rating_range CHECK (rating >= 1 AND rating <= 5);
 
 ALTER TABLE Review_
 ADD COLUMN mediatype smallint;
+
+
+INSERT INTO Review_ (profileid, revieweditem, review, rating, "timestamp", mediatype) VALUES
+('1', '1408', 'Hyvä sarjimus', 4, CURRENT_TIMESTAMP, '1'),
+('2', '1408', 'Hyvä ', 5, CURRENT_TIMESTAMP, '1'),
+('3', '1408', 'EPIC!', 3, CURRENT_TIMESTAMP, '1'),
+('4', '1408', 'BOOM', 5, CURRENT_TIMESTAMP, '1'),
+('5', '1408', 'ihan ok!', 4, CURRENT_TIMESTAMP, '1');
+
