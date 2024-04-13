@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './community.css';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import.meta.env.VITE_APP_BACKEND_URL;
 
 const AllGroups = ({ searchTerm, setSearchTerm }) => {
     const [groups, setGroups] = useState([]);
