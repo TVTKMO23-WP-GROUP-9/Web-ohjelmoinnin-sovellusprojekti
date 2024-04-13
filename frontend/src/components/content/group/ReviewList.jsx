@@ -42,7 +42,6 @@ const ReviewList = ({ id }) => {
                 return {
                   ...review,
                   movie: responseData,
-                  userProfile: userProfileData,
                 };
               } else {
                 return review;
@@ -79,17 +78,6 @@ const ReviewList = ({ id }) => {
   useEffect(() => {
     fetchReviews();
   }, [id]);
-
-  {/*const handleDeleteReview = async (idreview) => {
-      try {
-        const response = await axios.delete(`http://localhost:3001/review/${idreview}`);
-        console.log(response.data);
-        setReviews(reviews.filter(review => review.idreview !== idreview));
-      } catch (error) {
-        console.error('Poistovirhe:', error);
-      }
-    };*/}
-
 
 
   const renderRatingIcons = (rating) => {
@@ -145,18 +133,23 @@ const ReviewList = ({ id }) => {
   
         {currentReviews.map((review, index) => (
           <li className='minheight' key={index}>
-            <Link to={`/movie/${review.revieweditem}`}><img className='reviewimg' src={`https://image.tmdb.org/t/p/w342${review.movie.poster_path}`} alt={review.title} /></Link>
-            <span className='reviewinfo'>{formatDate(review.timestamp)}</span> <br />
-            {review.movie ? (
+            {review.mediatype === 0 ? (
+            <Link to={`/movie/${review.revieweditem}`}><img className='reviewimg' src={`https://image.tmdb.org/t/p/w342${review.movie.poster_path}`} alt={review.movie.title} /></Link>
+            ) : (
+            <Link to={`/series/${review.revieweditem}`}><img className='reviewimg' src={`https://image.tmdb.org/t/p/w342${review.movie.poster_path}`} alt={review.movie.name} /></Link>
+            
+            )}
+            <span className='reviewinfo'>{formatDate(review.timestamp)}</span> <br />      
+            {review.mediatype === 0 ? (
               <Link className='reviewtitle' to={`/movie/${review.revieweditem}`}>{review.movie.title}</Link>
             ) : (
-               <span>{review.revieweditem}</span>
-            )}
+              <Link className='reviewtitle' to={`/series/${review.revieweditem}`}>{review.movie.name}</Link>
+            )}     
             <br />
             <span>{renderRatingIcons(review.rating)}</span>
             <span className='userinfo'>| <b>{review.rating}/5</b> tähteä</span> <br />
             <span className='userinfo'>{truncateLongWords(review.review, 25)}</span> <br />
-            <span className='userinfo'>Arvostelija: {review.userProfile.profilename}</span> <br />
+            <span className='userinfo'>Arvostelija:  <Link className='reviewtitle' to={`/profile/${review.userProfile.profilename}`}>{review.userProfile.profilename}</Link></span><br />
                     
           </li>
 
