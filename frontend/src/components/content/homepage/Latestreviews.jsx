@@ -17,15 +17,21 @@ const Latestreviews = () => {
         // Hae jokaisen arvostelun review.revieweditem arvolla liittyvä elokuva
         const reviewsWithMovies = await Promise.all(reviewData.map(async review => {
           try {
-            const movieResponse = await axios.get(`http://localhost:3001/movie/${encodeURIComponent(review.revieweditem)}`);
-            const movieData = movieResponse.data;
+            let responseData;
+            if (review.mediatype === 0) {
+              const movieResponse = await axios.get(`http://localhost:3001/movie/${encodeURIComponent(review.revieweditem)}`);
+              responseData = movieResponse.data;
+            } else if (review.mediatype === 1) {
+              const tvResponse = await axios.get(`http://localhost:3001/series/${encodeURIComponent(review.revieweditem)}`);
+              responseData = tvResponse.data;
+            }
             return {
               ...review,
-              movie: movieData
+              data: responseData
             };
           } catch (error) {
-            console.error('Virhe elokuvan hakemisessa:', error);
-            // Palauta tyhjä objekti, jos elokuvan hakeminen epäonnistuu
+            console.error('Virhe tiedon hakemisessa:', error);
+            // Palauta tyhjä objekti, jos hakeminen epäonnistuu
             return {};
           }
         }));
@@ -51,27 +57,41 @@ const Latestreviews = () => {
       ) : (
         <div className="reviewmain">
           {reviews.map((review, index) => (
-            <table className="review-item" key={index + 1}>
+            <table className="review-item" key={index}>
               <tbody>
                 <tr>
-                  <td className='tdimg'>
-                    <Link to={`/movie/${review.revieweditem}`} className="link-style">
-                    <img src={`https://image.tmdb.org/t/p/w342${review.movie.poster_path}`} alt={review.title} />
-                      <div>             
-                        {[...Array(review.rating)].map((_, i) => (
-                          <span key={i} >&#11088;</span>
-                        ))}
-                        {[...Array(5 - review.rating)].map((_, i) => (
-                          <span key={i + review.rating}>&#x2605;</span>
-                        ))}
-                      </div>
-                    </Link>
+                <td className='tdimg'>
+                {review.mediatype === 0 ? (
+                <Link to={`/movie/${review.revieweditem}`} className="link-style">
+                <img src={`https://image.tmdb.org/t/p/w342${review.data.poster_path}`} alt={review.data.title} />
+                <div>             
+                  {[...Array(review.rating)].map((_, i) => (
+                    <span key={i} >&#11088;</span>
+                  ))}
+                  {[...Array(5 - review.rating)].map((_, i) => (
+                    <span key={i + review.rating}>&#x2605;</span>
+                  ))}
+                  </div>
+                  </Link>
+                  ) : (
+                  <Link to={`/series/${review.revieweditem}`} className="link-style">
+                  <img src={`https://image.tmdb.org/t/p/w342${review.data.poster_path}`} alt={review.data.title} />
+                  <div>             
+                  {[...Array(review.rating)].map((_, i) => (
+                    <span key={i} >&#11088;</span>
+                  ))}
+                  {[...Array(5 - review.rating)].map((_, i) => (
+                    <span key={i + review.rating}>&#x2605;</span>
+                  ))}
+                  </div>
+                  </Link>
+                  )}
                   </td>
                   <td>
 
                   </td>
                   <td className="review-info">
-                    <h2>{review.movie.title}</h2>
+                    <h2>{review.data.title}</h2>
                     <p><b>Arvostelu: </b> {review.review}</p>
                     <p><b>Arvosteltu: </b>{new Date(review.timestamp).toLocaleString('fi-FI', {
                       day: 'numeric',

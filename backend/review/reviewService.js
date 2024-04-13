@@ -62,9 +62,9 @@ async function getNewestReviews(req, res) {
 }
 
 async function createReview(req, res) {
-  const { user_id, product_id, rating, comment, date_posted } = req.body;
+  const { user_id, product_id, rating, comment, date_posted, type } = req.body;
   try {
-    await reviewModel.createReview(user_id, product_id, rating, comment, date_posted);
+    await reviewModel.createReview(user_id, product_id, rating, comment, date_posted, type);
     res.status(201).send('Arvostelu lisätty onnistuneesti');
   } catch (error) {
     console.error('Virhe luotaessa arvostelua:', error);
