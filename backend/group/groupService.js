@@ -237,12 +237,13 @@ async function getGroupsByProfilename(req, res) {
   }
 }
 // Hakee tietyn groupin memberlistin
-async function GetMemeberList(req, res) {
+async function GetMemberList(req, res) {
   const groupid = req.params.groupid;
+  const pending = req.params.pending;
   try {
     const query = {
-        text: `SELECT * FROM memberlist_ WHERE groupid = $1`,
-        values: [groupid],
+        text: `SELECT * FROM memberlist_ WHERE groupid = $1 AND pending = $2`,
+        values: [groupid, pending],
     };
     const result = await groupModel.queryDatabase(query);
     if (result.length > 0) {
@@ -302,7 +303,7 @@ async function createMemberList(req, res) {
     createMessage,
     getUserGroups,
     getGroupsByProfilename,
-    GetMemeberList,
+    GetMemberList,
     deleteMemberlist,
     createMemberList
   };
