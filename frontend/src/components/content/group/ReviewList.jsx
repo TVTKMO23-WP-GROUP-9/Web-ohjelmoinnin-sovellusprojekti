@@ -32,10 +32,10 @@ const ReviewList = ({ id }) => {
             try {
               let responseData;
               if (review.mediatype === 0) {
-                const movieResponse = await axios.get(`${import.meta.env.VITE_APP_BACKEND_URL}movie/${encodeURIComponent(review.revieweditem)}`);
+                const movieResponse = await axios.get(`${import.meta.env.VITE_APP_BACKEND_URL}/movie/${encodeURIComponent(review.revieweditem)}`);
                 responseData = movieResponse.data;
               } else if (review.mediatype === 1) {
-                const tvResponse = await axios.get(`${import.meta.env.VITE_APP_BACKEND_URL}series/${encodeURIComponent(review.revieweditem)}`);
+                const tvResponse = await axios.get(`${import.meta.env.VITE_APP_BACKEND_URL}/series/${encodeURIComponent(review.revieweditem)}`);
                 responseData = tvResponse.data;
               }
               if (responseData && responseData.title || responseData.name) {

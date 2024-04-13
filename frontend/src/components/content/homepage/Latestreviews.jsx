@@ -77,7 +77,7 @@ const Latestreviews = () => {
                   </Link>
                   ) : (
                   <Link to={`/series/${review.revieweditem}`} className="link-style">
-                  <img src={`https://image.tmdb.org/t/p/w342${review.data.poster_path}`} alt={review.data.title} />
+                  <img src={`https://image.tmdb.org/t/p/w342${review.data.poster_path}`} alt={review.data.name} />
                   <div>             
                   {[...Array(review.rating)].map((_, i) => (
                     <span key={i} >&#11088;</span>
