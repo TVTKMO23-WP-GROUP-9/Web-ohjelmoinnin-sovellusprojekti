@@ -3,25 +3,77 @@ import { Navigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import './user.css';
 const { VITE_APP_BACKEND_URL } = import.meta.env;
-import { jwtToken } from '../../auth/authSignal';
 
 export default function MyAccount({ user }) {
 
-    console.log(user);
+    //console.log(user);
     if (user === null) {
         return <Navigate to="/" />
     }
 
+    const [visibility, setVisibility] = useState('');
+    const [formData, setFormData] = useState({
+        profilename: '',
+        email: ''
+    });
+
+    const profilename = user.user;
+    const token = sessionStorage.getItem('token');
+    const headers = {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+    };
+
+    useEffect(() => {
+        const fetchProfileData = async () => {
+            try {
+                const response = await axios.get(`${VITE_APP_BACKEND_URL}/profile/${profilename}`, { headers });
+
+                const { is_private, email } = response.data;
+                setVisibility({ is_private });
+                setFormData({ profilename, email });
+            } catch (error) {
+                console.error('Hakuvirhe:', error);
+            }
+        };
+
+        fetchProfileData();
+    }, [profilename]);
+
+    const handleVisibility = async (e) => {
+        try {
+            const data = {
+                is_private: !visibility.is_private
+            };
+            await axios.put(`${VITE_APP_BACKEND_URL}/profile/visibility`, data, { headers });
+
+            setVisibility({ is_private: !visibility.is_private });
+        } catch (error) {
+            console.error('Virhe muutettaessa profiilin näkyvyyttä:', error);
+        }
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            await axios.put(VITE_APP_BACKEND_URL + `/profile/nameandemail`, formData, { headers });
+            alert('Tiedot päivitetty');
+            localStorage.setItem('user', JSON.stringify({ user: formData.profilename }));
+        } catch (error) {
+            console.error('Hakuvirhe:', error);
+        }
+    };
+
+    const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
+
+
     const handleDelete = async (e) => {
         try {
-            const token = sessionStorage.getItem('token');
-            const headers = {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json'
-            };
-
             await axios.delete(VITE_APP_BACKEND_URL + `/profile/`, { headers });
-            alert('Käyttäjätili poistettu');
+
+            alert('Käyttäjätili poistettu, sinut ohjataan etusivulle.');
             localStorage.removeItem('user');
             sessionStorage.removeItem('token');
             window.location.href = '/';
@@ -56,17 +108,24 @@ export default function MyAccount({ user }) {
                     <h1>Tilin hallinta</h1>
 
                     <h2>Profiilin näkyvyys</h2>
-
-                    <p>Aseta profiili yksityiseksi tai julkiseksi tästä.</p>
+                    <p>Profiilisi on nyt: {visibility.is_private ? 'yksityinen' : 'julkinen'}</p>
+                    <button className="basicbutton" onClick={handleVisibility}>Vaihda tilin näkyvyyttä</button>
 
                     <h2>Vaihda salasana</h2>
 
                     <p>Textholder</p>
 
                     <h2>Muuta sähköpostia ja käyttäjänimeä</h2>
+                    <div className='form-view'>
+                        <form onSubmit={handleSubmit}>
+                            <b>Käyttäjänimi</b> <br />
+                            <input className="input" type="text" name="profilename" value={formData.profilename || ''} onChange={handleChange} /><br />
+                            <b>Sähköposti</b><br />
+                            <input className="input" type='text' name="email" value={formData.email || ''} onChange={handleChange} /><br /><br />
+                            <button className="basicbutton" type="submit">Tallenna muutokset</button>
+                        </form>
 
-
-                    <p>Textholder</p>
+                    </div>
 
                     <h2>Poista käyttäjätili</h2>
                     <button className="basicbutton" onClick={handleDelete}>Poista tili</button>
