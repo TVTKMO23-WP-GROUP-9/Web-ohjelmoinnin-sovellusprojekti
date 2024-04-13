@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const movieService = require('./movieService');
+const mediaService = require('./mediaService');
 
 // // etsitään elokuvia, rajapinta tarjosi lähinnä hakusanan sekä pari muuta parametria
 router.get('/movie/search', movieService.searchMovies);
@@ -13,6 +14,14 @@ router.get('/movie/:id', movieService.getMovieById);
 
 // find by id -haku, etsitään mistä Suomessa tuotteen voi katsoa. Käyttö vaatii JustWatch creditointia sillä uhalla että apin oikeudet menettää jos ei kreditoi
 router.get('/movie/provider/:id', movieService.getMovieProvidersbyId);
+
+router.get('/media', mediaService.searchMedia);
+
+router.get('/series/search', movieService.searchTvShows);
+
+router.get('/series/discover', movieService.discoverTvShows);
+
+router.get('/series/:id', movieService.getTvShowById);
 
 
 module.exports = router;
