@@ -20,6 +20,7 @@ import SeriesDetails from '@content/movies/SeriesDetails';
 import Community from '@content/community/Community';
 import Error from '@content/error/Error';
 import ProfileEdit from '@content/user/ProfileEdit';
+import Faq from '@content/faq/Faq';
 import { jwtToken } from './components/auth/authSignal';
 
 function App() {
@@ -89,6 +90,7 @@ function App() {
               <Route path="/profile/:profilename" element={<ProfileDetails user={user} />} />
               <Route path="/profile/:profilename/edit" element={<ProfileEdit />} />
               <Route path="/community" element={<Community />} />
+              <Route path="/about" element={<Faq />} />
               <Route path="/group/:id" element={<GroupDetails user={user}/>} /> 
               {/* ja loput puuttuvat routet myös */}
             </Routes>
