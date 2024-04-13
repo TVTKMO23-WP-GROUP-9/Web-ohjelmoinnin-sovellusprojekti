@@ -9,7 +9,7 @@ const Shows = ({ events }) => {
           <h4>{event.title}</h4>
           <p>{event.synopsis}</p>
           <p>Genre: {event.genres}</p>
-          {event.imageUrl && <img src={event.imageUrl} alt={event.title} />}
+          {event.imageUrl && <img src={event.imageURL} / alt={event.title} />}
           <hr />
         </div>
       ))}

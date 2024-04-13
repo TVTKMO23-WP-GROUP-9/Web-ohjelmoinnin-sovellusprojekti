@@ -2,23 +2,24 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import './Homepage.css'; // Sisällytä CSS-tiedosto suoraan komponenttiin
-import.meta.env.VITE_APP_BACKEND_URL; 
+const { VITE_APP_BACKEND_URL } = import.meta.env;
+
 
 const Latestreviews = () => {
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
-  
+
 
   useEffect(() => {
     const fetchReviews = async () => {
       try {
-        const response = await axios.get(`${import.meta.env.VITE_APP_BACKEND_URL}review/new`);
+        const response = await axios.get(`${VITE_APP_BACKEND_URL}/review/new`);
         const reviewData = response.data;
-        
+
         // Hae jokaisen arvostelun review.revieweditem arvolla liittyvä elokuva
         const reviewsWithMovies = await Promise.all(reviewData.map(async review => {
           try {
-            const movieResponse = await axios.get(`${import.meta.env.VITE_APP_BACKEND_URL}movie/${encodeURIComponent(review.revieweditem)}`);
+            const movieResponse = await axios.get(`${VITE_APP_BACKEND_URL}/movie/${encodeURIComponent(review.revieweditem)}`);
             const movieData = movieResponse.data;
             return {
               ...review,
@@ -30,7 +31,7 @@ const Latestreviews = () => {
             return {};
           }
         }));
-        
+
         // Suodata pois tyhjät arvostelut ja aseta arvostelut
         setReviews(reviewsWithMovies.filter(review => Object.keys(review).length !== 0));
         setLoading(false);
@@ -39,10 +40,10 @@ const Latestreviews = () => {
         setLoading(false);
       }
     };
-  
+
     fetchReviews();
   }, []);
-  
+
 
 
   return (
@@ -57,8 +58,8 @@ const Latestreviews = () => {
                 <tr>
                   <td className='tdimg'>
                     <Link to={`/movie/${review.revieweditem}`} className="link-style">
-                    <img src={`https://image.tmdb.org/t/p/w342${review.movie.poster_path}`} alt={review.title} />
-                      <div>             
+                      <img src={`https://image.tmdb.org/t/p/w342${review.movie.poster_path}`} alt={review.title} />
+                      <div>
                         {[...Array(review.rating)].map((_, i) => (
                           <span key={i} >&#11088;</span>
                         ))}
@@ -90,7 +91,7 @@ const Latestreviews = () => {
         </div>
       )}
     </>
-  );  
+  );
 };
 
 export default Latestreviews;
