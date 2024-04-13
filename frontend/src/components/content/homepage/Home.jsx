@@ -1,6 +1,7 @@
 import React from 'react';
 import Comingsoon from '@content/homepage/Comingsoon'
 import Popularmovies from '@content/homepage/Popularmovies'
+import Popularseries from '@content/homepage/Popularseries'
 import Rightsidebar from '@content/homepage/Rightsidebar'
 import Latestreviews from './Latestreviews';
 import './Home.css';
@@ -22,8 +23,12 @@ const Home = () => {
             </div>
           </div>
           <div className='uppermiddlecontent'>
-              <h2>Tämän hetken suosituimmat</h2>
+              <h2>Tämän hetken suosituimmat leffat</h2>
               <Popularmovies />
+          </div>
+          <div className='uppermiddlecontent'>
+              <h2>Tämän hetken suosituimmat sarjat</h2>
+              <Popularseries />
           </div>
         </div>
         <div className='right-container'>
