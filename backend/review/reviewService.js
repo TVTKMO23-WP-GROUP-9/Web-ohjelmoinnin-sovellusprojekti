@@ -74,6 +74,7 @@ async function movieReviewFromUser (req, res) {
 
     res.status(500).send('Virhe luotaessa arvostelua');
   }
+
 }
 
 // arvostelun päivittäminen reviewid:n perusteella
@@ -116,7 +117,6 @@ module.exports = {
   getAllReviews,
   getNewestReviews,
   getReviewById,
-  createReview,
   updateReview,
   deleteReview,
   getReviewsByProfile,
