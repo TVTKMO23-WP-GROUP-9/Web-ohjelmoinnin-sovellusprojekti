@@ -5,7 +5,7 @@ const { auth } = require('../middleware/auth');
 
 router.use(express.json());
 
-router.get('/review', reviewService.getAllReviews);
+router.get('/reviews', reviewService.getAllReviews);
 router.get('/reviews/profile/:id', reviewService.getReviewsByProfile);
 router.get('/review/new', reviewService.getNewestReviews);
 //router.post('/review', reviewService.createReview);

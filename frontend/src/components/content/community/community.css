@@ -233,3 +233,56 @@ ul {
     font-size: 0.8em;
     font-weight: 100;
 }
+
+
+.userinfo {
+    padding: 5px;
+    font-size: 0.8em;
+    font-weight: 100;
+}
+
+.minheightrews {
+    min-height: 180px;
+    padding: 20px;
+    border-bottom: var(--dashedGr);
+}
+
+.minheightrews:hover {
+    background-color: var(--grey-hover);
+}
+
+.allreviews {
+    background-color: #b2b2b0;
+    border-top-left-radius: 40px;
+    border-bottom-right-radius: 40px;
+    color: var(--profile);
+    display: flex-table;
+    flex-wrap: wrap;
+    padding: 1em;
+    padding-left: 2%;
+    padding-right: 2%;
+    margin-top: 25px;
+    border: 3px solid #000000;
+}
+
+
+.reviewinfo {
+    color: var(--profile);
+    font-size: 0.9em;
+    font-weight: 100;
+}
+
+.reviewtitle {
+    color: var(--profile);
+    font-size: 1em;
+    font-weight: 500;
+}
+
+.reviewimg {
+    float: left;
+    margin-right: 20px;
+    height: 170px;
+    box-shadow: var(--shadow02);
+}
+
+
