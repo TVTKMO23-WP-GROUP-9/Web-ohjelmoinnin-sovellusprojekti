@@ -5,8 +5,8 @@ const reviewModel = require('./reviewModel');
 async function getAllReviews(req, res) {
   try {
       const query = 'SELECT * FROM Review_';
-      const review = await reviewModel.queryDatabase(query);
-      res.json(review);
+      const reviews = await reviewModel.queryDatabase(query);
+      res.json(reviews);
   } catch (error) {
       console.error('Virhe haettaessa tietueita:', error);
       res.status(500).send('Virhe haettaessa tietueita');
