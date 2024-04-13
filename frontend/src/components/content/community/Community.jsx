@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './community.css';
-import UserList from './Userlist';
+import UserList from './UserList';
 import AllGroups from './AllGroups';
 
 const Community = () => {

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './community.css';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import.meta.env.VITE_APP_BACKEND_URL;
 
 const AllGroups = ({ searchTerm, setSearchTerm }) => {
     const [groups, setGroups] = useState([]);
@@ -12,7 +13,7 @@ const AllGroups = ({ searchTerm, setSearchTerm }) => {
     useEffect(() => {
         const fetchGroups = async () => {
             try {
-                const response = await axios.get('http://localhost:3001/group');
+                const response = await axios.get(`${import.meta.env.VITE_APP_BACKEND_URL}group`);
                 const sortedGroups = response.data.sort((a, b) => a.groupname.localeCompare(b.groupname));
                 setGroups(sortedGroups);
                 setLoading(false);

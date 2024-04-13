@@ -3,6 +3,9 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import './Homepage.css';
 
+import.meta.env.VITE_APP_BACKEND_URL;
+
+
 const PopularMovies = () => {
     const [movies, setMovies] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -17,7 +20,7 @@ const PopularMovies = () => {
 
     const fetchPopularMovies = async () => {
         try {
-            const response = await axios.get('http://localhost:3001/movie/discover', {
+            const response = await axios.get(`${import.meta.env.VITE_APP_BACKEND_URL}movie/discover`, {
                 params: {
                     sort_by: 'popularity.desc'
                    

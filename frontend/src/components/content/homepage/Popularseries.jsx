@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import './Homepage.css';
+import.meta.env.VITE_APP_BACKEND_URL;
 
 const PopularSeries = () => {
     const [series, setSeries] = useState([]);
@@ -17,7 +18,7 @@ const PopularSeries = () => {
 
     const fetchPopularSeries = async () => {
         try {
-            const response = await axios.get('http://localhost:3001/series/discover', {
+            const response = await axios.get(`${import.meta.env.VITE_APP_BACKEND_URL}series/discover`, {
                 params: {
                     sort_by: 'popularity.desc'
                    
