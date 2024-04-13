@@ -50,7 +50,7 @@ CREATE TABLE IF NOT EXISTS Message_
     groupid integer NOT NULL,
     profileid integer NOT NULL,
     message text COLLATE pg_catalog."default" NOT NULL,
-    "timestamp" timestamp without time zone NOT NULL,
+    "timestamp" timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (profileid) REFERENCES Profile_(profileid),
     FOREIGN KEY (groupid) REFERENCES Group_(groupid)
 );
@@ -62,21 +62,23 @@ CREATE TABLE IF NOT EXISTS Favoritelist_
     groupid integer,
     favoriteditem text COLLATE pg_catalog."default" ,
     showtime text COLLATE pg_catalog."default",
-    "timestamp" timestamp without time zone NOT NULL,
+    "timestamp" timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT "Favoritelist_pkey" PRIMARY KEY (idfavoritelist),
     FOREIGN KEY (profileid) REFERENCES Profile_(profileid),
     FOREIGN KEY (groupid) REFERENCES Group_(groupid)
 );
 
-CREATE TABLE IF NOT EXISTS Review_
-(
+CREATE TABLE IF NOT EXISTS Review_ (
     idreview serial NOT NULL,
     profileid integer NOT NULL,
     revieweditem text COLLATE pg_catalog."default",
     review text COLLATE pg_catalog."default",
     rating smallint NOT NULL,
-    "timestamp" timestamp without time zone NOT NULL,
-    FOREIGN KEY (profileid) REFERENCES Profile_(profileid)
+    "timestamp" timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+    mediatype smallint,
+    FOREIGN KEY (profileid) REFERENCES Profile_(profileid),
+    CONSTRAINT unique_review UNIQUE (profileid, revieweditem),
+    CONSTRAINT check_rating_range CHECK (rating >= 1 AND rating <= 5)
 );
 
 ALTER TABLE IF EXISTS Favoritelist_
@@ -462,81 +464,70 @@ INSERT INTO Message_ (groupid, profileid, message, "timestamp") VALUES
 ('14', '14', 'Test message here', CURRENT_TIMESTAMP),
 ('15', '15', 'Test message here', CURRENT_TIMESTAMP);
 
-INSERT INTO Review_ (profileid, revieweditem, review, rating, "timestamp") VALUES
-('1', '1011985', 'Hyvä elokuva!', 4, CURRENT_TIMESTAMP),
-('1', '373571', 'Hieno elokuva!', 5, CURRENT_TIMESTAMP),
-('2', '1011985', 'Oli ihan jees', 3, CURRENT_TIMESTAMP),
-('2', '373571', 'Suosittelen!', 5, CURRENT_TIMESTAMP),
-('3', '1022789', 'Aika tylsä', 2, CURRENT_TIMESTAMP),
-('3', '1022796', 'Ei paha', 3, CURRENT_TIMESTAMP),
-('4', '1022789', 'En tykännyt', 1, CURRENT_TIMESTAMP),
-('4', '1022796', 'Aika hyvä', 4, CURRENT_TIMESTAMP),
-('5', '76600', 'Todella hyvä!', 5, CURRENT_TIMESTAMP),
-('5', '695721', 'Vähän pettymys', 2, CURRENT_TIMESTAMP),
-('6', '76600', 'Jännittävä!', 4, CURRENT_TIMESTAMP),
-('6', '695721', 'Ei huono', 3, CURRENT_TIMESTAMP),
-('7', '1011985', 'Paras!', 5, CURRENT_TIMESTAMP),
-('7', '1022789', 'Melko huono', 2, CURRENT_TIMESTAMP),
-('8', '1011985', 'Loistava!', 5, CURRENT_TIMESTAMP),
-('8', '1022796', 'Suosittelen lämpimästi', 5, CURRENT_TIMESTAMP),
-('9', '373571', 'Aika tylsä', 2, CURRENT_TIMESTAMP),
-('9', '76600', 'Kiehtova', 4, CURRENT_TIMESTAMP),
-('10', '373571', 'Ei niin hyvä', 3, CURRENT_TIMESTAMP),
-('10', '695721', 'Ei huono', 3, CURRENT_TIMESTAMP),
-('11', '1022789', 'Aika tylsä', 2, CURRENT_TIMESTAMP),
-('11', '76600', 'Oli ihan kiva', 3, CURRENT_TIMESTAMP),
-('12', '1022789', 'Ei suositeltava', 2, CURRENT_TIMESTAMP),
-('12', '695721', 'Mielenkiintoinen', 4, CURRENT_TIMESTAMP),
-('13', '76600', 'Viihdyttävä', 4, CURRENT_TIMESTAMP),
-('13', '1011985', 'Hyvä!', 4, CURRENT_TIMESTAMP),
-('14', '76600', 'Mahtava!', 5, CURRENT_TIMESTAMP),
-('14', '373571', 'Aika hyvä', 4, CURRENT_TIMESTAMP),
-('15', '695721', 'Ei paha', 3, CURRENT_TIMESTAMP),
-('15', '1022796', 'Melko hyvä', 4, CURRENT_TIMESTAMP),
-('16', '695721', 'Ihan kiva', 3, CURRENT_TIMESTAMP),
-('16', '1011985', 'Loistava elokuva!', 5, CURRENT_TIMESTAMP),
-('17', '1011985', 'Hyvä elokuva!', 4, CURRENT_TIMESTAMP),
-('17', '373571', 'Hieno elokuva!', 5, CURRENT_TIMESTAMP),
-('18', '1022796', 'Aika tylsä', 2, CURRENT_TIMESTAMP),
-('18', '1022789', 'Ei paha', 3, CURRENT_TIMESTAMP),
-('19', '76600', 'Aika hyvä', 4, CURRENT_TIMESTAMP),
-('19', '695721', 'Mielenkiintoinen', 4, CURRENT_TIMESTAMP),
-('20', '1011985', 'Hieno elokuva!', 5, CURRENT_TIMESTAMP),
-('20', '76600', 'Loistava!', 5, CURRENT_TIMESTAMP),
-('21', '1022796', 'Oli ihan jees', 3, CURRENT_TIMESTAMP),
-('21', '695721', 'Suosittelen lämpimästi', 5, CURRENT_TIMESTAMP),
-('22', '1022789', 'Aika tylsä', 2, CURRENT_TIMESTAMP),
-('22', '1011985', 'Hyvä!', 4, CURRENT_TIMESTAMP),
-('23', '76600', 'Jännittävä!', 4, CURRENT_TIMESTAMP),
-('23', '373571', 'Paras!', 5, CURRENT_TIMESTAMP),
-('24', '1022796', 'Ei suositeltava', 2, CURRENT_TIMESTAMP),
-('24', '695721', 'Viihdyttävä', 4, CURRENT_TIMESTAMP),
-('21', '135397', 'Aiiiiivan ihania dinosia', 4, CURRENT_TIMESTAMP),
-('21', '507086', 'Tommosen ottais lemmikiksikin', 4, CURRENT_TIMESTAMP),
-('21', '1010581', 'Se on ihan huti', 1, CURRENT_TIMESTAMP),
-('21', '346698', 'Melko PINKKI leffa oli. :) Voi Ken ressua', 5, CURRENT_TIMESTAMP),
-('21', '395990', 'Mmmmmmm........ se on jotain niiin........ rrrrr', 4, CURRENT_TIMESTAMP),
-('21', '634649', 'Ei mulle, mut ehkä sulle?', 2, CURRENT_TIMESTAMP),
-('21', '1966', 'Hieno heppi <3', 3, CURRENT_TIMESTAMP);
-
 -- yksityinen tili käyttäjille 8-14
 UPDATE Profile_
 SET is_private = TRUE
 WHERE profileid BETWEEN 8 AND 14;
 
--- rajoite review_ -tauluun: yksi revieweditem id käyttäjällä vain kerran
-ALTER TABLE Review_
-ADD CONSTRAINT unique_review UNIQUE (profileid, revieweditem),
-ADD CONSTRAINT check_rating_range CHECK (rating >= 1 AND rating <= 5);
 
-ALTER TABLE Review_
-ADD COLUMN mediatype smallint;
-
-
-INSERT INTO Review_ (profileid, revieweditem, review, rating, "timestamp", mediatype) VALUES
-('1', '1408', 'Hyvä sarjimus', 4, CURRENT_TIMESTAMP, '1'),
-('2', '1408', 'Hyvä ', 5, CURRENT_TIMESTAMP, '1'),
-('3', '1408', 'EPIC!', 3, CURRENT_TIMESTAMP, '1'),
-('4', '1408', 'BOOM', 5, CURRENT_TIMESTAMP, '1'),
-('5', '1408', 'ihan ok!', 4, CURRENT_TIMESTAMP, '1');
-
+INSERT INTO Review_ (profileid, revieweditem, review, rating, mediatype, "timestamp") VALUES
+('1', '1011985', 'Hyvä elokuva!', 4, 0, CURRENT_TIMESTAMP),
+('1', '373571', 'Hieno elokuva!', 5, 0, CURRENT_TIMESTAMP),
+('2', '1011985', 'Oli ihan jees', 3, 0, CURRENT_TIMESTAMP),
+('2', '373571', 'Suosittelen!', 5, 0, CURRENT_TIMESTAMP),
+('3', '1022789', 'Aika tylsä', 2, 0, CURRENT_TIMESTAMP),
+('3', '1022796', 'Ei paha', 3, 0, CURRENT_TIMESTAMP),
+('4', '1022789', 'En tykännyt', 1, 0, CURRENT_TIMESTAMP),
+('4', '1022796', 'Aika hyvä', 4, 0, CURRENT_TIMESTAMP),
+('5', '76600', 'Todella hyvä!', 5, 0, CURRENT_TIMESTAMP),
+('5', '695721', 'Vähän pettymys', 2, 0, CURRENT_TIMESTAMP),
+('6', '76600', 'Jännittävä!', 4, 0, CURRENT_TIMESTAMP),
+('6', '695721', 'Ei huono', 3, 0, CURRENT_TIMESTAMP),
+('7', '1011985', 'Paras!', 5, 0, CURRENT_TIMESTAMP),
+('7', '1022789', 'Melko huono', 2, 0, CURRENT_TIMESTAMP),
+('8', '1011985', 'Loistava!', 5, 0, CURRENT_TIMESTAMP),
+('8', '1022796', 'Suosittelen lämpimästi', 5, 0, CURRENT_TIMESTAMP),
+('9', '373571', 'Aika tylsä', 2, 0, CURRENT_TIMESTAMP),
+('9', '76600', 'Kiehtova', 4, 0, CURRENT_TIMESTAMP),
+('10', '373571', 'Ei niin hyvä', 3, 0, CURRENT_TIMESTAMP),
+('10', '695721', 'Ei huono', 3, 0, CURRENT_TIMESTAMP),
+('11', '1022789', 'Aika tylsä', 2, 0, CURRENT_TIMESTAMP),
+('11', '76600', 'Oli ihan kiva', 3, 0, CURRENT_TIMESTAMP),
+('12', '1022789', 'Ei suositeltava', 2, 0, CURRENT_TIMESTAMP),
+('12', '695721', 'Mielenkiintoinen', 4, 0, CURRENT_TIMESTAMP),
+('13', '76600', 'Viihdyttävä', 4, 0, CURRENT_TIMESTAMP),
+('13', '1011985', 'Hyvä!', 4, 0, CURRENT_TIMESTAMP),
+('14', '76600', 'Mahtava!', 5, 0, CURRENT_TIMESTAMP),
+('14', '373571', 'Aika hyvä', 4, 0, CURRENT_TIMESTAMP),
+('15', '695721', 'Ei paha', 3, 0, CURRENT_TIMESTAMP),
+('15', '1022796', 'Melko hyvä', 4, 0, CURRENT_TIMESTAMP),
+('16', '695721', 'Ihan kiva', 3, 0, CURRENT_TIMESTAMP),
+('16', '1011985', 'Loistava elokuva!', 5, 0, CURRENT_TIMESTAMP),
+('17', '1011985', 'Hyvä elokuva!', 4, 0, CURRENT_TIMESTAMP),
+('17', '373571', 'Hieno elokuva!', 5, 0, CURRENT_TIMESTAMP),
+('18', '1022796', 'Aika tylsä', 2, 0, CURRENT_TIMESTAMP),
+('18', '1022789', 'Ei paha', 3, 0, CURRENT_TIMESTAMP),
+('19', '76600', 'Aika hyvä', 4, 0, CURRENT_TIMESTAMP),
+('19', '695721', 'Mielenkiintoinen', 4, 0, CURRENT_TIMESTAMP),
+('20', '1011985', 'Hieno elokuva!', 5, 0, CURRENT_TIMESTAMP),
+('20', '76600', 'Loistava!', 5, 0, CURRENT_TIMESTAMP),
+('21', '1022796', 'Oli ihan jees', 3, 0, CURRENT_TIMESTAMP),
+('21', '695721', 'Suosittelen lämpimästi', 5, 0, CURRENT_TIMESTAMP),
+('22', '1022789', 'Aika tylsä', 2, 0, CURRENT_TIMESTAMP),
+('22', '1011985', 'Hyvä!', 4, 0, CURRENT_TIMESTAMP),
+('23', '76600', 'Jännittävä!', 4, 0, CURRENT_TIMESTAMP),
+('23', '373571', 'Paras!', 5, 0, CURRENT_TIMESTAMP),
+('24', '1022796', 'Ei suositeltava', 2, 0, CURRENT_TIMESTAMP),
+('24', '695721', 'Viihdyttävä', 4, 0, CURRENT_TIMESTAMP),
+('21', '135397', 'Aiiiiivan ihania dinosia', 4, 0, CURRENT_TIMESTAMP),
+('21', '507086', 'Tommosen ottais lemmikiksikin', 4, 0, CURRENT_TIMESTAMP),
+('21', '1010581', 'Se on ihan huti', 1, 0, CURRENT_TIMESTAMP),
+('21', '346698', 'Melko PINKKI leffa oli. :) Voi Ken ressua', 5, 0, CURRENT_TIMESTAMP),
+('21', '395990', 'Mmmmmmm........ se on jotain niiin........ rrrrr', 4, 0, CURRENT_TIMESTAMP),
+('21', '634649', 'Ei mulle, mut ehkä sulle?', 2, 0, CURRENT_TIMESTAMP),
+('21', '1966', 'Hieno heppi <3', 3, 0, CURRENT_TIMESTAMP),
+('1', '1408', 'Hyvä sarjimus', 4, 1, CURRENT_TIMESTAMP),
+('2', '1408', 'Hyvä ', 5, 1, CURRENT_TIMESTAMP),
+('3', '1408', 'EPIC!', 3, 1, CURRENT_TIMESTAMP),
+('4', '1408', 'BOOM', 5, 1, CURRENT_TIMESTAMP),
+('5', '1408', 'ihan ok!', 4, 1, CURRENT_TIMESTAMP);

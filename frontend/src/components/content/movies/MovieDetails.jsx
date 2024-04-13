@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams, Link } from 'react-router-dom';
 const { VITE_APP_BACKEND_URL } = import.meta.env;
-
+import ReviewForm from './ReviewForm';
 
 const MovieDetails = () => {
   const { id } = useParams();
@@ -119,10 +119,15 @@ const MovieDetails = () => {
                     </tbody>
                   </table>
                 )}
+                
               </div>
             </div>
 
             <div className="moviereviews">
+
+              <div><ReviewForm movieId={id} /></div>
+
+              <br/>
               <h2>Viimeisimmät arvostelut</h2>
 
               <div className="reviewslisted">

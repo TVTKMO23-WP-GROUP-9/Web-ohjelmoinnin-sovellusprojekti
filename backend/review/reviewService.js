@@ -61,15 +61,20 @@ async function getNewestReviews(req, res) {
   }
 }
 
-async function createReview(req, res) {
-  const { user_id, product_id, rating, comment, date_posted } = req.body;
-  try {
-    await reviewModel.createReview(user_id, product_id, rating, comment, date_posted);
+// arvostelun lähettäminen käyttöliittymästä (elokuva)
+async function movieReviewFromUser (req, res) {
+  profileid = res.locals.profileid;
+
+  const { mediatype, rating, review, revieweditem} = req.body;
+
+  const addReview = await reviewModel.movieReviewFromUser(profileid, mediatype, rating, review, revieweditem);
+  if (addReview) {
     res.status(201).send('Arvostelu lisätty onnistuneesti');
-  } catch (error) {
-    console.error('Virhe luotaessa arvostelua:', error);
+  } else {
+
     res.status(500).send('Virhe luotaessa arvostelua');
   }
+
 }
 
 // arvostelun päivittäminen reviewid:n perusteella
@@ -112,8 +117,8 @@ module.exports = {
   getAllReviews,
   getNewestReviews,
   getReviewById,
-  createReview,
   updateReview,
   deleteReview,
   getReviewsByProfile,
+  movieReviewFromUser,
 };

@@ -1,13 +1,15 @@
 const express = require('express');
 const router = express.Router();
 const reviewService = require('./reviewService');
+const { auth } = require('../middleware/auth');
 
 router.use(express.json());
 
 router.get('/review', reviewService.getAllReviews);
 router.get('/reviews/profile/:id', reviewService.getReviewsByProfile);
 router.get('/review/new', reviewService.getNewestReviews);
-router.post('/review', reviewService.createReview);
+//router.post('/review', reviewService.createReview);
+router.post('/movie/:id/review', auth, reviewService.movieReviewFromUser);
 router.put('/reviews/update/:id', reviewService.updateReview);
 router.delete('/review/:id', reviewService.deleteReview);
 
