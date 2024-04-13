@@ -528,3 +528,6 @@ WHERE profileid BETWEEN 8 AND 14;
 ALTER TABLE Review_
 ADD CONSTRAINT unique_review UNIQUE (profileid, revieweditem),
 ADD CONSTRAINT check_rating_range CHECK (rating >= 1 AND rating <= 5);
+
+ALTER TABLE Review_
+ADD COLUMN mediatype smallint;
