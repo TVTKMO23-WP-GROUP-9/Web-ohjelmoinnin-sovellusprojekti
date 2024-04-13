@@ -18,6 +18,9 @@ import MovieDetails from '@content/movies/MovieDetails';
 import GroupDetails from '@content/group/GroupDetails';
 import SeriesDetails from '@content/movies/SeriesDetails';
 import Community from '@content/community/Community';
+import UserList from '@content/community/UserList';
+import AllGroups from '@content/community/AllGroups';
+import AllReviews from '@content/community/AllReviews';
 import Error from '@content/error/Error';
 import ProfileEdit from '@content/user/ProfileEdit';
 import ReviewForm from '@content/movies/ReviewForm';
@@ -94,6 +97,9 @@ function App() {
               <Route path="/profile/:profilename" element={<ProfileDetails user={user} />} />
               <Route path="/profile/:profilename/edit" element={<ProfileEdit />} />
               <Route path="/community" element={<Community />} />
+              <Route path="/users" element={<UserList />} />
+              <Route path="/groups" element={<AllGroups />} />
+              <Route path="/reviews" element={<AllReviews />} />
               <Route path="/about" element={<Faq />} />
               <Route path="/group/:id" element={<GroupDetails user={user} />} />
               {/* ja loput puuttuvat routet myös */}
