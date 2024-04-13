@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './group.css';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import.meta.env.VITE_APP_BACKEND_URL;
 
 
 const MemberList = ({ id }) => {
@@ -10,12 +11,12 @@ const MemberList = ({ id }) => {
   useEffect(() => {
     const fetchMembers = async () => {
       try {
-          const response = await axios.get(`http://localhost:3001/memberlist/group/${id}/0`);
+          const response = await axios.get(`${import.meta.env.VITE_APP_BACKEND_URL}memberlist/group/${id}/0`);
           const memberData = response.data;
 
           const membersWithnames = await Promise.all(memberData.map(async member => {
             try {
-              const nameResponse = await axios.get(`http://localhost:3001/profile/id/${encodeURIComponent(member.profileid)}`);
+              const nameResponse = await axios.get(`${import.meta.env.VITE_APP_BACKEND_URL}profile/id/${encodeURIComponent(member.profileid)}`);
               const nameData = nameResponse.data;
               return {
                 ...member,

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './user.css';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import.meta.env.VITE_APP_BACKEND_URL;
 
 const ReviewList = ({ profile }) => {
 
@@ -20,12 +21,12 @@ const ReviewList = ({ profile }) => {
     try {
       if (profile && profile.profileid) {
 
-        const response = await axios.get(`http://localhost:3001/reviews/profile/${profile.profileid}`);
+        const response = await axios.get(`${import.meta.env.VITE_APP_BACKEND_URL}reviews/profile/${profile.profileid}`);
         const reviewData = response.data;
 
         const reviewsWithMovies = await Promise.all(reviewData.map(async review => {
           try {
-            const movieResponse = await axios.get(`http://localhost:3001/movie/${review.revieweditem}`);
+            const movieResponse = await axios.get(`${import.meta.env.VITE_APP_BACKEND_URL}movie/${review.revieweditem}`);
             const movieData = movieResponse.data;
 
             if (movieData && movieData.title) {
@@ -57,7 +58,7 @@ const ReviewList = ({ profile }) => {
 
     {/*const handleDeleteReview = async (idreview) => {
       try {
-        const response = await axios.delete(`http://localhost:3001/review/${idreview}`);
+        const response = await axios.delete(`${import.meta.env.VITE_APP_BACKEND_URL}/review/${idreview}`);
         console.log(response.data);
         setReviews(reviews.filter(review => review.idreview !== idreview));
       } catch (error) {
@@ -67,7 +68,7 @@ const ReviewList = ({ profile }) => {
   
   const handleConfirmDelete = async (idreview) => {
     try {
-      const response = await axios.delete(`http://localhost:3001/review/${idreview}`);
+      const response = await axios.delete(`${import.meta.env.VITE_APP_BACKEND_URL}/review/${idreview}`);
       console.log(response.data);
       setReviews(reviews.filter(review => review.idreview !== idreview));
       setConfirmDeleteId(null);
@@ -82,7 +83,7 @@ const ReviewList = ({ profile }) => {
 
   const handleUpdateReview = async (idreview) => {
     try {
-      const response = await axios.put(`http://localhost:3001/reviews/update/${idreview}`, updatedReview);
+      const response = await axios.put(`${import.meta.env.VITE_APP_BACKEND_URL}/reviews/update/${idreview}`, updatedReview);
       setEditReviewId(null);
       fetchReviews();
     } catch (error) {

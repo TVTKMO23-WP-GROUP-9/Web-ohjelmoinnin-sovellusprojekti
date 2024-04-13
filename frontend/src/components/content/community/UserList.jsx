@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './community.css';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import.meta.env.VITE_APP_BACKEND_URL;
 
 const UserList = ({ searchTerm, setSearchTerm }) => {
     const [profiles, setProfiles] = useState([]);
@@ -12,7 +13,7 @@ const UserList = ({ searchTerm, setSearchTerm }) => {
     useEffect(() => {
         const fetchProfiles = async () => {
             try {
-                const response = await axios.get('http://localhost:3001/profile');
+                const response = await axios.get(`${import.meta.env.VITE_APP_BACKEND_URL}profile`);
                 const sortedProfiles = response.data.sort((a, b) => a.profilename.localeCompare(b.profilename));
                 setProfiles(sortedProfiles);
                 setLoading(false);

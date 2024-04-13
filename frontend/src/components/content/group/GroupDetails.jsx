@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useParams, Link } from 'react-router-dom';
 import MemberList from './MemberList';
 import ReviewList from './ReviewList';
+import.meta.env.VITE_APP_BACKEND_URL;
 
 const GroupDetails = () => {
   const { id } = useParams(); 
@@ -12,7 +13,7 @@ const GroupDetails = () => {
   useEffect(() => {
     const fetchGroup = async () => {
       try {
-        const response = await axios.get(`http://localhost:3001/group/${id}`);
+        const response = await axios.get(`${import.meta.env.VITE_APP_BACKEND_URL}group/${id}`);
         setGroup(response.data);
       } catch (error) {
         console.error('Virhe ryhmän hakemisessa:', error);

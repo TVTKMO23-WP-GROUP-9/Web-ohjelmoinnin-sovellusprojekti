@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams, Link } from 'react-router-dom';
+import.meta.env.VITE_APP_BACKEND_URL;
 
 const SeriesDetails = () => {
     const { id } = useParams(); 
@@ -10,7 +11,7 @@ const SeriesDetails = () => {
     useEffect(() => {
       const fetchSeries = async () => {
         try {
-          const response = await axios.get(`http://localhost:3001/series/${id}`);
+          const response = await axios.get(`${import.meta.env.VITE_APP_BACKEND_URL}/series/${id}`);
           setSeries (response.data);
         } catch (error) {
           console.error('Hakuvirhe', error);
@@ -19,7 +20,7 @@ const SeriesDetails = () => {
 
       const fetchProviders = async () => {
         try {
-          const response = await axios.get(`http://localhost:3001/tv/provider/${id}`);
+          const response = await axios.get(`${import.meta.env.VITE_APP_BACKEND_URL}tv/provider/${id}`);
           setProviders(response.data);
         } catch (error) {
           console.error('Virhe palveluntarjoajien hakemisessa:', error);

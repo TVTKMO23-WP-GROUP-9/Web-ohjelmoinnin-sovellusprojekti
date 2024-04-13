@@ -133,7 +133,7 @@ const Rightsidebar = () => {
 
   const handleClick = async (title, year) => {
     try {
-      const response = await axios.get(`http://localhost:3001/movie/search?query=${encodeURIComponent(title)}&page=1&year=${encodeURIComponent(year)}&language=any`);
+      const response = await axios.get(`${import.meta.env.VITE_APP_BACKEND_URL}/movie/search?query=${encodeURIComponent(title)}&page=1&year=${encodeURIComponent(year)}&language=any`);
       const movieId = response.data[0].id; // Oletetaan, että haluat ensimmäisen id:n
       if (movieId) {
         // Navigoi elokuvan sivulle suoraan

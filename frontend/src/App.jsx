@@ -22,6 +22,7 @@ import Error from '@content/error/Error';
 import ProfileEdit from '@content/user/ProfileEdit';
 import Faq from '@content/faq/Faq';
 import { jwtToken } from './components/auth/authSignal';
+import.meta.env.VITE_APP_BACKEND_URL;
 
 function App() {
   const { theme, toggleTheme } = useTheme();
@@ -51,7 +52,7 @@ function App() {
   }, [theme]);
 
   const handleLogout = () => {
-    fetch('http://localhost:3001/auth/logout', {
+    fetch(`${import.meta.env.VITE_APP_BACKEND_URL}/auth/logout`, {
       method: 'GET',
       credentials: 'include',
     })
