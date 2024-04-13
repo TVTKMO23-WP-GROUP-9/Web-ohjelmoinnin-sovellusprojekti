@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import './group.css';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import.meta.env.VITE_APP_BACKEND_URL;
+const { VITE_APP_BACKEND_URL } = import.meta.env;
+
 
 const ReviewList = ({ id }) => {
 
@@ -13,19 +14,19 @@ const ReviewList = ({ id }) => {
 
   const fetchReviews = async () => {
     try {
-      const response = await axios.get(`${import.meta.env.VITE_APP_BACKEND_URL}memberlist/group/${id}/0`);
+      const response = await axios.get(`${VITE_APP_BACKEND_URL}/memberlist/group/${id}/0`);
       const memberData = response.data;
-      
+
       // Haetaan arviot kaikilta profiileilta
       const reviewsFromMembers = await Promise.all(memberData.map(async profile => {
         try {
-          const userresponse = await axios.get(`${import.meta.env.VITE_APP_BACKEND_URL}reviews/profile/${profile.profileid}`);
+          const userresponse = await axios.get(`${VITE_APP_BACKEND_URL}/reviews/profile/${profile.profileid}`);
           const reviewData = userresponse.data;
 
           // Haetaan profiilitiedot
-          const userProfileResponse = await axios.get(`${import.meta.env.VITE_APP_BACKEND_URL}profile/id/${profile.profileid}`);
+          const userProfileResponse = await axios.get(`${VITE_APP_BACKEND_URL}/profile/id/${profile.profileid}`);
           const userProfileData = userProfileResponse.data;
-  
+
           // Haetaan elokuvan tiedot jokaiselle arviolle
           const reviewsWithMovies = await Promise.all(reviewData.map(async review => {
             try {
@@ -51,7 +52,7 @@ const ReviewList = ({ id }) => {
               return review;
             }
           }));
-  
+
           // Lajitellaan arviot päivämäärän mukaan
           const sortedReviews = reviewsWithMovies.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
           return sortedReviews;
@@ -60,26 +61,26 @@ const ReviewList = ({ id }) => {
           return [];
         }
       }));
-  
+
       // Yhdistetään arviot kaikilta profiileilta
       const allReviews = reviewsFromMembers.flat();
-      
+
       // Lajitellaan kaikki arviot päivämäärän mukaan
       const sortedAllReviews = allReviews.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
-      
+
       // Päivitetään arviot
       setReviews(sortedAllReviews);
     } catch (error) {
       console.error('Hakuvirhe:', error);
     }
   };
-  
+
 
   useEffect(() => {
     fetchReviews();
   }, [id]);
 
-    {/*const handleDeleteReview = async (idreview) => {
+  {/*const handleDeleteReview = async (idreview) => {
       try {
         const response = await axios.delete(`http://localhost:3001/review/${idreview}`);
         console.log(response.data);
@@ -121,14 +122,14 @@ const ReviewList = ({ id }) => {
   }
 
   return (
-    
-      <ul className="greview-list">
-        <li className="userinfo">
-          Ryhmän jäsenillä <b>{filteredReviews.length}</b> arvostelua. <br />
-          Arvostelujen keskiarvo on <b>{filteredReviews.length > 0 && (filteredReviews.reduce((sum, review) => sum + review.rating, 0) / filteredReviews.length).toFixed(1)}</b>.<br /><br />
-        </li>
 
-        <ul className="pagination">
+    <ul className="greview-list">
+      <li className="userinfo">
+        Ryhmän jäsenillä <b>{filteredReviews.length}</b> arvostelua. <br />
+        Arvostelujen keskiarvo on <b>{filteredReviews.length > 0 && (filteredReviews.reduce((sum, review) => sum + review.rating, 0) / filteredReviews.length).toFixed(1)}</b>.<br /><br />
+      </li>
+
+      <ul className="pagination">
         <li>
           <button className="buttonnext" onClick={() => setCurrentPage(currentPage > 1 ? currentPage - 1 : 1)}>
             ⯇

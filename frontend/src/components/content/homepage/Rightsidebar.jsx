@@ -133,7 +133,7 @@ const Rightsidebar = () => {
 
   const handleClick = async (title, year) => {
     try {
-      const response = await axios.get(`${import.meta.env.VITE_APP_BACKEND_URL}/movie/search?query=${encodeURIComponent(title)}&page=1&year=${encodeURIComponent(year)}&language=any`);
+      const response = await axios.get(`${VITE_APP_BACKEND_URL}/movie/search?query=${encodeURIComponent(title)}&page=1&year=${encodeURIComponent(year)}&language=any`);
       const movieId = response.data[0].id; // Oletetaan, että haluat ensimmäisen id:n
       if (movieId) {
         // Navigoi elokuvan sivulle suoraan
@@ -144,7 +144,7 @@ const Rightsidebar = () => {
     } catch (error) {
       console.error('Virhe elokuvien haussa:', error);
     }
-  }; 
+  };
 
   const showMore = () => {
     setShowCount(prevCount => {
@@ -152,7 +152,7 @@ const Rightsidebar = () => {
       return Math.min(nextCount, shows.length);
     });
   };
-  
+
   const showLess = () => {
     setShowCount(prevCount => {
       return Math.max(prevCount - 10, 10);
@@ -166,33 +166,33 @@ const Rightsidebar = () => {
       {error && <p>{error}</p>}
       {location && (
         <div>
-          
+
           {nearestTheater && (
             <div className="nearbyEvents" >
-              <h2>Seuraavat näytökset lähelläsi</h2> 
-                
-                {shows.slice(showCount - 10, showCount).map((show, index) => (
-    
-                    <div onClick={() => handleClick(show.title, show.year)}>
-                      <table className="nearby"  key={index + 1} >
-                        <tbody>
-                          <tr onClick={() => handleClick(show.title, show.year)}>
-                            <td><b>{show.auditorium}</b></td>
-                            <td>klo <b>{formatTime(show.startTime)}</b></td>
-                            <td>{show.title}</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                    ))}
-                  
-                <button onClick={showLess} className='show-more-button'>{'⯇'}</button>
+              <h2>Seuraavat näytökset lähelläsi</h2>
 
-                &nbsp; Selaa &nbsp; 
-              
-                <button onClick={showMore} className='show-more-button'>{'⯈'}</button>
-                
-            </div> 
+              {shows.slice(showCount - 10, showCount).map((show, index) => (
+
+                <div onClick={() => handleClick(show.title, show.year)}>
+                  <table className="nearby" key={index + 1} >
+                    <tbody>
+                      <tr onClick={() => handleClick(show.title, show.year)}>
+                        <td><b>{show.auditorium}</b></td>
+                        <td>klo <b>{formatTime(show.startTime)}</b></td>
+                        <td>{show.title}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              ))}
+
+              <button onClick={showLess} className='show-more-button'>{'⯇'}</button>
+
+              &nbsp; Selaa &nbsp;
+
+              <button onClick={showMore} className='show-more-button'>{'⯈'}</button>
+
+            </div>
           )}
         </div>
       )}

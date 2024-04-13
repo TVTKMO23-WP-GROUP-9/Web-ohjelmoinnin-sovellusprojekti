@@ -284,6 +284,13 @@ h3 /* hamburger */ {
   transition: border-color 0.25s;
 }
 
+.basicbutton:disabled {
+  background-color: #cccccc; 
+  color: #888888; 
+  border: 1px solid #cccccc; 
+  cursor: not-allowed; 
+}
+
 .confirm {
   background-color: var(--confirm-red);
   color: #ffffff;
