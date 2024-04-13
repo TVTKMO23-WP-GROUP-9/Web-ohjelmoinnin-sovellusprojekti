@@ -1,14 +1,4 @@
-const { Pool } = require('pg');
-
-// PostgreSQL-yhteysasetukset
-const pool = new Pool({
-  user: process.env.DB_USER,
-  host: process.env.DB_HOST,
-  database: process.env.DB_DATABASE,
-  password: process.env.DB_PASSWORD,
-  port: process.env.DB_PORT,
-  ssl: process.env.DB_SSL,
-});
+const pool = require('../database/db_connection');
 
 async function queryDatabase(query) {
   try {
@@ -19,6 +9,23 @@ async function queryDatabase(query) {
   }
 }
 
+async function movieReviewFromUser(profileid, mediatype, rating, review, revieweditem) {
+  
+  try {
+    const query = {
+      text: 'INSERT INTO Review_ (rating, revieweditem, review, profileid, mediatype) VALUES ($1, $2, $3, $4, $5)',
+      values: [rating, revieweditem, review, profileid, mediatype],
+    };
+    await pool.query(query);
+    return true;
+  }
+  catch (error) {
+    console.error('Luontivirhe:', error);
+    return false;
+  }
+}
+
 module.exports = {
   queryDatabase,
+  movieReviewFromUser,
 };
