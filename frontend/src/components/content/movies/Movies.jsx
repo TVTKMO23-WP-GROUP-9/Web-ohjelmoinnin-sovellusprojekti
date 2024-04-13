@@ -3,7 +3,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import './movies.css';
-import.meta.env.VITE_APP_BACKEND_URL;
+const { VITE_APP_BACKEND_URL } = import.meta.env;
+
 
 const Movies = () => {
   const [query, setQuery] = useState('');
@@ -16,24 +17,24 @@ const Movies = () => {
 
   useEffect(() => {
     search();
-  }, [page]); 
+  }, [page]);
 
   const search = async () => {
     try {
       let moviesResponse;
       let seriesResponse;
 
-  
+
       if (query !== '') {
-        moviesResponse = await axios.get(`${import.meta.env.VITE_APP_BACKEND_URL}movie/search`, {
+        moviesResponse = await axios.get(`${VITE_APP_BACKEND_URL}/movie/search`, {
           params: {
             query: query,
             page: page,
             year: year
           }
         });
-  
-        seriesResponse = await axios.get(`${import.meta.env.VITE_APP_BACKEND_URL}series/search`, {
+
+        seriesResponse = await axios.get(`${VITE_APP_BACKEND_URL}/series/search`, {
           params: {
             query: query,
             page: page,
@@ -41,7 +42,7 @@ const Movies = () => {
           }
         });
       } else {
-        moviesResponse = await axios.get(`${import.meta.env.VITE_APP_BACKEND_URL}movie/discover`, {
+        moviesResponse = await axios.get(`${VITE_APP_BACKEND_URL}/movie/discover`, {
           params: {
             genre: genre,
             sort_by: 'popularity.desc',
@@ -49,8 +50,8 @@ const Movies = () => {
             year: year
           }
         });
-  
-        seriesResponse = await axios.get(`${import.meta.env.VITE_APP_BACKEND_URL}series/discover`, {
+
+        seriesResponse = await axios.get(`${VITE_APP_BACKEND_URL}/series/discover`, {
           params: {
             genre: genre,
             sort_by: 'popularity.desc',
@@ -59,10 +60,10 @@ const Movies = () => {
           }
         });
       }
-  
+
       const moviesData = moviesResponse.data.slice(0, 10);
       const seriesData = seriesResponse.data.slice(0, 10);
-  
+
       setMovies(moviesData);
       setSeries(seriesData);
     } catch (error) {
@@ -76,7 +77,7 @@ const Movies = () => {
   };
 
   const handleGenreChange = (event) => {
-    setQuery(''); 
+    setQuery('');
     setGenre(event.target.value);
   };
 
@@ -97,128 +98,128 @@ const Movies = () => {
 
   return (
     <>
-    <h2>Leffa- ja sarjahaku</h2>
+      <h2>Leffa- ja sarjahaku</h2>
 
-    <p className="info">Löydä elokuvia ja sarjoja eri parametreillä tai etsi nimellä. <br/> Annetaan enintään 20 hakutulosta per. sivu.</p>
-    
-    <div className="group-view">
+      <p className="info">Löydä elokuvia ja sarjoja eri parametreillä tai etsi nimellä. <br /> Annetaan enintään 20 hakutulosta per. sivu.</p>
+
+      <div className="group-view">
 
         <div className="flex">
 
-            <div className="pdd-right">
-                <b>Hae nimellä</b>
-                <div>
-                    <input
-                    className="field longInput"
-                    type="text"
-                    placeholder="..."
-                    value={query}
-                    onChange={handleInputChange}
-                    />
-                </div>
+          <div className="pdd-right">
+            <b>Hae nimellä</b>
+            <div>
+              <input
+                className="field longInput"
+                type="text"
+                placeholder="..."
+                value={query}
+                onChange={handleInputChange}
+              />
             </div>
-            
-            <div className="pdd-right">
-                <b>Valitse genre:</b><br/>
-                <select value={genre} onChange={handleGenreChange}>
-                <option value="">...</option>
-                <option value="all">Kaikki</option>
-                <option value="action">Toiminta</option>
-                <option value="adventure">Seikkailu</option>
-                <option value="romance">Romantiikka</option>
-                <option value="comedy">Komedia</option>
-                <option value="drama">Draama</option>
-                <option value="soap">Saippuasarjat</option>
-                <option value="western">Länkkäri</option>
+          </div>
 
-                <option value="thriller">Jännitys</option>
-                <option value="science fiction">Scifi</option>
-                <option value="fantasy">Fantasia</option>
-                <option value="documentary">Dokumentti</option>
-                <option value="animation">Animaatio</option>
-                <option value="family">Perhe</option>
-                <option value="kids">Lapsille</option>
+          <div className="pdd-right">
+            <b>Valitse genre:</b><br />
+            <select value={genre} onChange={handleGenreChange}>
+              <option value="">...</option>
+              <option value="all">Kaikki</option>
+              <option value="action">Toiminta</option>
+              <option value="adventure">Seikkailu</option>
+              <option value="romance">Romantiikka</option>
+              <option value="comedy">Komedia</option>
+              <option value="drama">Draama</option>
+              <option value="soap">Saippuasarjat</option>
+              <option value="western">Länkkäri</option>
 
-                <option value="history">Historia</option>
-                <option value="war">Sota ja politiikka</option>
-                <option value="mystery">Mysteeri</option>
-                <option value="crime">Rikos</option>
-                <option value="horror">Kauhu</option>
-                <option value="music">Musiikki</option>
-                <option value="tv">Sarjoihin perustuvat</option>
-                <option value="news">Uutiset</option>
-                <option value="talk">Keskustelu</option>
-                <option value="reality">TosiTV</option>
-                </select>
-            </div>
+              <option value="thriller">Jännitys</option>
+              <option value="science fiction">Scifi</option>
+              <option value="fantasy">Fantasia</option>
+              <option value="documentary">Dokumentti</option>
+              <option value="animation">Animaatio</option>
+              <option value="family">Perhe</option>
+              <option value="kids">Lapsille</option>
 
-            <div className="pdd-right">
-                <b>Vuosi:</b><br/>
-                <input
-                  className="field shortInput"
-                  type="number" 
-                  placeholder="..."
-                  value={year}
-                  onChange={handleYearChange}
-                />
-            </div>
+              <option value="history">Historia</option>
+              <option value="war">Sota ja politiikka</option>
+              <option value="mystery">Mysteeri</option>
+              <option value="crime">Rikos</option>
+              <option value="horror">Kauhu</option>
+              <option value="music">Musiikki</option>
+              <option value="tv">Sarjoihin perustuvat</option>
+              <option value="news">Uutiset</option>
+              <option value="talk">Keskustelu</option>
+              <option value="reality">TosiTV</option>
+            </select>
+          </div>
 
-            <div className="pdd-right">
-                <b>Syötä sivu tai selaa tuloksia:</b><br/>
-                <button onClick={() => setPage(Page => Math.max(Page - 1, 1))} className='bigArrow'>{'⯇'}</button>
-                <input
-                  className="field shortInput"
-                  type="number" 
-                  placeholder="..."
-                  value={page}
-                  onChange={handlePageChange}
-                />
-                <button onClick={() => setPage(Page => Page + 1)} className='bigArrow'>{'⯈'}</button>
-                
-            </div>
+          <div className="pdd-right">
+            <b>Vuosi:</b><br />
+            <input
+              className="field shortInput"
+              type="number"
+              placeholder="..."
+              value={year}
+              onChange={handleYearChange}
+            />
+          </div>
 
-           
+          <div className="pdd-right">
+            <b>Syötä sivu tai selaa tuloksia:</b><br />
+            <button onClick={() => setPage(Page => Math.max(Page - 1, 1))} className='bigArrow'>{'⯇'}</button>
+            <input
+              className="field shortInput"
+              type="number"
+              placeholder="..."
+              value={page}
+              onChange={handlePageChange}
+            />
+            <button onClick={() => setPage(Page => Page + 1)} className='bigArrow'>{'⯈'}</button>
+
+          </div>
+
+
         </div>
         <div>
-            <button className="basicbutton" onClick={handleSearch}>Hae</button>
+          <button className="basicbutton" onClick={handleSearch}>Hae</button>
         </div>
-    </div>
-
-    <div className="movie-container">
-
-      {/* Näytetään sekä elokuvat että sarjat , allekain */}
-      {showTitles && (<div className="resultsTitle">
-        <button onClick={() => setPage(Page => Math.max(Page - 1, 1))} className='bigArrow'>{'⯇'}</button>
-        <h2>Elokuvat</h2> 
-        <button onClick={() => setPage(Page => Page + 1)} className='bigArrow'>{'⯈'}</button></div>)}
-      {movies.map((result) => (
-      <div key={result.id} className="movie-item">
-        <Link to={`/movie/${result.id}`}>
-          <img src={result.poster_path} alt={result.title} />
-          <div className="headoverview">
-            <div><h3>{result.title}</h3></div>
-            <div>{result.overview.length > 200 ? `${result.overview.substring(0, 200)}...` : result.overview}</div>
-          </div>
-        </Link>
       </div>
-      ))}
 
-      {showTitles && (<div className="resultsTitle">
-        <button onClick={() => setPage(Page => Math.max(Page - 1, 1))} className='bigArrow'>{'⯇'}</button>
-        <h2>Sarjat</h2>
-        <button onClick={() => setPage(Page => Page + 1)} className='bigArrow'>{'⯈'}</button>
-      </div>)}
-      {series.map((result) => (
-        <div key={result.id} className="movie-item">
-          <Link to={`/series/${result.id}`}>
-            <img src={result.poster_path} alt={result.title} />
-            <div className="headoverview">
-              <div><h3>{result.title}</h3></div>
-              <div>{result.overview.length > 200 ? `${result.overview.substring(0, 200)}...` : result.overview}</div>
-            </div>
-          </Link>
-        </div>
-      ))}
+      <div className="movie-container">
+
+        {/* Näytetään sekä elokuvat että sarjat , allekain */}
+        {showTitles && (<div className="resultsTitle">
+          <button onClick={() => setPage(Page => Math.max(Page - 1, 1))} className='bigArrow'>{'⯇'}</button>
+          <h2>Elokuvat</h2>
+          <button onClick={() => setPage(Page => Page + 1)} className='bigArrow'>{'⯈'}</button></div>)}
+        {movies.map((result) => (
+          <div key={result.id} className="movie-item">
+            <Link to={`/movie/${result.id}`}>
+              <img src={result.poster_path} alt={result.title} />
+              <div className="headoverview">
+                <div><h3>{result.title}</h3></div>
+                <div>{result.overview.length > 200 ? `${result.overview.substring(0, 200)}...` : result.overview}</div>
+              </div>
+            </Link>
+          </div>
+        ))}
+
+        {showTitles && (<div className="resultsTitle">
+          <button onClick={() => setPage(Page => Math.max(Page - 1, 1))} className='bigArrow'>{'⯇'}</button>
+          <h2>Sarjat</h2>
+          <button onClick={() => setPage(Page => Page + 1)} className='bigArrow'>{'⯈'}</button>
+        </div>)}
+        {series.map((result) => (
+          <div key={result.id} className="movie-item">
+            <Link to={`/series/${result.id}`}>
+              <img src={result.poster_path} alt={result.title} />
+              <div className="headoverview">
+                <div><h3>{result.title}</h3></div>
+                <div>{result.overview.length > 200 ? `${result.overview.substring(0, 200)}...` : result.overview}</div>
+              </div>
+            </Link>
+          </div>
+        ))}
 
       </div>
     </>

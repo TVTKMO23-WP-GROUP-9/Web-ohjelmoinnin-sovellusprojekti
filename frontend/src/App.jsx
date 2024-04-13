@@ -22,7 +22,7 @@ import Error from '@content/error/Error';
 import ProfileEdit from '@content/user/ProfileEdit';
 import Faq from '@content/faq/Faq';
 import { jwtToken } from './components/auth/authSignal';
-import.meta.env.VITE_APP_BACKEND_URL;
+
 
 function App() {
   const { theme, toggleTheme } = useTheme();
@@ -32,7 +32,7 @@ function App() {
     setUser(userData);
     localStorage.setItem('user', JSON.stringify(userData));
   };
-  
+
   useEffect(() => {
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme) {
@@ -52,7 +52,7 @@ function App() {
   }, [theme]);
 
   const handleLogout = () => {
-    fetch(`${import.meta.env.VITE_APP_BACKEND_URL}/auth/logout`, {
+    fetch(`${VITE_APP_BACKEND_URL}//auth/logout`, {
       method: 'GET',
       credentials: 'include',
     })
@@ -74,13 +74,13 @@ function App() {
   return (
     <>
       <Router>
-      
+
         <ThemeProvider>
-        <ScrollToTop />
+          <ScrollToTop />
 
           <div className={`body ${theme}`}>
-              <Error />
-              <Header user={user} setUser={handleLogin} handleLogout={handleLogout} toggleTheme={toggleTheme} theme={theme} />  
+            <Error />
+            <Header user={user} setUser={handleLogin} handleLogout={handleLogout} toggleTheme={toggleTheme} theme={theme} />
             <Routes>
               <Route path="/" exact element={<Home />} />
               <Route path="/search" element={<Search />} />
@@ -92,12 +92,12 @@ function App() {
               <Route path="/profile/:profilename/edit" element={<ProfileEdit />} />
               <Route path="/community" element={<Community />} />
               <Route path="/about" element={<Faq />} />
-              <Route path="/group/:id" element={<GroupDetails user={user}/>} /> 
+              <Route path="/group/:id" element={<GroupDetails user={user} />} />
               {/* ja loput puuttuvat routet myös */}
             </Routes>
-            
-            </div>
-            <Footer toggleTheme={toggleTheme} theme={theme} />
+
+          </div>
+          <Footer toggleTheme={toggleTheme} theme={theme} />
         </ThemeProvider>
       </Router>
     </>

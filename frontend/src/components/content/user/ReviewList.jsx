@@ -2,31 +2,33 @@ import React, { useState, useEffect } from 'react';
 import './user.css';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import.meta.env.VITE_APP_BACKEND_URL;
+const { VITE_APP_BACKEND_URL } = import.meta.env;
+
 
 const ReviewList = ({ profile }) => {
 
   const [reviews, setReviews] = useState([]);
   const [editReviewId, setEditReviewId] = useState(null);
   const [updatedReview, setUpdatedReview] = useState({
-    review: '', rating: 0 });
+    review: '', rating: 0
+  });
   const [confirmDeleteId, setConfirmDeleteId] = useState(null);
   const [reviewsPerPage, setReviewsPerPage] = useState(4);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState('');
   const isOwnProfile = profile && profile.isOwnProfile;
-  
+
 
   const fetchReviews = async () => {
     try {
       if (profile && profile.profileid) {
 
-        const response = await axios.get(`${import.meta.env.VITE_APP_BACKEND_URL}reviews/profile/${profile.profileid}`);
+        const response = await axios.get(`${VITE_APP_BACKEND_URL}/reviews/profile/${profile.profileid}`);
         const reviewData = response.data;
 
         const reviewsWithMovies = await Promise.all(reviewData.map(async review => {
           try {
-            const movieResponse = await axios.get(`${import.meta.env.VITE_APP_BACKEND_URL}movie/${review.revieweditem}`);
+            const movieResponse = await axios.get(`${VITE_APP_BACKEND_URL}/movie/${review.revieweditem}`);
             const movieData = movieResponse.data;
 
             if (movieData && movieData.title) {
@@ -56,19 +58,19 @@ const ReviewList = ({ profile }) => {
     fetchReviews();
   }, [profile]);
 
-    {/*const handleDeleteReview = async (idreview) => {
+  {/*const handleDeleteReview = async (idreview) => {
       try {
-        const response = await axios.delete(`${import.meta.env.VITE_APP_BACKEND_URL}/review/${idreview}`);
+        const response = await axios.delete(`${VITE_APP_BACKEND_URL}//review/${idreview}`);
         console.log(response.data);
         setReviews(reviews.filter(review => review.idreview !== idreview));
       } catch (error) {
         console.error('Poistovirhe:', error);
       }
     };*/}
-  
+
   const handleConfirmDelete = async (idreview) => {
     try {
-      const response = await axios.delete(`${import.meta.env.VITE_APP_BACKEND_URL}/review/${idreview}`);
+      const response = await axios.delete(`${VITE_APP_BACKEND_URL}//review/${idreview}`);
       console.log(response.data);
       setReviews(reviews.filter(review => review.idreview !== idreview));
       setConfirmDeleteId(null);
@@ -77,13 +79,13 @@ const ReviewList = ({ profile }) => {
     }
   };
 
-    const handleReviewEdit = (idreview) => {
+  const handleReviewEdit = (idreview) => {
     setEditReviewId(idreview);
   };
 
   const handleUpdateReview = async (idreview) => {
     try {
-      const response = await axios.put(`${import.meta.env.VITE_APP_BACKEND_URL}/reviews/update/${idreview}`, updatedReview);
+      const response = await axios.put(`${VITE_APP_BACKEND_URL}//reviews/update/${idreview}`, updatedReview);
       setEditReviewId(null);
       fetchReviews();
     } catch (error) {
@@ -146,19 +148,19 @@ const ReviewList = ({ profile }) => {
         </li>
 
         <ul className="pagination">
-        <li>
-          <button className="buttonnext" onClick={() => setCurrentPage(currentPage > 1 ? currentPage - 1 : 1)}>
-            ⯇
-          </button>
-          &nbsp; <span className="communityinfo">selaa</span> &nbsp;
-          <button className="buttonnext" onClick={() => setCurrentPage(currentPage < Math.ceil(filteredReviews.length / reviewsPerPage) ? currentPage + 1 : Math.ceil(filteredReviews.length / reviewsPerPage))}>
-            ⯈
-          </button>
-        </li>
-      </ul>
+          <li>
+            <button className="buttonnext" onClick={() => setCurrentPage(currentPage > 1 ? currentPage - 1 : 1)}>
+              ⯇
+            </button>
+            &nbsp; <span className="communityinfo">selaa</span> &nbsp;
+            <button className="buttonnext" onClick={() => setCurrentPage(currentPage < Math.ceil(filteredReviews.length / reviewsPerPage) ? currentPage + 1 : Math.ceil(filteredReviews.length / reviewsPerPage))}>
+              ⯈
+            </button>
+          </li>
+        </ul>
 
-      <hr/>
-  
+        <hr />
+
         {currentReviews.map((review, index) => (
           <li className='minheight' key={index}>
             <Link to={`/movie/${review.revieweditem}`}><img className='reviewimg' src={`https://image.tmdb.org/t/p/w342${review.movie.poster_path}`} alt={review.title} /></Link>
@@ -166,7 +168,7 @@ const ReviewList = ({ profile }) => {
             {review.movie ? (
               <Link className='reviewtitle' to={`/movie/${review.revieweditem}`}>{review.movie.title}</Link>
             ) : (
-               <span>{review.revieweditem}</span>
+              <span>{review.revieweditem}</span>
             )}
             <br />
             <span>{renderRatingIcons(review.rating)}</span>
@@ -185,7 +187,7 @@ const ReviewList = ({ profile }) => {
                 <button className="compactButton" onClick={() => setEditReviewId(null)}>Peruuta muutokset</button>
               </div>
             )}
-  
+
             {!editReviewId && isOwnProfile && (
               <>
                 {confirmDeleteId === review.idreview ? (
@@ -198,11 +200,11 @@ const ReviewList = ({ profile }) => {
                 )}
               </>
             )}
-            
+
           </li>
         ))}
       </ul>
-  
+
     </>
   );
 }
