@@ -30,15 +30,19 @@ const ReviewList = ({ id }) => {
           // Haetaan elokuvan tiedot jokaiselle arviolle
           const reviewsWithMovies = await Promise.all(reviewData.map(async review => {
             try {
-              const movieResponse = await axios.get(`${VITE_APP_BACKEND_URL}/movie/${review.revieweditem}`);
-              const movieData = movieResponse.data;
-
-              if (movieData && movieData.title) {
+              let responseData;
+              if (review.mediatype === 0) {
+                const movieResponse = await axios.get(`${import.meta.env.VITE_APP_BACKEND_URL}/movie/${encodeURIComponent(review.revieweditem)}`);
+                responseData = movieResponse.data;
+              } else if (review.mediatype === 1) {
+                const tvResponse = await axios.get(`${import.meta.env.VITE_APP_BACKEND_URL}/series/${encodeURIComponent(review.revieweditem)}`);
+                responseData = tvResponse.data;
+              }
+              if (responseData && responseData.title || responseData.name) {
                 return {
                   ...review,
-                  movie: movieData,
+                  movie: responseData,
                   userProfile: userProfileData,
-                  link: `/movie/${review.revieweditem}`
                 };
               } else {
                 return review;
@@ -75,17 +79,6 @@ const ReviewList = ({ id }) => {
   useEffect(() => {
     fetchReviews();
   }, [id]);
-
-  {/*const handleDeleteReview = async (idreview) => {
-      try {
-        const response = await axios.delete(`http://localhost:3001/review/${idreview}`);
-        console.log(response.data);
-        setReviews(reviews.filter(review => review.idreview !== idreview));
-      } catch (error) {
-        console.error('Poistovirhe:', error);
-      }
-    };*/}
-
 
 
   const renderRatingIcons = (rating) => {
@@ -137,28 +130,32 @@ const ReviewList = ({ id }) => {
         </li>
       </ul>
 
-      <hr />
+      <hr/>
+  
+        {currentReviews.map((review, index) => (
+          <li className='minheight' key={index}>
+            {review.mediatype === 0 ? (
+            <Link to={`/movie/${review.revieweditem}`}><img className='reviewimg' src={`https://image.tmdb.org/t/p/w342${review.movie.poster_path}`} alt={review.movie.title} /></Link>
+            ) : (
+            <Link to={`/series/${review.revieweditem}`}><img className='reviewimg' src={`https://image.tmdb.org/t/p/w342${review.movie.poster_path}`} alt={review.movie.name} /></Link>
+            
+            )}
+            <span className='reviewinfo'>{formatDate(review.timestamp)}</span> <br />      
+            {review.mediatype === 0 ? (
+              <Link className='reviewtitle' to={`/movie/${review.revieweditem}`}>{review.movie.title}</Link>
+            ) : (
+              <Link className='reviewtitle' to={`/series/${review.revieweditem}`}>{review.movie.name}</Link>
+            )}     
+            <br />
+            <span>{renderRatingIcons(review.rating)}</span>
+            <span className='userinfo'>| <b>{review.rating}/5</b> tähteä</span> <br />
+            <span className='userinfo'>{truncateLongWords(review.review, 25)}</span> <br />
+            <span className='userinfo'>Arvostelija:  <Link className='reviewtitle' to={`/profile/${review.userProfile.profilename}`}>{review.userProfile.profilename}</Link></span><br />
+                    
+          </li>
 
-      {currentReviews.map((review, index) => (
-        <li className='minheight' key={index}>
-          <Link to={`/movie/${review.revieweditem}`}><img className='reviewimg' src={`https://image.tmdb.org/t/p/w342${review.movie.poster_path}`} alt={review.title} /></Link>
-          <span className='reviewinfo'>{formatDate(review.timestamp)}</span> <br />
-          {review.movie ? (
-            <Link className='reviewtitle' to={`/movie/${review.revieweditem}`}>{review.movie.title}</Link>
-          ) : (
-            <span>{review.revieweditem}</span>
-          )}
-          <br />
-          <span>{renderRatingIcons(review.rating)}</span>
-          <span className='userinfo'>| <b>{review.rating}/5</b> tähteä</span> <br />
-          <span className='userinfo'>{truncateLongWords(review.review, 25)}</span> <br />
-          <span className='userinfo'>Arvostelija: {review.userProfile.profilename}</span> <br />
-
-
-
-        </li>
-      ))}
-    </ul>
+        ))}
+      </ul>
   );
 }
 export default ReviewList;

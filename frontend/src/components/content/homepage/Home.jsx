@@ -42,7 +42,7 @@ const Home = () => {
         <div className='mid-container'>
           <div className='lowermiddlecontent'>
               <h2>Tuoreimmat arvostelut</h2>
-              <Latestreviews/>
+              <Latestreviews />
           </div>
         </div>
       </div>
