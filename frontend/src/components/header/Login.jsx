@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { jwtToken } from '../auth/authSignal';
+import.meta.env.VITE_APP_BACKEND_URL; 
 
 export default function Login({ setUser, window, fullpage }) {
 
@@ -12,7 +13,7 @@ export default function Login({ setUser, window, fullpage }) {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`${import.meta.env.VITE_APP_BACKEND_URL}/auth/login`, {
+      const response = await axios.post(`${import.meta.env.VITE_APP_BACKEND_URL}auth/login`, {
         username: username,
         password: password
       });

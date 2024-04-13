@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './user.css';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import.meta.env.VITE_APP_BACKEND_URL;
 
 const ReviewList = ({ profile }) => {
 
@@ -20,12 +21,12 @@ const ReviewList = ({ profile }) => {
     try {
       if (profile && profile.profileid) {
 
-        const response = await axios.get(`${import.meta.env.VITE_APP_BACKEND_URL}/reviews/profile/${profile.profileid}`);
+        const response = await axios.get(`${import.meta.env.VITE_APP_BACKEND_URL}reviews/profile/${profile.profileid}`);
         const reviewData = response.data;
 
         const reviewsWithMovies = await Promise.all(reviewData.map(async review => {
           try {
-            const movieResponse = await axios.get(`${import.meta.env.VITE_APP_BACKEND_URL}/movie/${review.revieweditem}`);
+            const movieResponse = await axios.get(`${import.meta.env.VITE_APP_BACKEND_URL}movie/${review.revieweditem}`);
             const movieData = movieResponse.data;
 
             if (movieData && movieData.title) {

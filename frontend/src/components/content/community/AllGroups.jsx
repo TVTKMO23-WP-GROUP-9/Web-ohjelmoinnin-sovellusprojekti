@@ -12,7 +12,7 @@ const AllGroups = ({ searchTerm, setSearchTerm }) => {
     useEffect(() => {
         const fetchGroups = async () => {
             try {
-                const response = await axios.get(`${import.meta.env.VITE_APP_BACKEND_URL}/group`);
+                const response = await axios.get(`${import.meta.env.VITE_APP_BACKEND_URL}group`);
                 const sortedGroups = response.data.sort((a, b) => a.groupname.localeCompare(b.groupname));
                 setGroups(sortedGroups);
                 setLoading(false);

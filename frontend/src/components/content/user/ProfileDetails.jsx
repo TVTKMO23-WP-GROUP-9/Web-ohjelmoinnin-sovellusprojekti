@@ -5,6 +5,7 @@ import { useParams, Link } from 'react-router-dom';
 import GroupList from './GroupList';
 import ReviewList from './ReviewList';
 import ProfileEdit from './ProfileEdit'; 
+import.meta.env.VITE_APP_BACKEND_URL;
 
 const ProfileDetails = ({ user }) => {
     const [profile, setProfile] = useState(null);
@@ -23,7 +24,7 @@ const ProfileDetails = ({ user }) => {
                     'Content-Type': 'application/json'
                 };
     
-                const response = await axios.get(VITE_APP_BACKEND_URL +`/profile/${profilename}`, { headers });
+                const response = await axios.get(`${import.meta.env.VITE_APP_BACKEND_URL}profile/${profilename}`, { headers });
     
                 console.log("Token from sessionStorage:", token);
                 console.log("Profilename from token:", profilename);

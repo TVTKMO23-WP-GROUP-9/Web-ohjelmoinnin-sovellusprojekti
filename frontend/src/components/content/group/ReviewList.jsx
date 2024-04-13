@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './group.css';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import.meta.env.VITE_APP_BACKEND_URL;
 
 const ReviewList = ({ id }) => {
 
@@ -12,23 +13,23 @@ const ReviewList = ({ id }) => {
 
   const fetchReviews = async () => {
     try {
-      const response = await axios.get(`http://localhost:3001/memberlist/group/${id}/0`);
+      const response = await axios.get(`${import.meta.env.VITE_APP_BACKEND_URL}memberlist/group/${id}/0`);
       const memberData = response.data;
       
       // Haetaan arviot kaikilta profiileilta
       const reviewsFromMembers = await Promise.all(memberData.map(async profile => {
         try {
-          const userresponse = await axios.get(`http://localhost:3001/reviews/profile/${profile.profileid}`);
+          const userresponse = await axios.get(`${import.meta.env.VITE_APP_BACKEND_URL}reviews/profile/${profile.profileid}`);
           const reviewData = userresponse.data;
 
           // Haetaan profiilitiedot
-          const userProfileResponse = await axios.get(`http://localhost:3001/profile/id/${profile.profileid}`);
+          const userProfileResponse = await axios.get(`${import.meta.env.VITE_APP_BACKEND_URL}profile/id/${profile.profileid}`);
           const userProfileData = userProfileResponse.data;
   
           // Haetaan elokuvan tiedot jokaiselle arviolle
           const reviewsWithMovies = await Promise.all(reviewData.map(async review => {
             try {
-              const movieResponse = await axios.get(`http://localhost:3001/movie/${review.revieweditem}`);
+              const movieResponse = await axios.get(`${import.meta.env.VITE_APP_BACKEND_URL}movie/${review.revieweditem}`);
               const movieData = movieResponse.data;
   
               if (movieData && movieData.title) {

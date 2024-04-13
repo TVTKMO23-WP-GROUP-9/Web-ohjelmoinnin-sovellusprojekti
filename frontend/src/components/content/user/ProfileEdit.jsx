@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 //import { Link } from 'react-router-dom';
+import.meta.env.VITE_APP_BACKEND_URL;
 
 const ProfileEdit = ({ profilename }) => {
     const [formData, setFormData] = useState({
@@ -17,7 +18,7 @@ const ProfileEdit = ({ profilename }) => {
                     'Content-Type': 'application/json'
                 };
 
-                const response = await axios.get(VITE_APP_BACKEND_URL +`/${profilename}`, { headers });
+                const response = await axios.get(`${import.meta.env.VITE_APP_BACKEND_URL}${profilename}`, { headers });
 
                 const { profilepicurl, description } = response.data;
                 setFormData({ profilepicurl, description });

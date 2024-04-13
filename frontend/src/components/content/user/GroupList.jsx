@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import './user.css';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import.meta.env.VITE_APP_BACKEND_URL;
+
 
 const GroupList = ({ profile }) => {
   const [groups, setGroups] = useState([]);
@@ -13,7 +15,7 @@ const GroupList = ({ profile }) => {
     const fetchGroups = async () => {
       try {
         if (profile && profile.profilename) {
-          const response = await axios.get(`${import.meta.env.VITE_APP_BACKEND_URL}/grouplist/profile/${profile.profilename}`);
+          const response = await axios.get(`${import.meta.env.VITE_APP_BACKEND_URL}grouplist/profile/${profile.profilename}`);
           setGroups(response.data);
         }
       } catch (error) {
