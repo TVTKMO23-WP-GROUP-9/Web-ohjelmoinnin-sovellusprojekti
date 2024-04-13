@@ -22,15 +22,19 @@ const AllReviews = ({ searchTerm, setSearchTerm }) => {
 
       const reviewsWithMovies = await Promise.all(reviewData.map(async review => {
         try {
-          const movieResponse = await axios.get(`${VITE_APP_BACKEND_URL}/movie/${review.revieweditem}`);
-          const movieData = movieResponse.data;
-
-          if (movieData && movieData.title) {
-            return {
-              ...review,
-              movie: movieData,
-              link: `/movie/${review.revieweditem}`
-            };
+          let responseData;
+            if (review.mediatype === 0) {
+              const movieResponse = await axios.get(`${import.meta.env.VITE_APP_BACKEND_URL}/movie/${encodeURIComponent(review.revieweditem)}`);
+              responseData = movieResponse.data;
+            } else if (review.mediatype === 1) {
+              const tvResponse = await axios.get(`${import.meta.env.VITE_APP_BACKEND_URL}/series/${encodeURIComponent(review.revieweditem)}`);
+              responseData = tvResponse.data;
+            }
+            if (responseData && responseData.title || responseData.name) {
+              return {
+                ...review,
+                movie: responseData,
+              };
           } else {
             return review;
           }
@@ -95,14 +99,18 @@ const AllReviews = ({ searchTerm, setSearchTerm }) => {
 
         {currentReviews.map((review, index) => (
           <li className='minheightrews' key={index}>
-            <Link to={`/movie/${review.revieweditem}`}><img className='reviewimg' src={`https://image.tmdb.org/t/p/w342${review.movie.poster_path}`} alt={review.title} /></Link>
-
+            {review.mediatype === 0 ? (
+            <Link to={`/movie/${review.revieweditem}`}><img className='reviewimg' src={`https://image.tmdb.org/t/p/w342${review.movie.poster_path}`} alt={review.movie.title} /></Link>
+            ) : (
+              <Link to={`/series/${review.revieweditem}`}><img className='reviewimg' src={`https://image.tmdb.org/t/p/w342${review.movie.poster_path}`} alt={review.movie.name} /></Link>
+              
+            )}
             <span className='reviewinfo'>{formatDate(review.timestamp)}</span> <br/>
-            {review.movie ? (
+            {review.mediatype === 0 ? (
               <Link className='reviewtitle' to={`/movie/${review.revieweditem}`}>{review.movie.title}</Link>
             ) : (
-              <span>{review.revieweditem}</span>
-            )}
+              <Link className='reviewtitle' to={`/series/${review.revieweditem}`}>{review.movie.name}</Link>
+            )}    
             <br/>
             <span className='reviewinfo'>Arvostelija: <b>{review.profilename}</b></span> <br />
             

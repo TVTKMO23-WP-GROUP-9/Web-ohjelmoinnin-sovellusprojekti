@@ -42,6 +42,7 @@ const ReviewList = ({ id }) => {
                 return {
                   ...review,
                   movie: responseData,
+                  userProfile: userProfileData,
                 };
               } else {
                 return review;
