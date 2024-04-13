@@ -12,7 +12,7 @@ const Latestreviews = () => {
   useEffect(() => {
     const fetchReviews = async () => {
       try {
-        const response = await axios.get(`${import.meta.env.VITE_APP_BACKEND_URL}review/new`);
+        const response = await axios.get(`${import.meta.env.VITE_APP_BACKEND_URL}/review/new`);
         const reviewData = response.data;
         
         // Hae jokaisen arvostelun review.revieweditem arvolla liittyvä elokuva
@@ -20,10 +20,10 @@ const Latestreviews = () => {
           try {
             let responseData;
             if (review.mediatype === 0) {
-              const movieResponse = await axios.get(`http://localhost:3001/movie/${encodeURIComponent(review.revieweditem)}`);
+              const movieResponse = await axios.get(`${import.meta.env.VITE_APP_BACKEND_URL}/movie/${encodeURIComponent(review.revieweditem)}`);
               responseData = movieResponse.data;
             } else if (review.mediatype === 1) {
-              const tvResponse = await axios.get(`http://localhost:3001/series/${encodeURIComponent(review.revieweditem)}`);
+              const tvResponse = await axios.get(`${import.meta.env.VITE_APP_BACKEND_URL}/series/${encodeURIComponent(review.revieweditem)}`);
               responseData = tvResponse.data;
             }
             return {
@@ -91,8 +91,9 @@ const Latestreviews = () => {
                   <td>
 
                   </td>
+                  
                   <td className="review-info">
-                    <h2>{review.data.title}</h2>
+                    <h2>{review.data.title}{review.data.name}</h2>
                     <p><b>Arvostelu: </b> {review.review}</p>
                     <p><b>Arvosteltu: </b>{new Date(review.timestamp).toLocaleString('fi-FI', {
                       day: 'numeric',

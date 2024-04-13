@@ -29,15 +29,19 @@ const ReviewList = ({ id }) => {
           // Haetaan elokuvan tiedot jokaiselle arviolle
           const reviewsWithMovies = await Promise.all(reviewData.map(async review => {
             try {
-              const movieResponse = await axios.get(`${import.meta.env.VITE_APP_BACKEND_URL}movie/${review.revieweditem}`);
-              const movieData = movieResponse.data;
-  
-              if (movieData && movieData.title) {
+              let responseData;
+              if (review.mediatype === 0) {
+                const movieResponse = await axios.get(`${import.meta.env.VITE_APP_BACKEND_URL}movie/${encodeURIComponent(review.revieweditem)}`);
+                responseData = movieResponse.data;
+              } else if (review.mediatype === 1) {
+                const tvResponse = await axios.get(`${import.meta.env.VITE_APP_BACKEND_URL}series/${encodeURIComponent(review.revieweditem)}`);
+                responseData = tvResponse.data;
+              }
+              if (responseData && responseData.title || responseData.name) {
                 return {
                   ...review,
-                  movie: movieData,
+                  movie: responseData,
                   userProfile: userProfileData,
-                  link: `/movie/${review.revieweditem}`
                 };
               } else {
                 return review;
@@ -152,10 +156,9 @@ const ReviewList = ({ id }) => {
             <span className='userinfo'>| <b>{review.rating}/5</b> tähteä</span> <br />
             <span className='userinfo'>{truncateLongWords(review.review, 25)}</span> <br />
             <span className='userinfo'>Arvostelija: {review.userProfile.profilename}</span> <br />
-            
-
-            
+                    
           </li>
+
         ))}
       </ul>
   );
