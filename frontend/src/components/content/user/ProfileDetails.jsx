@@ -23,7 +23,7 @@ const ProfileDetails = ({ user }) => {
                     'Content-Type': 'application/json'
                 };
     
-                const response = await axios.get(`http://localhost:3001/profile/${profilename}`, { headers });
+                const response = await axios.get(VITE_APP_BACKEND_URL +`/profile/${profilename}`, { headers });
     
                 console.log("Token from sessionStorage:", token);
                 console.log("Profilename from token:", profilename);

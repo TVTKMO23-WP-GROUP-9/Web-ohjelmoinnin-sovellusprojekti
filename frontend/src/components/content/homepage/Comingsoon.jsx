@@ -63,7 +63,7 @@ const Comingsoon = () => {
   
   const handleClick = async (originalTitle, productionYear) => {
     try {
-      const response = await axios.get(`http://localhost:3001/movie/search?query=${encodeURIComponent(originalTitle)}&page=1&year=${encodeURIComponent(productionYear)}&language=any`);
+      const response = await axios.get(`${import.meta.env.VITE_APP_BACKEND_URL}/movie/search?query=${encodeURIComponent(originalTitle)}&page=1&year=${encodeURIComponent(productionYear)}&language=any`);
       const movieId = response.data[0].id; 
       if (movieId) {
         // Navigoi elokuvan sivulle suoraan

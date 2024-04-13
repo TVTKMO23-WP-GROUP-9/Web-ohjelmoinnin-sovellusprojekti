@@ -12,7 +12,7 @@ export default function Login({ setUser, window, fullpage }) {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:3001/auth/login', {
+      const response = await axios.post(`${import.meta.env.VITE_APP_BACKEND_URL}/auth/login`, {
         username: username,
         password: password
       });

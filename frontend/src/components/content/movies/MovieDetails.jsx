@@ -11,8 +11,8 @@ const MovieDetails = () => {
       const fetchData = async () => {
         try {
       const [movieResponse, providersResponse] = await Promise.all([
-        axios.get(`http://localhost:3001/movie/${id}`),
-        axios.get(`http://localhost:3001/movie/provider/${id}`)
+        axios.get(`${import.meta.env.VITE_APP_BACKEND_URL}/movie/${id}`),
+        axios.get(`${import.meta.env.VITE_APP_BACKEND_URL}/movie/provider/${id}`)
       ]);
 
           setMovie(movieResponse.data);
@@ -40,7 +40,7 @@ const MovieDetails = () => {
     useEffect(() => {
       const fetchMovie = async () => {
         try {
-          const response = await axios.get(`http://localhost:3001/movie/${id}`);
+          const response = await axios.get(`${import.meta.env.VITE_APP_BACKEND_URL}/movie/${id}`);
           setMovie(response.data);
         } catch (error) {
           console.error('Virhe elokuvan hakemisessa:', error);
@@ -49,7 +49,7 @@ const MovieDetails = () => {
     
       const fetchProviders = async () => {
         try {
-          const response = await axios.get(`http://localhost:3001/movie/provider/${id}`);
+          const response = await axios.get(`${import.meta.env.VITE_APP_BACKEND_URL}/movie/provider/${id}`);
           setProviders(response.data);
         } catch (error) {
           console.error('Virhe palveluntarjoajien hakemisessa:', error);

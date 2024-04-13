@@ -24,7 +24,7 @@ const Movies = () => {
 
   
       if (query !== '') {
-        moviesResponse = await axios.get(`http://localhost:3001/movie/search`, {
+        moviesResponse = await axios.get(`${import.meta.env.VITE_APP_BACKEND_URL}/movie/search`, {
           params: {
             query: query,
             page: page,
@@ -32,7 +32,7 @@ const Movies = () => {
           }
         });
   
-        seriesResponse = await axios.get(`http://localhost:3001/series/search`, {
+        seriesResponse = await axios.get(`${import.meta.env.VITE_APP_BACKEND_URL}/series/search`, {
           params: {
             query: query,
             page: page,
@@ -40,7 +40,7 @@ const Movies = () => {
           }
         });
       } else {
-        moviesResponse = await axios.get(`http://localhost:3001/movie/discover`, {
+        moviesResponse = await axios.get(`${import.meta.env.VITE_APP_BACKEND_URL}/movie/discover`, {
           params: {
             genre: genre,
             sort_by: 'popularity.desc',
@@ -49,7 +49,7 @@ const Movies = () => {
           }
         });
   
-        seriesResponse = await axios.get(`http://localhost:3001/series/discover`, {
+        seriesResponse = await axios.get(`${import.meta.env.VITE_APP_BACKEND_URL}/series/discover`, {
           params: {
             genre: genre,
             sort_by: 'popularity.desc',
