@@ -26,7 +26,9 @@ const GroupDetails = () => {
     <div className="content">
       <div className="ginner-view">
         <div className="ginner-left">
-          <img src={group?.grouppicurl || ''} className="grouppic" alt="Ryhmän kuva" />
+          {group?.grouppicurl && (
+            <img src={group.grouppicurl} className="grouppic" alt="Ryhmän kuva" />
+          )}
           <br />
          
         </div>
