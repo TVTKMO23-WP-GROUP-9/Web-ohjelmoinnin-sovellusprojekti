@@ -17,7 +17,7 @@ async function getProfileById(profileId) {
 
 async function getProfileByName(profilename) {
     const query = {
-        text: 'SELECT profileid, profilename, profilepicurl, description, is_private FROM profile_ WHERE profilename = $1',
+        text: 'SELECT profileid, profilename, email, profilepicurl, description, is_private FROM profile_ WHERE profilename = $1',
         values: [profilename],
     };
 
@@ -34,11 +34,11 @@ async function deleteProfileById(profileid) {
     return result.rowCount;
 }
 
-async function updateProfileById(profileid, profilename, email, profilepicurl, description) {
+async function updateProfilenameAndEmail(profileid, profilename, email) {
     const now = new Date();
     const query = {
-        text: 'UPDATE "profile_" SET profilename = $2, email = $3, profilepicurl = $4, timestamp = $5, description = $6 WHERE profileid = $1',
-        values: [profileid, profilename, email, profilepicurl, now, description],
+        text: 'UPDATE "profile_" SET profilename = $2, email = $3, timestamp = $4 WHERE profileid = $1',
+        values: [profileid, profilename, email, now],
     };
     const result = await pool.query(query);
     return result.rowCount;
@@ -54,11 +54,21 @@ async function updateProfileDetails(profileid, profilepicurl, description) {
     return result.rowCount;
 }
 
+async function updateProfileVisibility(profileid, is_private) {
+    const query = {
+        text: 'UPDATE "profile_" SET is_private = $2 WHERE profileid = $1',
+        values: [profileid, is_private],
+    };
+    const result = await pool.query(query);
+    return result.rowCount;
+}
+
 module.exports = {
     getAllProfiles,
     getProfileById,
     getProfileByName,
     deleteProfileById,
-    updateProfileById,
-    updateProfileDetails
+    updateProfilenameAndEmail,
+    updateProfileDetails,
+    updateProfileVisibility,
 };

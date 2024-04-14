@@ -21,10 +21,10 @@ async function getProfileById(id) {
 async function getProfileByName(profilename, loggedInUsername) {
     try {
         const profile = await profileModel.getProfileByName(profilename);
-        if(profile.profilename === loggedInUsername || profile.is_private === false) {
+        if (profile.profilename === loggedInUsername || profile.is_private === false) {
             return { success: true, message: profile };
         } else {
-            return { success: true, message: { profilename: profile.profilename, profilepicurl: profile.profilepicurl,  is_private: profile.is_private } }
+            return { success: true, message: { profilename: profile.profilename, profilepicurl: profile.profilepicurl, is_private: profile.is_private } }
         }
     } catch (error) {
         return { success: false, message: error.message };
@@ -40,9 +40,9 @@ async function deleteProfileById(id) {
     }
 }
 
-async function updateProfileById(profileid, profilename, email, profilepicurl, description) {
+async function updateProfilenameAndEmail(profileid, profilename, email) {
     try {
-        const updated = await profileModel.updateProfileById(profileid, profilename, email, profilepicurl, description);
+        const updated = await profileModel.updateProfilenameAndEmail(profileid, profilename, email);
         return { success: true, message: updated };
     } catch (error) {
         return { success: false, message: error.message };
@@ -58,11 +58,21 @@ async function updateProfileDetails(profileid, profilepicurl, description) {
     }
 }
 
+async function updateProfileVisibility(profileid, is_private) {
+    try {
+        const updated = await profileModel.updateProfileVisibility(profileid, is_private);
+        return { success: true, message: updated };
+    } catch (error) {
+        return { success: false, message: error.message };
+    }
+}
+
 module.exports = {
     getAllProfiles,
     getProfileById,
     getProfileByName,
     deleteProfileById,
-    updateProfileById,
-    updateProfileDetails
+    updateProfilenameAndEmail,
+    updateProfileDetails,
+    updateProfileVisibility
 };
