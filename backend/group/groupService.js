@@ -63,7 +63,7 @@ async function getGroupById(req, res) {
 
   try {
     const query = {
-      text: 'SELECT * FROM group_ WHERE groupid = $1',
+      text: `SELECT * FROM group_ WHERE groupid = $1`,
       values: [groupid],
     };
 
@@ -258,6 +258,7 @@ async function getGroupsByProfilename(req, res) {
     res.status(500).send('Virhe haettaessa käyttäjän ryhmiä');
   }
 }
+
 // Hakee tietyn groupin memberlistin
 async function GetMemberList(req, res) {
   const groupid = req.params.groupid;

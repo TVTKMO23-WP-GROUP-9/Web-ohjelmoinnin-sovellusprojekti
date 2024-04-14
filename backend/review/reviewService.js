@@ -77,6 +77,22 @@ async function movieReviewFromUser (req, res) {
 
 }
 
+// arvostelun lähettäminen käyttöliittymästä (SARJA)
+async function serieReviewFromUser (req, res) {
+  profileid = res.locals.profileid;
+
+  const { mediatype, rating, review, revieweditem} = req.body;
+
+  const addReview = await reviewModel.serieReviewFromUser(profileid, mediatype, rating, review, revieweditem);
+  if (addReview) {
+    res.status(201).send('Arvostelu lisätty onnistuneesti');
+  } else {
+
+    res.status(500).send('Virhe luotaessa arvostelua');
+  }
+
+}
+
 // arvostelun päivittäminen reviewid:n perusteella
 async function updateReview(req, res) {
   const idreview = req.params.id;
@@ -121,4 +137,5 @@ module.exports = {
   deleteReview,
   getReviewsByProfile,
   movieReviewFromUser,
+  serieReviewFromUser,
 };

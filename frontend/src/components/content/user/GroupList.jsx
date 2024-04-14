@@ -17,6 +17,7 @@ const GroupList = ({ profile }) => {
       try {
         if (profile && profile.profilename) {
           const response = await axios.get(`${VITE_APP_BACKEND_URL}/grouplist/profile/${profile.profilename}`);
+
           setGroups(response.data);
         }
       } catch (error) {

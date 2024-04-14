@@ -273,9 +273,15 @@ ul {
 }
 
 .reviewtitle {
+    font-family: var(--roboto);
+    line-height: 0.2em;
+    font-style: normal;
+    font-size: 1.4em;
     color: var(--profile);
-    font-size: 1em;
-    font-weight: 500;
+}
+
+.reviewitems {
+    color: var(--profile);
 }
 
 .reviewimg {
@@ -284,5 +290,3 @@ ul {
     height: 170px;
     box-shadow: var(--shadow02);
 }
-
-
