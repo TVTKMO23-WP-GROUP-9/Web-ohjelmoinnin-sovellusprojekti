@@ -4,12 +4,47 @@ import axios from 'axios';
 import { useParams, Link } from 'react-router-dom';
 import MemberList from './MemberList';
 import ReviewList from './ReviewList';
+import Forum from './Forum';
 const { VITE_APP_BACKEND_URL } = import.meta.env;
 
 
-const GroupDetails = () => {
+const GroupDetails = ({ user }) => {
   const { id } = useParams();
   const [group, setGroup] = useState(null);
+  const [profile, setProfile] = useState(null);
+  const [editMode, setEditMode] = useState(false);
+  const [isMainuser, setMainuser] = useState(null);
+  const [profileId, setProfileid] = useState(null);
+  
+  useEffect(() => {
+    const fetchProfile = async () => {
+        try {
+            const token = sessionStorage.getItem('token');
+            const headers = {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            };
+
+            const response = await axios.get(`${VITE_APP_BACKEND_URL}/profile/${user.user}`);
+
+            console.log("Token from sessionStorage:", token);
+            console.log("Profilename from token:", user);
+            console.log("Response from profile:", response.data);
+
+            setProfile(response.data);
+            setProfileid(response.data.profileid);
+
+
+        } catch (error) {
+            console.error('Virhe haettaessa profiilitietoja:', error);
+        }
+    };
+
+    fetchProfile();
+  }, [user]);
+
+
+console.log("Token from sessionStorage:", user);
 
   useEffect(() => {
     const fetchGroup = async () => {
@@ -48,9 +83,9 @@ const GroupDetails = () => {
 
         <div className="group-view">
           <div className="group-content">
-            <h2>Suosikit &nbsp;<span className='emoji uni10'></span></h2>
+            <h2>Viestit &nbsp;<span className='emoji uni10'></span></h2>
             <ul>
-              <li><span className='userinfo'>Ei vielä suosikkeja</span></li>
+              <Forum id={id} user={user} />
             </ul>
           </div>
         </div>
