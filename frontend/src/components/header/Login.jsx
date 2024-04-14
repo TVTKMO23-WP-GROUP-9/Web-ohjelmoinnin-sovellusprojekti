@@ -9,6 +9,7 @@ export default function Login({ setUser, window, fullpage }) {
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [showRegisterForm, setShowRegisterForm] = useState(false);
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -71,22 +72,35 @@ export default function Login({ setUser, window, fullpage }) {
     }
   };
 
+  const handleToggleRegisterForm = () => {
+    setShowRegisterForm(!showRegisterForm);
+  };
 
   if (window) {
     return (
       <div className="login-window">
-        <form onSubmit={handleLogin}>
-          <input className="field" value={username} onChange={e => setUsername(e.target.value)} placeholder="Käyttäjänimi"></input>
-          <input className="field" type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Salasana"></input>
-          <button className="formButton" type="submit">Kirjaudu sisään</button>
-          <hr />
-          <li className="boxLink">
-            <Link to="/login">Unohtuiko salasana?</Link>
-          </li>
-          <li className="boxLink">
-            <Link to="/login">Rekisteröidy</Link>
-          </li>
-        </form>
+        {showRegisterForm ? (
+          <form onSubmit={handleRegister}>
+            <input className="field" type="text" name="profilename" value={formData.profilename || null} onChange={handleChange} placeholder="Käyttäjänimi" /><br />
+            <input className="field" type='text' name="email" value={formData.email || null} onChange={handleChange} placeholder="Sähköposti" /><br />
+            <input className="field" type='password' name="password" value={formData.password || null} onChange={handleChange} placeholder="Salasana" /><br />
+            <button className="formButton" type="submit">Rekisteröidy</button>
+            <button className="formButton" type="button" onClick={handleToggleRegisterForm}>Peruuta</button>
+          </form>
+        ) : (
+          <form onSubmit={handleLogin}>
+            <input className="field" value={username} onChange={e => setUsername(e.target.value)} placeholder="Käyttäjänimi"></input>
+            <input className="field" type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Salasana"></input>
+            <button className="formButton" type="submit">Kirjaudu sisään</button>
+            <hr />
+            <li className="boxLink">
+              <button className="formButton" onClick={handleToggleRegisterForm}>Rekisteröidy</button>
+            </li>
+            <li className="boxLink">
+              <Link to="/login">Unohtuiko salasana?</Link>
+            </li>
+          </form>
+        )}
       </div>
     );
   } else {
