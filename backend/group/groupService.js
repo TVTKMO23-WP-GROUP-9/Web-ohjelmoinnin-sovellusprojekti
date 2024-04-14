@@ -161,7 +161,29 @@ async function deleteGroupById(req, res) {
       res.status(500).send('Virhe lisättäessä uutta tietuetta ' + error.message);
     }
   }
-  
+
+  // GET-endpoint hakee tietyn tietueen taulusta message_ annetun groupid-arvon perusteella
+  async function getMessagesById(req, res) {
+  const groupid = req.params.groupid;
+
+  try {
+    const query = {
+      text: 'SELECT * FROM message_ WHERE groupid = $1',
+      values: [groupid],
+    };
+
+    const result = await groupModel.queryDatabase(query);
+    if (result.length > 0) {
+      res.json(result);
+    } else {
+      res.status(404).send('Tietuetta ei löytynyt');
+    }
+  } catch (error) {
+    console.error('Virhe haettaessa tietuetta:', error);
+    res.status(500).send('Virhe haettaessa tietuetta');
+  }
+}
+
   async function createMessage(req, res) {
     const { profileid, groupid, message } = req.body;
   
@@ -300,6 +322,7 @@ async function createMemberList(req, res) {
     updateGroupById,
     createGroup,
     createMember,
+    getMessagesById,
     createMessage,
     getUserGroups,
     getGroupsByProfilename,

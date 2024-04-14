@@ -12,6 +12,7 @@ router.delete('/group/:groupid', groupService.deleteGroupById);
 router.put('/group/:groupid', groupService.updateGroupById);
 router.post('/group', groupService.createGroup);
 router.post('/memberlist', groupService.createMember);
+router.get('/messages/:groupid', groupService.getMessagesById);
 router.post('/messages', groupService.createMessage);
 router.get('/grouplist/:profileid', groupService.getUserGroups);
 router.get('/grouplist/profile/:profilename', groupService.getGroupsByProfilename);

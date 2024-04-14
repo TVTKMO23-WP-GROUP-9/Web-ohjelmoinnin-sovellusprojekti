@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useParams, Link } from 'react-router-dom';
 import MemberList from './MemberList';
 import ReviewList from './ReviewList';
+import Forum from './Forum';
 const { VITE_APP_BACKEND_URL } = import.meta.env;
 
 
@@ -48,9 +49,9 @@ const GroupDetails = () => {
 
         <div className="group-view">
           <div className="group-content">
-            <h2>Suosikit &nbsp;<span className='emoji uni10'></span></h2>
+            <h2>Viestit &nbsp;<span className='emoji uni10'></span></h2>
             <ul>
-              <li><span className='userinfo'>Ei vielä suosikkeja</span></li>
+              <Forum id={id} />
             </ul>
           </div>
         </div>

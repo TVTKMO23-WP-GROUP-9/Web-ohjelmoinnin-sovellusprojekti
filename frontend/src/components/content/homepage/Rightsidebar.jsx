@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './Rightsidebar.css'; // Sisällytä CSS-tiedosto suoraan komponenttiin
+const { VITE_APP_BACKEND_URL } = import.meta.env;
 
 const Rightsidebar = () => {
   const [shows, setShows] = useState([]);
