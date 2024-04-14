@@ -59,7 +59,9 @@ export default function Login({ setUser, window, fullpage }) {
 
       if (response.status === 201) {
         alert('Rekisteröinti onnistui, voit nyt kirjautua sisään');
-        navigate('/');
+        setShowRegisterForm(false);
+        setUsername(profilename);
+        setPassword(password);
       }
 
     } catch (error) {
@@ -137,11 +139,11 @@ export default function Login({ setUser, window, fullpage }) {
               <form onSubmit={handleRegister}>
                 <p>Kaikki kentät ovat pakollisia, sähköposti ei saa olla jo käytössä jollain käyttäjällä.</p>
                 <b>Käyttäjänimi</b> <br />
-                <input className="input" type="text" name="profilename" value={formData.profilename || null} onChange={handleChange} /><br />
+                <input className="field" type="text" name="profilename" value={formData.profilename || null} onChange={handleChange} /><br />
                 <b>Sähköposti</b><br />
-                <input className="input" type='text' name="email" value={formData.email || null} onChange={handleChange} /><br /><br />
+                <input className="field" type='text' name="email" value={formData.email || null} onChange={handleChange} /><br />
                 <b>Salasana</b><br />
-                <input className="input" type='password' name="password" value={formData.password || null} onChange={handleChange} /><br /><br />
+                <input className="field" type='password' name="password" value={formData.password || null} onChange={handleChange} /><br />
                 <button className="basicbutton" type="submit">Rekisteröidy</button>
               </form>
             </div>
