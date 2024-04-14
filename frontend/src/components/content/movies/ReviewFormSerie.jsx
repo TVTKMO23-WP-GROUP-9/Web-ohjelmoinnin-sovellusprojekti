@@ -3,7 +3,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 const { VITE_APP_BACKEND_URL } = import.meta.env;
 
-const ReviewForm = ({ movieId }) => {
+const ReviewFormSerie = ({ tvShowId }) => {
     const [showReviewForm, setShowReviewForm] = useState(false);
     const [rating, setRating] = React.useState(0);
     const [review, setReview] = React.useState("");
@@ -27,12 +27,12 @@ const ReviewForm = ({ movieId }) => {
 
         try {
             const response = await axios.post(
-                `${VITE_APP_BACKEND_URL}/movie/${movieId}/review`,
+                `${VITE_APP_BACKEND_URL}/series/${tvShowId}/review`,
                 {   
                     rating,
                     review,
-                    mediatype: '0',
-                    revieweditem: `${movieId}`,
+                    mediatype: '1',
+                    revieweditem: `${tvShowId}`,
                 } , { headers }
             );
             
@@ -90,4 +90,4 @@ const ReviewForm = ({ movieId }) => {
     );
 };
 
-export default ReviewForm;
+export default ReviewFormSerie;

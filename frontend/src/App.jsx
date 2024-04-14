@@ -90,7 +90,7 @@ function App() {
               <Route path="/" exact element={<Home />} />
               <Route path="/search" element={<Search />} />
               <Route path="/movie/:id" element={<MovieDetails />} />
-              <Route path="/movie/:id/newreview" element={<ReviewForm />} />
+              <Route path="/movie/:id/review" element={<ReviewForm />} />
               <Route path="/series/:id" element={<SeriesDetails />} />
               <Route path="/login" element={<Login setUser={handleLogin} />} />
               <Route path="/myaccount" element={<MyAccount user={user} />} />
