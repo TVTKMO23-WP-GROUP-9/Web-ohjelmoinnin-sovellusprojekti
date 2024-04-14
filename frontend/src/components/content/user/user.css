@@ -27,14 +27,14 @@
 #accountinfo .section3 {
     margin-top: 50px;
     padding: 40px;
-    background-color:  var(--table-bg);
+    background-color: var(--table-bg);
     border: var(--solid);
     border-radius: 10px;
     box-shadow: var(--shadow02);
 }
 
 #accountinfo .section2 h2,
-#accountinfo .section3 h2  {
+#accountinfo .section3 h2 {
     color: var(--h2);
 }
 
@@ -54,9 +54,9 @@
     background-color: var(--grp-background);
     border-radius: 10px;
     color: var(--profile);
-    display: flex; 
+    display: flex;
     flex-direction: row;
-    flex-wrap: wrap; 
+    flex-wrap: wrap;
     padding: 1em;
     margin-top: 25px;
     border: var(--solid);
@@ -115,12 +115,12 @@
     margin: 0 auto;
 }
 
-.inner-view h2, 
+.inner-view h2,
 .three-view h2,
 .profile-view h2,
 .reviews-view h2 {
     color: var(--profile);
-}   
+}
 
 
 .profilepic {
@@ -232,4 +232,8 @@ ul {
 
 .minheight:hover {
     background-color: var(--grey-hover);
+}
+
+input {
+    margin: 1em 0;
 }
