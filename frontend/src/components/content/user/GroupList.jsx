@@ -17,6 +17,7 @@ const GroupList = ({ profile }) => {
       try {
         if (profile && profile.profilename) {
           const response = await axios.get(`${VITE_APP_BACKEND_URL}/grouplist/profile/${profile.profilename}`);
+
           setGroups(response.data);
         }
       } catch (error) {
@@ -53,7 +54,7 @@ const GroupList = ({ profile }) => {
 
       <ul className="profileSections">
         {currentGroups.map((group, index) => (
-          <li key={index}><Link to="#">{group.groupname}</Link></li>
+          <li key={index}><Link to={`/group/${group.groupid}`}>{group.groupname}</Link></li>
         ))}
       </ul>
     </>
