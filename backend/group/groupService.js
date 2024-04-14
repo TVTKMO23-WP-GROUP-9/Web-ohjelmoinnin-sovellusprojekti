@@ -1,3 +1,4 @@
+const { auth } = require('../middleware/auth');
 const groupModel = require('./groupModel');
 
 
@@ -184,7 +185,7 @@ async function deleteGroupById(req, res) {
   }
 }
 
-  async function createMessage(req, res) {
+  async function createMessage (req, res) {
     const { profileid, groupid, message } = req.body;
   
     try {
@@ -279,6 +280,28 @@ async function GetMemberList(req, res) {
     res.status(500).send('Virhe haettaessa jäsenluetteloa');
   }
 }
+// Hakee tietyn groupin memberlistin
+async function getMemberStatus(req, res) {
+  const groupid = req.params.groupid;
+  const profileid = req.params.profileid;
+
+  try {
+    const query = {
+        text: `SELECT * FROM memberlist_ WHERE profileid = $1 AND groupid = $2`,
+        values: [profileid, groupid],
+    };
+    const result = await groupModel.queryDatabase(query);
+    if (result.length > 0) {
+      res.json(result[0]);
+    } else {
+      res.status(404).send('groupid:llä ei löytynyt jäsenluetteloa');
+    }
+  } catch (error) {
+    console.error('Virhe haettaessa jäsenluetteloa:', error);
+    res.status(500).send('Virhe haettaessa jäsenluetteloa');
+  }
+}
+
 // poistetaan memberlist tietyltä groupilta
 async function deleteMemberlist(req, res) {
   const memberlist = req.params.groupid;
@@ -328,6 +351,7 @@ async function createMemberList(req, res) {
     getUserGroups,
     getGroupsByProfilename,
     GetMemberList,
+    getMemberStatus,
     deleteMemberlist,
     createMemberList
   };

@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const groupService = require('./groupService')
+const { auth, optionalAuth } = require('../middleware/auth');
 
 router.use(express.json());
 
@@ -17,6 +18,7 @@ router.post('/messages', groupService.createMessage);
 router.get('/grouplist/:profileid', groupService.getUserGroups);
 router.get('/grouplist/profile/:profilename', groupService.getGroupsByProfilename);
 router.get('/memberlist/group/:groupid/:pending', groupService.GetMemberList);
+router.get('/memberstatus/:profileid/:groupid', groupService.getMemberStatus);
 router.delete('/memberlist/:groupid', groupService.deleteMemberlist);
 router.post('/memberlist', groupService.createMemberList);
 

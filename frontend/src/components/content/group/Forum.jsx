@@ -12,6 +12,8 @@ const Forum = ({ id, user }) => {
   const [messagesPerPage, setMessagesPerPage] = useState(4);
   const [currentPage, setCurrentPage] = useState(1);
   const [profileId, setProfileid] = useState(null);
+  const [isMember, setIsMember] = useState(false);
+  const [isMainuser, setMainuser] = useState(false);
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -29,8 +31,20 @@ const Forum = ({ id, user }) => {
             console.log("Response from profile:", response.data);
 
             setProfileid(response.data.profileid);
+            
+            const groupResponse = await axios.get(`${VITE_APP_BACKEND_URL}/memberstatus/${response.data.profileid}/${id}`);
+            
+            console.log("Response from groupresponse:", groupResponse.data);
 
-
+            if (groupResponse.data.hasOwnProperty('pending') && groupResponse.data.pending === 0) {
+              setIsMember(true);
+            }
+            console.log("Response from setMember:", groupResponse.pending);
+            if (groupResponse.data.hasOwnProperty('mainuser') && groupResponse.data.mainuser === 1) {
+              setMainuser(true);
+            }
+            console.log("Response from profile:", groupResponse.data);
+         
         } catch (error) {
             console.error('Virhe haettaessa profiilitietoja:', error);
         }
@@ -38,6 +52,7 @@ const Forum = ({ id, user }) => {
 
     fetchProfile();
   }, [user]);
+  
 
   const fetchMessages = async () => {
     try {
@@ -114,6 +129,7 @@ const Forum = ({ id, user }) => {
   return (
     <>
       <ul className="messageArea">
+      {isMember ? (
       <form onSubmit={handleNewMessageSubmit}>
         <textarea
           value={newMessage}
@@ -121,7 +137,7 @@ const Forum = ({ id, user }) => {
           placeholder="Syötä uusi viesti"
         />
         <button type="submit">Lähetä</button>
-      </form>
+      </form>) : null}
         {currentMessages.map((message, index) => (  
           <li key={index}><br /><b>{new Date(message.timestamp).toLocaleString('fi-FI', {
             day: 'numeric',
