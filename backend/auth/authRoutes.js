@@ -10,8 +10,10 @@ router.post('/auth/register', async (req, res) => {
     const result = await authService.registerUser(username, password, email);
     if (result.success) {
         res.status(201).json({ message: result.message });
-    } else {
+    } else if (result.message === 'Käyttäjätunnus varattu') {
         res.status(400).json({ message: result.message });
+    } else if (result.message === 'Rekisteröinti epäonnistui') {
+        res.status(500).json({ message: result.message });
     }
 });
 
