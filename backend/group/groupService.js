@@ -238,7 +238,7 @@ async function getGroupsByProfilename(req, res) {
   try {
     const grouplistQuery = {
       text: `
-        SELECT g.groupname FROM Group_ g
+        SELECT * FROM Group_ g
         INNER JOIN Memberlist_ m ON g.groupid = m.groupid
         INNER JOIN Profile_ p ON m.profileid = p.profileid
         WHERE p.profilename = $1;

@@ -6,19 +6,44 @@ const { VITE_APP_BACKEND_URL } = import.meta.env;
 
 
 
-const Forum = ({ id }) => {
+const Forum = ({ id, user }) => {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
   const [messagesPerPage, setMessagesPerPage] = useState(4);
   const [currentPage, setCurrentPage] = useState(1);
+  const [profileId, setProfileid] = useState(null);
 
+  useEffect(() => {
+    const fetchProfile = async () => {
+        try {
+            const token = sessionStorage.getItem('token');
+            const headers = {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            };
+
+            const response = await axios.get(`${VITE_APP_BACKEND_URL}/profile/${user.user}`);
+
+            console.log("Token from sessionStorage:", token);
+            console.log("Profilename from token:", user);
+            console.log("Response from profile:", response.data);
+
+            setProfileid(response.data.profileid);
+
+
+        } catch (error) {
+            console.error('Virhe haettaessa profiilitietoja:', error);
+        }
+    };
+
+    fetchProfile();
+  }, [user]);
 
   const fetchMessages = async () => {
     try {
       const response = await axios.get(`${VITE_APP_BACKEND_URL}/messages/${id}`);
       const messageData = response.data;
 
-      // Tarkistetaan, onko vastaus taulukko vai objekti
       const messagesWithNames = await Promise.all(messageData.map(async message => {
         try {
           const nameResponse = await axios.get(`${VITE_APP_BACKEND_URL}/profile/id/${encodeURIComponent(message.profileid)}`);
@@ -53,19 +78,22 @@ const Forum = ({ id }) => {
 
   const handleNewMessageSubmit = async (event) => {
     event.preventDefault();
+    console.log(profileId); // Tarkista, että profileId on saatavilla
+  
     try {
       const token = sessionStorage.getItem('token');
       const headers = {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json'
       };
+      
       const response = await axios.post(`${VITE_APP_BACKEND_URL}/messages`, {
-        profileid: 6,
+        profileid: profileId, // Käytä profileId:tä tässä
         groupid: id,
         message: newMessage
       }, { headers });
-      console.log(response.data); // Tulosta vastaus konsoliin
-      // Tyhjennä kenttä uutta viestiä varten
+      
+      console.log(response.data);
       setNewMessage('');
       fetchMessages();
       setCurrentPage(1);

@@ -53,7 +53,7 @@ const GroupList = ({ profile }) => {
 
       <ul className="profileSections">
         {currentGroups.map((group, index) => (
-          <li key={index}><Link to="#">{group.groupname}</Link></li>
+          <li key={index}><Link to={`/group/${group.groupid}`}>{group.groupname}</Link></li>
         ))}
       </ul>
     </>
