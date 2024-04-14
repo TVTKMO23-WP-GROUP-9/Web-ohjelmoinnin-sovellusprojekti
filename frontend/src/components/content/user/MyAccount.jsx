@@ -24,6 +24,8 @@ export default function MyAccount({ user }) {
         'Content-Type': 'application/json'
     };
 
+    const [deleteClicked, setDeleteClicked] = useState(false);
+
     useEffect(() => {
         const fetchProfileData = async () => {
             try {
@@ -79,7 +81,7 @@ export default function MyAccount({ user }) {
     };
 
 
-    const handleDelete = async (e) => {
+    const handleDelete = async () => {
         try {
             await axios.delete(VITE_APP_BACKEND_URL + `/profile/`, { headers });
 
@@ -91,6 +93,14 @@ export default function MyAccount({ user }) {
         } catch (error) {
             console.error('Virhe poistettaessa käyttäjää:', error);
         }
+    };
+
+    const handleDeleteClick = () => {
+        setDeleteClicked(true);
+    };
+
+    const handleCancelDelete = () => {
+        setDeleteClicked(false);
     };
 
     return (
@@ -138,13 +148,18 @@ export default function MyAccount({ user }) {
                     </div>
 
                     <h2>Poista käyttäjätili</h2>
-                    <button className="basicbutton" onClick={handleDelete}>Poista tili</button>
-                    <p>Jos poistat tilin, niin kaikki tilisi tiedot poistetaan pysyvästi. <br />
-                        Huomioithan kuitenkin, että: <br />
-                        Kirjoittamasi arvostelut jäävät järjestelmään anonyymeiksi arvosteluiksi. </p>
+                    {!deleteClicked ? (
+                        <button className="basicbutton" onClick={handleDeleteClick}>Poista tili</button>
+                    ) : (
+                        <div>
+                            <p>Haluatko varmasti poistaa käyttäjätilisi?</p>
+                            <button className="basicbutton" onClick={handleDelete}>Kyllä, poista tilini</button>
+                            <button className="basicbutton" onClick={handleCancelDelete}>Peruuta</button>
+                        </div>
+                    )}
+                    <p>Jos poistat tilin, niin kaikki tilisi tiedot poistetaan pysyvästi. </p>
                 </div>
             </div>
-
         </div>
 
     );
