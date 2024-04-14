@@ -1,73 +1,74 @@
 import React, { useState, useEffect } from 'react';
-// frontendin juuressa: npm install axios --no-fund || npm install axios
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import './movies.css';
 const { VITE_APP_BACKEND_URL } = import.meta.env;
 
-
 const Movies = () => {
   const [query, setQuery] = useState('');
   const [genre, setGenre] = useState('');
-  const [page, setPage] = useState(1);
+  const [moviePage, setMoviePage] = useState(1); 
+  const [seriesPage, setSeriesPage] = useState(1); 
+  const [page, setPage] = useState(1); 
   const [year, setYear] = useState('');
   const [movies, setMovies] = useState([]);
   const [series, setSeries] = useState([]);
   const [showTitles, setShowTitles] = useState(false);
 
   useEffect(() => {
-    search();
-  }, [page]);
+    searchMovies();
+    searchSeries();
+  }, [moviePage, seriesPage]);
 
-  const search = async () => {
+  const searchMovies = async () => {
     try {
-      let moviesResponse;
-      let seriesResponse;
-
-
+      let response;
       if (query !== '') {
-        moviesResponse = await axios.get(`${VITE_APP_BACKEND_URL}/movie/search`, {
-          params: {
-            query: query,
-            page: page,
-            year: year
-          }
-        });
-
-        seriesResponse = await axios.get(`${VITE_APP_BACKEND_URL}/series/search`, {
-          params: {
-            query: query,
-            page: page,
-            year: year
-          }
+        response = await axios.get(`${VITE_APP_BACKEND_URL}/movie/search`, {
+          params: { query, page: moviePage, year }
         });
       } else {
-        moviesResponse = await axios.get(`${VITE_APP_BACKEND_URL}/movie/discover`, {
-          params: {
-            genre: genre,
-            sort_by: 'popularity.desc',
-            page: page,
-            year: year
-          }
-        });
-
-        seriesResponse = await axios.get(`${VITE_APP_BACKEND_URL}/series/discover`, {
-          params: {
-            genre: genre,
-            sort_by: 'popularity.desc',
-            page: page,
-            year: year
-          }
+        response = await axios.get(`${VITE_APP_BACKEND_URL}/movie/discover`, {
+          params: { genre, sort_by: 'popularity.desc', page: moviePage, year }
         });
       }
-
-      const moviesData = moviesResponse.data.slice(0, 10);
-      const seriesData = seriesResponse.data.slice(0, 10);
-
-      setMovies(moviesData);
-      setSeries(seriesData);
+      setMovies(response.data.slice(0, 10));
     } catch (error) {
-      console.error('Hakuvirhe:', error);
+      console.error('Hakuvirhe elokuvissa:', error);
+    }
+  };
+
+  const searchSeries = async () => {
+    try {
+      let response;
+      if (query !== '') {
+        response = await axios.get(`${VITE_APP_BACKEND_URL}/series/search`, {
+          params: { query, page: seriesPage, year }
+        });
+      } else {
+        response = await axios.get(`${VITE_APP_BACKEND_URL}/series/discover`, {
+          params: { genre, sort_by: 'popularity.desc', page: seriesPage, year }
+        });
+      }
+      setSeries(response.data.slice(0, 10));
+    } catch (error) {
+      console.error('Hakuvirhe sarjoissa:', error);
+    }
+  };
+
+  const handleMoviePageChange = (action) => {
+    if (action === 'prev') {
+      setMoviePage((page) => Math.max(page - 1, 1));
+    } else {
+      setMoviePage((page) => page + 1);
+    }
+  };
+
+  const handleSeriesPageChange = (action) => {
+    if (action === 'prev') {
+      setSeriesPage((page) => Math.max(page - 1, 1));
+    } else {
+      setSeriesPage((page) => page + 1);
     }
   };
 
@@ -81,10 +82,6 @@ const Movies = () => {
     setGenre(event.target.value);
   };
 
-  const handlePageChange = (event) => {
-    setPage(event.target.value);
-  };
-
   const handleYearChange = (event) => {
     setYear(event.target.value);
   };
@@ -93,16 +90,17 @@ const Movies = () => {
     setMovies([]);
     setSeries([]);
     setShowTitles(true);
-    search();
+    searchMovies();
+    searchSeries();
   };
 
   return (
     <>
       <h2>Leffa- ja sarjahaku</h2>
 
-      <p className="info">Löydä elokuvia ja sarjoja eri parametreillä tai etsi nimellä. <br /> Annetaan enintään 20 hakutulosta per. sivu.</p>
+      <p className="group-view">Löydä elokuvia ja sarjoja eri parametreillä tai etsi nimellä. <br /> Annetaan enintään 20 hakutulosta per. sivu.</p>
 
-      <div className="group-view">
+      <div className="group-view-long">
 
         <div className="flex">
 
@@ -164,21 +162,6 @@ const Movies = () => {
             />
           </div>
 
-          <div className="pdd-right">
-            <b>Syötä sivu tai selaa tuloksia:</b><br />
-            <button onClick={() => setPage(Page => Math.max(Page - 1, 1))} className='bigArrow'>{'⯇'}</button>
-            <input
-              className="field shortInput"
-              type="number"
-              placeholder="..."
-              value={page}
-              onChange={handlePageChange}
-            />
-            <button onClick={() => setPage(Page => Page + 1)} className='bigArrow'>{'⯈'}</button>
-
-          </div>
-
-
         </div>
         <div>
           <button className="basicbutton" onClick={handleSearch}>Hae</button>
@@ -188,10 +171,14 @@ const Movies = () => {
       <div className="movie-container">
 
         {/* Näytetään sekä elokuvat että sarjat , allekain */}
-        {showTitles && (<div className="resultsTitle">
-          <button onClick={() => setPage(Page => Math.max(Page - 1, 1))} className='bigArrow'>{'⯇'}</button>
-          <h2>Elokuvat</h2>
-          <button onClick={() => setPage(Page => Page + 1)} className='bigArrow'>{'⯈'}</button></div>)}
+        {showTitles && (
+        
+        <div className="resultsTitle">
+<button onClick={() => handleMoviePageChange('prev')} className='bigArrow'>{'⯇'}</button>
+            <h2>Elokuvat</h2>
+            <button onClick={() => handleMoviePageChange('next')} className='bigArrow'>{'⯈'}</button>
+          
+          </div>)}
         {movies.map((result) => (
           <div key={result.id} className="movie-item">
             <Link to={`/movie/${result.id}`}>
@@ -205,9 +192,9 @@ const Movies = () => {
         ))}
 
         {showTitles && (<div className="resultsTitle">
-          <button onClick={() => setPage(Page => Math.max(Page - 1, 1))} className='bigArrow'>{'⯇'}</button>
-          <h2>Sarjat</h2>
-          <button onClick={() => setPage(Page => Page + 1)} className='bigArrow'>{'⯈'}</button>
+        <button onClick={() => handleSeriesPageChange('prev')} className='bigArrow'>{'⯇'}</button>
+            <h2>Sarjat</h2>
+            <button onClick={() => handleSeriesPageChange('next')} className='bigArrow'>{'⯈'}</button>
         </div>)}
         {series.map((result) => (
           <div key={result.id} className="movie-item">

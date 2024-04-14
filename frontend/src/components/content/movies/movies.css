@@ -17,7 +17,7 @@
   
 .movie-item img {
     width: 100%;
-    max-height: auto;
+    min-height: 450px;
     transition: transform 0.5s ease-in-out;
 }
 
@@ -84,6 +84,26 @@
     flex-direction: row;
     flex-wrap: wrap;
 }
+
+.group-view-long {
+    background-color: var(--table-bg);
+    color: var(--grp-text);
+    padding: 1em; 
+    border-radius: 10px;
+    border-top-right-radius: 170px;
+    border-bottom-right-radius: 30px;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    border: var(--solid);
+    box-shadow: var(--shadow02);
+}
+
+.group-view-long > div {
+    padding-top: 10px;
+    padding-left: 8px; 
+    padding-right: 20px; 
+}
+
 .group-view {
     background-color: var(--table-bg);
     color: var(--grp-text);
@@ -91,7 +111,9 @@
     border-radius: 10px;
     margin-top: 25px;
     margin-bottom: 25px;
+    box-shadow: var(--shadow02);
 }
+
 .group-view > div {
     padding-left: 20px; 
     padding-right: 20px; 
