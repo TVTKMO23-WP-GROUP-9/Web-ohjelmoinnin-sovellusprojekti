@@ -65,9 +65,31 @@ async function changePassword(password, profileid) {
     }
 }
 
+async function forgotPassword(email) {
+    try {
+        const user = await authModel.getUserByEmail(email);
+        if (!user) {
+            return { success: false, message: 'Sähköpostia ei löydy' };
+        }
+        const newPassword = Math.random().toString(36).substring(2, 15);
+        console.log('uusi salasana: ' + newPassword);
+        const hashedpassword = await bcrypt.hash(newPassword, 10);
+
+        await authModel.updatePassword(user.profilename, hashedpassword);
+
+        await authModel.sendEmail(email, newPassword);
+
+        return { success: true, message: 'Salasanan vaihto onnistui', newPassword };
+    } catch (error) {
+        console.error('Virhe salasanan vaihdossa:', error);
+        return { success: false, message: 'Salasanan vaihto epäonnistui', error };
+    }
+}
+
 module.exports = {
     registerUser,
     loginUser,
     getProfileIdByName,
-    changePassword
+    changePassword,
+    forgotPassword
 };
