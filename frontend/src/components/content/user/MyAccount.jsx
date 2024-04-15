@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Navigate, Link } from 'react-router-dom';
+import { getHeaders } from '../../auth/api';
 import axios from 'axios';
 import './user.css';
 const { VITE_APP_BACKEND_URL } = import.meta.env;
@@ -18,11 +19,7 @@ export default function MyAccount({ user }) {
     });
 
     const profilename = user.user;
-    const token = sessionStorage.getItem('token');
-    const headers = {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json'
-    };
+    const headers = getHeaders();
 
     const [deleteClicked, setDeleteClicked] = useState(false);
 
