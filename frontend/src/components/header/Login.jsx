@@ -10,9 +10,9 @@ export default function Login({ setUser, window, fullpage }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [showRegisterForm, setShowRegisterForm] = useState(false);
+  const [showForgotPassword, setShowForgotPassword] = useState(false);
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
-  const [message, setMessage] = useState('');
 
   const [formData, setFormData] = useState({
     profilename: null,
@@ -80,22 +80,27 @@ export default function Login({ setUser, window, fullpage }) {
     setShowRegisterForm(!showRegisterForm);
   };
 
+  const handleToggleForgotPasswordForm = () => {
+    setShowForgotPassword(!showForgotPassword);
+  };
+
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
   };
 
-  const handleSubmit = async (e) => {
+  const handleForgotPassword = async (e) => {
     e.preventDefault();
     try {
       // Tarkistetaan, onko sähköposti olemassa järjestelmässä
       const response = await axios.post(`${VITE_APP_BACKEND_URL}/auth/forgot-password`, { email });
 
       if (response.status === 200) {
-        setMessage('Uusi salasana on lähetetty sähköpostiisi.');
+        alert('Uusi salasana on lähetetty sähköpostiisi.');
+        setShowForgotPassword(false);
       }
     } catch (error) {
       console.error('Virhe unohtuneen salasanan käsittelyssä:', error);
-      setMessage('Sähköpostiosoitetta ei löytynyt. Tarkista antamasi sähköpostiosoite.');
+      alert('Sähköpostiosoitetta ei löytynyt. Tarkista antamasi sähköpostiosoite.');
     }
   };
 
@@ -105,10 +110,16 @@ export default function Login({ setUser, window, fullpage }) {
         {showRegisterForm ? (
           <form onSubmit={handleRegister}>
             <input className="field" type="text" name="profilename" value={formData.profilename || null} onChange={handleChange} placeholder="Käyttäjänimi" /><br />
-            <input className="field" type='text' name="email" value={formData.email || null} onChange={handleChange} placeholder="Sähköposti" /><br />
+            <input className="field" type='email' name="email" value={formData.email || null} onChange={handleChange} placeholder="Sähköposti" /><br />
             <input className="field" type='password' name="password" value={formData.password || null} onChange={handleChange} placeholder="Salasana" /><br />
             <button className="formButton" type="submit">Rekisteröidy</button>
             <button className="formButton" type="button" onClick={handleToggleRegisterForm}>Peruuta</button>
+          </form>
+        ) : showForgotPassword ? (
+          <form onSubmit={handleForgotPassword}>
+            <input className="field" type="email" name="email" value={email} onChange={handleEmailChange} placeholder="Sähköpostiosoite" required />
+            <button className="formButton" type="submit">Lähetä uusi salasana</button>
+            <button className="formButton" onClick={handleToggleForgotPasswordForm}>Peruuta</button>
           </form>
         ) : (
           <form onSubmit={handleLogin}>
@@ -120,7 +131,7 @@ export default function Login({ setUser, window, fullpage }) {
               <button className="formButton" onClick={handleToggleRegisterForm}>Rekisteröidy</button>
             </li>
             <li className="boxLink">
-              <Link to="/login">Unohtuiko salasana?</Link>
+              <button className="formButton" onClick={handleToggleForgotPasswordForm}>Unohtuiko salasana?</button>
             </li>
           </form>
         )}
@@ -150,11 +161,10 @@ export default function Login({ setUser, window, fullpage }) {
           <h2>Unohtuiko salasana?</h2>
           <div className="full-page">
             <p>Syötä sähköpostiosoitteesi, niin lähetämme sinulle uuden salasanan.</p>
-            <form onSubmit={handleSubmit}>
-              <input type="email" value={email} onChange={handleEmailChange} placeholder="Sähköpostiosoite" required />
-              <button type="submit">Lähetä uusi salasana</button>
+            <form onSubmit={handleForgotPassword}>
+              <input type="email" value={email} onChange={handleEmailChange} placeholder="Sähköpostiosoite" required /> <br />
+              <button className="basicbutton" type="submit">Lähetä uusi salasana</button>
             </form>
-            <p>{message}</p>
           </div>
         </div>
 
