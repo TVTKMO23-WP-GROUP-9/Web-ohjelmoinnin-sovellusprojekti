@@ -71,10 +71,19 @@ async function sendEmail(email, newPassword) {
     });
 }
 
+async function changePassword(hashedpassword, profileid) {
+    const query = {
+        text: 'UPDATE profile_ SET hashedpassword = $2 WHERE profileid = $1',
+        values: [profileid, hashedpassword],
+    };
+    await pool.query(query);
+}
+
 module.exports = {
     getUserByUsername,
     createUser,
     getProfileIdByName,
+    changePassword,
     getUserByEmail,
     updatePassword,
     sendEmail

@@ -18,6 +18,9 @@ export default function MyAccount({ user }) {
         email: ''
     });
 
+    const [password1, setPassword1] = useState('');
+    const [password2, setPassword2] = useState('');
+
     const profilename = user.user;
     const headers = getHeaders();
 
@@ -49,6 +52,30 @@ export default function MyAccount({ user }) {
             setVisibility({ is_private: !visibility.is_private });
         } catch (error) {
             console.error('Virhe muutettaessa profiilin näkyvyyttä:', error);
+        }
+    };
+
+    const handlePassword = async (e) => {
+        e.preventDefault();
+        if (password1 == password2 && password1.length > 0) {
+            try {
+                await axios.put(VITE_APP_BACKEND_URL + `/auth/password`, { password: password1 }, { headers });
+                alert('Salasana vaihdettu');
+            } catch (error) {
+                console.error('Virhe vaihdettaessa salasanaa:', error);
+            }
+        } else {
+            alert('Salasanat eivät täsmää tai kentät ovat tyhjiä. Yritä uudelleen.');
+        }
+        setPassword1('');
+        setPassword2('');
+    };
+
+    const handlePasswordChange = (e) => {
+        if (e.target.name === 'password1') {
+            setPassword1(e.target.value);
+        } else {
+            setPassword2(e.target.value);
         }
     };
 
@@ -123,14 +150,20 @@ export default function MyAccount({ user }) {
 
                 <div className="section3">
                     <h1>Tilin hallinta</h1>
-
                     <h2>Profiilin näkyvyys</h2>
-                    <p>Profiilisi on nyt: {visibility.is_private ? 'yksityinen' : 'julkinen'}</p>
-                    <button className="basicbutton" onClick={handleVisibility}>Vaihda tilin näkyvyyttä</button>
+                    <div className="form-view">
+                        <b>Profiilisi on nyt: {visibility.is_private ? 'yksityinen' : 'julkinen'}</b> <br />
+                        <button className="basicbutton" onClick={handleVisibility}>Vaihda tilin näkyvyyttä</button>
+                    </div>
 
                     <h2>Vaihda salasana</h2>
-
-                    <p>Textholder</p>
+                    <div className='form-view'>
+                        <b>Anna uusi salasana</b> <br />
+                        <input className="input" type="password" name="password1" value={password1} onChange={handlePasswordChange} /><br />
+                        <b>Salasana uudelleen</b> <br />
+                        <input className="input" type="password" name="password2" value={password2} onChange={handlePasswordChange} /><br />
+                        <button className="basicbutton" onClick={handlePassword}>Vaihda salasana</button>
+                    </div>
 
                     <h2>Muuta sähköpostia ja käyttäjänimeä</h2>
                     <div className='form-view'>
@@ -145,16 +178,18 @@ export default function MyAccount({ user }) {
                     </div>
 
                     <h2>Poista käyttäjätili</h2>
-                    {!deleteClicked ? (
-                        <button className="basicbutton" onClick={handleDeleteClick}>Poista tili</button>
-                    ) : (
-                        <div>
-                            <p>Haluatko varmasti poistaa käyttäjätilisi?</p>
-                            <button className="basicbutton" onClick={handleDelete}>Kyllä, poista tilini</button>
-                            <button className="basicbutton" onClick={handleCancelDelete}>Peruuta</button>
-                        </div>
-                    )}
-                    <p>Jos poistat tilin, niin kaikki tilisi tiedot poistetaan pysyvästi. </p>
+                    <div className="form-view">
+                        {!deleteClicked ? (
+                            <button className="basicbutton" onClick={handleDeleteClick}>Poista tili</button>
+                        ) : (
+                            <div>
+                                <b>Haluatko varmasti poistaa käyttäjätilisi?</b> <br />
+                                <button className="basicbutton" onClick={handleDelete}>Kyllä, poista tilini</button>
+                                <button className="basicbutton" onClick={handleCancelDelete}>Peruuta</button>
+                            </div>
+                        )}
+                        <p>Jos poistat tilin, niin kaikki tilisi tiedot poistetaan pysyvästi. </p>
+                    </div>
                 </div>
             </div>
         </div>

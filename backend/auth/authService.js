@@ -54,6 +54,17 @@ async function getProfileIdByName(profilename) {
     }
 }
 
+async function changePassword(password, profileid) {
+    try {
+        const hashedpassword = await bcrypt.hash(password, 10);
+        await authModel.changePassword(hashedpassword, profileid);
+        return { success: true, message: 'Salasanan vaihto onnistui' };
+    } catch (error) {
+        console.error('Virhe salasanan vaihdossa:', error);
+        return { success: false, message: 'Salasanan vaihto epäonnistui', error };
+    }
+}
+
 async function forgotPassword(email) {
     try {
         const user = await authModel.getUserByEmail(email);
@@ -79,5 +90,6 @@ module.exports = {
     registerUser,
     loginUser,
     getProfileIdByName,
+    changePassword,
     forgotPassword
 };
