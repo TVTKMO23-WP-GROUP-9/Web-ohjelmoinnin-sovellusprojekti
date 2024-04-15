@@ -11,6 +11,8 @@ export default function Login({ setUser, window, fullpage }) {
   const [password, setPassword] = useState('');
   const [showRegisterForm, setShowRegisterForm] = useState(false);
   const navigate = useNavigate();
+  const [email, setEmail] = useState('');
+  const [message, setMessage] = useState('');
 
   const [formData, setFormData] = useState({
     profilename: null,
@@ -78,6 +80,25 @@ export default function Login({ setUser, window, fullpage }) {
     setShowRegisterForm(!showRegisterForm);
   };
 
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      // Tarkistetaan, onko sähköposti olemassa järjestelmässä
+      const response = await axios.post(`${VITE_APP_BACKEND_URL}/auth/forgot-password`, { email });
+
+      if (response.status === 200) {
+        setMessage('Uusi salasana on lähetetty sähköpostiisi.');
+      }
+    } catch (error) {
+      console.error('Virhe unohtuneen salasanan käsittelyssä:', error);
+      setMessage('Sähköpostiosoitetta ei löytynyt. Tarkista antamasi sähköpostiosoite.');
+    }
+  };
+
   if (window) {
     return (
       <div className="login-window">
@@ -128,7 +149,12 @@ export default function Login({ setUser, window, fullpage }) {
         <div className="login-view">
           <h2>Unohtuiko salasana?</h2>
           <div className="full-page">
-            <p>Placeholder</p>
+            <p>Syötä sähköpostiosoitteesi, niin lähetämme sinulle uuden salasanan.</p>
+            <form onSubmit={handleSubmit}>
+              <input type="email" value={email} onChange={handleEmailChange} placeholder="Sähköpostiosoite" required />
+              <button type="submit">Lähetä uusi salasana</button>
+            </form>
+            <p>{message}</p>
           </div>
         </div>
 

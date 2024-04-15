@@ -39,4 +39,19 @@ router.get('/auth/logout', async (req, res) => {
     }
 });
 
+router.post('/auth/forgot-password', async (req, res) => {
+    const { email } = req.body;
+    try {
+        const result = await authService.forgotPassword(email);
+        if (result.success) {
+            res.status(200).json({ message: "Salasanan vaihto onnistui" });
+        } else {
+            res.status(500).json({ message: "Salasanan vaihdossa tapahtui virhe" });
+        }
+    } catch (error) {
+        console.error('Virhe salasanan vaihdossa:', error.message);
+        res.status(500).json({ message: "Salasanan vaihdossa tapahtui virhe" });
+    }
+});
+
 module.exports = router;

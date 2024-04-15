@@ -1,4 +1,6 @@
 const pool = require('../database/db_connection');
+require('dotenv').config();
+const nodemailer = require('nodemailer');
 
 async function getUserByUsername(username) {
     const query = {
@@ -27,8 +29,53 @@ async function getProfileIdByName(profilename) {
     return result.rows[0];
 }
 
+async function getUserByEmail(email) {
+    const query = {
+        text: 'SELECT * FROM profile_ WHERE email = $1',
+        values: [email],
+    };
+    const result = await pool.query(query);
+    return result.rows[0];
+}
+
+async function updatePassword(profilename, hashedpassword) {
+    const query = {
+        text: 'UPDATE "profile_" SET hashedpassword = $2 WHERE profilename = $1',
+        values: [profilename, hashedpassword],
+    };
+    await pool.query(query);
+}
+
+async function sendEmail(email, newPassword) {
+    const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: process.env.EMAIL_USER,
+            pass: process.env.EMAIL_PASS
+        }
+    });
+
+    const mailOptions = {
+        from: process.env.EMAIL_USER,
+        to: email,
+        subject: 'Uusi salasana',
+        text: `Uusi salasanasi on: ${newPassword}`
+    };
+
+    transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+            console.error('Virhe sähköpostin lähetyksessä:', error);
+        } else {
+            console.log('Sähköposti lähetetty: ' + info.response);
+        }
+    });
+}
+
 module.exports = {
     getUserByUsername,
     createUser,
-    getProfileIdByName
+    getProfileIdByName,
+    getUserByEmail,
+    updatePassword,
+    sendEmail
 };
