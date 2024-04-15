@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Navigate, Link } from 'react-router-dom';
-import { getHeaders } from '../../auth/api';
+import { getHeaders } from '@auth/token';
 import axios from 'axios';
 import './user.css';
 const { VITE_APP_BACKEND_URL } = import.meta.env;

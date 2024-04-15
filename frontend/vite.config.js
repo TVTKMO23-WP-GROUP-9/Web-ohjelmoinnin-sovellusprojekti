@@ -14,6 +14,7 @@ export default defineConfig({
       '@content': path.resolve(__dirname, 'src/components/content'),
       '@css': path.resolve(__dirname, 'src/css'),
       '@functions': path.resolve(__dirname, 'src/functions'),
+      '@auth': path.resolve(__dirname, 'src/components/auth'),
     }
   },
 
