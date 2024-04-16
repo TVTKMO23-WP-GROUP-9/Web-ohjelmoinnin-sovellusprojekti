@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useParams, Link } from 'react-router-dom';
 const { VITE_APP_BACKEND_URL } = import.meta.env;
 import ReviewForm from './ReviewForm';
+import Reviews from './Reviews';
 
 const MovieDetails = () => {
   const { id } = useParams();
@@ -125,62 +126,13 @@ const MovieDetails = () => {
 
             <div className="moviereviews">
 
-              <div><ReviewForm movieId={id} /></div>
+              <div><ReviewForm tvShowId={id} /></div>
 
               <br/>
               <h2>Viimeisimmät arvostelut</h2>
 
-              <div className="reviewslisted">
-                <b>Lähetetty:</b> 00.00.2024 <br />
-                <b>Käyttäjältä:</b> <i>Anonymous</i> <br />
-                <b>Arvio:</b> &#11088;&#11088;&#11088;&#11088;&#11088; [5/5] tähteä <br />
-                <b>Perustelut:</b> <br />
-                Esimerkkiarvostelu, tämä on placeholder vaikkapa. Ihan kiva leffa ois, jos katsoa ehtis. Kaikki aika katoaa nykyään johonkin. Epäoleelliseen?
-                Ehkä ei kuitenkaan. Annan silti runsaat viisi tähteä, koska voin. Koska tämähän oli vain.. esimerkki yhdestä arvostelusta?<br /><br />
-              </div>
-
-              <div className="reviewslisted">
-                <b>Lähetetty:</b> 00.00.2024 <br />
-                <b>Käyttäjältä:</b> <i>Anonymous</i> <br />
-                <b>Arvio:</b> &#11088;&#11088;&#11088;&#11088;&#11088; [5/5] tähteä <br />
-                <b>Perustelut:</b> <br />
-                Esimerkkiarvostelu, tämä on placeholder vaikkapa. Ihan kiva leffa ois, jos katsoa ehtis. Kaikki aika katoaa nykyään johonkin. Epäoleelliseen?
-                Ehkä ei kuitenkaan. Annan silti runsaat viisi tähteä, koska voin. Koska tämähän oli vain.. esimerkki yhdestä arvostelusta?<br /><br />
-              </div>
-
-              <div className="reviewslisted">
-                <b>Lähetetty:</b> 00.00.2024 <br />
-                <b>Käyttäjältä:</b> <i>Anonymous</i> <br />
-                <b>Arvio:</b> &#11088;&#11088;&#11088;&#11088;&#11088; [5/5] tähteä <br />
-                <b>Perustelut:</b> <br />
-                Esimerkkiarvostelu, tämä on placeholder vaikkapa. Ihan kiva leffa ois, jos katsoa ehtis. Kaikki aika katoaa nykyään johonkin. Epäoleelliseen?
-                Ehkä ei kuitenkaan. Annan silti runsaat viisi tähteä, koska voin. Koska tämähän oli vain.. esimerkki yhdestä arvostelusta?<br /><br />
-              </div>
-
-              <div className="reviewslisted">
-                <b>Lähetetty:</b> 00.00.2024 <br />
-                <b>Käyttäjältä:</b> <i>Anonymous</i> <br />
-                <b>Arvio:</b> &#11088;&#11088;&#11088;&#11088;&#11088; [5/5] tähteä <br />
-                <b>Perustelut:</b> <br />
-                Esimerkkiarvostelu, tämä on placeholder vaikkapa. Ihan kiva leffa ois, jos katsoa ehtis. Kaikki aika katoaa nykyään johonkin. Epäoleelliseen?
-                Ehkä ei kuitenkaan. Annan silti runsaat viisi tähteä, koska voin. Koska tämähän oli vain.. esimerkki yhdestä arvostelusta?<br /><br />
-              </div>
-
-              <div className="reviewslisted">
-                <b>Lähetetty:</b> 00.00.2024 <br />
-                <b>Käyttäjältä:</b> <i>Anonymous</i> <br />
-                <b>Arvio:</b> &#11088;&#11088;&#11088;&#11088;&#11088; [5/5] tähteä <br />
-                <b>Perustelut:</b> <br />
-                Esimerkkiarvostelu, tämä on placeholder vaikkapa. Ihan kiva leffa ois, jos katsoa ehtis. Kaikki aika katoaa nykyään johonkin. Epäoleelliseen?
-                Ehkä ei kuitenkaan. Annan silti runsaat viisi tähteä, koska voin. Koska tämähän oli vain.. esimerkki yhdestä arvostelusta?<br /><br />
-              </div>
-
+              <div className="reviewslisted"><Reviews tvShowId={id} mediatype={0}/></div>
             </div>
-
-            <div className="justMargins">
-              <Link to="/search">Tee uusi haku</Link>
-            </div>
-
           </div>
         )}
       </div>
