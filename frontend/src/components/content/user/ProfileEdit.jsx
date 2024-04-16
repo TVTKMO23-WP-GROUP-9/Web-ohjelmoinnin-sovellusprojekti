@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { getHeaders } from '@auth/token';
+import './ProfileDetails';
 const { VITE_APP_BACKEND_URL } = import.meta.env;
 
 
 const ProfileEdit = ({ profilename }) => {
+
     const [formData, setFormData] = useState({
         profilepicurl: '',
         description: ''
@@ -37,7 +39,6 @@ const ProfileEdit = ({ profilename }) => {
 
             console.log("Headers sent with request:", headers);
             window.location.reload();
-            console.log("Headers sent with request:", headers);
         } catch (error) {
             console.error('Hakuvirhe:', error);
         }
@@ -54,7 +55,7 @@ const ProfileEdit = ({ profilename }) => {
                 <b>Kuvaus</b><br />
                 <textarea className="textBox" name="description" value={formData.description || ''} onChange={handleChange} /><br /><br />
                 <button className="basicbutton" type="submit">Tallenna muutokset</button>
-                <button className="basicbutton" onClick={() => window.location.reload()}>Peruuta</button>
+                <button className="basicbutton" onClick={() => setEditMode(false)}>Peruuta</button>
             </form>
 
         </div>
