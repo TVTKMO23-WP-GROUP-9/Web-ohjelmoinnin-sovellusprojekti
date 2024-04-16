@@ -81,6 +81,33 @@ async function getReviewsByProfile(id) {
   return await queryDatabase(query);
 }
 
+async function serieReviewExists(profileid, revieweditem, mediatype) {
+  try {
+    const query = {
+      text: 'SELECT EXISTS(SELECT 1 FROM Review_ WHERE profileid = $1 AND revieweditem = $2 AND mediatype = $3) as "exists"',
+      values: [profileid, revieweditem, mediatype],
+    };
+    const result = await queryDatabase(query);
+    return result[0].exists;
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function getReviewsByItem(id, mediatype) {
+  try {
+    const query = {
+      text: 'SELECT * FROM Review_ WHERE revieweditem = $1 AND mediatype = $2 ORDER BY review_.timestamp DESC ',
+      values: [id, mediatype],
+    }; 
+    const result = await pool.query(query);
+    return result.rows;
+  } catch (error) {
+    throw error;
+  }
+}
+
+
 module.exports = {
   movieReviewFromUser,
   serieReviewFromUser,
@@ -89,4 +116,6 @@ module.exports = {
   updateReview,
   deleteReview,
   getReviewsByProfile,
+  serieReviewExists,
+  getReviewsByItem,
 };
