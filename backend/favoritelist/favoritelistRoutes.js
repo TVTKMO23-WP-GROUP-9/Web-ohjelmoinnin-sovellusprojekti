@@ -3,6 +3,8 @@ const router = express.Router();
 const favoritelistService = require('./favoritelistService')
 router.use(express.json());
 
+
+// mikään näistä ei ole vielä käytössä
 router.get('/favoritelist', favoritelistService.getAllFavoritelist);
 router.get('/favoritelist/profile/:profileid', favoritelistService.getFavoritelistByProfile);
 router.get('/favoritelist/group/:groupid', favoritelistService.getFavoritelistByGroup);
