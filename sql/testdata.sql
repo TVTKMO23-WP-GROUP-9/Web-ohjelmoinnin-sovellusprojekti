@@ -1,3 +1,5 @@
+-- Tässä tiedostossa on tietokannan testidataa
+
 INSERT INTO Profile_ (profilename, hashedpassword, email, profilepicurl, "timestamp", description) VALUES
 -- testikäyttäjät id 1-10
 -- Viilipytty hashaamaton salasana: oivamato
