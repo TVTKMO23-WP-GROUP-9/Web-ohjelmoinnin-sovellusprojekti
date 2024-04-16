@@ -1,14 +1,14 @@
 const pool = require('../database/db_connection');
 
 async function getAllProfiles() {
-    const query = 'SELECT profileid, profilename, email, profilepicurl, timestamp, description FROM "profile_"';
+    const query = 'SELECT profileid, profilename, email, profilepicurl, timestamp, description FROM Profile_';
     const result = await pool.query(query);
     return result.rows;
 }
 
 async function getProfileById(profileId) {
     const query = {
-        text: 'SELECT profileid, profilename, email, profilepicurl, timestamp, description FROM "profile_" WHERE profileid = $1',
+        text: 'SELECT profileid, profilename, email, profilepicurl, timestamp, description FROM Profile_ WHERE profileid = $1',
         values: [profileId],
     };
     const result = await pool.query(query);
@@ -17,7 +17,7 @@ async function getProfileById(profileId) {
 
 async function getProfileByName(profilename) {
     const query = {
-        text: 'SELECT profileid, profilename, email, profilepicurl, description, is_private FROM profile_ WHERE profilename = $1',
+        text: 'SELECT profileid, profilename, email, profilepicurl, description, is_private FROM Profile_ WHERE profilename = $1',
         values: [profilename],
     };
 
@@ -27,7 +27,7 @@ async function getProfileByName(profilename) {
 
 async function deleteProfileById(profileid) {
     const query = {
-        text: 'DELETE FROM "profile_" WHERE profileid = $1',
+        text: 'DELETE FROM Profile_ WHERE profileid = $1',
         values: [profileid],
     };
     const result = await pool.query(query);
@@ -37,7 +37,7 @@ async function deleteProfileById(profileid) {
 async function updateProfilenameAndEmail(profileid, profilename, email) {
     const now = new Date();
     const query = {
-        text: 'UPDATE "profile_" SET profilename = $2, email = $3, timestamp = $4 WHERE profileid = $1',
+        text: 'UPDATE Profile_ SET profilename = $2, email = $3, timestamp = $4 WHERE profileid = $1',
         values: [profileid, profilename, email, now],
     };
     const result = await pool.query(query);

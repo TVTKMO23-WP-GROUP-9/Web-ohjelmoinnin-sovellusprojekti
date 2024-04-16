@@ -1,69 +1,77 @@
 const profileModel = require('./profileModel');
 
-async function getAllProfiles() {
+async function getAllProfiles(req, res) {
     try {
         const profiles = await profileModel.getAllProfiles();
-        return { success: true, message: profiles };
+        res.status(200).json(profiles);
     } catch (error) {
-        return { success: false, message: error.message };
+        res.status(400).json({ message: error.message });
     }
 }
 
-async function getProfileById(id) {
+async function getProfileById(req, res) {
+    const profileid = req.params.profileid;
     try {
-        const profile = await profileModel.getProfileById(id);
-        return { success: true, message: profile };
+        const profile = await profileModel.getProfileById(profileid);
+        res.status(200).json(profile);
     } catch (error) {
-        return { success: false, message: error.message };
+        res.status(400).json({ message: error.message });
     }
 }
 
-async function getProfileByName(profilename, loggedInUsername) {
+async function getProfileByName(req, res) {
+    const loggedInUsername = res.locals.username;
+    const requestedProfileName = req.params.profilename;
     try {
-        const profile = await profileModel.getProfileByName(profilename);
-        if (profile.profilename === loggedInUsername || profile.is_private === false) {
-            return { success: true, message: profile };
-        } else {
-            return { success: true, message: { profilename: profile.profilename, profilepicurl: profile.profilepicurl, is_private: profile.is_private } }
-        }
+        const profile = await profileModel.getProfileByName(requestedProfileName, loggedInUsername);
+        const isOwnProfile = loggedInUsername === requestedProfileName;
+        profile.isOwnProfile = isOwnProfile;
+        res.status(200).json(profile);
     } catch (error) {
-        return { success: false, message: error.message };
+        res.status(400).json({ message: error.message });
     }
 }
 
-async function deleteProfileById(id) {
+async function deleteProfileById(req, res) {
+    const profileid = res.locals.profileid;
     try {
-        const deleted = await profileModel.deleteProfileById(id);
-        return { success: true, message: deleted };
+        await profileModel.deleteProfileById(profileid);
+        res.status(200).json({ message: `Tietue poistettu onnistuneesti` });
     } catch (error) {
-        return { success: false, message: error.message };
+        res.status(400).json({ message: error.message });
     }
 }
 
-async function updateProfilenameAndEmail(profileid, profilename, email) {
+async function updateProfilenameAndEmail(req, res) {
+    const profileid = res.locals.profileid;
+    const { profilename, email } = req.body;
     try {
-        const updated = await profileModel.updateProfilenameAndEmail(profileid, profilename, email);
-        return { success: true, message: updated };
+        await profileModel.updateProfilenameAndEmail(profileid, profilename, email);
+        res.status(200).json({ message: `Tietue päivitetty onnistuneesti` });
     } catch (error) {
-        return { success: false, message: error.message };
+        res.status(400).json({ message: error.message });
     }
 }
 
-async function updateProfileDetails(profileid, profilepicurl, description) {
+async function updateProfileDetails(req, res) {
+    const profileid = res.locals.profileid;
+    const { profilepicurl, description } = req.body;
     try {
-        const updated = await profileModel.updateProfileDetails(profileid, profilepicurl, description);
-        return { success: true, message: updated };
+        await profileModel.updateProfileDetails(profileid, profilepicurl, description);
+        res.status(200).json({ message: `Tietue päivitetty onnistuneesti` });
     } catch (error) {
-        return { success: false, message: error.message };
+        res.status(400).json({ message: error.message });
     }
 }
 
-async function updateProfileVisibility(profileid, is_private) {
+async function updateProfileVisibility(req, res) {
+    const profileid = res.locals.profileid;
+    const { is_private } = req.body;
     try {
-        const updated = await profileModel.updateProfileVisibility(profileid, is_private);
-        return { success: true, message: updated };
+        await profileModel.updateProfileVisibility(profileid, is_private);
+        res.status(200).json({ message: `Tietue päivitetty onnistuneesti` });
     } catch (error) {
-        return { success: false, message: error.message };
+        res.status(400).json({ message: error.message });
     }
 }
 
