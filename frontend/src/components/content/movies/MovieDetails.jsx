@@ -10,43 +10,13 @@ const MovieDetails = () => {
   const [movie, setMovie] = useState(null);
   const [providers, setProviders] = useState(null);
 
-  /*useEffect(() => {
-    const fetchData = async () => {
-      try {
-    const [movieResponse, providersResponse] = await Promise.all([
-      axios.get(`${VITE_APP_BACKEND_URL}/movie/${id}`),
-      axios.get(`${VITE_APP_BACKEND_URL}/movie/provider/${id}`)
-    ]);
-
-        setMovie(movieResponse.data);
-        setProviders(providersResponse.data);
-
-      } catch (error) {
-
-        if (error.response && error.response.status === 404) {
-        console.error('Virhe elokuvan hakemisessa:', error);
-      } else {
-        console.error('Jokin meni pieleen:', error);
-      }
-    }
-  };
-  
-    fetchData();
-    
-    // Asetetaan timeout fetchProviders-funktiolle 5 sekunniksi
-    const timeoutId = setTimeout(fetchData, 100);
-  
-    // Palautetaan poisto-funktio, joka suoritetaan komponentin purkamisen yhteydessä
-    return () => clearTimeout(timeoutId);
-  }, [id]);*/
-
   useEffect(() => {
     const fetchMovie = async () => {
       try {
         const response = await axios.get(`${VITE_APP_BACKEND_URL}/movie/${id}`);
         setMovie(response.data);
       } catch (error) {
-        console.error('Virhe elokuvan hakemisessa:', error);
+        console.error('Hakuvirhe:', error);
       }
     };
 
@@ -55,7 +25,6 @@ const MovieDetails = () => {
         const response = await axios.get(`${VITE_APP_BACKEND_URL}/movie/provider/${id}`);
         setProviders(response.data);
       } catch (error) {
-        console.error('Virhe palveluntarjoajien hakemisessa:', error);
         // Jos pyyntö epäonnistuu, asetetaan providers-tila tyhjään JSON-objektiin
         setProviders({});
       }

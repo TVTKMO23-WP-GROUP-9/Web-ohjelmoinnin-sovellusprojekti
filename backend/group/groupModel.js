@@ -32,10 +32,13 @@ async function getGroupIdByName(groupname) {
 
 async function getGroupById(groupid) {
     const query = {
-        text: 'SELECT * FROM group_ WHERE groupid = $1',
+        text: 'SELECT * FROM Group_ WHERE groupid = $1',
         values: [groupid],
     };
-    return queryDatabase(query);
+    const result = await pool.query(query);
+    return result.rows[0];
+
+
 }
 
 async function deleteGroupById(groupid) {
@@ -147,6 +150,7 @@ async function getMessagesById(groupid) {
 }
 
 module.exports = {
+    queryDatabase,
     getAllGroups,
     getGroupNameById,
     getGroupIdByName,

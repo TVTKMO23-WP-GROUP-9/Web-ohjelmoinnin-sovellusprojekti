@@ -87,10 +87,6 @@ async function getReviewsByProfile(req, res) {
   }
 }
 
-
-
-// tästä vielä muutettava:
-// busineslogiikka tänne ja kantakysely modeliin!
 async function getReviewsByItem(req, res) {
   const id = req.params.id;
   const mediatype = req.params.mediatype;
@@ -103,6 +99,19 @@ async function getReviewsByItem(req, res) {
   }
 }
 
+async function serieReviewExists(req, res) {
+
+  const tvShowId = req.params.id;
+  try {
+    const reviewExists = await reviewModel.serieReviewExists(tvShowId);
+    res.json({ reviewExists });
+  } catch (error) {
+    console.error('Virhe tarkistettaessa sarjan arvostelua:', error);
+    res.status(500).send('Virhe tarkistettaessa sarjan arvostelua');
+  }
+}
+
+
 module.exports = {
   getAllReviews,
   getNewestReviews,
@@ -111,5 +120,6 @@ module.exports = {
   getReviewsByProfile,
   movieReviewFromUser,
   serieReviewFromUser,
-  getReviewsByItem
+  getReviewsByItem,
+  serieReviewExists,
 };

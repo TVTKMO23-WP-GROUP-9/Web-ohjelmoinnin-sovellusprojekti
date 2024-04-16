@@ -53,10 +53,6 @@ const ProfileDetails = ({ user }) => {
         return `${day}.${month}.${year}`;
     };
 
-    const handleEditClick = () => {
-        setEditMode(true);
-    };
-
     return (
         <div className="content">
             <div className="inner-view">
@@ -64,7 +60,7 @@ const ProfileDetails = ({ user }) => {
                     <img src={profile?.profilepicurl || ''} className="profilepic" alt="Käyttäjän kuva" />
                     {(!isPrivate || isOwnProfile) && <span className='userinfo'>Viimeksi kirjautuneena: {formatDate(lastLoggedIn)}</span>}
 
-                    {(isOwnProfile && !editMode) && <button onClick={handleEditClick} className="basicbutton">Muokkaa profiilia</button>}
+                    {(isOwnProfile && !editMode) && <button onClick={() => setEditMode(true)} className="basicbutton">Muokkaa profiilia</button>}
                 </div>
 
                 <div className="inner-right">
