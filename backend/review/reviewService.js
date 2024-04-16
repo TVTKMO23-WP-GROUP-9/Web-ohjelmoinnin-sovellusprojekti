@@ -95,11 +95,7 @@ async function getReviewsByItem(req, res) {
   const id = req.params.id;
   const mediatype = req.params.mediatype;
   try {
-    const query = {
-      text: 'SELECT * FROM Review_ WHERE revieweditem = $1 AND mediatype = $2 ORDER BY review_.timestamp DESC ',
-      values: [id, mediatype],
-    }; 
-    const reviews = await reviewModel.queryDatabase(query); 
+    const reviews = await reviewModel.getReviewsByItem(id, mediatype);
     res.json(reviews);
   } catch (error) {
     console.error('Virhe haettaessa arvosteluja:', error);

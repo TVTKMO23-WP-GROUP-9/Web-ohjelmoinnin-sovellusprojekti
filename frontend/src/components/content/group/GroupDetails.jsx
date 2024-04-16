@@ -51,6 +51,7 @@ console.log("Token from sessionStorage:", user);
       try {
         const response = await axios.get(`${VITE_APP_BACKEND_URL}/group/${id}`);
         setGroup(response.data);
+        console.log('ryhmätiedot:', response.data)
       } catch (error) {
         console.error('Virhe ryhmän hakemisessa:', error);
       }

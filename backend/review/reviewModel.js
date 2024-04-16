@@ -81,6 +81,14 @@ async function getReviewsByProfile(id) {
   return await queryDatabase(query);
 }
 
+async function getReviewsByItem(id, mediatype) {
+    const query = {
+      text: 'SELECT * FROM Review_ WHERE revieweditem = $1 AND mediatype = $2 ORDER BY review_.timestamp DESC ',
+      values: [id, mediatype],
+    };
+    return await queryDatabase(query); 
+}
+
 module.exports = {
   movieReviewFromUser,
   serieReviewFromUser,
@@ -89,4 +97,5 @@ module.exports = {
   updateReview,
   deleteReview,
   getReviewsByProfile,
+  getReviewsByItem
 };
