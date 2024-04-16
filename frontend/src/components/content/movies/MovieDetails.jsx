@@ -126,12 +126,12 @@ const MovieDetails = () => {
 
             <div className="moviereviews">
 
-              <div><ReviewForm tvShowId={id} /></div>
+              <div><ReviewForm movieId={id} /></div>
 
               <br/>
               <h2>Viimeisimmät arvostelut</h2>
 
-              <div className="reviewslisted"><Reviews tvShowId={id} mediatype={0}/></div>
+              <div className="reviewslisted"><Reviews movieId={id} mediatype={0}/></div>
             </div>
           </div>
         )}

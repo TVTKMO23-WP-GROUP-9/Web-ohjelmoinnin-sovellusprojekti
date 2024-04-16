@@ -27,6 +27,7 @@ const Reviews = ({ movieId, mediatype }) => {
               const tvResponse = await axios.get(`${import.meta.env.VITE_APP_BACKEND_URL}/series/${encodeURIComponent(review.revieweditem)}`);
               responseData = tvResponse.data;
             }
+            console.log(responseData)
             // Haetaan profiilitiedot
             const profileResponse = await axios.get(`${VITE_APP_BACKEND_URL}/profile/id/${review.profileid}`);
             const profileData = profileResponse.data;
