@@ -23,18 +23,20 @@ const Forum = ({ id, user }) => {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
             };
-
+            
             const response = await axios.get(`${VITE_APP_BACKEND_URL}/profile/${user.user}`);
 
             console.log("Token from sessionStorage:", token);
+            console.log("Onko tää menty kusemaan?:", user.user);
             console.log("Profilename from token:", user);
+            console.log("Entä kuseeko tää?:", id);
             console.log("Response from profile:", response.data);
 
             setProfileid(response.data.profileid);
             
             const groupResponse = await axios.get(`${VITE_APP_BACKEND_URL}/memberstatus/${response.data.profileid}/${id}`);
             
-            console.log("Response from groupresponse:", groupResponse.data);
+            console.log("Response from status:", groupResponse.data);
 
             if (groupResponse.data.hasOwnProperty('pending') && groupResponse.data.pending === 0) {
               setIsMember(true);
@@ -44,7 +46,6 @@ const Forum = ({ id, user }) => {
               setMainuser(true);
             }
             console.log("Response from profile:", groupResponse.data);
-         
         } catch (error) {
             console.error('Virhe haettaessa profiilitietoja:', error);
         }
@@ -69,7 +70,6 @@ const Forum = ({ id, user }) => {
           };
         } catch (error) {
           console.error('Virhe nimen hakemisessa:', error);
-          return { ...message, name: { profilename: 'Unknown' } };
         }
       }));
 

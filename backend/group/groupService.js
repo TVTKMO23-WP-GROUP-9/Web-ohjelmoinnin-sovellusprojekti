@@ -56,13 +56,13 @@ async function deleteGroupById(req, res) {
 
 async function updateGroupById(req, res) {
     const groupid = req.params.groupid;
-    const { groupexplanation } = req.body;
+    const { grouppicurl, groupexplanation } = req.body;
     try {
-        await groupModel.updateGroupById(groupid, groupexplanation);
+        await groupModel.updateGroupById(groupid, grouppicurl, groupexplanation);
         res.send('Ryhmän tiedot päivitetty onnistuneesti');
     } catch (error) {
         console.error('Virhe päivitettäessä ryhmää:', error);
-        res.status(500).send('Virhe päivitettäessä ryhmää');
+        res.status(500).send('Virhe päivitettäessä ryhmää' + error);
     }
 }
 
@@ -135,11 +135,11 @@ async function GetMemberList(req, res) {
 }
 
 async function getMemberStatus(req, res) {
-    const groupid = req.params.groupid;
     const profileid = req.params.profileid;
+    const groupid = req.params.groupid;
     try {
-        const memberStatus = await groupModel.getMemberStatus(groupid, profileid);
-        res.json(memberStatus);
+        const memberStatus = await groupModel.getMemberStatus(profileid, groupid);
+        res.json(memberStatus[0]);
     } catch (error) {
         console.error('Virhe haettaessa jäsenen tilaa:', error);
         res.status(500).send('Virhe haettaessa jäsenen tilaa');

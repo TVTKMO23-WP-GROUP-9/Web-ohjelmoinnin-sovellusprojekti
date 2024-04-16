@@ -49,11 +49,11 @@ async function deleteGroupById(groupid) {
     return queryDatabase(query);
 }
 
-async function updateGroupById(groupid, groupexplanation) {
+async function updateGroupById(groupid, grouppicurl, groupexplanation) {
     const now = new Date();
     const query = {
-        text: 'UPDATE group_ SET groupexplanation = $1, timestamp = $2 WHERE groupid = $3',
-        values: [groupexplanation, now, groupid],
+        text: 'UPDATE group_ SET grouppicurl = $2, groupexplanation = $3, timestamp = $4 WHERE groupid = $1',
+        values: [groupid, grouppicurl, groupexplanation, now],
     };
     return queryDatabase(query);
 }
@@ -117,7 +117,7 @@ async function GetMemberList(groupid, pending) {
     return queryDatabase(query);
 }
 
-async function getMemberStatus(groupid, profileid) {
+async function getMemberStatus(profileid, groupid) {
     const query = {
         text: `SELECT * FROM memberlist_ WHERE profileid = $1 AND groupid = $2`,
         values: [profileid, groupid],
@@ -127,7 +127,7 @@ async function getMemberStatus(groupid, profileid) {
 
 async function deleteMemberlist(groupid) {
     const query = {
-        text: 'DELETE FROM Memberlist_ WHERE groupid = $1',
+        text: 'DELETE FROM memberlist_ WHERE groupid = $1',
         values: [groupid],
     };
     return queryDatabase(query);
