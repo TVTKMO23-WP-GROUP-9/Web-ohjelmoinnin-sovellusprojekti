@@ -73,12 +73,14 @@
   }
 
   .inner-view ul,
-  .three-view ul {
+  .three-view ul,
+  .ginner-view ul {
     padding-left: 36px;
   }
 
   .inner-view li,
-  .three-view li {
+  .three-view li,
+  .ginner-view li {
     padding-left: 8px;
   }
 
@@ -97,14 +99,16 @@
     flex: 100%;
   }
 
-  .profile-between {
+  .profile-between,
+  .group-between {
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
     align-items: center;
   }
 
-  .profile-view {
+  .profile-view,
+  .group-view {
     display: block;
     min-width: 90%;
   }
@@ -216,17 +220,14 @@
   }
 
   .inner-view ul,
-  .three-view ul {
+  .three-view ul,
+  .ginner-view ul {
     padding-left: 16px;
   }
 
   .inner-view li,
-  .three-view li {
-    padding-left: 8px;
-  }
-
-  .inner-view li,
-  .three-view li {
+  .three-view li,
+  .ginner-view li {
     padding-left: 8px;
   }
 
