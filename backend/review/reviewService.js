@@ -29,6 +29,22 @@ async function getReviewsByProfile(req, res) {
   }
 }
 
+async function getReviewsByItem(req, res) {
+  const id = req.params.id;
+  const mediatype = req.params.mediatype;
+  try {
+    const query = {
+      text: 'SELECT * FROM Review_ WHERE revieweditem = $1 AND mediatype = $2 ORDER BY review_.timestamp DESC ',
+      values: [id, mediatype],
+    }; 
+    const reviews = await reviewModel.queryDatabase(query); 
+    res.json(reviews);
+  } catch (error) {
+    console.error('Virhe haettaessa arvosteluja:', error);
+    res.status(500).send('Virhe haettaessa arvosteluja');
+  }
+}
+
 async function getReviewById(req, res) {
   const id = req.params.id;
   try {
@@ -133,6 +149,7 @@ module.exports = {
   getAllReviews,
   getNewestReviews,
   getReviewById,
+  getReviewsByItem,
   updateReview,
   deleteReview,
   getReviewsByProfile,
