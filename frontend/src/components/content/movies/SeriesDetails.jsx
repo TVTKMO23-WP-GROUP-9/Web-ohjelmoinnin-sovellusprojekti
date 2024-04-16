@@ -26,8 +26,7 @@ const SeriesDetails = () => {
         const response = await axios.get(`${VITE_APP_BACKEND_URL}/tv/provider/${id}`);
         setProviders(response.data);
       } catch (error) {
-        console.error('Virhe palveluntarjoajien hakemisessa:', error);
-        // Jos pyyntö epäonnistuu, asetetaan providers-tila tyhjään JSON-objektiin
+        // asetetaan providers-tila tyhjään JSON-objektiin
         setProviders({});
       }
     };
