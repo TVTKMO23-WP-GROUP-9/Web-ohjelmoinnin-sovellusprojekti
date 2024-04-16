@@ -87,6 +87,26 @@ async function getReviewsByProfile(req, res) {
   }
 }
 
+
+
+// tästä vielä muutettava:
+// busineslogiikka tänne ja kantakysely modeliin!
+async function getReviewsByItem(req, res) {
+  const id = req.params.id;
+  const mediatype = req.params.mediatype;
+  try {
+    const query = {
+      text: 'SELECT * FROM Review_ WHERE revieweditem = $1 AND mediatype = $2 ORDER BY review_.timestamp DESC ',
+      values: [id, mediatype],
+    }; 
+    const reviews = await reviewModel.queryDatabase(query); 
+    res.json(reviews);
+  } catch (error) {
+    console.error('Virhe haettaessa arvosteluja:', error);
+    res.status(500).send('Virhe haettaessa arvosteluja');
+  }
+}
+
 module.exports = {
   getAllReviews,
   getNewestReviews,
@@ -95,5 +115,5 @@ module.exports = {
   getReviewsByProfile,
   movieReviewFromUser,
   serieReviewFromUser,
+  getReviewsByItem
 };
-
