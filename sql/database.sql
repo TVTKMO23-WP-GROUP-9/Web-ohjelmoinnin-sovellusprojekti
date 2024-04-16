@@ -2,6 +2,7 @@
 -- Tietokannan skeema ilman testidataa, PostgreSQL 
 -- Ryhmä 9 - Leffaysi 
 
+-- Poistetaan taulut, jos ne ovat olemassa
 DROP TABLE IF EXISTS Favoritelist_ CASCADE;
 DROP TABLE IF EXISTS Group_ CASCADE;
 DROP TABLE IF EXISTS Memberlist_ CASCADE;
@@ -9,114 +10,76 @@ DROP TABLE IF EXISTS Message_ CASCADE;
 DROP TABLE IF EXISTS Profile_ CASCADE;
 DROP TABLE IF EXISTS Review_ CASCADE;
 
+-- Käyttäjät
 CREATE TABLE IF NOT EXISTS Profile_
 (
     profileid SERIAL PRIMARY KEY,
     profilename VARCHAR(40) UNIQUE NOT NULL,
     hashedpassword VARCHAR(255) NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
-    profilepicurl text COLLATE pg_catalog."default",
+    profilepicurl VARCHAR(400),
     is_private BOOLEAN DEFAULT FALSE, 
-    "timestamp" TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-    description text COLLATE pg_catalog."default"
+    timestamp TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    description VARCHAR(1000)
 );
 
+-- Ryhmät
 CREATE TABLE IF NOT EXISTS Group_
 (
     groupid SERIAL PRIMARY KEY,
     groupname VARCHAR(255) UNIQUE NOT NULL,
-    groupexplanation text COLLATE pg_catalog."default",
-    "timestamp" timestamp without time zone NOT NULL
+    groupexplanation VARCHAR(1000),
+    timestamp TIMESTAMP WITHOUT TIME ZONE NOT NULL
 );
 
--- mainuser: 1 = ryhmän omistaja, 0 = jäsen
--- pending: 0 = hyväksytty, 1 = kutsuttu käyttäjä, 2 = hyväksymispyyntö käyttäjältä
+-- Ryhmien jäsenet ja omistajat
 CREATE TABLE IF NOT EXISTS Memberlist_
 (
-    memberlistid serial NOT NULL,
-    profileid integer NOT NULL,
-    mainuser integer NOT NULL DEFAULT 0,
-    groupid integer NOT NULL,
-    pending integer NOT NULL DEFAULT 0,
-    FOREIGN KEY (profileid) REFERENCES Profile_(profileid),
-    FOREIGN KEY (groupid) REFERENCES Group_(groupid)
+    memberlistid SERIAL PRIMARY KEY,
+    profileid INTEGER NOT NULL,
+    mainuser INTEGER NOT NULL DEFAULT 0,
+    groupid INTEGER NOT NULL,
+    pending INTEGER NOT NULL DEFAULT 0,
+    FOREIGN KEY (profileid) REFERENCES Profile_(profileid) ON DELETE CASCADE,
+    FOREIGN KEY (groupid) REFERENCES Group_(groupid) ON DELETE CASCADE,
+    CONSTRAINT unique_userInGroup UNIQUE (profileid, groupid)
 );
 
+-- Viestit (ryhmäkohtaiset)
 CREATE TABLE IF NOT EXISTS Message_
 (
-    messageid serial NOT NULL,
-    groupid integer NOT NULL,
-    profileid integer NOT NULL,
-    message text COLLATE pg_catalog."default" NOT NULL,
-    "timestamp" timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (profileid) REFERENCES Profile_(profileid),
-    FOREIGN KEY (groupid) REFERENCES Group_(groupid)
+    messageid SERIAL PRIMARY KEY,
+    groupid INTEGER NOT NULL,
+    profileid INTEGER NOT NULL,
+    message VARCHAR(400) NOT NULL,
+    timestamp TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (profileid) REFERENCES Profile_(profileid) ON DELETE CASCADE,
+    FOREIGN KEY (groupid) REFERENCES Group_(groupid) ON DELETE CASCADE
 );
 
+-- Suosikkilistaukset
 CREATE TABLE IF NOT EXISTS Favoritelist_
 (
-    idfavoritelist serial NOT NULL,
-    profileid integer,
-    groupid integer,
-    favoriteditem text COLLATE pg_catalog."default" ,
-    showtime text COLLATE pg_catalog."default",
-    "timestamp" timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
-    CONSTRAINT "Favoritelist_pkey" PRIMARY KEY (idfavoritelist),
-    FOREIGN KEY (profileid) REFERENCES Profile_(profileid),
-    FOREIGN KEY (groupid) REFERENCES Group_(groupid)
+    idfavoritelist SERIAL PRIMARY KEY,
+    profileid INTEGER,
+    groupid INTEGER,
+    favoriteditem TEXT,
+    showtime TEXT,
+    timestamp TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (profileid) REFERENCES Profile_(profileid) ON DELETE CASCADE,
+    FOREIGN KEY (groupid) REFERENCES Group_(groupid) ON DELETE CASCADE
 );
 
+-- Arvostelut
 CREATE TABLE IF NOT EXISTS Review_ (
-    idreview serial NOT NULL,
-    profileid integer NOT NULL,
-    revieweditem text COLLATE pg_catalog."default",
-    review text COLLATE pg_catalog."default",
-    rating smallint NOT NULL,
-    "timestamp" timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
-    mediatype smallint,
-    FOREIGN KEY (profileid) REFERENCES Profile_(profileid),
+    idreview SERIAL PRIMARY KEY,
+    profileid INTEGER NOT NULL,
+    revieweditem VARCHAR(40),
+    review VARCHAR(2000),
+    rating SMALLINT NOT NULL,
+    timestamp TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    mediatype SMALLINT,
+    FOREIGN KEY (profileid) REFERENCES Profile_(profileid) ON DELETE CASCADE,
     CONSTRAINT unique_review UNIQUE (profileid, revieweditem),
     CONSTRAINT check_rating_range CHECK (rating >= 1 AND rating <= 5)
 );
-
-ALTER TABLE IF EXISTS Favoritelist_
-    ADD CONSTRAINT fk_groupid FOREIGN KEY (groupid)
-    REFERENCES Group_ (groupid) MATCH SIMPLE
-    ON UPDATE CASCADE
-    ON DELETE CASCADE;
-
-ALTER TABLE IF EXISTS Favoritelist_
-    ADD CONSTRAINT fk_profileid FOREIGN KEY (profileid)
-    REFERENCES Profile_ (profileid) MATCH SIMPLE
-    ON UPDATE CASCADE
-    ON DELETE CASCADE;
-
-ALTER TABLE IF EXISTS Memberlist_
-    ADD CONSTRAINT fk_groupid FOREIGN KEY (groupid)
-    REFERENCES Group_ (groupid) MATCH SIMPLE
-    ON UPDATE CASCADE
-    ON DELETE CASCADE;
-
-ALTER TABLE IF EXISTS Memberlist_
-    ADD CONSTRAINT fk_profileid FOREIGN KEY (profileid)
-    REFERENCES Profile_ (profileid) MATCH SIMPLE
-    ON UPDATE CASCADE
-    ON DELETE CASCADE;
-
-ALTER TABLE IF EXISTS Message_
-    ADD CONSTRAINT fk_groupid FOREIGN KEY (groupid)
-    REFERENCES Group_ (groupid) MATCH SIMPLE
-    ON UPDATE CASCADE
-    ON DELETE CASCADE;
-
-ALTER TABLE IF EXISTS Message_
-    ADD CONSTRAINT fk_profileid FOREIGN KEY (profileid)
-    REFERENCES Profile_ (profileid) MATCH SIMPLE
-    ON UPDATE CASCADE
-    ON DELETE CASCADE;
-
-ALTER TABLE IF EXISTS Review_
-    ADD CONSTRAINT fk_profileid FOREIGN KEY (profileid)
-    REFERENCES Profile_ (profileid) MATCH SIMPLE
-    ON UPDATE CASCADE
-    ON DELETE CASCADE;
