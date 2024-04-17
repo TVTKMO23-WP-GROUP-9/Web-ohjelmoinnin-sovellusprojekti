@@ -49,9 +49,7 @@ ul {
     padding: 8px;
 }
 
-h2 {
-    color: var(--profile);
-}   
+
 
 .groupSections {
     line-height: 1.8em;
@@ -214,4 +212,11 @@ h2 {
     background-color: transparent; 
     border: none; 
     padding: 0; 
+}
+
+.ginner-view h2,
+.group-between h2,
+.greviews-view h2 {
+    color: var(--profile);
+    
 }
