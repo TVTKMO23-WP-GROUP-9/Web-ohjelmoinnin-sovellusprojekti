@@ -12,5 +12,6 @@ router.delete('/profile', auth, profileService.deleteProfileById);
 router.put('/profile/nameandemail', auth, profileService.updateProfilenameAndEmail);
 router.put('/profile', auth, profileService.updateProfileDetails);
 router.put('/profile/visibility', auth, profileService.updateProfileVisibility);
+router.put('/profile/updatereviews', auth, profileService.updateReviewToAnon);
 
 module.exports = router;

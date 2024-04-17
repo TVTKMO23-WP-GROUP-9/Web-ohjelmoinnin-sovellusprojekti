@@ -75,6 +75,17 @@ async function updateProfileVisibility(req, res) {
     }
 }
 
+async function updateReviewToAnon(req, res) {
+    const profileid = res.locals.profileid;
+    try {
+        await profileModel.updateReviewToAnon(profileid);
+        res.send('Arvostelu päivitetty onnistuneesti');
+    } catch (error) {
+        console.error('Virhe päivitettäessä arvostelua:', error);
+        res.status(500).send('Virhe päivitettäessä arvostelua');
+    }
+}
+
 module.exports = {
     getAllProfiles,
     getProfileById,
@@ -82,5 +93,6 @@ module.exports = {
     deleteProfileById,
     updateProfilenameAndEmail,
     updateProfileDetails,
-    updateProfileVisibility
+    updateProfileVisibility,
+    updateReviewToAnon
 };

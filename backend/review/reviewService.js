@@ -1,10 +1,10 @@
 const reviewModel = require('./reviewModel');
 
 // arvostelun lähettäminen käyttöliittymästä (elokuva)
-async function movieReviewFromUser (req, res) {
+async function movieReviewFromUser(req, res) {
   profileid = res.locals.profileid;
 
-  const { mediatype, rating, review, revieweditem} = req.body;
+  const { mediatype, rating, review, revieweditem } = req.body;
 
   const addReview = await reviewModel.movieReviewFromUser(profileid, mediatype, rating, review, revieweditem);
   if (addReview) {
@@ -16,10 +16,10 @@ async function movieReviewFromUser (req, res) {
 }
 
 // arvostelun lähettäminen käyttöliittymästä (SARJA)
-async function serieReviewFromUser (req, res) {
+async function serieReviewFromUser(req, res) {
   profileid = res.locals.profileid;
 
-  const { mediatype, rating, review, revieweditem} = req.body;
+  const { mediatype, rating, review, revieweditem } = req.body;
 
   const addReview = await reviewModel.serieReviewFromUser(profileid, mediatype, rating, review, revieweditem);
   if (addReview) {
@@ -32,21 +32,21 @@ async function serieReviewFromUser (req, res) {
 
 async function getAllReviews(req, res) {
   try {
-      const reviews = await reviewModel.getAllReviews();
-      res.json(reviews);
+    const reviews = await reviewModel.getAllReviews();
+    res.json(reviews);
   } catch (error) {
-      console.error('Virhe haettaessa arvosteluja:', error);
-      res.status(500).send('Virhe haettaessa arvosteluja');
+    console.error('Virhe haettaessa arvosteluja:', error);
+    res.status(500).send('Virhe haettaessa arvosteluja');
   }
 }
 
 async function getNewestReviews(req, res) {
   try {
-      const reviews = await reviewModel.getNewestReviews();
-      res.json(reviews);
+    const reviews = await reviewModel.getNewestReviews();
+    res.json(reviews);
   } catch (error) {
-      console.error('Virhe haettaessa arvosteluja:', error);
-      res.status(500).send('Virhe haettaessa arvosteluja');
+    console.error('Virhe haettaessa arvosteluja:', error);
+    res.status(500).send('Virhe haettaessa arvosteluja');
   }
 }
 
@@ -55,11 +55,11 @@ async function updateReview(req, res) {
   const idreview = req.params.id;
   const { review, rating } = req.body;
   try {
-      await reviewModel.updateReview(idreview, review, rating);
-      res.send('Arvostelu päivitetty onnistuneesti');
+    await reviewModel.updateReview(idreview, review, rating);
+    res.send('Arvostelu päivitetty onnistuneesti');
   } catch (error) {
-      console.error('Virhe päivitettäessä arvostelua:', error);
-      res.status(500).send('Virhe päivitettäessä arvostelua');
+    console.error('Virhe päivitettäessä arvostelua:', error);
+    res.status(500).send('Virhe päivitettäessä arvostelua');
   }
 }
 
@@ -67,11 +67,11 @@ async function updateReview(req, res) {
 async function deleteReview(req, res) {
   const id = req.params.id;
   try {
-      await reviewModel.deleteReview(id);
-      res.send('Arvostelu poistettu onnistuneesti');
+    await reviewModel.deleteReview(id);
+    res.send('Arvostelu poistettu onnistuneesti');
   } catch (error) {
-      console.error('Virhe poistettaessa arvostelua:', error);
-      res.status(500).send('Virhe poistettaessa arvostelua');
+    console.error('Virhe poistettaessa arvostelua:', error);
+    res.status(500).send('Virhe poistettaessa arvostelua');
   }
 }
 
@@ -79,11 +79,11 @@ async function deleteReview(req, res) {
 async function getReviewsByProfile(req, res) {
   const id = req.params.id;
   try {
-      const reviews = await reviewModel.getReviewsByProfile(id);
-      res.json(reviews);
+    const reviews = await reviewModel.getReviewsByProfile(id);
+    res.json(reviews);
   } catch (error) {
-      console.error('Virhe haettaessa arvosteluja:', error);
-      res.status(500).send('Virhe haettaessa arvosteluja');
+    console.error('Virhe haettaessa arvosteluja:', error);
+    res.status(500).send('Virhe haettaessa arvosteluja');
   }
 }
 

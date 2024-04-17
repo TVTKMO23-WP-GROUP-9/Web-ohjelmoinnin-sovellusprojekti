@@ -63,6 +63,15 @@ async function updateProfileVisibility(profileid, is_private) {
     return result.rowCount;
 }
 
+async function updateReviewToAnon(profileid) {
+    const query = {
+        text: 'UPDATE Review_ SET profileid = 28 WHERE profileid = $1',
+        values: [profileid],
+    };
+    const result = await pool.query(query);
+    return result.rowCount;
+}
+
 module.exports = {
     getAllProfiles,
     getProfileById,
@@ -71,4 +80,5 @@ module.exports = {
     updateProfilenameAndEmail,
     updateProfileDetails,
     updateProfileVisibility,
+    updateReviewToAnon
 };

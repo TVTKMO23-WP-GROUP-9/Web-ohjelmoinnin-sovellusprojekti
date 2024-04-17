@@ -44,6 +44,7 @@ export default function MyAccount({ user }) {
 
     const handleVisibility = async (e) => {
         try {
+            console.log(headers);
             const data = {
                 is_private: !visibility.is_private
             };
@@ -127,6 +128,18 @@ export default function MyAccount({ user }) {
         setDeleteClicked(false);
     };
 
+    const handlePartialDelete = async () => {
+        try {
+            console.log(headers);
+            alert('Nappi toimii');
+            await axios.put(VITE_APP_BACKEND_URL + `/profile/updatereviews`, { headers });
+
+            alert('Käyttäjätilin arvostelut muutettu anonyymeiksi.');
+        } catch (error) {
+            console.error('Virhe muutettaessa arvosteluja:', error);
+        }
+    }
+
     return (
 
         <div className="content">
@@ -184,7 +197,8 @@ export default function MyAccount({ user }) {
                         ) : (
                             <div>
                                 <b>Haluatko varmasti poistaa käyttäjätilisi?</b> <br />
-                                <button className="basicbutton" onClick={handleDelete}>Kyllä, poista tilini</button>
+                                <button className="basicbutton" onClick={handleDelete}>Kyllä, poista kaikki tietoni</button>
+                                <button className="basicbutton" onClick={handlePartialDelete}>Kyllä, poista tilini, mutta jätä arvosteluni</button>
                                 <button className="basicbutton" onClick={handleCancelDelete}>Peruuta</button>
                             </div>
                         )}
