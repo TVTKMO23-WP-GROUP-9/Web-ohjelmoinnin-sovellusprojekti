@@ -129,15 +129,15 @@ console.log("Token from sessionStorage:", user);
       </div>
 
       {editMode && <GroupEdit id={id} />}
+
       {isMember && (
+
       <div className='group-between'>
       
         <div className="group-view">
           <div className="group-content">
-            <h2>Viestit &nbsp;<span className='emoji uni10'></span></h2>
-            <ul>
-              <Forum id={id} user={user} />
-            </ul>
+            <h2>Ryhmän suosikit &nbsp;<span className='emoji uni10'></span></h2>
+            <span>Listaus tähän?</span>
           </div>
         </div>
 
@@ -150,12 +150,26 @@ console.log("Token from sessionStorage:", user);
       </div>
       )}
 
+      
+      {isMember && (
+      <div className='gmessages'>
+        <h2>Keskustelu  &nbsp;<span className='emoji uni08'></span></h2>
+
+        <div className='msgboard'>
+          <Forum id={id} user={user} />
+        </div>
+
+      </div>
+      )}
+
+
       {isMember && (
       <div className='greviews-view'>
         <h2>Arvostelut  &nbsp;<span className='emoji uni08'></span></h2>
         <ReviewList id={id} />
       </div>
       )}
+
       {isMember && (
       <>
         {confirmDeleteId === profileId ? (
