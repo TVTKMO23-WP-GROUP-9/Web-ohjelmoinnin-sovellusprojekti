@@ -104,15 +104,15 @@ async function getUserGroups(profileid) {
     return queryDatabase(query);
 }
 
-async function getGroupsByProfilename(profilename) {
+async function getGroupsByProfilename(profilename, pending) {
     const query = {
         text: `
             SELECT * FROM Group_ g
             INNER JOIN Memberlist_ m ON g.groupid = m.groupid
             INNER JOIN Profile_ p ON m.profileid = p.profileid
-            WHERE p.profilename = $1;
+            WHERE p.profilename = $1 AND m.pending = $2;
         `,
-        values: [profilename],
+        values: [profilename, pending],
     };
     return queryDatabase(query);
 }

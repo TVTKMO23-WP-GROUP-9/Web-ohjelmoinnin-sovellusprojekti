@@ -127,8 +127,9 @@ async function getUserGroups(req, res) {
 
 async function getGroupsByProfilename(req, res) {
     const profilename = req.params.profilename;
+    const pending = req.params.pending;
     try {
-        const groups = await groupModel.getGroupsByProfilename(profilename);
+        const groups = await groupModel.getGroupsByProfilename(profilename, pending);
         res.json(groups);
     } catch (error) {
         console.error('Virhe haettaessa käyttäjän ryhmiä profilenimen perusteella:', error);
