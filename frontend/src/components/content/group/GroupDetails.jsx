@@ -13,6 +13,7 @@ const GroupDetails = ({ user }) => {
   const { id } = useParams();
   const [group, setGroup] = useState(null);
   const [editMode, setEditMode] = useState(false);
+  const [isMember, setIsMember] = useState(false);
   const [isMainuser, setMainuser] = useState(null);
   const [profileId, setProfileid] = useState(null);
   
@@ -32,9 +33,12 @@ const GroupDetails = ({ user }) => {
             console.log("Response from profile:", response.data);
 
             setProfileid(response.data.profileid);
-            
+
             const groupResponse = await axios.get(`${VITE_APP_BACKEND_URL}/memberstatus/${response.data.profileid}/${id}`);
-            
+
+            if (groupResponse.data.hasOwnProperty('pending') && groupResponse.data.pending === 0) {
+              setIsMember(true);
+            }
             if (groupResponse.data.hasOwnProperty('mainuser') && groupResponse.data.mainuser === 1) {
               setMainuser(true);
             }
@@ -86,8 +90,9 @@ console.log("Token from sessionStorage:", user);
         </div>
       </div>
       {editMode && <GroupEdit id={id} />}
+      {isMember && (
       <div className='group-between'>
-
+      
         <div className="group-view">
           <div className="group-content">
             <h2>Viestit &nbsp;<span className='emoji uni10'></span></h2>
@@ -104,11 +109,14 @@ console.log("Token from sessionStorage:", user);
           </div>
         </div>
       </div>
+      )}
 
+      {isMember && (
       <div className='greviews-view'>
         <h2>Arvostelut  &nbsp;<span className='emoji uni08'></span></h2>
         <ReviewList id={id} />
       </div>
+      )}
     </div>
   );
 };
