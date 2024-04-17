@@ -111,6 +111,17 @@ async function serieReviewExists(req, res) {
   }
 }
 
+async function updateReviewToAnon(req, res) {
+  const profileid = res.locals.profileid;
+  try {
+    await reviewModel.updateReviewToAnon(profileid);
+    res.send('Arvostelu päivitetty onnistuneesti');
+  } catch (error) {
+    console.error('Virhe päivitettäessä arvostelua:', error);
+    res.status(500).send('Virhe päivitettäessä arvostelua');
+  }
+}
+
 
 module.exports = {
   getAllReviews,
@@ -122,4 +133,5 @@ module.exports = {
   serieReviewFromUser,
   getReviewsByItem,
   serieReviewExists,
+  updateReviewToAnon
 };
