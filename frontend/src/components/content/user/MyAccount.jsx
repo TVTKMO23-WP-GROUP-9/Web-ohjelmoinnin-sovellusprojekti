@@ -196,11 +196,11 @@ export default function MyAccount({ user }) {
                             <div>
                                 <b>Haluatko varmasti poistaa käyttäjätilisi?</b> <br />
                                 <button className="basicbutton" onClick={handleDelete}>Kyllä, poista kaikki tietoni</button>
-                                <button className="basicbutton" onClick={handlePartialDelete}>Kyllä, poista tilini, mutta jätä arvosteluni</button>
-                                <button className="basicbutton" onClick={handleCancelDelete}>Peruuta</button>
+                                <button className="basicbutton" onClick={handlePartialDelete}>Kyllä, säästä arvosteluni</button>
+                                <button className="basicbutton" onClick={handleCancelDelete}>En, peruuta</button>
                             </div>
                         )}
-                        <p>Jos poistat tilin, niin kaikki tilisi tiedot poistetaan pysyvästi. </p>
+                        <p>Jos poistat tilin, niin kaikki tilisi tiedot poistetaan pysyvästi. Voit myös jättää tekemäsi arvostelut anonyymin nimimerkin alle.</p>
                     </div>
                 </div>
             </div>
