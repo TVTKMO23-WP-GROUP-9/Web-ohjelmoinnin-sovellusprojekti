@@ -67,10 +67,10 @@ async function createGroup(groupname, groupexplanation) {
     return queryDatabase(query);
 }
 
-async function createMember(profileid, mainuser, groupid, pending) {
+async function createMember(groupid, mainuser, profileid, pending) {
     const query = {
-        text: 'INSERT INTO memberlist_ (profileid, mainuser, groupid, pending) VALUES ($1, $2, $3, $4)',
-        values: [profileid, mainuser, groupid, pending],
+        text: 'INSERT INTO memberlist_ (groupid, mainuser, profileid, pending) VALUES ($1, $2, $3, $4)',
+        values: [groupid, mainuser, profileid, pending],
     };
     return queryDatabase(query);
 }
@@ -133,10 +133,10 @@ async function getMemberStatus(profileid, groupid) {
     return queryDatabase(query);
 }
 
-async function deleteMemberlist(groupid) {
+async function deleteMember(memberlistid) {
     const query = {
-        text: 'DELETE FROM memberlist_ WHERE groupid = $1',
-        values: [groupid],
+        text: 'DELETE FROM memberlist_ WHERE memberlistid = $1',
+        values: [memberlistid],
     };
     return queryDatabase(query);
 }
@@ -173,7 +173,7 @@ module.exports = {
     getGroupsByProfilename,
     GetMemberList,
     getMemberStatus,
-    deleteMemberlist,
+    deleteMember,
     createMemberList,
     getMessagesById,
     deleteMessage

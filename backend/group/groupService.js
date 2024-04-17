@@ -79,9 +79,12 @@ async function createGroup(req, res) {
 }
 
 async function createMember(req, res) {
-    const { profileid, mainuser, groupid, pending } = req.body;
+    const groupid = req.params.groupid;
+    const mainuser = req.params.mainuser;
+    const profileid = req.params.profileid;
+    const pending = req.params.pending;
     try {
-        await groupModel.createMember(profileid, mainuser, groupid, pending);
+        await groupModel.createMember(groupid, mainuser, profileid, pending);
         res.send('Uusi jäsen lisätty onnistuneesti ryhmään');
     } catch (error) {
         console.error('Virhe lisätessä jäsentä ryhmään:', error);
@@ -157,14 +160,14 @@ async function getMemberStatus(req, res) {
     }
 }
 
-async function deleteMemberlist(req, res) {
-    const groupid = req.params.groupid;
+async function deleteMember(req, res) {
+    const memberlistid = req.params.memberlistid;
     try {
-        await groupModel.deleteMemberlist(groupid);
-        res.send('Jäsenluettelo poistettu onnistuneesti');
+        await groupModel.deleteMember(memberlistid);
+        res.send('Jäsen poistettu onnistuneesti');
     } catch (error) {
-        console.error('Virhe poistettaessa jäsenluetteloa:', error);
-        res.status(500).send('Virhe poistettaessa jäsenluetteloa');
+        console.error('Virhe poistettaessa jäsenyyttä:', error);
+        res.status(500).send('Virhe poistettaessa jäsenyyttä');
     }
 }
 
@@ -208,6 +211,6 @@ module.exports = {
     getGroupsByProfilename,
     GetMemberList,
     getMemberStatus,
-    deleteMemberlist,
+    deleteMember,
     createMemberList
 };

@@ -14,6 +14,7 @@ const GroupDetails = ({ user }) => {
   const [group, setGroup] = useState(null);
   const [editMode, setEditMode] = useState(false);
   const [isMember, setIsMember] = useState(false);
+  const [isPending, setIsPending] = useState(false);
   const [isMainuser, setMainuser] = useState(null);
   const [profileId, setProfileid] = useState(null);
   
@@ -38,6 +39,9 @@ const GroupDetails = ({ user }) => {
 
             if (groupResponse.data.hasOwnProperty('pending') && groupResponse.data.pending === 0) {
               setIsMember(true);
+            }
+            if (groupResponse.data.hasOwnProperty('pending') && (groupResponse.data.pending === 1 || groupResponse.data.pending === 2 )) {
+              setIsPending(true);
             }
             if (groupResponse.data.hasOwnProperty('mainuser') && groupResponse.data.mainuser === 1) {
               setMainuser(true);
@@ -68,6 +72,34 @@ console.log("Token from sessionStorage:", user);
     fetchGroup();
   }, [id]);
 
+  const handleApplicationToJoin = async (profileId, groupId) => {
+    try {
+      await axios.post(`${VITE_APP_BACKEND_URL}/memberstatus/${profileId}/0/${groupId}/1`);
+      window.location.reload(); 
+    } catch (error) {
+      console.error('Virhe pyynnön lähettämisessä:', error);
+    }
+  };
+
+  const handleRemoveApplication = async (profileId, id) => {
+    try {
+      const memberResponse = await axios.get(`${VITE_APP_BACKEND_URL}/memberstatus/${profileId}/${id}`);
+      console.log(memberResponse); 
+      if (memberResponse && memberResponse.data && memberResponse.data.memberlistid) {
+        try {
+          await axios.delete(`${VITE_APP_BACKEND_URL}/memberstatus/${memberResponse.data.memberlistid}`);
+          window.location.reload(); 
+        } catch (error) {
+          console.error('Virhe pyynnön poistamisessa:', error);
+        }
+      } else {
+        console.error('Jäsennumeron hakeminen epäonnistui tai memberlistid puuttuu vastauksesta.');
+      }
+    } catch (error) {
+      console.error('Virhe jäsennumeron hakemisessa:', error);
+    }
+  };
+
   return (
     <div className="content">
       <div className="ginner-view">
@@ -89,6 +121,12 @@ console.log("Token from sessionStorage:", user);
           </ul>
         </div>
       </div>
+      {(!isMember && !isPending && user && user.user !== null && user.user !== undefined) && (
+          <button className="basicbutton" onClick={() => handleApplicationToJoin(profileId, id)}>Liittymispyyntö</button>
+      )}
+      {isPending && (
+          <button className="basicbutton" onClick={() => handleRemoveApplication(profileId, id)}>Peru Pyyntö</button>
+      )}
       {editMode && <GroupEdit id={id} />}
       {isMember && (
       <div className='group-between'>
