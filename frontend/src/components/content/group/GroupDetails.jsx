@@ -144,7 +144,7 @@ console.log("Token from sessionStorage:", user);
         <div className="group-view">
           <div className="group-content">
             <h2>Jäsenet &nbsp;<span className='emoji uni07'></span></h2>
-            <MemberList id={id} />
+            <MemberList id={id} user={user} />
           </div>
         </div>
       </div>
