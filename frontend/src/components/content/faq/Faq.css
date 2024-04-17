@@ -1,0 +1,55 @@
+#groupinfo {
+    background-color: var(--moviedetails);
+    border-radius: 10px;
+    margin-top: 50px;
+    display: flex; 
+    flex-direction: column; 
+    border: 1px solid #000000;
+    box-shadow: var(--shadow06);
+}
+
+.gsection1,
+.gsection2,
+.gsection3 {
+    margin-top: 50px;
+    padding: 40px;
+    border-radius: 10px;
+}
+
+.gsection1 {
+    background-color: var(--greyblue);
+}
+
+.gsection2,
+.gsection3 {
+    background-color: var(--table-bg);
+    border: var(--solid);
+    box-shadow: var(--shadow02);
+}
+
+#groupinfo h2 {
+    color: var(--h2);
+}
+
+
+.faq-heading {
+    cursor: pointer;
+    margin-bottom: 5px;
+}
+
+.faq-content {
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.3s ease-out;
+}
+
+.faq-heading.open + .faq-content {
+    max-height: 1000px; 
+}
+
+.faq {
+    margin-top: 20px;
+    margin-bottom: 200px;
+    margin-left: 200px;
+    margin-right: 200px;
+}
