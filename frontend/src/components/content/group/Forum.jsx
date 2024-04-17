@@ -9,7 +9,7 @@ const { VITE_APP_BACKEND_URL } = import.meta.env;
 const Forum = ({ id, user }) => {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
-  const [messagesPerPage, setMessagesPerPage] = useState(4);
+  const [messagesPerPage, setMessagesPerPage] = useState(15);
   const [currentPage, setCurrentPage] = useState(1);
   const [profileId, setProfileid] = useState(null);
   const [editMode, setEditMode] = useState(false);
@@ -138,43 +138,49 @@ const Forum = ({ id, user }) => {
 
   return (
     <>
-      <ul className="messageArea">
+      
       {isMember ? (
-      <form onSubmit={handleNewMessageSubmit}>
-        <textarea
+      <form className='justify' onSubmit={handleNewMessageSubmit}>
+        <textarea className='newMessage'
           value={newMessage}
           onChange={handleNewMessageChange}
           placeholder="Syötä uusi viesti"
-        /><br />
-        <button className="basicbutton" type="submit">Lähetä</button>
+        /> &nbsp;
+        <button className="basicbutton someMargin" type="submit">Lähetä</button>
       </form>) : null}
-        {currentMessages.map((message, index) => (  
-          <li key={index}><br /><b>{new Date(message.timestamp).toLocaleString('fi-FI', {
-            day: 'numeric',
-            month: 'numeric',
-            year: 'numeric',
-            hour: 'numeric',
-            minute: 'numeric',
-          })} </b>{(isMainuser && editMode) && <button className='remove' onClick={() => handleRemoveMessage(message.messageid)}>&nbsp;<span className='emoji'>&times;</span></button>}<br />
-          {message.message} <br />
-          <Link to={`/profile/${message.name.profilename}`}>{message.name.profilename}</Link>
-          </li>
-        ))}
-      </ul>
+
       <ul className="pagination">
         <li>
           <button className="buttonnext" onClick={() => setCurrentPage(currentPage > 1 ? currentPage - 1 : 1)}>
             ⯇
           </button>
-          &nbsp; <span className="communityinfo">selaa</span> &nbsp;
+          &nbsp; <span>selaa</span> &nbsp;
           <button className="buttonnext" onClick={() => setCurrentPage(currentPage < Math.ceil(filteredMessages.length / messagesPerPage) ? currentPage + 1 : Math.ceil(filteredMessages.length / messagesPerPage))}>
             ⯈
           </button>
+
+          {(isMainuser && !editMode) && <button onClick={() => setEditMode(true)} className="basicbutton someMargin">Moderoi</button>}
+      
+          {(isMainuser && editMode) && <button onClick={() => setEditMode(false)} className="basicbutton someMargin">Lopeta</button>}
         </li>
       </ul>
-      {(isMainuser && !editMode) && <button onClick={() => setEditMode(true)} className="basicbutton">Moderoi</button>}
-      
-      {(isMainuser && editMode) && <button onClick={() => setEditMode(false)} className="basicbutton">Lopeta</button>}
+
+      <div className="messageArea">
+        {currentMessages.map((message, index) => (  
+          <span className='msgRow' key={index}>
+            {new Date(message.timestamp).toLocaleString('fi-FI', {
+            day: 'numeric',
+            month: 'numeric',
+            year: 'numeric',
+            hour: 'numeric',
+            minute: 'numeric',
+          })} &nbsp;<b><Link to={`/profile/${message.name.profilename}`}>{message.name.profilename}</Link> :</b>
+          &nbsp;&nbsp;{message.message} 
+          {(isMainuser && editMode) && <button className='remove' onClick={() => handleRemoveMessage(message.messageid)}>&nbsp;<span className='emoji'>&times;</span></button>}
+         
+          </span>
+        ))}
+      </div>
           
     </>
   );

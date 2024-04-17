@@ -1,56 +1,5 @@
-#groupinfo {
-    background-color: var(--moviedetails);
-    border-radius: 10px;
-    margin-top: 50px;
-    display: flex; 
-    flex-direction: column; 
-    border: 1px solid #000000;
-    box-shadow: var(--shadow06);
-}
 
-#groupinfo .gsection1 {
-    margin-top: 50px;
-    padding: 40px;
-    background-color: var(--greyblue);
-    border-radius: 10px;
-}
-
-#groupinfo .gsection2 {
-    margin-top: 50px;
-    padding: 40px;
-    background-color: var(--table-bg);
-    border: var(--solid);
-    border-radius: 10px;
-    box-shadow: var(--shadow02);
-}
-
-#groupinfo .gsection3 {
-    margin-top: 50px;
-    padding: 40px;
-    background-color:  var(--table-bg);
-    border: var(--solid);
-    border-radius: 10px;
-    box-shadow: var(--shadow02);
-}
-
-#groupinfo .gsection2 h2,
-#groupinfo .gsection3 h2  {
-    color: var(--h2);
-}
-
-#groupinfo .gsection2 h1,
-#groupinfo .gsection3 h1 {
-    color: var(--h1);
-}
-
-.groupinfo {
-    padding: 5px;
-    font-size: 0.8em;
-    font-weight: 100;
-}
-
-.ginner-view,
-.gthree-view {
+.ginner-view {
     background-color: var(--grp-background);
     border-radius: 10px;
     color: var(--profile);
@@ -85,41 +34,6 @@
     color: var(--profile);
 }
 
-.gthree-view {
-    margin-top: 25px;
-}
-
-.gthree-view a {
-    color: var(--profile);
-}
-
-.gthree-view a:hover {
-    color: var(--profile-link);
-}
-
-.gthree-left {
-    flex-basis: 30%;
-    padding: 10px;
-    margin: 0 auto;
-}
-
-.gthree-middle {
-    flex-basis: 30%;
-    padding: 10px;
-    margin: 0 auto;
-}
-
-.gthree-right {
-    flex-basis: 30%;
-    padding: 10px;
-    margin: 0 auto;
-}
-
-.ginner-view h2, 
-.gthree-view h2 {
-    color: var(--profile);
-}   
-
 .grouppic {
     border-radius: 5px;
     border: var(--solid);
@@ -135,6 +49,8 @@ ul {
     padding: 8px;
 }
 
+
+
 .groupSections {
     line-height: 1.8em;
     list-style: decimal;
@@ -143,7 +59,6 @@ ul {
 .groupSections li {
     color: var(--profile);
 }
-
 
 .greviews-view {
     background-color: var(--grp-background);
@@ -156,6 +71,61 @@ ul {
     padding-right: 2%;
     margin-top: 25px;
     border: var(--solid);
+}
+
+.gmessages {
+    background-color: var(--section2);
+    border-radius: 10px;
+    color: var(--h2);
+    display: flex-table;
+    flex-wrap: wrap;
+    padding: 1em;
+    padding-left: 2%;
+    padding-right: 2%;
+    margin-top: 5px;
+    border: var(--solid);
+}
+
+.gmessages h2 {
+    color: var(--h2);
+}
+
+.messageArea {
+    background-color: var(--grp-background);
+
+    border-radius: 10px;
+    color: var(--profile);
+    display: flex-table;
+    flex-wrap: wrap;
+    padding: 1em;
+    padding-left: 2%;
+    padding-right: 2%;
+    margin-top: 5px;
+    border: var(--solid);
+}
+
+.messageArea a {
+    color: var(--strongCoffee);
+
+}
+
+.msgboard {
+    padding: 20px;
+}
+
+.msgRow {
+    display: block;
+    padding: 10px;
+    border-bottom: var(--dashedGr);
+}
+
+.newMessage {
+    padding: 20px;
+    width: 80%;
+}
+
+.someMargin {
+    margin-left: 23px;
 }
 
 .group-between {
@@ -175,6 +145,12 @@ ul {
     padding: 1em;
     padding-left: 3%;
     border: var(--solid);
+}
+
+.justify {
+    display: flex;
+    justify-content: space-evenly;
+    margin-bottom: 30px;
 }
 
 .group-view a {
@@ -236,4 +212,11 @@ ul {
     background-color: transparent; 
     border: none; 
     padding: 0; 
+}
+
+.ginner-view h2,
+.group-between h2,
+.greviews-view h2 {
+    color: var(--profile);
+    
 }
