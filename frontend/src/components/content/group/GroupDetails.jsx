@@ -108,7 +108,12 @@ console.log("Token from sessionStorage:", user);
             <img src={group.grouppicurl} className="grouppic" alt="Ryhmän kuva" />
           )}
            {(isMainuser && !editMode) && <button onClick={() => setEditMode(true)} className="basicbutton">Muokkaa ryhmää</button>}
-               
+           {(!isMember && !isPending && user && user.user !== null && user.user !== undefined) && (
+          <button className="basicbutton" onClick={() => handleApplicationToJoin(profileId, id)}>Liittymispyyntö</button>
+          )}
+          {isPending && (
+          <button className="basicbutton" onClick={() => handleRemoveApplication(profileId, id)}>Peru Pyyntö</button>
+          )}
           <br />
 
         </div>
@@ -121,12 +126,7 @@ console.log("Token from sessionStorage:", user);
           </ul>
         </div>
       </div>
-      {(!isMember && !isPending && user && user.user !== null && user.user !== undefined) && (
-          <button className="basicbutton" onClick={() => handleApplicationToJoin(profileId, id)}>Liittymispyyntö</button>
-      )}
-      {isPending && (
-          <button className="basicbutton" onClick={() => handleRemoveApplication(profileId, id)}>Peru Pyyntö</button>
-      )}
+
       {editMode && <GroupEdit id={id} />}
       {isMember && (
       <div className='group-between'>
