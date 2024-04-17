@@ -13,6 +13,7 @@ const GroupDetails = ({ user }) => {
   const { id } = useParams();
   const [group, setGroup] = useState(null);
   const [editMode, setEditMode] = useState(false);
+  const [confirmDeleteId, setConfirmDeleteId] = useState(null);
   const [isMember, setIsMember] = useState(false);
   const [isPending, setIsPending] = useState(false);
   const [isMainuser, setMainuser] = useState(null);
@@ -155,6 +156,22 @@ console.log("Token from sessionStorage:", user);
         <ReviewList id={id} />
       </div>
       )}
+      {isMember && (
+      <>
+        {confirmDeleteId === profileId ? (
+          <>
+          <button className="confirm" onClick={() => handleRemoveApplication(profileId, id)}>
+            &nbsp;<span className='emoji'>&times;</span> Vahvista
+          </button>
+          <button className="compactButton" onClick={() => setConfirmDeleteId(null)}>Peruuta</button>
+          </>
+          ) : (
+          <button className="compactButton" onClick={() => setConfirmDeleteId(profileId)}>
+            &nbsp;<span className='emoji'>&times;</span> Poistu ryhmästä
+          </button>
+        )}
+      </>
+    )}
     </div>
   );
 };
