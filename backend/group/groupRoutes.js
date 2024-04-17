@@ -10,7 +10,7 @@ router.get('/group', groupService.getAllGroups);
 router.get('/group/groupid/:groupname', groupService.getGroupIdByName);
 router.get('/group/:groupid', groupService.getGroupById);
 router.put('/group/:groupid', groupService.updateGroupById);
-router.get('/grouplist/profile/:profilename', groupService.getGroupsByProfilename);
+router.get('/grouplist/profile/:profilename/:pending', groupService.getGroupsByProfilename);
 router.get('/memberlist/group/:groupid/:pending', groupService.GetMemberList);
 router.get('/messages/:groupid', groupService.getMessagesById);
 router.post('/messages', groupService.createMessage);

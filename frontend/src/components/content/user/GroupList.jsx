@@ -16,7 +16,7 @@ const GroupList = ({ profile }) => {
     const fetchGroups = async () => {
       try {
         if (profile && profile.profilename) {
-          const response = await axios.get(`${VITE_APP_BACKEND_URL}/grouplist/profile/${profile.profilename}`);
+          const response = await axios.get(`${VITE_APP_BACKEND_URL}/grouplist/profile/${profile.profilename}/0`);
 
           setGroups(response.data);
         }
