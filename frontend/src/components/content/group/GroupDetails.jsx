@@ -5,13 +5,13 @@ import { useParams, Link } from 'react-router-dom';
 import MemberList from './MemberList';
 import ReviewList from './ReviewList';
 import Forum from './Forum';
+import GroupEdit from './GroupEdit';
 const { VITE_APP_BACKEND_URL } = import.meta.env;
 
 
 const GroupDetails = ({ user }) => {
   const { id } = useParams();
   const [group, setGroup] = useState(null);
-  const [profile, setProfile] = useState(null);
   const [editMode, setEditMode] = useState(false);
   const [isMainuser, setMainuser] = useState(null);
   const [profileId, setProfileid] = useState(null);
@@ -31,9 +31,13 @@ const GroupDetails = ({ user }) => {
             console.log("Profilename from token:", user);
             console.log("Response from profile:", response.data);
 
-            setProfile(response.data);
             setProfileid(response.data.profileid);
-
+            
+            const groupResponse = await axios.get(`${VITE_APP_BACKEND_URL}/memberstatus/${response.data.profileid}/${id}`);
+            
+            if (groupResponse.data.hasOwnProperty('mainuser') && groupResponse.data.mainuser === 1) {
+              setMainuser(true);
+            }
 
         } catch (error) {
             console.error('Virhe haettaessa profiilitietoja:', error);
@@ -51,6 +55,7 @@ console.log("Token from sessionStorage:", user);
       try {
         const response = await axios.get(`${VITE_APP_BACKEND_URL}/group/${id}`);
         setGroup(response.data);
+        console.log('ryhmätiedot:', response.data)
       } catch (error) {
         console.error('Virhe ryhmän hakemisessa:', error);
       }
@@ -66,10 +71,12 @@ console.log("Token from sessionStorage:", user);
           {group?.grouppicurl && (
             <img src={group.grouppicurl} className="grouppic" alt="Ryhmän kuva" />
           )}
+           {(isMainuser && !editMode) && <button onClick={() => setEditMode(true)} className="basicbutton">Muokkaa ryhmää</button>}
+               
           <br />
 
         </div>
-
+        
         <div className="ginner-right">
           <h2>{group?.groupname}</h2>
           <ul>
@@ -78,7 +85,7 @@ console.log("Token from sessionStorage:", user);
           </ul>
         </div>
       </div>
-
+      {editMode && <GroupEdit id={id} />}
       <div className='group-between'>
 
         <div className="group-view">

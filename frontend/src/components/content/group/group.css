@@ -231,3 +231,9 @@ ul {
 .minheight:hover {
     background-color: var(--grey-hover);
 }
+
+.remove {
+    background-color: transparent; 
+    border: none; 
+    padding: 0; 
+}

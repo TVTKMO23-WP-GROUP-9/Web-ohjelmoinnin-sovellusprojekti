@@ -12,6 +12,7 @@ const Forum = ({ id, user }) => {
   const [messagesPerPage, setMessagesPerPage] = useState(4);
   const [currentPage, setCurrentPage] = useState(1);
   const [profileId, setProfileid] = useState(null);
+  const [editMode, setEditMode] = useState(false);
   const [isMember, setIsMember] = useState(false);
   const [isMainuser, setMainuser] = useState(false);
 
@@ -23,18 +24,20 @@ const Forum = ({ id, user }) => {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
             };
-
+            
             const response = await axios.get(`${VITE_APP_BACKEND_URL}/profile/${user.user}`);
 
             console.log("Token from sessionStorage:", token);
+            console.log("Onko tää menty kusemaan?:", user.user);
             console.log("Profilename from token:", user);
+            console.log("Entä kuseeko tää?:", id);
             console.log("Response from profile:", response.data);
 
             setProfileid(response.data.profileid);
             
             const groupResponse = await axios.get(`${VITE_APP_BACKEND_URL}/memberstatus/${response.data.profileid}/${id}`);
             
-            console.log("Response from groupresponse:", groupResponse.data);
+            console.log("Response from status:", groupResponse.data);
 
             if (groupResponse.data.hasOwnProperty('pending') && groupResponse.data.pending === 0) {
               setIsMember(true);
@@ -44,7 +47,6 @@ const Forum = ({ id, user }) => {
               setMainuser(true);
             }
             console.log("Response from profile:", groupResponse.data);
-         
         } catch (error) {
             console.error('Virhe haettaessa profiilitietoja:', error);
         }
@@ -69,7 +71,6 @@ const Forum = ({ id, user }) => {
           };
         } catch (error) {
           console.error('Virhe nimen hakemisessa:', error);
-          return { ...message, name: { profilename: 'Unknown' } };
         }
       }));
 
@@ -117,6 +118,15 @@ const Forum = ({ id, user }) => {
     }
   };
 
+  const handleRemoveMessage = async (messageId) => {
+    try {
+      await axios.delete(`${VITE_APP_BACKEND_URL}/messages/${messageId}`);
+      fetchMessages();
+    } catch (error) {
+      console.error('Virhe viestin poistamisessa:', error);
+    }
+  };
+
   const filteredMessages = messages.filter(message =>
     message.message.toLowerCase()
   );
@@ -135,8 +145,8 @@ const Forum = ({ id, user }) => {
           value={newMessage}
           onChange={handleNewMessageChange}
           placeholder="Syötä uusi viesti"
-        />
-        <button type="submit">Lähetä</button>
+        /><br />
+        <button className="basicbutton" type="submit">Lähetä</button>
       </form>) : null}
         {currentMessages.map((message, index) => (  
           <li key={index}><br /><b>{new Date(message.timestamp).toLocaleString('fi-FI', {
@@ -145,7 +155,7 @@ const Forum = ({ id, user }) => {
             year: 'numeric',
             hour: 'numeric',
             minute: 'numeric',
-          })} </b><br />
+          })} </b>{(isMainuser && editMode) && <button className='remove' onClick={() => handleRemoveMessage(message.messageid)}>&nbsp;<span className='emoji'>&times;</span></button>}<br />
           {message.message} <br />
           <Link to={`/profile/${message.name.profilename}`}>{message.name.profilename}</Link>
           </li>
@@ -162,6 +172,10 @@ const Forum = ({ id, user }) => {
           </button>
         </li>
       </ul>
+      {(isMainuser && !editMode) && <button onClick={() => setEditMode(true)} className="basicbutton">Moderoi</button>}
+      
+      {(isMainuser && editMode) && <button onClick={() => setEditMode(false)} className="basicbutton">Lopeta</button>}
+          
     </>
   );
 };
