@@ -29,7 +29,8 @@ CREATE TABLE IF NOT EXISTS Group_
     groupid SERIAL PRIMARY KEY,
     groupname VARCHAR(255) UNIQUE NOT NULL,
     groupexplanation VARCHAR(1000),
-    timestamp TIMESTAMP WITHOUT TIME ZONE NOT NULL
+    timestamp TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+    grouppicurl TEXT
 );
 
 -- Ryhmien jäsenet ja omistajat
