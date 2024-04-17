@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const profileService = require('./profileService');
 const { auth, optionalAuth } = require('../middleware/auth');
+const pool = require('../database/db_connection');
 
 
 // kaikki nämä ovat käytössä
@@ -12,6 +13,5 @@ router.delete('/profile', auth, profileService.deleteProfileById);
 router.put('/profile/nameandemail', auth, profileService.updateProfilenameAndEmail);
 router.put('/profile', auth, profileService.updateProfileDetails);
 router.put('/profile/visibility', auth, profileService.updateProfileVisibility);
-router.put('/profile/updatereviews', auth, profileService.updateReviewToAnon);
 
 module.exports = router;

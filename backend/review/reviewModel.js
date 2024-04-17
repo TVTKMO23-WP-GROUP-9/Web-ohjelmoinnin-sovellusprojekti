@@ -110,7 +110,7 @@ async function getReviewsByItem(id, mediatype) {
 async function updateReviewToAnon(profileid) {
   try {
     const query = {
-      text: 'UPDATE Review_ SET profileid = 28 WHERE profileid = $1',
+      text: 'UPDATE Review_ SET profileid = 1 WHERE profileid = $1',
       values: [profileid],
     };
     await queryDatabase(query);

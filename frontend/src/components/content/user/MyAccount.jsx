@@ -130,10 +130,8 @@ export default function MyAccount({ user }) {
 
     const handlePartialDelete = async () => {
         try {
-            console.log(headers);
-            alert('Nappi toimii');
-            await axios.put(VITE_APP_BACKEND_URL + `/profile/updatereviews`, { headers });
-
+            await axios.put(`${VITE_APP_BACKEND_URL}/reviews/toanon`, {}, { headers });
+            handleDelete();
             alert('Käyttäjätilin arvostelut muutettu anonyymeiksi.');
         } catch (error) {
             console.error('Virhe muutettaessa arvosteluja:', error);
