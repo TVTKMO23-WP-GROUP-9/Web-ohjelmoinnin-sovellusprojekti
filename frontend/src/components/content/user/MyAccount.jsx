@@ -44,6 +44,7 @@ export default function MyAccount({ user }) {
 
     const handleVisibility = async (e) => {
         try {
+            console.log(headers);
             const data = {
                 is_private: !visibility.is_private
             };
@@ -127,6 +128,16 @@ export default function MyAccount({ user }) {
         setDeleteClicked(false);
     };
 
+    const handlePartialDelete = async () => {
+        try {
+            await axios.put(`${VITE_APP_BACKEND_URL}/reviews/toanon`, {}, { headers });
+            handleDelete();
+            alert('Käyttäjätilin arvostelut muutettu anonyymeiksi.');
+        } catch (error) {
+            console.error('Virhe muutettaessa arvosteluja:', error);
+        }
+    }
+
     return (
 
         <div className="content">
@@ -184,11 +195,12 @@ export default function MyAccount({ user }) {
                         ) : (
                             <div>
                                 <b>Haluatko varmasti poistaa käyttäjätilisi?</b> <br />
-                                <button className="basicbutton" onClick={handleDelete}>Kyllä, poista tilini</button>
-                                <button className="basicbutton" onClick={handleCancelDelete}>Peruuta</button>
+                                <button className="basicbutton" onClick={handleDelete}>Kyllä, poista kaikki tietoni</button>
+                                <button className="basicbutton" onClick={handlePartialDelete}>Kyllä, säästä arvosteluni</button>
+                                <button className="basicbutton" onClick={handleCancelDelete}>En, peruuta</button>
                             </div>
                         )}
-                        <p>Jos poistat tilin, niin kaikki tilisi tiedot poistetaan pysyvästi. </p>
+                        <p>Jos poistat tilin, niin kaikki tilisi tiedot poistetaan pysyvästi. Voit myös jättää tekemäsi arvostelut anonyymin nimimerkin alle.</p>
                     </div>
                 </div>
             </div>

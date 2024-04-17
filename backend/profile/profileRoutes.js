@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const profileService = require('./profileService');
 const { auth, optionalAuth } = require('../middleware/auth');
+const pool = require('../database/db_connection');
 
 
 // kaikki nämä ovat käytössä

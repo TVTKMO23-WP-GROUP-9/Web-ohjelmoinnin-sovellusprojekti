@@ -70,5 +70,5 @@ module.exports = {
     deleteProfileById,
     updateProfilenameAndEmail,
     updateProfileDetails,
-    updateProfileVisibility,
+    updateProfileVisibility
 };

@@ -10,7 +10,7 @@ async function queryDatabase(query) {
 }
 
 async function movieReviewFromUser(profileid, mediatype, rating, review, revieweditem) {
-  
+
   try {
     const query = {
       text: 'INSERT INTO Review_ (rating, revieweditem, review, profileid, mediatype) VALUES ($1, $2, $3, $4, $5)',
@@ -26,7 +26,7 @@ async function movieReviewFromUser(profileid, mediatype, rating, review, reviewe
 }
 
 async function serieReviewFromUser(profileid, mediatype, rating, review, revieweditem) {
-  
+
   try {
     const query = {
       text: 'INSERT INTO Review_ (rating, revieweditem, review, profileid, mediatype) VALUES ($1, $2, $3, $4, $5)',
@@ -59,24 +59,24 @@ async function getNewestReviews() {
 
 async function updateReview(idreview, review, rating) {
   const query = {
-      text: 'UPDATE Review_ SET review = $2, rating = $3 WHERE idreview = $1',
-      values: [idreview, review, rating],
+    text: 'UPDATE Review_ SET review = $2, rating = $3 WHERE idreview = $1',
+    values: [idreview, review, rating],
   };
   await queryDatabase(query);
 }
 
 async function deleteReview(id) {
   const query = {
-      text: 'DELETE FROM Review_ WHERE idreview = $1',
-      values: [id],
+    text: 'DELETE FROM Review_ WHERE idreview = $1',
+    values: [id],
   };
   await queryDatabase(query);
 }
 
 async function getReviewsByProfile(id) {
   const query = {
-      text: 'SELECT * FROM Review_ WHERE profileid = $1',
-      values: [id],
+    text: 'SELECT * FROM Review_ WHERE profileid = $1',
+    values: [id],
   };
   return await queryDatabase(query);
 }
@@ -99,9 +99,21 @@ async function getReviewsByItem(id, mediatype) {
     const query = {
       text: 'SELECT * FROM Review_ WHERE revieweditem = $1 AND mediatype = $2 ORDER BY review_.timestamp DESC ',
       values: [id, mediatype],
-    }; 
+    };
     const result = await pool.query(query);
     return result.rows;
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function updateReviewToAnon(profileid) {
+  try {
+    const query = {
+      text: 'UPDATE Review_ SET profileid = 1 WHERE profileid = $1',
+      values: [profileid],
+    };
+    await queryDatabase(query);
   } catch (error) {
     throw error;
   }
@@ -118,4 +130,5 @@ module.exports = {
   getReviewsByProfile,
   serieReviewExists,
   getReviewsByItem,
+  updateReviewToAnon
 };
