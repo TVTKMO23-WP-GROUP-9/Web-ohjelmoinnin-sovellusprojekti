@@ -12,6 +12,7 @@ const Forum = ({ id, user }) => {
   const [messagesPerPage, setMessagesPerPage] = useState(4);
   const [currentPage, setCurrentPage] = useState(1);
   const [profileId, setProfileid] = useState(null);
+  const [editMode, setEditMode] = useState(false);
   const [isMember, setIsMember] = useState(false);
   const [isMainuser, setMainuser] = useState(false);
 
@@ -117,6 +118,15 @@ const Forum = ({ id, user }) => {
     }
   };
 
+  const handleRemoveMessage = async (messageId) => {
+    try {
+      await axios.delete(`${VITE_APP_BACKEND_URL}/messages/${messageId}`);
+      fetchMessages();
+    } catch (error) {
+      console.error('Virhe viestin poistamisessa:', error);
+    }
+  };
+
   const filteredMessages = messages.filter(message =>
     message.message.toLowerCase()
   );
@@ -135,8 +145,8 @@ const Forum = ({ id, user }) => {
           value={newMessage}
           onChange={handleNewMessageChange}
           placeholder="Syötä uusi viesti"
-        />
-        <button type="submit">Lähetä</button>
+        /><br />
+        <button className="basicbutton" type="submit">Lähetä</button>
       </form>) : null}
         {currentMessages.map((message, index) => (  
           <li key={index}><br /><b>{new Date(message.timestamp).toLocaleString('fi-FI', {
@@ -145,7 +155,7 @@ const Forum = ({ id, user }) => {
             year: 'numeric',
             hour: 'numeric',
             minute: 'numeric',
-          })} </b><br />
+          })} </b>{(isMainuser && editMode) && <button className='remove' onClick={() => handleRemoveMessage(message.messageid)}>&nbsp;<span className='emoji'>&times;</span></button>}<br />
           {message.message} <br />
           <Link to={`/profile/${message.name.profilename}`}>{message.name.profilename}</Link>
           </li>
@@ -162,6 +172,10 @@ const Forum = ({ id, user }) => {
           </button>
         </li>
       </ul>
+      {(isMainuser && !editMode) && <button onClick={() => setEditMode(true)} className="basicbutton">Moderoi</button>}
+      
+      {(isMainuser && editMode) && <button onClick={() => setEditMode(false)} className="basicbutton">Lopeta</button>}
+          
     </>
   );
 };

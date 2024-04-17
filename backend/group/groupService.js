@@ -100,6 +100,17 @@ async function createMessage(req, res) {
     }
 }
 
+async function deleteMessage(req, res) {
+    const messageid = req.params.messageid;
+    try {
+        await groupModel.deleteMessage(messageid);
+        res.send('viesti poistettu onnistuneesti');
+    } catch (error) {
+        console.error('Virhe poistettaessa viestiä:', error);
+        res.status(500).send('Virhe poistettaessa viestiä');
+    }
+}
+
 async function getUserGroups(req, res) {
     const profileid = req.params.profileid;
     try {
@@ -192,6 +203,7 @@ module.exports = {
     createMember,
     getMessagesById,
     createMessage,
+    deleteMessage,
     getUserGroups,
     getGroupsByProfilename,
     GetMemberList,

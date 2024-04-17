@@ -84,6 +84,14 @@ async function createMessage(profileid, groupid, message) {
     return queryDatabase(query);
 }
 
+async function deleteMessage(messageid) {
+    const query = {
+        text: 'DELETE FROM message_ WHERE messageid = $1',
+        values: [messageid],
+    };
+    return queryDatabase(query);
+}
+
 async function getUserGroups(profileid) {
     const query = {
         text: `
@@ -160,6 +168,7 @@ module.exports = {
     createGroup,
     createMember,
     createMessage,
+    deleteMessage,
     getUserGroups,
     getGroupsByProfilename,
     GetMemberList,
@@ -167,4 +176,5 @@ module.exports = {
     deleteMemberlist,
     createMemberList,
     getMessagesById,
+    deleteMessage
 };

@@ -14,6 +14,7 @@ router.get('/grouplist/profile/:profilename', groupService.getGroupsByProfilenam
 router.get('/memberlist/group/:groupid/:pending', groupService.GetMemberList);
 router.get('/messages/:groupid', groupService.getMessagesById);
 router.post('/messages', groupService.createMessage);
+router.delete('/messages/:messageid', groupService.deleteMessage);
 router.get('/memberstatus/:profileid/:groupid', groupService.getMemberStatus);
 
 // ovatko nämä käytössä jossain? en löytänyt näitä!
