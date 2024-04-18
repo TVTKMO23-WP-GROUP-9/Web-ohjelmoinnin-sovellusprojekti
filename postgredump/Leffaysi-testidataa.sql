@@ -238,18 +238,32 @@ INSERT INTO Memberlist_ (profileid, mainuser, groupid, pending) VALUES
 ('9', 1, '7', 0),
 ('14', 0, '7', 0),
 ('16', 0, '7', 0),
+('18', 0, '7', 0),
+('19', 0, '7', 0),
 ('12', 0, '7', 0),
 ('21', 0, '7', 0),
+('22', 0, '7', 0),
 -- Ryhmä Tampereen seudun leffailijat
 ('12', 0, '8', 0),
 ('23', 1, '8', 0),
 ('2', 0, '8', 0),
+('3', 0, '8', 0),
+('4', 0, '8', 0),
 ('8', 0, '8', 0),
 ('7', 0, '8', 0),
 -- Ryhmä Leffatiistai
 ('13', 0, '9', 0),
 ('10', 1, '9', 0),
 ('12', 0, '9', 0),
+('14', 0, '9', 0),
+('15', 0, '9', 0),
+('16', 0, '9', 0),
+('17', 0, '9', 0),
+('18', 0, '9', 0),
+('19', 0, '9', 0),
+('20', 0, '9', 0),
+('21', 0, '9', 0),
+('22', 0, '9', 0),
 ('23', 0, '9', 0),
 -- Ryhmä Vain-sarjoja
 ('7', 1, '10', 0),
@@ -259,8 +273,12 @@ INSERT INTO Memberlist_ (profileid, mainuser, groupid, pending) VALUES
 -- Ryhmä Suomalaista filmii
 ('16', 0, '11', 0),
 ('18', 1, '11', 0),
-('23', 0, '11', 0),
+('19', 0, '11', 0),
+('20', 0, '11', 0),
+('22', 0, '11', 0),
 ('21', 0, '11', 0),
+('13', 0, '11', 0),
+('23', 0, '11', 0),
 ('13', 0, '11', 0),
 -- Ryhmä lastenleffat
 ('14', 1, '12', 0),
@@ -278,12 +296,20 @@ INSERT INTO Memberlist_ (profileid, mainuser, groupid, pending) VALUES
 ('7', 0, '14', 0),
 ('2', 0, '14', 0),
 ('16', 0, '14', 0),
+('21', 0, '14', 0),
+('22', 0, '14', 0),
 ('23', 0, '14', 0),
 -- Ryhmä '15
 ('11', 1, '15', 0),
 ('10', 0, '15', 0),
 ('8', 0, '15', 0),
 ('18', 0, '15', 0),
+('19', 0, '15', 0),
+('20', 0, '15', 0),
+('21', 0, '15', 0),
+('22', 0, '15', 0),
+('23', 0, '15', 0),
+('13', 0, '15', 0),
 ('14', 0, '15', 0),
 -- Kaikenkarvaiset koirat
 ('1', 1, '16', 0),
@@ -395,7 +421,7 @@ INSERT INTO Review_ (profileid, revieweditem, review, rating, mediatype, "timest
 ('24', '695721', 'Viihdyttävä', 4, 0, CURRENT_TIMESTAMP),
 ('21', '135397', 'Aiiiiivan ihania dinosia', 4, 0, CURRENT_TIMESTAMP),
 ('21', '507086', 'Tommosen ottais lemmikiksikin', 4, 0, CURRENT_TIMESTAMP),
-('21', '1010581', 'Se on ihan huti', 1, 0, CURRENT_TIMESTAMP),
+('21', '1010581', 'Tää on ihan huti', 1, 0, CURRENT_TIMESTAMP),
 ('21', '346698', 'Melko PINKKI leffa oli. :) Voi Ken ressua', 5, 0, CURRENT_TIMESTAMP),
 ('21', '395990', 'Mmmmmmm........ se on jotain niiin........ rrrrr', 4, 0, CURRENT_TIMESTAMP),
 ('21', '634649', 'Ei mulle, mut ehkä sulle?', 2, 0, CURRENT_TIMESTAMP),
@@ -405,3 +431,67 @@ INSERT INTO Review_ (profileid, revieweditem, review, rating, mediatype, "timest
 ('3', '1408', 'EPIC!', 3, 1, CURRENT_TIMESTAMP),
 ('4', '1408', 'BOOM', 5, 1, CURRENT_TIMESTAMP),
 ('5', '1408', 'ihan ok!', 4, 1, CURRENT_TIMESTAMP);
+
+UPDATE Group_
+SET grouppicurl = 'https://i.postimg.cc/vHb5fYGx/grp1.jpg'
+WHERE groupid = '1';
+
+UPDATE Group_
+SET grouppicurl = 'https://i.postimg.cc/hPsT0kGy/grp2.jpg'
+WHERE groupid = '2';
+
+UPDATE Group_
+SET grouppicurl = 'https://i.postimg.cc/yNgRsWyt/grp3.jpg'
+WHERE groupid = '3';
+
+UPDATE Group_
+SET grouppicurl = 'https://i.postimg.cc/WznFXZsF/grp8.jpg'
+WHERE groupid = '4';
+
+UPDATE Group_
+SET grouppicurl = 'https://i.postimg.cc/sxyGYmCC/grp6.jpg'
+WHERE groupid = '5';
+
+UPDATE Group_
+SET grouppicurl = 'https://i.postimg.cc/SKBMsqZs/grp5.jpg'
+WHERE groupid = '6';
+
+UPDATE Group_
+SET grouppicurl = 'https://i.postimg.cc/WznFXZsF/grp8.jpg'
+WHERE groupid = '7';
+
+UPDATE Group_
+SET grouppicurl = 'https://i.postimg.cc/JzdXfjZj/grp7.jpg'
+WHERE groupid = '8';
+
+UPDATE Group_
+SET grouppicurl = 'https://i.postimg.cc/sxyGYmCC/grp6.jpg'
+WHERE groupid = '9';
+
+UPDATE Group_
+SET grouppicurl = 'https://i.postimg.cc/SKBMsqZs/grp5.jpg'
+WHERE groupid = '10';
+
+UPDATE Group_
+SET grouppicurl = 'https://i.postimg.cc/GhLs9Xjk/grp4.jpg'
+WHERE groupid = '11';
+
+UPDATE Group_
+SET grouppicurl = 'https://i.postimg.cc/yNgRsWyt/grp3.jpg'
+WHERE groupid = '12';
+
+UPDATE Group_
+SET grouppicurl = 'https://i.postimg.cc/hPsT0kGy/grp2.jpg'
+WHERE groupid = '13';
+
+UPDATE Group_
+SET grouppicurl = 'https://i.postimg.cc/GhLs9Xjk/grp4.jpg'
+WHERE groupid = '14';
+
+UPDATE Group_
+SET grouppicurl = 'https://i.postimg.cc/yNgRsWyt/grp3.jpg'
+WHERE groupid = '15';
+
+UPDATE Group_
+SET grouppicurl = 'https://i.postimg.cc/hPsT0kGy/grp2.jpg'
+WHERE groupid = '16';
