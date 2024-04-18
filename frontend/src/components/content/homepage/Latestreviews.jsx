@@ -13,11 +13,16 @@ const Latestreviews = () => {
   useEffect(() => {
     const fetchReviews = async () => {
       try {
-        const response = await axios.get(`${VITE_APP_BACKEND_URL}/review/new`);
-        const reviewData = response.data;
+        const newReviewResponse = await axios.get(`${VITE_APP_BACKEND_URL}/review/new`);
+        const anonReviewResponse = await axios.get(`${VITE_APP_BACKEND_URL}/reviews/anon`);
+        
+        const newReviews = newReviewResponse.data;
+        const anonReviews = anonReviewResponse.data;
+        
+        const allReviews = [...newReviews, ...anonReviews];
 
         // Hae jokaisen arvostelun review.revieweditem arvolla liittyvä elokuva
-        const reviewsWithMovies = await Promise.all(reviewData.map(async review => {
+        const reviewsWithMovies = await Promise.all(allReviews.map(async review => {
           try {
             let responseData;
             if (review.mediatype === 0) {
@@ -103,7 +108,7 @@ const Latestreviews = () => {
                       hour: 'numeric',
                       minute: 'numeric',
                     })}</p>
-                    <p><b>Arvostelija: </b> {review.profilename}</p>
+                    <p><b>Arvostelija: </b> {review.profilename || <i>anonyymi</i>}</p>
                   </td>
                 </tr>
               </tbody>

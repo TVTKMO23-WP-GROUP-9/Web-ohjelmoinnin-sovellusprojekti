@@ -18,15 +18,26 @@ const AllReviews = ({ searchTerm, setSearchTerm }) => {
 
   const fetchReviews = async () => {
     try {
-      const response = await axios.get(`${VITE_APP_BACKEND_URL}/reviews`);
-      const reviewData = response.data;
+      const newReviewResponse = await axios.get(`${VITE_APP_BACKEND_URL}/reviews`);
+      //const anonReviewResponse = await axios.get(`${VITE_APP_BACKEND_URL}/reviews/anon`);
       
+      const newReviews = newReviewResponse.data;
+      //const anonReviews = anonReviewResponse.data;
+      
+      //const reviewData = [...newReviews, ...anonReviews];
+
+      const reviewData = newReviews;
+
       // Haetaan profiilitiedot
       const reviewsWithProfiles = await Promise.all(reviewData.map(async review => {
         try {
-          const userProfileResponse = await axios.get(`${VITE_APP_BACKEND_URL}/profile/id/${review.profileid}`);
-          const userProfileData = userProfileResponse.data;
-          return { ...review, userProfile: userProfileData };
+          if (review.profileid !== null) {
+            const userProfileResponse = await axios.get(`${VITE_APP_BACKEND_URL}/profile/id/${review.profileid}`);
+            const userProfileData = userProfileResponse.data;
+            return { ...review, userProfile: userProfileData };
+          } else {
+            return review;
+          }
         } catch (error) {
           console.error('Error fetching profile:', error);
           return review;
@@ -143,7 +154,16 @@ const AllReviews = ({ searchTerm, setSearchTerm }) => {
                 <br/>
                 <span>{renderRatingIcons(review.rating)}</span>
                 <span className='userinfo'>| <b>{review.rating}/5</b> tähteä</span> <br />
-                <span className='reviewinfo'><span className='reviewinfo'>{formatDate(review.timestamp)}</span> | <Link className="reviewitems" to={`/profile/${review.userProfile.profilename}`}>{review.userProfile.profilename}</Link></span> <br />
+                <span className='reviewinfo'>
+                  <span className='reviewinfo'>{formatDate(review.timestamp)}</span> | &nbsp;
+                  {review.userProfile && review.userProfile.profilename !== undefined ? (
+                    <Link className="reviewitems" to={`/profile/${review.userProfile.profilename}`}>
+                      {review.userProfile.profilename}
+                    </Link>
+                  ) : (
+                    <i>anonyymi</i>
+                  )}
+                </span><br />
                 <span className='userinfo'>{review.review}</span> <br />
               </li>
             ))}
