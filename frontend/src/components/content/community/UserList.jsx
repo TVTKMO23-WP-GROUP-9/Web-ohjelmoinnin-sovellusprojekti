@@ -92,7 +92,7 @@ const UserList = ({ searchTerm, setSearchTerm }) => {
                 <h2>Eläköön Elokuvayhteisö!</h2>
 
                 <div className="communityBox">
-                    Meillä on täällä <b>{filteredProfiles.length}</b><br />
+                    Meillä on täällä <b>{profiles.length}</b><br />
                     rekisteröitynyttä käyttäjää. <span className="emoji uni03"></span> <br /><br />
                     Liity mukaan jo tänään!</div>
                 <button className='basicbutton justMargin'>Rekisteröidy</button>

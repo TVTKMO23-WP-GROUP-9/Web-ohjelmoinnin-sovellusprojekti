@@ -114,8 +114,8 @@ const AllReviews = ({ searchTerm, setSearchTerm }) => {
         ) : (
           <>
             <li className="userinfo">
-              Palvelussa on <b>{filteredReviews.length}</b> arvostelua ja niiden keskiarvo 
-              on <b>{filteredReviews.length > 0 && (filteredReviews.reduce((sum, review) => sum + review.rating, 0) / filteredReviews.length).toFixed(1)}</b>.<br />
+              Palvelussa on <b>{reviews.length}</b> arvostelua ja niiden keskiarvo 
+              on <b>{reviews.length > 0 && (reviews.reduce((sum, review) => sum + review.rating, 0) / reviews.length).toFixed(1)}</b>.<br />
               Voit luoda uusia arvosteluja elokuvien ja sarjojen sivuilta. <br />
             </li>
   

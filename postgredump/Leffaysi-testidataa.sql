@@ -3,55 +3,55 @@
 INSERT INTO Profile_ (profilename, hashedpassword, email, profilepicurl, "timestamp", description) VALUES
 -- testikäyttäjät id 1-10
 -- Viilipytty hashaamaton salasana: oivamato
-('Viilipytty', '$2b$10$Os132x/7gfQuEkIpTNvTG.XMrnQG/bOgj4AepLQ5u.wtgfEoTFpf.', 'viilipytty@example.com', NULL, CURRENT_TIMESTAMP, NULL),
+('Viilipytty', '$2b$10$Os132x/7gfQuEkIpTNvTG.XMrnQG/bOgj4AepLQ5u.wtgfEoTFpf.', 'viilipytty@example.com', 'https://i.postimg.cc/yYYqzpzp/profile1.jpg', CURRENT_TIMESTAMP, NULL),
 -- Jankka hashaamaton salasana: 8D94gvds0
-('Jankka', '$2b$10$ZarxfNZO1AYZp9VCg3Zjz.URJxUuZdcve5qd6A9QZQGWYRBln3rgm', 'jankka@example.com', NULL, CURRENT_TIMESTAMP, NULL),
+('Jankka', '$2b$10$ZarxfNZO1AYZp9VCg3Zjz.URJxUuZdcve5qd6A9QZQGWYRBln3rgm', 'jankka@example.com', 'https://i.postimg.cc/ZnbQ4nXv/profile10.jpg', CURRENT_TIMESTAMP, NULL),
 -- komediaa82 hashaamaton salasana: aaidemok
-('komediaa82', '$2b$10$9KLQoLOOd9PVGamFgdVoa.CoUDfXClGvAe6CCIW6vhdKbJfBzg89i', 'komediaa82@example.com', NULL, CURRENT_TIMESTAMP, NULL),
+('komediaa82', '$2b$10$9KLQoLOOd9PVGamFgdVoa.CoUDfXClGvAe6CCIW6vhdKbJfBzg89i', 'komediaa82@example.com', 'https://i.postimg.cc/jd8pq6xx/profile2.jpg', CURRENT_TIMESTAMP, NULL),
 -- Eloton hashaamaton salasana: sana5532
-('Eloton', '$2b$10$e8MfS6GQLuMWZnGyKowW7udiBNhys3/dH/YIgSbv3Z0MxggXBl9Lm', 'eloton@example.com', NULL, CURRENT_TIMESTAMP, NULL),
+('Eloton', '$2b$10$e8MfS6GQLuMWZnGyKowW7udiBNhys3/dH/YIgSbv3Z0MxggXBl9Lm', 'eloton@example.com', 'https://i.postimg.cc/zG64KJH4/profile3.jpg', CURRENT_TIMESTAMP, NULL),
 -- vainse hashaamaton salasana: rekku6
-('vainse', '$2b$10$pYcfW1TE4lORryyRO6FJFOs8bF7m8ClPaXjDG/M/A4FsWVT917iDK', 'vainse@example.com', NULL, CURRENT_TIMESTAMP, NULL),
+('vainse', '$2b$10$pYcfW1TE4lORryyRO6FJFOs8bF7m8ClPaXjDG/M/A4FsWVT917iDK', 'vainse@example.com', 'https://i.postimg.cc/nLmg16vr/profile4.jpg', CURRENT_TIMESTAMP, NULL),
 -- jokaToka hashaamaton salasana: lomakuume#1
-('jokaToka', '$2b$10$QGlrHI60xCT1JkERYAYQYuiEuQCJAuaY.w9DVxNo2L6dpHNR2Me4G', 'jokatoka@example.com', NULL, CURRENT_TIMESTAMP, NULL),
+('jokaToka', '$2b$10$QGlrHI60xCT1JkERYAYQYuiEuQCJAuaY.w9DVxNo2L6dpHNR2Me4G', 'jokatoka@example.com', 'https://i.postimg.cc/MT843dDD/profile5.jpg', CURRENT_TIMESTAMP, NULL),
 -- Mikk0 hashaamaton salasana: VIEROSKAT
-('Mikk0', '$2b$10$b9MMw4wALTbPDKXbgZIuJedz.tBhB1AAxBO21UW8gmVn34uvUDOEa', 'mikk0@example.com', NULL, CURRENT_TIMESTAMP, NULL),
+('Mikk0', '$2b$10$b9MMw4wALTbPDKXbgZIuJedz.tBhB1AAxBO21UW8gmVn34uvUDOEa', 'mikk0@example.com', 'https://i.postimg.cc/3r169jDX/profile6.jpg', CURRENT_TIMESTAMP, NULL),
 -- dramaqueen hashaamaton salasana: unohdettu1010
-('dramaqueen', '$2b$10$SlZvRPqkAbEEO99f0gyRXubu/CKlkQo12ayYMyenik1ekELUtCc3W', 'dramaqueen@example.com', NULL, CURRENT_TIMESTAMP, NULL),
+('dramaqueen', '$2b$10$SlZvRPqkAbEEO99f0gyRXubu/CKlkQo12ayYMyenik1ekELUtCc3W', 'dramaqueen@example.com', 'https://i.postimg.cc/cCFbHZN9/profile7.jpg'L, CURRENT_TIMESTAMP, NULL),
 -- kauhistus hashaamaton salasana: kauhuleffoja38
-('kauhistus', '$2b$10$XrLUGUbR77BVtDPVZ6cLIOsmvltN20QLnzQ5vm8cWQjSPviNrjJiG', 'kauhistus@example.com', NULL, CURRENT_TIMESTAMP, NULL),
+('kauhistus', '$2b$10$XrLUGUbR77BVtDPVZ6cLIOsmvltN20QLnzQ5vm8cWQjSPviNrjJiG', 'kauhistus@example.com', 'https://i.postimg.cc/vBLKJf2d/profile8.jpg', CURRENT_TIMESTAMP, NULL),
 -- Jest4s hashaamaton salasana: )3nvds98ETF
-('Jest4s', '$2b$10$IwMD52QfxJhT258LxwVNKeGGGDfix8oWApJt9Kd48DOGPhqbxi60K', 'jest4s@example.com', NULL, CURRENT_TIMESTAMP, NULL),
+('Jest4s', '$2b$10$IwMD52QfxJhT258LxwVNKeGGGDfix8oWApJt9Kd48DOGPhqbxi60K', 'jest4s@example.com', 'https://i.postimg.cc/526ZXHyw/profile9.jpg', CURRENT_TIMESTAMP, NULL),
 -- testikäyttäjät id 11-20
 -- AaveMaria hashaamaton salasana: #mvvdisCORD
-('AaveMaria', '$2b$10$FC1jbhISaPnald7BczUTp.myptklA36L0ntNz4fdyedZprQ1X4aWq', 'aavemaria@example.com', NULL, CURRENT_TIMESTAMP, NULL),
+('AaveMaria', '$2b$10$FC1jbhISaPnald7BczUTp.myptklA36L0ntNz4fdyedZprQ1X4aWq', 'aavemaria@example.com', 'https://i.postimg.cc/MT843dDD/profile5.jpg', CURRENT_TIMESTAMP, NULL),
 -- siippa5 hashaamaton salasana: siipaton000
-('siippa5', '$2b$10$is.bNU/5A4MdM9sZV/UdwO6qvMruQrfUbrkql371f9gmUs4TagBHa', 'siippa5@example.com', NULL, CURRENT_TIMESTAMP, NULL),
+('siippa5', '$2b$10$is.bNU/5A4MdM9sZV/UdwO6qvMruQrfUbrkql371f9gmUs4TagBHa', 'siippa5@example.com', 'https://i.postimg.cc/3r169jDX/profile6.jpg', CURRENT_TIMESTAMP, NULL),
 -- Pastilli hashaamaton salasana: jukujes%
-('Pastilli', '$2b$10$3bQI9aUHy9wx2qfulRDdRu94wo.m2RPcswnHNt126onZOwf3W.E3O', 'pastilli@example.com', NULL, CURRENT_TIMESTAMP, NULL),
+('Pastilli', '$2b$10$3bQI9aUHy9wx2qfulRDdRu94wo.m2RPcswnHNt126onZOwf3W.E3O', 'pastilli@example.com', 'https://i.postimg.cc/cCFbHZN9/profile7.jpg', CURRENT_TIMESTAMP, NULL),
 -- Huutista hashaamaton salasana: xDXDxdXD94
-('Huutista', '$2b$10$m1A0mr3RqW.FejzJskU9iuS2SiDqcXpRpX3Da08TleGxP4b3gui8e', 'huutista@example.com', NULL, CURRENT_TIMESTAMP, NULL),
+('Huutista', '$2b$10$m1A0mr3RqW.FejzJskU9iuS2SiDqcXpRpX3Da08TleGxP4b3gui8e', 'huutista@example.com', 'https://i.postimg.cc/vBLKJf2d/profile8.jpg', CURRENT_TIMESTAMP, NULL),
 -- salaakaato hashaamaton salasana: tuskaa4=
-('salaakaton', '$2b$10$RoF/XQbHpoLG8cm00ll/kuF1SUiLl/Vq0mEBio14./T.CfaGrh.F2', 'salaakaton@example.com', NULL, CURRENT_TIMESTAMP, NULL),
+('salaakaton', '$2b$10$RoF/XQbHpoLG8cm00ll/kuF1SUiLl/Vq0mEBio14./T.CfaGrh.F2', 'salaakaton@example.com', 'https://i.postimg.cc/526ZXHyw/profile9.jpg', CURRENT_TIMESTAMP, NULL),
 -- Kan-Joni hashaamaton salasana: helppo
-('Kan-Joni', '$2b$10$8KeS4n.O2CLpUurqsQMBa.wej5SaNcSVC8XE9hl8uQ0Rj1lZzhN2a', 'kanjoni@example.com', NULL, CURRENT_TIMESTAMP, NULL),
+('Kan-Joni', '$2b$10$8KeS4n.O2CLpUurqsQMBa.wej5SaNcSVC8XE9hl8uQ0Rj1lZzhN2a', 'kanjoni@example.com', 'https://i.postimg.cc/yYYqzpzp/profile1.jpg', CURRENT_TIMESTAMP, NULL),
 -- poikamies hashaamaton salasana: vielkinEhtis
-('poikamies', '$2b$10$MxjsY3EsB25IjGQJsUCpqOClHnsNISN1slbYkhc9zX0.JAhAMPxtO', 'poikamies@example.com', NULL, CURRENT_TIMESTAMP, NULL),
+('poikamies', '$2b$10$MxjsY3EsB25IjGQJsUCpqOClHnsNISN1slbYkhc9zX0.JAhAMPxtO', 'poikamies@example.com', 'https://i.postimg.cc/ZnbQ4nXv/profile10.jpg', CURRENT_TIMESTAMP, NULL),
 -- Misu01 hashaamaton salasana: 987654321
-('Misu01', '$2b$10$NI8.6kt3rXWmTTkb4uNZA.98JFcPnXm.AeLyNgB17V7aNWT.2tTQO', 'misu01@example.com', NULL, CURRENT_TIMESTAMP, NULL),
+('Misu01', '$2b$10$NI8.6kt3rXWmTTkb4uNZA.98JFcPnXm.AeLyNgB17V7aNWT.2tTQO', 'misu01@example.com', 'https://i.postimg.cc/jd8pq6xx/profile2.jpg', CURRENT_TIMESTAMP, NULL),
 -- maitotee hashaamaton salasana: EnJuoKahvia
-('maitotee', '$2b$10$BHetFB1YNwSCicx/I3YhE.2THqx2zBq1dzYr3enEKk4iSFOReVXuu', 'maitotee@example.com', NULL, CURRENT_TIMESTAMP, NULL),
+('maitotee', '$2b$10$BHetFB1YNwSCicx/I3YhE.2THqx2zBq1dzYr3enEKk4iSFOReVXuu', 'maitotee@example.com', 'https://i.postimg.cc/zG64KJH4/profile3.jpg', CURRENT_TIMESTAMP, NULL),
 -- lipettiin hashaamaton salasana: somaprinsessa666
-('lipettiin', '$2b$10$3IgL5lCJzcjp5HS0AWVcyOveJevU79cd9lNsPFvnWeECqT7YlNBf6', 'lipettiin@example.com', NULL, CURRENT_TIMESTAMP, NULL),
+('lipettiin', '$2b$10$3IgL5lCJzcjp5HS0AWVcyOveJevU79cd9lNsPFvnWeECqT7YlNBf6', 'lipettiin@example.com', 'https://i.postimg.cc/nLmg16vr/profile4.jpg', CURRENT_TIMESTAMP, NULL),
 -- testikäyttäjät id 21 - 24
 -- Jenna hashaamaton salasana: annejjenna
-('Jenna', '$2b$10$DVgyW0Hc4jGIp/31Ck1oc.beiRyrR3DffdOGoFXrvWfShxeq9RjMu', 'jenna@example.com', NULL, CURRENT_TIMESTAMP, NULL),
+('Jenna', '$2b$10$DVgyW0Hc4jGIp/31Ck1oc.beiRyrR3DffdOGoFXrvWfShxeq9RjMu', 'jenna@example.com', 'https://i.postimg.cc/MT843dDD/profile5.jpg', CURRENT_TIMESTAMP, NULL),
 -- Siilinpieru hashaamaton salasana: hedgehog
-('Siilinpieru', '$2b$10$YWfQeOraJww3UCF3Ap0d6Of0bfnRn9uEJYdzuYfpLkAhyR2nyl0KK', 'siilinpieru@example.com', NULL, CURRENT_TIMESTAMP, NULL),
+('Siilinpieru', '$2b$10$YWfQeOraJww3UCF3Ap0d6Of0bfnRn9uEJYdzuYfpLkAhyR2nyl0KK', 'siilinpieru@example.com', 'https://i.postimg.cc/3r169jDX/profile6.jpg', CURRENT_TIMESTAMP, NULL),
 -- PaijaanSUA hashaamaton salasana: byebye??0
-('PaijaanSUA', '$2b$10$EOakCcZdU0hk/jxPajsGaeq1SVAJpDn56P6gXL63M3y6aPSruY9rS', 'paijaansua@example.com', NULL, CURRENT_TIMESTAMP, NULL),
+('PaijaanSUA', '$2b$10$EOakCcZdU0hk/jxPajsGaeq1SVAJpDn56P6gXL63M3y6aPSruY9rS', 'paijaansua@example.com', 'https://i.postimg.cc/cCFbHZN9/profile7.jpg', CURRENT_TIMESTAMP, NULL),
 -- UUUseri hashaamaton salasana: 123456
-('UUUseri', '$2b$10$09CaL5r.JxvCl2rm2F5BBudYNinrgKKqPfcuVGEXJvdJwub0Q06te', 'uuuseri@example.com', NULL, CURRENT_TIMESTAMP, NULL);
+('UUUseri', '$2b$10$09CaL5r.JxvCl2rm2F5BBudYNinrgKKqPfcuVGEXJvdJwub0Q06te', 'uuuseri@example.com', 'https://i.postimg.cc/cCFbHZN9/profile7.jpg', CURRENT_TIMESTAMP, NULL);
 
 UPDATE Profile_
 SET description = 
@@ -83,120 +83,27 @@ SET description =
         ELSE 'En ole vielä kertonut itsestäni mitään.'
     END;
     
--- updatella profiilikuvat testikäyttäjille
-UPDATE Profile_
-SET profilepicurl = 'https://i.postimg.cc/yYYqzpzp/profile1.jpg'
-WHERE profileid = '1';
-
-UPDATE Profile_
-SET profilepicurl = 'https://i.postimg.cc/ZnbQ4nXv/profile10.jpg'
-WHERE profileid = '2';
-
-UPDATE Profile_
-SET profilepicurl = 'https://i.postimg.cc/jd8pq6xx/profile2.jpg'
-WHERE profileid = '3';
-
-UPDATE Profile_
-SET profilepicurl = 'https://i.postimg.cc/zG64KJH4/profile3.jpg'
-WHERE profileid = '4';
-
-UPDATE Profile_
-SET profilepicurl = 'https://i.postimg.cc/nLmg16vr/profile4.jpg'
-WHERE profileid = '5';
-
-UPDATE Profile_
-SET profilepicurl = 'https://i.postimg.cc/MT843dDD/profile5.jpg'
-WHERE profileid = '6';
-
-UPDATE Profile_
-SET profilepicurl = 'https://i.postimg.cc/3r169jDX/profile6.jpg'
-WHERE profileid = '7';
-
-UPDATE Profile_
-SET profilepicurl = 'https://i.postimg.cc/cCFbHZN9/profile7.jpg'
-WHERE profileid = '8';
-
-UPDATE Profile_
-SET profilepicurl = 'https://i.postimg.cc/vBLKJf2d/profile8.jpg'
-WHERE profileid = '9';
-
-UPDATE Profile_
-SET profilepicurl = 'https://i.postimg.cc/526ZXHyw/profile9.jpg'
-WHERE profileid = '10';
-
-UPDATE Profile_
-SET profilepicurl = 'https://i.postimg.cc/MT843dDD/profile5.jpg'
-WHERE profileid = '11';
-
-UPDATE Profile_
-SET profilepicurl = 'https://i.postimg.cc/3r169jDX/profile6.jpg'
-WHERE profileid = '12';
-
-UPDATE Profile_
-SET profilepicurl = 'https://i.postimg.cc/cCFbHZN9/profile7.jpg'
-WHERE profileid = '13';
-
-UPDATE Profile_
-SET profilepicurl = 'https://i.postimg.cc/vBLKJf2d/profile8.jpg'
-WHERE profileid = '14';
-
-UPDATE Profile_
-SET profilepicurl = 'https://i.postimg.cc/526ZXHyw/profile9.jpg'
-WHERE profileid = '15';
-
-UPDATE Profile_
-SET profilepicurl = 'https://i.postimg.cc/yYYqzpzp/profile1.jpg'
-WHERE profileid = '16';
-
-UPDATE Profile_
-SET profilepicurl = 'https://i.postimg.cc/ZnbQ4nXv/profile10.jpg'
-WHERE profileid = '17';
-
-UPDATE Profile_
-SET profilepicurl = 'https://i.postimg.cc/jd8pq6xx/profile2.jpg'
-WHERE profileid = '18';
-
-UPDATE Profile_
-SET profilepicurl = 'https://i.postimg.cc/zG64KJH4/profile3.jpg'
-WHERE profileid = '19';
-
-UPDATE Profile_
-SET profilepicurl = 'https://i.postimg.cc/nLmg16vr/profile4.jpg'
-WHERE profileid = '20';
-
-UPDATE Profile_
-SET profilepicurl = 'https://i.postimg.cc/MT843dDD/profile5.jpg'
-WHERE profileid = '21';
-
-UPDATE Profile_
-SET profilepicurl = 'https://i.postimg.cc/3r169jDX/profile6.jpg'
-WHERE profileid = '22';
-
-UPDATE Profile_
-SET profilepicurl = 'https://i.postimg.cc/cCFbHZN9/profile7.jpg'
-WHERE profileid = '23';
-
-INSERT INTO Group_ (groupname, groupexplanation, "timestamp") VALUES
+INSERT INTO Group_ (groupname, groupexplanation, grouppicurl, "timestamp") VALUES
 -- id 1-5
-('Ryhmärämä', 'kuvaus', CURRENT_TIMESTAMP),
-('komediahullut', 'kuvaus', CURRENT_TIMESTAMP),
-('tosimiesklubi', 'kuvaus', CURRENT_TIMESTAMP),
-('Stadinrinki', 'kuvaus', CURRENT_TIMESTAMP),
-('SOTA-leffat', 'kuvaus', CURRENT_TIMESTAMP),
+('Ryhmärämä', 'Sellanen perusryhmä ollaan, tavallisia ihmisiä. Jutellaan muustakin kuin leffoista, mutta pidetään leffa-iltoja jonkun meistä luona vuoroin.', 'https://i.postimg.cc/vHb5fYGx/grp1.jpg', CURRENT_TIMESTAMP),
+('komediahullut', 'kekeeke... KOMEDIAAAAAAAAA!', 'https://i.postimg.cc/hPsT0kGy/grp2.jpg', CURRENT_TIMESTAMP),
+('tosimiesklubi', 'Vain miehille. Muijia ei täällä tarvita.', 'https://i.postimg.cc/yNgRsWyt/grp3.jpg', CURRENT_TIMESTAMP),
+('Stadinrinki', 'Helsingissä asuville leffaryhmä, tervetuloa mukaan!', 'https://i.postimg.cc/WznFXZsF/grp8.jpg', CURRENT_TIMESTAMP),
+('SOTA-leffat', 'Sota-elokuvat, myös historialliset.', 'https://i.postimg.cc/sxyGYmCC/grp6.jpg', CURRENT_TIMESTAMP),
 -- id 6-10
-('Draamailijat', 'kuvaus', CURRENT_TIMESTAMP),
-('kauhalla kauhuu', 'kuvaus', CURRENT_TIMESTAMP),
-('Tampereen seudun leffailijat', 'kuvaus', CURRENT_TIMESTAMP),
-('Leffatiistai', 'kuvaus', CURRENT_TIMESTAMP),
-('Vain-sarjoja', 'kuvaus', CURRENT_TIMESTAMP),
+('Draamailijat', 'Oman elämänsä draamailijat kokoontuu. Genre vahvasti drama. ', 'https://i.postimg.cc/SKBMsqZs/grp5.jpg', CURRENT_TIMESTAMP),
+('kauhalla kauhuu', 'kauhuelokuvien ystävät tänne, HUI!', 'https://i.postimg.cc/WznFXZsF/grp8.jpg', CURRENT_TIMESTAMP),
+('Tampereen seudun leffailijat', 'Tampere, helmimesta, rakkain kaupunki', 'https://i.postimg.cc/JzdXfjZj/grp7.jpg',  CURRENT_TIMESTAMP),
+('Leffatiistai', 'joka tiistai leffa porukalla klo 21', 'https://i.postimg.cc/sxyGYmCC/grp6.jpg', CURRENT_TIMESTAMP),
+('Vain-sarjoja', 'Sarjoja.', 'https://i.postimg.cc/SKBMsqZs/grp5.jpg', CURRENT_TIMESTAMP),
 -- id 11-15
-('Suomalaista filmii', 'kuvaus', CURRENT_TIMESTAMP),
-('lastenleffat', 'kuvaus', CURRENT_TIMESTAMP),
-('Äksönittäret', 'kuvaus', CURRENT_TIMESTAMP),
-('Hevosaiheiset elokuvat', 'kuvaus', CURRENT_TIMESTAMP),
-('Oulun oikeamieliset', 'kuvaus', CURRENT_TIMESTAMP),
+('Suomalaista filmii', 'Nimensä mukaisesti - tänne vaan suomalaista tuotantoa!', 'https://i.postimg.cc/GhLs9Xjk/grp4.jpg', CURRENT_TIMESTAMP),
+('lastenleffat', 'parhaat lastenleffat löytyy meiltä, tervetuloa!', 'https://i.postimg.cc/yNgRsWyt/grp3.jpg', CURRENT_TIMESTAMP),
+('Äksönittäret', 'Toiminta-leffoja naisten silmin.. no, miksei miestenkin', 'https://i.postimg.cc/hPsT0kGy/grp2.jpg', CURRENT_TIMESTAMP),
+('Hevosaiheiset elokuvat', 'Hevoselokuvat tänne!', 'https://i.postimg.cc/GhLs9Xjk/grp4.jpg', CURRENT_TIMESTAMP),
+('Oulun oikeamieliset', 'Jos asut Oulussa, niin tervetuloa mukaan! Pidetään porukalla leffa-iltoja ja käydään Finnkinossa katsomassa uusimmat leffat.', 'https://i.postimg.cc/yNgRsWyt/grp3.jpg', CURRENT_TIMESTAMP),
 -- id 16
-('Kaikenkarvaiset koirat', 'tässä leffaryhmä koirien ystäville. Kaikki koirafilmit sallittuja ja erittäin toivottuja!', CURRENT_TIMESTAMP);
+('Kaikenkarvaiset koirat', 'tässä leffaryhmä koirien ystäville. Kaikki koirafilmit sallittuja ja erittäin toivottuja!', 'https://i.postimg.cc/hPsT0kGy/grp2.jpg', CURRENT_TIMESTAMP);
 
 INSERT INTO Memberlist_ (profileid, mainuser, groupid, pending) VALUES
 -- Ryhmä Ryhmärämä
@@ -225,11 +132,29 @@ INSERT INTO Memberlist_ (profileid, mainuser, groupid, pending) VALUES
 ('8', 0, '4', 0),
 ('4', 0, '4', 0),
 -- Ryhmä SOTA-leffat
-('10', 1, '5', 0),
-('15', 1, '5', 0),
-('12', 0, '5', 0),
-('16', 0, '5', 0),
+('1', 1, '5', 0),
+('2', 0, '5', 0),
+('3', 0, '5', 0),
+('4', 0, '5', 0),
 ('5', 0, '5', 0),
+('6', 0, '5', 0),
+('7', 1, '5', 0),
+('8', 0, '5', 0),
+('9', 0, '5', 0),
+('10', 0, '5', 0),
+('11', 0, '5', 0),
+('12', 0, '5', 0),
+('13', 1, '5', 0),
+('14', 0, '5', 0),
+('15', 0, '5', 0),
+('16', 0, '5', 0),
+('17', 0, '5', 0),
+('18', 0, '5', 0),
+('19', 0, '5', 0),
+('20', 0, '5', 0),
+('21', 0, '5', 0),
+('22', 0, '5', 0),
+('23', 0, '5', 0),
 -- Ryhmä Draamailijat
 ('10', 1, '6', 0),
 ('21', 0, '6', 0),
@@ -238,18 +163,32 @@ INSERT INTO Memberlist_ (profileid, mainuser, groupid, pending) VALUES
 ('9', 1, '7', 0),
 ('14', 0, '7', 0),
 ('16', 0, '7', 0),
+('18', 0, '7', 0),
+('19', 0, '7', 0),
 ('12', 0, '7', 0),
 ('21', 0, '7', 0),
+('22', 0, '7', 0),
 -- Ryhmä Tampereen seudun leffailijat
 ('12', 0, '8', 0),
 ('23', 1, '8', 0),
 ('2', 0, '8', 0),
+('3', 0, '8', 0),
+('4', 0, '8', 0),
 ('8', 0, '8', 0),
 ('7', 0, '8', 0),
 -- Ryhmä Leffatiistai
 ('13', 0, '9', 0),
 ('10', 1, '9', 0),
 ('12', 0, '9', 0),
+('14', 0, '9', 0),
+('15', 0, '9', 0),
+('16', 0, '9', 0),
+('17', 0, '9', 0),
+('18', 0, '9', 0),
+('19', 0, '9', 0),
+('20', 0, '9', 0),
+('21', 0, '9', 0),
+('22', 0, '9', 0),
 ('23', 0, '9', 0),
 -- Ryhmä Vain-sarjoja
 ('7', 1, '10', 0),
@@ -259,8 +198,12 @@ INSERT INTO Memberlist_ (profileid, mainuser, groupid, pending) VALUES
 -- Ryhmä Suomalaista filmii
 ('16', 0, '11', 0),
 ('18', 1, '11', 0),
-('23', 0, '11', 0),
+('19', 0, '11', 0),
+('20', 0, '11', 0),
+('22', 0, '11', 0),
 ('21', 0, '11', 0),
+('13', 0, '11', 0),
+('23', 0, '11', 0),
 ('13', 0, '11', 0),
 -- Ryhmä lastenleffat
 ('14', 1, '12', 0),
@@ -268,23 +211,77 @@ INSERT INTO Memberlist_ (profileid, mainuser, groupid, pending) VALUES
 ('21', 0, '12', 0),
 ('2', 0, '12', 0),
 -- Ryhmä Äksönittäret
-('15', 1, '13', 0),
-('22', 1, '13', 0),
-('23', 0, '13', 0),
-('10', 0, '13', 0),
+('1', 1, '13', 0),
+('2', 0, '13', 0),
+('3', 0, '13', 0),
+('4', 0, '13', 0),
+('5', 0, '13', 0),
+('6', 0, '13', 0),
+('7', 1, '13', 0),
 ('8', 0, '13', 0),
+('9', 0, '13', 0),
+('10', 0, '13', 0),
+('11', 0, '13', 0),
+('12', 0, '13', 0),
+('13', 1, '13', 0),
+('14', 0, '13', 0),
+('15', 0, '13', 0),
+('16', 0, '13', 0),
+('17', 0, '13', 0),
+('18', 0, '13', 0),
+('19', 0, '13', 0),
+('20', 0, '13', 0),
+('21', 0, '13', 0),
+('22', 0, '13', 0),
+('23', 0, '13', 0),
 -- Ryhmä Hevosaiheiset elokuvat
-('8', 1, '14', 0),
-('7', 0, '14', 0),
+('1', 1, '14', 0),
 ('2', 0, '14', 0),
+('3', 0, '14', 0),
+('4', 0, '14', 0),
+('5', 0, '14', 0),
+('6', 0, '14', 0),
+('7', 1, '14', 0),
+('8', 0, '14', 0),
+('9', 0, '14', 0),
+('10', 0, '14', 0),
+('11', 0, '14', 0),
+('12', 0, '14', 0),
+('13', 1, '14', 0),
+('14', 0, '14', 0),
+('15', 0, '14', 0),
 ('16', 0, '14', 0),
+('17', 0, '14', 0),
+('18', 0, '14', 0),
+('19', 0, '14', 0),
+('20', 0, '14', 0),
+('21', 0, '14', 0),
+('22', 0, '14', 0),
 ('23', 0, '14', 0),
 -- Ryhmä '15
-('11', 1, '15', 0),
-('10', 0, '15', 0),
+('1', 1, '15', 0),
+('2', 0, '15', 0),
+('3', 0, '15', 0),
+('4', 0, '15', 0),
+('5', 0, '15', 0),
+('6', 0, '15', 0),
+('7', 1, '15', 0),
 ('8', 0, '15', 0),
-('18', 0, '15', 0),
+('9', 0, '15', 0),
+('10', 0, '15', 0),
+('11', 0, '15', 0),
+('12', 0, '15', 0),
+('13', 1, '15', 0),
 ('14', 0, '15', 0),
+('15', 0, '15', 0),
+('16', 0, '15', 0),
+('17', 0, '15', 0),
+('18', 0, '15', 0),
+('19', 0, '15', 0),
+('20', 0, '15', 0),
+('21', 0, '15', 0),
+('22', 0, '15', 0),
+('23', 0, '15', 0),
 -- Kaikenkarvaiset koirat
 ('1', 1, '16', 0),
 ('2', 0, '16', 0),
@@ -395,7 +392,7 @@ INSERT INTO Review_ (profileid, revieweditem, review, rating, mediatype, "timest
 ('24', '695721', 'Viihdyttävä', 4, 0, CURRENT_TIMESTAMP),
 ('21', '135397', 'Aiiiiivan ihania dinosia', 4, 0, CURRENT_TIMESTAMP),
 ('21', '507086', 'Tommosen ottais lemmikiksikin', 4, 0, CURRENT_TIMESTAMP),
-('21', '1010581', 'Se on ihan huti', 1, 0, CURRENT_TIMESTAMP),
+('21', '1010581', 'Tää on ihan huti', 1, 0, CURRENT_TIMESTAMP),
 ('21', '346698', 'Melko PINKKI leffa oli. :) Voi Ken ressua', 5, 0, CURRENT_TIMESTAMP),
 ('21', '395990', 'Mmmmmmm........ se on jotain niiin........ rrrrr', 4, 0, CURRENT_TIMESTAMP),
 ('21', '634649', 'Ei mulle, mut ehkä sulle?', 2, 0, CURRENT_TIMESTAMP),

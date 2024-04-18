@@ -20,6 +20,9 @@ export default function MyAccount({ user }) {
 
     const [password1, setPassword1] = useState('');
     const [password2, setPassword2] = useState('');
+    const [messagePassword, setMessagePassword] = useState('');
+    const [messageDetails, setMessageDetails] = useState('');
+    const [messageDelete, setMessageDelete] = useState('');
 
     const profilename = user.user;
     const headers = getHeaders();
@@ -61,12 +64,12 @@ export default function MyAccount({ user }) {
         if (password1 == password2 && password1.length > 0) {
             try {
                 await axios.put(VITE_APP_BACKEND_URL + `/auth/password`, { password: password1 }, { headers });
-                alert('Salasana vaihdettu');
+                setMessagePassword('Salasana vaihdettu');
             } catch (error) {
                 console.error('Virhe vaihdettaessa salasanaa:', error);
             }
         } else {
-            alert('Salasanat eivät täsmää tai kentät ovat tyhjiä. Yritä uudelleen.');
+            setMessagePassword('Salasanat eivät täsmää tai kentät ovat tyhjiä. Yritä uudelleen.');
         }
         setPassword1('');
         setPassword2('');
@@ -87,13 +90,15 @@ export default function MyAccount({ user }) {
 
             if (!usernameChanged) {
                 await axios.put(VITE_APP_BACKEND_URL + `/profile/nameandemail`, formData, { headers });
-                alert('Tiedot päivitetty');
+                setMessageDetails('Tiedot päivitetty');
             } else {
                 await axios.put(VITE_APP_BACKEND_URL + `/profile/nameandemail`, formData, { headers });
-                alert('Käyttäjätunnusta päivitetty. Sinut kirjataan ulos.');
+                setMessageDetails('Käyttäjätunnus päivitetty. Kirjaudu sisään uudestaan.')
+                setTimeout(() => {
                 localStorage.removeItem('user');
                 sessionStorage.removeItem('token');
                 window.location.href = '/';
+                }, 3000);
             }
         } catch (error) {
             console.error('Hakuvirhe:', error);
@@ -109,11 +114,12 @@ export default function MyAccount({ user }) {
     const handleDelete = async () => {
         try {
             await axios.delete(VITE_APP_BACKEND_URL + `/profile/`, { headers });
-
-            alert('Käyttäjätili poistettu, sinut ohjataan etusivulle.');
+            setMessageDelete('Käyttäjätili poistettu, sinut ohjataan etusivulle.');
+            setTimeout(() => {
             localStorage.removeItem('user');
             sessionStorage.removeItem('token');
             window.location.href = '/';
+            }, 3000);
 
         } catch (error) {
             console.error('Virhe poistettaessa käyttäjää:', error);
@@ -132,7 +138,7 @@ export default function MyAccount({ user }) {
         try {
             await axios.put(`${VITE_APP_BACKEND_URL}/reviews/toanon`, {}, { headers });
             handleDelete();
-            alert('Käyttäjätilin arvostelut muutettu anonyymeiksi.');
+            setMessageDelete('Arvostelut muutettu anonyymeiksi ja käyttäjätili poistettu. Sinut ohjataan etusivulle.');
         } catch (error) {
             console.error('Virhe muutettaessa arvosteluja:', error);
         }
@@ -163,7 +169,9 @@ export default function MyAccount({ user }) {
                     <h1>Tilin hallinta</h1>
                     <h2>Profiilin näkyvyys</h2>
                     <div className="form-view">
-                        <b>Profiilisi on nyt: {visibility.is_private ? 'yksityinen' : 'julkinen'}</b> <br />
+                        <b>Profiilisi on nyt: <span className='colored'>{visibility.is_private ? 'yksityinen' : 'julkinen'}</span></b> <br />
+                        <span className='communityinfo'>{visibility.is_private ? 'Sinä ja kaverisi näkevät tietosi. Muille näytetään vain profiilikuva ja -esittely.' : 'Kaikki voivat nähdä profiilisi tiedot.'}</span><br/>
+
                         <button className="basicbutton" onClick={handleVisibility}>Vaihda tilin näkyvyyttä</button>
                     </div>
 
@@ -173,7 +181,8 @@ export default function MyAccount({ user }) {
                         <input className="input" type="password" name="password1" value={password1} onChange={handlePasswordChange} /><br />
                         <b>Salasana uudelleen</b> <br />
                         <input className="input" type="password" name="password2" value={password2} onChange={handlePasswordChange} /><br />
-                        <button className="basicbutton" onClick={handlePassword}>Vaihda salasana</button>
+                        <button className="basicbutton" onClick={handlePassword}>Vaihda salasana</button><br/>
+                        {messagePassword && <span className='communityinfo'>{messagePassword}</span>}<br/>
                     </div>
 
                     <h2>Muuta sähköpostia ja käyttäjänimeä</h2>
@@ -183,7 +192,8 @@ export default function MyAccount({ user }) {
                             <input className="input" type="text" name="profilename" value={formData.profilename || ''} onChange={handleChange} /><br />
                             <b>Sähköposti</b><br />
                             <input className="input" type='text' name="email" value={formData.email || ''} onChange={handleChange} /><br /><br />
-                            <button className="basicbutton" type="submit">Tallenna muutokset</button>
+                            <button className="basicbutton" type="submit">Tallenna muutokset</button> <br/>
+                            {messageDetails && <span className='communityinfo'>{messageDetails}</span>}
                         </form>
 
                     </div>
@@ -195,12 +205,13 @@ export default function MyAccount({ user }) {
                         ) : (
                             <div>
                                 <b>Haluatko varmasti poistaa käyttäjätilisi?</b> <br />
-                                <button className="basicbutton" onClick={handleDelete}>Kyllä, poista kaikki tietoni</button>
-                                <button className="basicbutton" onClick={handlePartialDelete}>Kyllä, säästä arvosteluni</button>
+                                <button className="basicbutton confirm" onClick={handleDelete}>Kyllä, poista kaikki tietoni</button>
+                                <button className="basicbutton confirm" onClick={handlePartialDelete}>Kyllä, säästä arvosteluni</button>
                                 <button className="basicbutton" onClick={handleCancelDelete}>En, peruuta</button>
                             </div>
                         )}
-                        <p>Jos poistat tilin, niin kaikki tilisi tiedot poistetaan pysyvästi. Voit myös jättää tekemäsi arvostelut anonyymin nimimerkin alle.</p>
+                        <br/>{messageDelete && <span className='communityinfo'>{messageDelete}</span>}
+                        <p><span className='communityinfo'><i>Jos poistat tilin, niin kaikki tilisi tiedot poistetaan pysyvästi. Voit myös jättää tekemäsi arvostelut anonyymin nimimerkin alle.</i></span></p>
                     </div>
                 </div>
             </div>
