@@ -160,38 +160,42 @@
     flex-basis: calc(90%/ 3);
     padding: 10px;
 }
-#backdropbg {
-    display: inline-block;
-    height: 100vh;
-    margin-bottom: 10px;
+
+#backdrop {
+
+    min-height: 100vh;
+
 }
+
 .moviemain {
-    display: flex;
     background-color: var(--moviedetails);
     border-radius: 10px;
     margin-top: 25px;
     padding: 40px;
 }
+
 .movieinfo {
-    margin-left: 30px;
+    margin-left: 10px;
 }
+
 .posterimg {
     box-shadow: var(--shadow1);
     height: 100%;
     width: auto;
+    margin-right: 30px;
 }
-.justMargins {
-    margin-top: 25px;
-}
+
 .moviereviews {
     background-color: var(--moviedetails);
     border-radius: 10px;
     margin-top: 25px;
     padding: 40px;
+
 }
 .reviewslisted {
     padding: 20px;
 }
+
 .justMargins {
     margin-top: 25px;
 }
@@ -239,6 +243,13 @@
     text-shadow: var(--tShadow1);
   }
 
+.tinyImg {
+    height: 50px;
+    width: auto;
+    margin: 6px;
+    box-shadow: var(--shadow05);
+}
+
 @media screen and (max-width: 800px) {
     .left-column,
     .middle-column,
@@ -256,3 +267,4 @@
     order: 2;
     }
 }
+
