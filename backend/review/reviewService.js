@@ -122,6 +122,16 @@ async function updateReviewToAnon(req, res) {
   }
 }
 
+async function getAnonReviews(req, res) {
+    const profileid = req.params.profileid;
+    try {
+    const reviews = await reviewModel.getAnonReviews(profileid);
+    res.json(reviews);
+  } catch (error) {
+    console.error('Virhe haettaessa arvosteluja:', error);
+    res.status(500).send('Virhe haettaessa arvosteluja');
+  }
+}
 
 module.exports = {
   getAllReviews,
@@ -133,5 +143,6 @@ module.exports = {
   serieReviewFromUser,
   getReviewsByItem,
   serieReviewExists,
-  updateReviewToAnon
+  updateReviewToAnon,
+  getAnonReviews,
 };

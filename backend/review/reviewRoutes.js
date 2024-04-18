@@ -15,6 +15,7 @@ router.get('/reviews/:id/:mediatype', reviewService.getReviewsByItem);
 router.get('/review/new', reviewService.getNewestReviews);
 router.put('/reviews/update/:id', reviewService.updateReview);
 router.put('/reviews/toanon', auth, reviewService.updateReviewToAnon);
+router.get('/reviews/anon', reviewService.getAnonReviews);
 router.delete('/review/:id', reviewService.deleteReview);
 
 module.exports = router;
