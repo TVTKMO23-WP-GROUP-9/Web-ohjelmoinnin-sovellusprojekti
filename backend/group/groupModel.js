@@ -157,6 +157,14 @@ async function createMemberList(profileid, mainuser, groupid, pending) {
     return queryDatabase(query);
 }
 
+async function deleteMemberlist(groupid) {
+    const query = {
+        text: 'DELETE FROM memberlist_ WHERE groupid = $1',
+        values: [groupid],
+    };
+    return queryDatabase(query);
+}
+
 async function getMessagesById(groupid) {
   const query = {
       text: 'SELECT * FROM message_ WHERE groupid = $1',
@@ -183,6 +191,7 @@ module.exports = {
     GetMemberList,
     getMemberStatus,
     deleteMember,
+    deleteMemberlist,
     createMemberList,
     getMessagesById,
     deleteMessage

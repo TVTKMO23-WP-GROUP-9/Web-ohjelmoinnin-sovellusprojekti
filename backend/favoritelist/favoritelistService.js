@@ -78,14 +78,30 @@ async function getFavoritelistByGroup(req, res) {
     } catch (error) {
         console.error('Virhe lisättäessä suosikkilistaa:', error);
     }
-}
-  
+  }
+
+  async function deleteFavorite(req, res) {
+    const idfavoritelist = req.params.idfavoritelist;
+    try {
+      const query = {
+        text: 'DELETE FROM favoritelist_ WHERE idfavoritelist = $1',
+        values: [idfavoritelist],
+      };
+
+      const result = await favoritelistModel.queryDatabase(query);
+        res.send(`Lista poistettu onnistuneesti`);
+    } catch (error) {
+      console.error('Virhe poistettaessa listaa:', error);
+      res.status(500).send('Virhe poistettaessa listaa');
+    }
+  };
+
     async function deleteFavoritelist(req, res) {
-      const idfavoritelist = req.params.idfavoritelist;
+      const groupid = req.params.groupid;
       try {
         const query = {
-          text: 'DELETE FROM favoritelist_ WHERE idfavoritelist = $1',
-          values: [idfavoritelist],
+          text: 'DELETE FROM favoritelist_ WHERE groupid = $1',
+          values: [groupid],
         };
     
         const result = await favoritelistModel.queryDatabase(query);
@@ -100,6 +116,7 @@ async function getFavoritelistByGroup(req, res) {
   module.exports = {
     getAllFavoritelist,
     createFavoritelist,
+    deleteFavorite,
     deleteFavoritelist,
     getFavoritelistByProfile,
     getFavoritelistByGroup,

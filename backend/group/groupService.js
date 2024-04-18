@@ -184,6 +184,17 @@ async function deleteMember(req, res) {
     }
 }
 
+async function deleteMemberlist(req, res) {
+    const groupid = req.params.groupid;
+    try {
+        await groupModel.deleteMemberlist(groupid);
+        res.send('Jäsenlista poistettu onnistuneesti');
+    } catch (error) {
+        console.error('Virhe poistettaessa jäsenlistaa:', error);
+        res.status(500).send('Virhe poistettaessa jäsenlistaa');
+    }
+}
+
 async function createMemberList(req, res) {
     const { profileid, mainuser, groupid, pending } = req.body;
     try {
@@ -226,5 +237,6 @@ module.exports = {
     GetMemberList,
     getMemberStatus,
     deleteMember,
+    deleteMemberlist,
     createMemberList
 };
