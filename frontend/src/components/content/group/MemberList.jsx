@@ -13,6 +13,7 @@ const MemberList = ({ id, user }) => {
   const [confirmRemove, setConfirmRemove] = useState(null);
   const [isMember, setIsMember] = useState(false);
   const [isMainuser, setMainuser] = useState(false);
+  const [memberType, setMemberType] = useState(0); 
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -50,9 +51,22 @@ const MemberList = ({ id, user }) => {
       }
   };
 
-    const fetchMembers = async () => {
-      try {
-        const response = await axios.get(`${VITE_APP_BACKEND_URL}/memberlist/group/${id}/0`);
+  const fetchMembers = async () => {
+    try {
+      let response;
+      switch (memberType) {
+        case 0:
+          response = await axios.get(`${VITE_APP_BACKEND_URL}/memberlist/group/${id}/0`);
+          break;
+        case 1:
+          response = await axios.get(`${VITE_APP_BACKEND_URL}/memberlist/group/${id}/1`);
+          break;
+        case 2:
+          response = await axios.get(`${VITE_APP_BACKEND_URL}/memberlist/group/${id}/2`);
+          break;
+        default:
+          break;
+      }
         const memberData = response.data;
 
         const membersWithnames = await Promise.all(memberData.map(async member => {
@@ -78,7 +92,7 @@ const MemberList = ({ id, user }) => {
 
     fetchProfile();
     fetchMembers();
-  }, [id, user]);
+  }, [id, user, memberType]);
 
   const handleRemoveUser= async (profileId, id) => {
     try {
@@ -99,12 +113,35 @@ const MemberList = ({ id, user }) => {
     }
   };
 
+  const handleAddUser= async (profileId, id) => {
+    try {
+      const memberResponse = await axios.get(`${VITE_APP_BACKEND_URL}/memberstatus/${profileId}/${id}`);
+      console.log(memberResponse); 
+      if (memberResponse && memberResponse.data && memberResponse.data.memberlistid) {
+        try {
+          await axios.put(`${VITE_APP_BACKEND_URL}/memberstatus/${memberResponse.data.memberlistid}/0`);
+          window.location.reload(); 
+        } catch (error) {
+          console.error('Virhe pyynnön poistamisessa:', error);
+        }
+      } else {
+        console.error('Jäsennumeron hakeminen epäonnistui tai memberlistid puuttuu vastauksesta.');
+      }
+    } catch (error) {
+      console.error('Virhe jäsennumeron hakemisessa:', error);
+    }
+  };
+
   return (
     <>
       <ul className="profileSections">
         {members.map((member, index) => (
           <li key={index}>
             <Link to={`/profile/${member.name.profilename}`}>{member.name.profilename}</Link>&nbsp;&nbsp;&nbsp;
+            {(isMainuser && editMode && memberType===1) && (
+            <button className="remove" onClick={() => handleAddUser(member.name.profileid, id)}>
+            <span className='emoji'>&#10003;</span></button>
+            )}
             {(isMainuser && editMode) && (
               confirmRemove === member.name.profileid ? (
                 <>
@@ -122,6 +159,12 @@ const MemberList = ({ id, user }) => {
           </li>
         ))}
       </ul>
+      {(isMainuser && editMode) &&
+      <div>
+        <button onClick={() => setMemberType(0)}>Jäsenet</button>
+        <button onClick={() => setMemberType(1)}>Pyynnöt</button>
+        <button onClick={() => setMemberType(2)}>Kutsut</button>
+      </div>}
       {(isMainuser && !editMode) && <button onClick={() => setEditMode(true)} className="basicbutton">Hallitse</button>}
       {(isMainuser && editMode) && <button onClick={() => setEditMode(false)} className="basicbutton">Lopeta</button>}
     </>

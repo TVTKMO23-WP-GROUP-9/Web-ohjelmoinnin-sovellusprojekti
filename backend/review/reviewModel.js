@@ -110,10 +110,21 @@ async function getReviewsByItem(id, mediatype) {
 async function updateReviewToAnon(profileid) {
   try {
     const query = {
-      text: 'UPDATE Review_ SET profileid = 1 WHERE profileid = $1',
+      text: 'UPDATE Review_ SET profileid = NULL WHERE profileid = $1',
       values: [profileid],
     };
     await queryDatabase(query);
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function getAnonReviews () {
+  try {
+    const query = {
+      text: 'SELECT * FROM Review_ WHERE profileid IS NULL',
+    };
+    return await queryDatabase(query);
   } catch (error) {
     throw error;
   }
@@ -130,5 +141,6 @@ module.exports = {
   getReviewsByProfile,
   serieReviewExists,
   getReviewsByItem,
-  updateReviewToAnon
+  updateReviewToAnon, 
+  getAnonReviews,
 };

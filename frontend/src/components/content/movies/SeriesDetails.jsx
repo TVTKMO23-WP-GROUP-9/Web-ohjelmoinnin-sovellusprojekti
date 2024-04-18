@@ -43,17 +43,19 @@ const SeriesDetails = () => {
 
 
   return (
+    <>
     <div id="backdrop" style={series && { backgroundImage: `url(https://image.tmdb.org/t/p/original${series.backdrop_path})`, backgroundSize: 'cover' }}>
       <div className="content">
 
         {series && (
-          <div id="backdropbg">
+          <>
 
             <div className="moviemain">
               <img className="posterimg" src={`https://image.tmdb.org/t/p/w342${series.poster_path}`} alt={series.title} />
 
               <div className="movieinfo">
 
+                <>
                 <h2>{series.name}</h2>
                 <p><b>Kuvaus:</b> {series.overview}</p>
                 <p><b>Kesto:</b> {series.episode_run_time.map(time => `${time}`).join('-')} min / per jakso</p>
@@ -63,26 +65,32 @@ const SeriesDetails = () => {
                 <p><b>Kerännyt ääniä:</b> {series.vote_count}</p>
                 <p><b>Äänten keskiarvo:</b> {series.vote_average} / 10 </p>
 
+                {providers && providers.flatrate && providers.rent && (
+                  <>
+                  <p><b>Katsottavissa:</b> <br/>
+                    {providers.flatrate.map(provider => (
+                      <span key={provider.provider_id}>
+                        <a href={`https://www.themoviedb.org/tv/${series.id}/watch`}><img src={`https://image.tmdb.org/t/p/w185${provider.logo_path}`} alt={provider.provider_name} /></a>
+                      </span>
+                    ))}
+                  </p>
 
-                {providers && providers.flatrate && (
-                  <table className='providers'>
-                    <tbody>
-                      <tr>
-                        <td><h3>Katso</h3></td>
-                        {providers.flatrate.map(provider => (
-                          <td key={provider.provider_id}>
-                            <a href={`https://www.themoviedb.org/tv/${series.id}/watch`}><img src={`https://image.tmdb.org/t/p/w185${provider.logo_path}`} alt={provider.provider_name} /></a>
-                          </td>
-                        ))}
-                      </tr>
-                      <tr>
-                        <td colSpan="6">
-                          <a href='https://www.justwatch.com/'>Saatavuus Suomessa JustWatch</a>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
+                  <p><b>Vuokrattavissa:</b> <br/>
+                  {providers.rent.map(provider => (
+                      <span key={provider.provider_id}>
+                        <a href={`https://www.themoviedb.org/movie/${movie.id}/watch`}><img className='tinyImg' src={`https://image.tmdb.org/t/p/w185${provider.logo_path}`} alt={provider.provider_name} /></a>
+                      </span>
+                    ))}
+                  </p>
+
+                  <p>
+                    <a href='https://www.justwatch.com/'>Saatavuus Suomessa JustWatch</a>
+                  </p>
+                  </>
                 )}
+                </>
+
+
               </div>
             </div>
 
@@ -95,11 +103,15 @@ const SeriesDetails = () => {
 
             <div className="reviewslisted"><Reviews movieId={id} mediatype={1}/></div>
             </div>
-            </div>
+            
+          </>
         )}
+
       </div>
     </div>
+    </>
   );
 };
+
 
 export default SeriesDetails;

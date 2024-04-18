@@ -1,3 +1,10 @@
+@media (min-width: 1200px) {
+  .moviemain {
+    display: flex;
+  } 
+
+}
+
 @media (max-width: 2140px) {
   .content {
     width: 80%;
@@ -113,6 +120,11 @@
     min-width: 90%;
   }
   
+  .posterimg {
+    max-height: 470px;
+  }
+
+
 }
 
 @media (max-width: 1040px) {
