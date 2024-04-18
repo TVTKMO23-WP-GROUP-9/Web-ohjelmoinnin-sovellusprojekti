@@ -49,6 +49,21 @@
     font-weight: 100;
 }
 
+.lilInfoBox {
+    border-radius: 6px;
+    padding-top: 2px;
+    padding-left: 10px;
+    line-height: 1.1em;
+}
+
+.login-window-info {
+
+
+    font-size: 0.6em;
+    font-weight: 100;
+}
+
+
 .inner-view,
 .three-view {
     background-color: var(--grp-background);
