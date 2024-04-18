@@ -89,7 +89,7 @@ const AllGroups = ({ searchTerm, setSearchTerm }) => {
                 <h2>Muut ryhmätoiminnot</h2>
                 <div className="communityBox">Mikäs sen mukavampaa, kuin löytää samanhenkistä leffaporukkaa,<br />
                     jonka kanssa jakaa leffa-elämyksiä ja chattailla reaaliajassa. <br /><br />
-                    Meillä on jo <b>{filteredGroups.length}</b> ryhmää, mistä valita <br />
+                    Meillä on jo <b>{groups.length}</b> ryhmää, mistä valita <br />
                     Tai saitko uuden ryhmä-idean? Voit luoda sellaisen itsellesi ja kavereillesi <br />
                     tai koko maailman parhaalle leffakansalle! <span className='emoji uni01'></span></div> <br />
                 <button className='basicbutton justMargin'>Luo uusi ryhmä</button>

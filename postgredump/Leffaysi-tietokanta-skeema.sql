@@ -74,13 +74,25 @@ CREATE TABLE IF NOT EXISTS Favoritelist_
 -- Arvostelut
 CREATE TABLE IF NOT EXISTS Review_ (
     idreview SERIAL PRIMARY KEY,
-    profileid INTEGER NOT NULL,
+    profileid INTEGER,
     revieweditem VARCHAR(40),
     review VARCHAR(2000),
     rating SMALLINT NOT NULL,
     timestamp TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     mediatype SMALLINT,
     FOREIGN KEY (profileid) REFERENCES Profile_(profileid) ON DELETE CASCADE,
-    CONSTRAINT unique_review UNIQUE (profileid, revieweditem),
+    CONSTRAINT unique_review UNIQUE NULLS DISTINCT (profileid, revieweditem, mediatype),
     CONSTRAINT check_rating_range CHECK (rating >= 1 AND rating <= 5)
 );
+
+ALTER SEQUENCE public.profile__profileid_seq RESTART WITH 1;
+ALTER SEQUENCE public.group__groupid_seq RESTART WITH 1;
+ALTER SEQUENCE public.review__idreview_seq RESTART WITH 1;
+ALTER SEQUENCE public.favoritelist__idfavoritelist_seq RESTART WITH 1;
+ALTER SEQUENCE public.memberlist__memberlistid_seq RESTART WITH 1;
+ALTER SEQUENCE public.message__messageid_seq RESTART WITH 1;
+
+--ALTER TABLE Review_ 
+--DROP CONSTRAINT unique_review,
+--ADD CONSTRAINT unique_review UNIQUE NULLS DISTINCT (profileid, revieweditem, mediatype);
+
