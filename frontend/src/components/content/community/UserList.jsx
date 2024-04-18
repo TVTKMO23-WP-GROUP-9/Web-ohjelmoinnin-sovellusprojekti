@@ -95,7 +95,7 @@ const UserList = ({ searchTerm, setSearchTerm }) => {
                     Meillä on täällä <b>{profiles.length}</b><br />
                     rekisteröitynyttä käyttäjää. <span className="emoji uni03"></span> <br /><br />
                     Liity mukaan jo tänään!</div>
-                <button className='basicbutton justMargin'>Rekisteröidy</button>
+                    <Link to={'/login'}><button className='basicbutton justMargin'>Rekisteröidy</button></Link>
             </div>
 
         </div>
