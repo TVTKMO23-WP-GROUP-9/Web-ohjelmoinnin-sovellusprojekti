@@ -17,6 +17,7 @@ router.post('/messages', groupService.createMessage);
 router.delete('/messages/:messageid', groupService.deleteMessage);
 router.get('/memberstatus/:profileid/:groupid', groupService.getMemberStatus);
 router.post('/memberstatus/:profileid/:mainuser/:groupid/:pending', groupService.createMember);
+router.put('/memberstatus/:memberlistid/:pending', groupService.updateMemberStatus);
 router.delete('/memberstatus/:memberlistid', groupService.deleteMember);
 
 // ovatko nämä käytössä jossain? en löytänyt näitä!
