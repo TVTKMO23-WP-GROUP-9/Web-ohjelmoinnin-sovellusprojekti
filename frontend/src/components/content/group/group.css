@@ -49,8 +49,6 @@ ul {
     padding: 8px;
 }
 
-
-
 .groupSections {
     line-height: 1.8em;
     list-style: decimal;
@@ -73,6 +71,57 @@ ul {
     border: var(--solid);
 }
 
+.gevents-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.gevents {
+    background-color: var(--greyblue);
+    border-top-left-radius: 70px;
+    border-top-right-radius: 70px;
+    width: 80%;
+    color: var(--grp-text);
+    display: block;
+    margin-top: 25px;
+    border: var(--solid);
+    padding-bottom: 0px;
+}
+
+.gevents a {
+    font-weight: 600;
+    color: var(--table-link);
+}
+
+.gevents a:hover {
+    color: var(--table-linkH);
+
+}
+
+.gevents h2 {
+    margin-left: 5%;
+}
+.singleEvent {
+    background-color: var(--table-bg);
+    border-radius: 1px;
+    color: var(--grp-text);
+    display: block;
+    padding: 0.2em;
+    padding-left: 30px;
+    padding-right: 30px;
+    margin-top: 0em;
+    line-height: 1.8em;
+    font-family: var(--thasadith);
+    font-size: 1em;
+    border-collapse: collapse;
+    border-top: var(--dashed);
+}
+
+.singleEvent:hover {
+    background-color: var(--table-tr-hover);
+}
+
 .gmessages {
     background-color: var(--section2);
     border-radius: 10px;
@@ -92,7 +141,6 @@ ul {
 
 .messageArea {
     background-color: var(--grp-background);
-
     border-radius: 10px;
     color: var(--profile);
     display: flex-table;

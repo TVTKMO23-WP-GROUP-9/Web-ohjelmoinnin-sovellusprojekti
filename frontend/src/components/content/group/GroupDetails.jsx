@@ -133,6 +133,81 @@ console.log("Token from sessionStorage:", user);
       </div>
 
       {editMode && <GroupEdit id={id} />}
+      
+      {isMember && (
+      <div class="gevents-container">
+      <div className='gevents'>
+        <h2><span className='emoji uni15'></span> &nbsp; Näytösajat</h2>
+        <span className='singleEvent'><b> Selaa / Hallinnoi / yms </b></span>
+
+          <span className='singleEvent'>
+            00.00.2024 &nbsp;&nbsp;
+            Teatteri, sali X &nbsp;&nbsp;
+            klo 00:00 &nbsp;&nbsp;
+            <a href="#"><b>Elokuvan nimi</b></a> &nbsp;&nbsp;
+            Lisätietoja
+          </span>
+
+          <span className='singleEvent'>
+            00.00.2024 &nbsp;&nbsp;
+            Teatteri, sali X &nbsp;&nbsp;
+            klo 00:00 &nbsp;&nbsp;
+            <b>Elokuvan nimi</b> &nbsp;&nbsp;
+            Lisätietoja
+          </span>
+
+          <span className='singleEvent'>
+            00.00.2024 &nbsp;&nbsp;
+            Teatteri, sali X &nbsp;&nbsp;
+            klo 00:00 &nbsp;&nbsp;
+            <b>Elokuvan nimi</b> &nbsp;&nbsp;
+            Lisätietoja
+          </span>
+
+          <span className='singleEvent'>
+            00.00.2024 &nbsp;&nbsp;
+            Teatteri, sali X &nbsp;&nbsp;
+            klo 00:00 &nbsp;&nbsp;
+            <b>Elokuvan nimi</b> &nbsp;&nbsp;
+            Lisätietoja
+          </span>
+
+          <span className='singleEvent'>
+            00.00.2024 &nbsp;&nbsp;
+            Teatteri, sali X &nbsp;&nbsp;
+            klo 00:00 &nbsp;&nbsp;
+            <b>Elokuvan nimi</b> &nbsp;&nbsp;
+            Lisätietoja
+          </span>
+
+          <span className='singleEvent'>
+            00.00.2024 &nbsp;&nbsp;
+            Teatteri, sali X &nbsp;&nbsp;
+            klo 00:00 &nbsp;&nbsp;
+            <b>Elokuvan nimi</b> &nbsp;&nbsp;
+            Lisätietoja
+          </span>
+
+          <span className='singleEvent'>
+            00.00.2024 &nbsp;&nbsp;
+            Teatteri, sali X &nbsp;&nbsp;
+            klo 00:00 &nbsp;&nbsp;
+            <b>Elokuvan nimi</b> &nbsp;&nbsp;
+            Lisätietoja
+          </span>
+
+          <span className='singleEvent'>
+            00.00.2024 &nbsp;&nbsp;
+            Teatteri, sali X &nbsp;&nbsp;
+            klo 00:00 &nbsp;&nbsp;
+            <b>Elokuvan nimi</b> &nbsp;&nbsp;
+            Lisätietoja
+          </span>
+
+
+
+      </div></div>
+      )}
 
       {isMember && (
 
