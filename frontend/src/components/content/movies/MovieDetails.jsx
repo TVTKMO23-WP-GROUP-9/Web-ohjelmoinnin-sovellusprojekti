@@ -5,7 +5,7 @@ const { VITE_APP_BACKEND_URL } = import.meta.env;
 import ReviewForm from './ReviewForm';
 import Reviews from './Reviews';
 
-const MovieDetails = () => {
+const MovieDetails = (user) => {
   const { id } = useParams();
   const [movie, setMovie] = useState(null);
   const [providers, setProviders] = useState(null);
@@ -98,7 +98,7 @@ const MovieDetails = () => {
 
             <div className="moviereviews">
 
-              <div><ReviewForm movieId={id} /></div>
+              <div><ReviewForm movieId={id} user={user} /></div>
 
               <br/>
               <h2>Viimeisimmät arvostelut</h2>

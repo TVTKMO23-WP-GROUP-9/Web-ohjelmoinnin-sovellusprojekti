@@ -1,11 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const reviewService = require('./reviewService');
-const { auth } = require('../middleware/auth');
+const { optionalAuth, auth } = require('../middleware/auth');
 
 router.use(express.json());
 
 // kaikki nämä ovat käytössä
+router.get('/moviereviews/thisuser/:id', auth, reviewService.movieReviewFromThisUser);
+router.get('/seriereviews/thisuser/:id', auth, reviewService.serieReviewFromThisUser);
 router.post('/movie/:id/review', auth, reviewService.movieReviewFromUser);
 router.post('/series/:id/review', auth, reviewService.serieReviewFromUser);
 router.get('/series/:id/review', auth, reviewService.serieReviewExists);
