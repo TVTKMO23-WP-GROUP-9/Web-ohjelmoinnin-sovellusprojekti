@@ -102,7 +102,7 @@ console.log("Token from sessionStorage:", user);
   };
 
   return (
-    <div className="content">
+    <div className="content"> 
       <div className="ginner-view">
         <div className="ginner-left">
 
