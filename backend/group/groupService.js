@@ -103,6 +103,18 @@ async function updateMemberStatus(req, res) {
     }
 }
 
+async function updateMemberRank(req, res) {
+    const memberlistid = req.params.memberlistid;
+    const mainuser = req.params.mainuser;
+    try {
+        await groupModel.updateMemberRank(memberlistid, mainuser);
+        res.send('Jäsenen tila päivitetty onnistuneesti');
+    } catch (error) {
+        console.error('Virhe päivitettäessä jäsenen tilaa:', error);
+        res.status(500).send('Virhe päivitettäessä jäsenen tilaa');
+    }
+}
+
 async function createMessage(req, res) {
     const { profileid, groupid, message } = req.body;
     try {
@@ -228,6 +240,7 @@ module.exports = {
     createGroup,
     createMember,
     updateMemberStatus,
+    updateMemberRank,
     getMessagesById,
     createMessage,
     deleteMessage,

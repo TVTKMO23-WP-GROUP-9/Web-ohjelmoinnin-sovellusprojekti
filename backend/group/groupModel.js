@@ -83,6 +83,14 @@ async function updateMemberStatus(memberlistid, pending) {
     return queryDatabase(query);
 }
 
+async function updateMemberRank(memberlistid, mainuser) {
+    const query = {
+        text: 'UPDATE memberlist_ SET mainuser = $2 WHERE memberlistid = $1',
+        values: [memberlistid, mainuser],
+    };
+    return queryDatabase(query);
+}
+
 async function createMessage(profileid, groupid, message) {
     const now = new Date();
     const query = {
@@ -184,6 +192,7 @@ module.exports = {
     createGroup,
     createMember,
     updateMemberStatus,
+    updateMemberRank,
     createMessage,
     deleteMessage,
     getUserGroups,

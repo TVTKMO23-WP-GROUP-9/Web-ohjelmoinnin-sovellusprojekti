@@ -27,9 +27,7 @@ const MemberList = ({ id, user }) => {
           const response = await axios.get(`${VITE_APP_BACKEND_URL}/profile/${user.user}`);
 
           console.log("Token from sessionStorage:", token);
-          console.log("Onko tää menty kusemaan?:", user.user);
           console.log("Profilename from token:", user);
-          console.log("Entä kuseeko tää?:", id);
           console.log("Response from profile:", response.data);
 
           setProfileid(response.data.profileid);
@@ -132,11 +130,44 @@ const MemberList = ({ id, user }) => {
     }
   };
 
+  const updateMemberRank= async (profileId, id, rank) => {
+    try {
+      console.log("Pid", profileId);
+      console.log("id", id);
+      console.log("Rank", rank);
+      
+      
+      const memberResponse = await axios.get(`${VITE_APP_BACKEND_URL}/memberstatus/${profileId}/${id}`);
+      console.log("haettu memberstatus:", memberResponse);
+      console.log("haettu memberlist:", memberResponse.data.memberlistid);  
+      if (memberResponse && memberResponse.data && memberResponse.data.memberlistid) {
+        try {
+          await axios.put(`${VITE_APP_BACKEND_URL}/memberrank/${memberResponse.data.memberlistid}/${rank}`);
+          window.location.reload(); 
+        } catch (error) {
+          console.error('Virhe aseman muutoksessa:', error);
+        }
+      } else {
+        console.error('Jäsennumeron hakeminen epäonnistui tai memberlistid puuttuu vastauksesta.');
+      }
+    } catch (error) {
+      console.error('Virhe jäsennumeron hakemisessa:', error);
+    }
+  };
+  
   return (
     <>
       <ul className="profileSections">
         {members.map((member, index) => (
           <li key={index}>
+            {(isMainuser && editMode && member.mainuser===1 && member.pending ===0) && (
+            <button className="remove" onClick={() => updateMemberRank(member.name.profileid, id, 0)}>
+            <span className='emoji'>&#x2B07;</span></button>
+            )}
+            {(isMainuser && editMode && member.mainuser===0 && member.pending ===0) && (
+            <button className="remove" onClick={() => updateMemberRank(member.name.profileid, id, 1)}>
+            <span className='emoji'>&#x2B06;</span></button>
+            )}
             {(member.mainuser===1) && (
             <span className='emoji'>&#x1F451;</span> 
             )}
