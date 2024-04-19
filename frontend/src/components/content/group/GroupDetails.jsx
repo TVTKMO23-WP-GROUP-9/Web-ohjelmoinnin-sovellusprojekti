@@ -105,9 +105,13 @@ console.log("Token from sessionStorage:", user);
     <div className="content">
       <div className="ginner-view">
         <div className="ginner-left">
-          {group?.grouppicurl && (
-            <img src={group.grouppicurl} className="grouppic" alt="Ryhmän kuva" />
-          )}
+
+           <img 
+              src={group?.grouppicurl ? group.grouppicurl : '/pic.png'} 
+              className="profilepic" 
+              alt="Käyttäjän kuva" 
+            />
+
            {(isMainuser && !editMode) && <button onClick={() => setEditMode(true)} className="basicbutton">Muokkaa ryhmää</button>}
            {(!isMember && !isPending && user && user.user !== null && user.user !== undefined) && (
           <button className="basicbutton" onClick={() => handleApplicationToJoin(profileId, id)}>Liittymispyyntö</button>
