@@ -5,6 +5,7 @@ const { VITE_APP_BACKEND_URL } = import.meta.env;
 
 const ReviewForm = ({ movieId, user }) => {
   const [showReviewForm, setShowReviewForm] = useState(false);
+  const [newReviewButton, setNewReviewButton] = useState(true);
   const [profileHasReview, setProfileHasReview] = useState(true); 
   const [rating, setRating] = useState(0);
   const [review, setReview] = useState("");
@@ -32,10 +33,12 @@ const ReviewForm = ({ movieId, user }) => {
 
   const closeReviewForm = () => {
     setShowReviewForm(false);
+    setNewReviewButton(true);
   }
 
   const openReviewForm = () => {
     setShowReviewForm(true);
+    setNewReviewButton(false);
   }
 
   const handleSubmit = async (event) => {
@@ -98,9 +101,9 @@ const ReviewForm = ({ movieId, user }) => {
           </div>
         )
       )}
-      {user.user !== null && !profileHasReview && ( 
+      {user.user !== null && !profileHasReview && ( newReviewButton && (
         <button onClick={openReviewForm} className="basicbutton">Luo uusi arvostelu</button>
-      )}
+      ))}
     </div>
   );
 };
