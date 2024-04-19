@@ -1,5 +1,20 @@
 const reviewModel = require('./reviewModel');
 
+
+async function movieReviewFromThisUser(req, res) {
+  profileId = res.locals.profileid;
+  revieweditem = req.params.id;
+  mediatype = 0;
+
+try {
+  const checkIfExists = await reviewModel.reviewFromThisUser(profileId, revieweditem, mediatype);
+  res.status(200).send(checkIfExists);
+} catch (error) {
+  console.error('Virhe haettaessa arvosteluja:', error);
+  res.status(500).send('Virhe haettaessa arvosteluja');
+}
+}
+
 // arvostelun lähettäminen käyttöliittymästä (elokuva)
 async function movieReviewFromUser(req, res) {
   profileid = res.locals.profileid;
@@ -145,4 +160,5 @@ module.exports = {
   serieReviewExists,
   updateReviewToAnon,
   getAnonReviews,
+  movieReviewFromThisUser,
 };

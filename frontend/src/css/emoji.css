@@ -1,43 +1,45 @@
 /* unicode emoji 15.1 */
 .emoji {
-    font-family: 'Noto Color Emoji', sans-serif;
-    font-size: 28px;
-  }
+  font-family: 'Noto Color Emoji', sans-serif;
+  font-size: 28px;
+}
+
+.emoji22 {
+  font-family: 'Noto Color Emoji', sans-serif;
+  font-size: 22px;
+}
 
 .review {
-    font-family: 'Noto Color Emoji', sans-serif;
-    font-size: 0.9em;
-    padding: 0.02em;
-  }
+  font-family: 'Noto Color Emoji', sans-serif;
+  font-size: 0.9em;
+  padding: 0.02em;
+}
 
-  
-  
-  /*popcorn*/
-  .uni01::before { content: "\1F37F"; }
-  /*suurennuslasi*/
-  .uni02::before { content: "\1F50D"; }
-  /*party*/
-  .uni03::before { content: "\1F389"; }
-  /*lahja*/
-  .uni04::before { content: "\1F381"; }
-  /*chat*/
-  .uni05::before { content: "\1F5E8"; }
-  /*star*/
-  .uni06::before { content: "\2B50"; }
-  /*chat2*/
-  .uni07::before { content: "\1F4AC"; }
-  /*megaphone*/
-  .uni08::before { content: "\1F4E3"; }
-  /*favorites*/
-  .uni09::before { content: "\1F496"; }
-  /*favorites2*/
-  .uni10::before { content: "\1F5A4"; }
-  /*edit*/
-  .uni11::before { content: "\270F"; }
-  /*delete*/
-  .uni12::before { content: "\274C"; }
-  /*checkmark*/
-  .uni13::before { content: "\2705"; }
-
-
-  /*1F516*/
+/*popcorn*/
+.uni01::before { content: "\1F37F"; }
+/*suurennuslasi*/
+.uni02::before { content: "\1F50D"; }
+/*party*/
+.uni03::before { content: "\1F389"; }
+/*lahja*/
+.uni04::before { content: "\1F381"; }
+/*chat*/
+.uni05::before { content: "\1F5E8"; }
+/*star*/
+.uni06::before { content: "\2B50"; }
+/*chat2*/
+.uni07::before { content: "\1F4AC"; }
+/*megaphone*/
+.uni08::before { content: "\1F4E3"; }
+/*favorites*/
+.uni09::before { content: "\1F496"; }
+/*favorites2*/
+.uni10::before { content: "\1F5A4"; }
+/*edit*/
+.uni11::before { content: "\270F"; }
+/*delete*/
+.uni12::before { content: "\274C"; }
+/*checkmark*/
+.uni13::before { content: "\2705"; }
+/*crown*/
+.uni14::before { content: "\1F451"; }
