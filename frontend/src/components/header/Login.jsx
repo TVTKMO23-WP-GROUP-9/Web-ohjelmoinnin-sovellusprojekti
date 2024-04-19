@@ -13,6 +13,8 @@ export default function Login({ setUser, window, fullpage }) {
   const [showForgotPassword, setShowForgotPassword] = useState(false);
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
+  const [messageLogin, setMessageLogin] = useState('');
+  const [messageRegister, setMessageRegister] = useState('');
 
   const [formData, setFormData] = useState({
     profilename: null,
@@ -60,7 +62,10 @@ export default function Login({ setUser, window, fullpage }) {
       });
 
       if (response.status === 201) {
-        alert('Rekisteröinti onnistui, voit nyt kirjautua sisään');
+        setMessageRegister('Rekisteröinti onnistui, voit nyt kirjautua sisään');
+        setTimeout(() => {
+          setMessageRegister('');
+        }, 3000);
         setShowRegisterForm(false);
         setUsername(profilename);
         setPassword(password);
@@ -69,9 +74,15 @@ export default function Login({ setUser, window, fullpage }) {
     } catch (error) {
       console.error('Virhe käyttäjän luomisessa:', error);
       if (error.response.status === 400) {
-        alert('Käyttäjätunnus on jo käytössä, valitse toinen');
+        setMessageRegister('Tarkista antamasi tiedot ja yritä uudelleen');
+        setTimeout(() => {
+          setMessageRegister('');
+        }, 3000);
       } else if (error.response.status === 500) {
-        alert('Rekisteröinti epäonnistui, tarkista tiedot ja yritä uudelleen');
+        setMessageRegister('Rekisteröinti epäonnistui, yritä uudelleen');
+        setTimeout(() => {
+          setMessageRegister('');
+        }, 3000);
       }
     }
   };
@@ -118,7 +129,7 @@ export default function Login({ setUser, window, fullpage }) {
         ) : showForgotPassword ? (
           <form onSubmit={handleForgotPassword}>
             <input className="field" type="email" name="email" value={email} onChange={handleEmailChange} placeholder="Sähköpostiosoite" required />
-            <button className="formButton" type="submit">Lähetä uusi salasana</button>
+            <button className="formButton" type="submit">Palauta salasana</button>
             <button className="formButton" onClick={handleToggleForgotPasswordForm}>Peruuta</button>
           </form>
         ) : (
@@ -127,14 +138,16 @@ export default function Login({ setUser, window, fullpage }) {
             <input className="field" type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Salasana"></input>
             <button className="formButton" type="submit">Kirjaudu sisään</button>
             <hr />
-            <li className="boxLink">
+
               <button className="formButton" onClick={handleToggleRegisterForm}>Rekisteröidy</button>
-            </li>
-            <li className="boxLink">
-              <button className="formButton" onClick={handleToggleForgotPasswordForm}>Unohtuiko salasana?</button>
-            </li>
+              
+              <button className="formButton" onClick={handleToggleForgotPasswordForm}>Unohtuiko salasana?</button> 
+
           </form>
+
         )}
+        
+        <div className='lilInfoBox'>{messageRegister && <span className='login-window-info'>{messageRegister}</span>}</div>
       </div>
     );
   } else {
@@ -160,10 +173,10 @@ export default function Login({ setUser, window, fullpage }) {
         <div className="login-view">
           <h2>Unohtuiko salasana?</h2>
           <div className="full-page">
-            <p>Syötä sähköpostiosoitteesi, niin lähetämme sinulle uuden salasanan.</p>
+            <span className="userinfo">Syötä sähköpostiosoitteesi, niin lähetämme sinulle uuden salasanan.</span>
             <form onSubmit={handleForgotPassword}>
               <input type="email" value={email} onChange={handleEmailChange} placeholder="Sähköpostiosoite" required /> <br />
-              <button className="basicbutton" type="submit">Lähetä uusi salasana</button>
+              <button className="basicbutton" type="submit">Palauta salasana</button>
             </form>
           </div>
         </div>
@@ -173,14 +186,15 @@ export default function Login({ setUser, window, fullpage }) {
           <div className="full-page">
             <div className='form-view'>
               <form onSubmit={handleRegister}>
-                <p>Kaikki kentät ovat pakollisia, sähköposti ei saa olla jo käytössä jollain käyttäjällä.</p>
+                <span className="userinfo">Kaikki kentät ovat pakollisia, sähköposti ei saa olla jo käytössä jollain käyttäjällä.</span> <br/><br/>
                 <b>Käyttäjänimi</b> <br />
                 <input className="field" type="text" name="profilename" value={formData.profilename || null} onChange={handleChange} /><br />
                 <b>Sähköposti</b><br />
                 <input className="field" type='text' name="email" value={formData.email || null} onChange={handleChange} /><br />
                 <b>Salasana</b><br />
                 <input className="field" type='password' name="password" value={formData.password || null} onChange={handleChange} /><br />
-                <button className="basicbutton" type="submit">Rekisteröidy</button>
+                <button className="basicbutton" type="submit">Rekisteröidy</button> <br/>
+                {messageRegister && <span className='communityinfo'>{messageRegister}</span>}
               </form>
             </div>
           </div>
