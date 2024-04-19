@@ -108,7 +108,15 @@ const Latestreviews = () => {
                       hour: 'numeric',
                       minute: 'numeric',
                     })}</p>
-                    <p><b>Arvostelija: </b> {review.profilename || <i>anonyymi</i>}</p>
+                    <p><b>Arvostelija: </b>   
+                    {review.profilename ? (
+                    <Link className="link-style" to={`/profile/${review.profilename}`}>
+                    {review.profilename}
+                    </Link>
+                    ) : (
+                    <i>anonyymi</i>
+                    )}
+                    </p>
                   </td>
                 </tr>
               </tbody>
