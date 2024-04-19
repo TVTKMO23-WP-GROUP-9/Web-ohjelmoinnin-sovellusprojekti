@@ -119,7 +119,7 @@ const AllGroups = ({ user, searchTerm, setSearchTerm }) => {
 
             <div className="two-right">
                 <h2>Muut ryhmätoiminnot</h2>
-                {!creatingGroup && (
+                
                     <>
                         <div className="communityBox">
                             Mikäs sen mukavampaa, kuin löytää samanhenkistä leffaporukkaa,<br />
@@ -128,9 +128,11 @@ const AllGroups = ({ user, searchTerm, setSearchTerm }) => {
                             Tai saitko uuden ryhmä-idean? Voit luoda sellaisen itsellesi ja kavereillesi <br />
                             tai koko maailman parhaalle leffakansalle! <span className='emoji uni01'></span>
                         </div> <br />
+                        {(!creatingGroup && profileId !== null ) && (
                         <button className='basicbutton justMargin' onClick={() => setCreatingGroup(true)}>Luo uusi ryhmä</button>
+                        )}
                     </>
-                )}
+                
                 {creatingGroup && (
                     <>
                         <input type="text" value={newGroupName} onChange={(e) => setNewGroupName(e.target.value)} placeholder="Syötä uuden ryhmän nimi" />
