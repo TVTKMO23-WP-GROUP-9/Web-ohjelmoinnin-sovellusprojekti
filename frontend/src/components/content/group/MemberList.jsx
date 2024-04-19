@@ -137,6 +137,9 @@ const MemberList = ({ id, user }) => {
       <ul className="profileSections">
         {members.map((member, index) => (
           <li key={index}>
+            {(member.mainuser===1) && (
+            <span className='emoji'>&#x1F451;</span> 
+            )}
             <Link to={`/profile/${member.name.profilename}`}>{member.name.profilename}</Link>&nbsp;&nbsp;&nbsp;
             {(isMainuser && editMode && memberType===1) && (
             <button className="remove" onClick={() => handleAddUser(member.name.profileid, id)}>
