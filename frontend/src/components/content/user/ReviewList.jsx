@@ -113,14 +113,6 @@ const ReviewList = ({ profile }) => {
     }));
   };
 
-  const renderRatingIcons = (rating) => {
-    const ratingIcons = [];
-    for (let i = 0; i < rating; i++) {
-      ratingIcons.push(<span key={i} className="review uni06"></span>);
-    }
-    return ratingIcons;
-  };
-
   const formatDate = (timestamp) => {
     const date = new Date(timestamp);
     const day = date.getDate();
@@ -181,7 +173,12 @@ const ReviewList = ({ profile }) => {
               <Link className='reviewtitle' to={`/series/${review.revieweditem}`}>{review.movie.name}</Link>
             )}             
             <br />
-            <span>{renderRatingIcons(review.rating)}</span>
+            {[...Array(review.rating)].map((_, i) => (
+                    <span key={i} >&#11088;</span>
+            ))}
+                  {[...Array(5 - review.rating)].map((_, i) => (
+                    <span key={i + review.rating}>&#x2605;</span>
+            ))}
             <span className='userinfo'>| <b>{review.rating}/5</b> tähteä</span> <br />
             <span className='userinfo'>{truncateLongWords(review.review, 25)}</span> <br />
             {!editReviewId && isOwnProfile && (
