@@ -9,7 +9,6 @@ async function queryDatabase(query) {
   }
 }
 
-
 async function reviewFromThisUser(profileid, revieweditem, mediatype) {
   try {
     console.log (profileid, revieweditem, mediatype);
@@ -25,7 +24,6 @@ async function reviewFromThisUser(profileid, revieweditem, mediatype) {
     throw error;
   }
 }
-
 
 async function movieReviewFromUser(profileid, mediatype, rating, review, revieweditem) {
 

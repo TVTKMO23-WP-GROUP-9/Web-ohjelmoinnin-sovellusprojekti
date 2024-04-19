@@ -91,7 +91,7 @@ function App() {
               <Route path="/search" element={<Search />} />
               <Route path="/movie/:id" element={<MovieDetails user={user}/>} />
               {/*<Route path="/movie/:id/review" element={<ReviewForm user={user}/>} />*/}
-              <Route path="/series/:id" element={<SeriesDetails />} />
+              <Route path="/series/:id" element={<SeriesDetails user={user}/>} />
               <Route path="/login" element={<Login setUser={handleLogin} />} />
               <Route path="/myaccount" element={<MyAccount user={user} />} />
               <Route path="/profile/:profilename" element={<ProfileDetails user={user} />} />

@@ -17,7 +17,7 @@ const ReviewForm = ({ movieId, user }) => {
       const checkIfUserHasReview = async () => {
         try {
           const response = await axios.get(
-            `${VITE_APP_BACKEND_URL}/reviews/thisuser/${movieId}`,
+            `${VITE_APP_BACKEND_URL}/moviereviews/thisuser/${movieId}`,
             { headers }
           );
           setProfileHasReview(response.data);
