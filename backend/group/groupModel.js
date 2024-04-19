@@ -58,11 +58,11 @@ async function updateGroupById(groupid, grouppicurl, groupexplanation) {
     return queryDatabase(query);
 }
 
-async function createGroup(groupname, groupexplanation) {
+async function createGroup(groupname) {
     const now = new Date();
     const query = {
-        text: 'INSERT INTO group_ (groupname, groupexplanation, timestamp) VALUES ($1, $2, $3) RETURNING groupid',
-        values: [groupname, groupexplanation, now],
+        text: 'INSERT INTO group_ (groupname, timestamp) VALUES ($1, $2) RETURNING groupid',
+        values: [groupname, now],
     };
     return queryDatabase(query);
 }

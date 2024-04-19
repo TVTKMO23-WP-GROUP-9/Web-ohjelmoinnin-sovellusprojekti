@@ -19,7 +19,7 @@ const GroupDetails = ({ user }) => {
   const [isMainuser, setMainuser] = useState(null);
   const [profileId, setProfileid] = useState(null);
   
-  useEffect(() => {
+  useEffect(() => { 
     const fetchProfile = async () => {
         try {
             const token = sessionStorage.getItem('token');

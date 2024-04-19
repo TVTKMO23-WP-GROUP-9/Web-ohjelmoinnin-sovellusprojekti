@@ -28,9 +28,7 @@ const Forum = ({ id, user }) => {
             const response = await axios.get(`${VITE_APP_BACKEND_URL}/profile/${user.user}`);
 
             console.log("Token from sessionStorage:", token);
-            console.log("Onko tää menty kusemaan?:", user.user);
             console.log("Profilename from token:", user);
-            console.log("Entä kuseeko tää?:", id);
             console.log("Response from profile:", response.data);
 
             setProfileid(response.data.profileid);

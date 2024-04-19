@@ -67,11 +67,10 @@ async function updateGroupById(req, res) {
 }
 
 async function createGroup(req, res) {
-    const { groupname, groupexplanation, profileid } = req.body;
+    const groupname = req.body.groupname;
     try {
-        await groupModel.createGroup(groupname, groupexplanation);
-        await groupModel.addMemberToGroup(profileid, groupid);
-        res.send('Uusi ryhmä luotu ja jäsen lisätty');
+        const groupid = await groupModel.createGroup(groupname); 
+        res.send(groupid);
     } catch (error) {
         console.error('Virhe luotaessa ryhmää:', error);
         res.status(500).send('Virhe luotaessa ryhmää');

@@ -96,7 +96,7 @@ function App() {
               <Route path="/myaccount" element={<MyAccount user={user} />} />
               <Route path="/profile/:profilename" element={<ProfileDetails user={user} />} />
               <Route path="/profile/:profilename/edit" element={<ProfileEdit />} />
-              <Route path="/community" element={<Community />} />
+              <Route path="/community" element={<Community user={user} />} />
               <Route path="/users" element={<UserList />} />
               <Route path="/groups" element={<AllGroups />} />
               <Route path="/reviews" element={<AllReviews />} />
