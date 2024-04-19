@@ -76,6 +76,7 @@ body {
   background: linear-gradient(67deg, #0b0c0f, #0b2b55, #0b2b55, #0b2b55, #0b2b55, #0b0c0f);
   z-index: 2;
 }
+
 #header-bar .header-container {
   margin: 0;
   margin-left: 70px;
@@ -110,16 +111,16 @@ body {
   color: var(--blueish);
 }
 
-#header-bar ul.navigate li {
+/*#header-bar ul.navigate li {
   padding-left: 15px;
   padding-right: 15px;
-}
+}*/
 
-#header-bar .boxLink a {
+/*#header-bar .boxLink a {
   margin-left: -70px;
   padding-left: 30px;
   font-size: 0.8em;
-}
+}*/
 
 h1 {
   margin: 0 auto;
@@ -169,7 +170,8 @@ h1 {
   top: 50px;
   right: 40px;
   font-size: 1em;
-  padding-left: 30px;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 .login-menu.active {
