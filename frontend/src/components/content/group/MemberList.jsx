@@ -14,6 +14,7 @@ const MemberList = ({ id, user }) => {
   const [isMember, setIsMember] = useState(false);
   const [isMainuser, setMainuser] = useState(false);
   const [memberType, setMemberType] = useState(0); 
+  const [loading, setLoading] = useState(true); 
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -83,6 +84,7 @@ const MemberList = ({ id, user }) => {
         }));
 
         setMembers(membersWithnames.filter(member => Object.keys(member).length !== 0));
+        setLoading(false); 
       } catch (error) {
         console.error('Error fetching members:', error);
       }
@@ -157,6 +159,9 @@ const MemberList = ({ id, user }) => {
   
   return (
     <>
+      {loading ? (
+      <p>Hetki pieni...</p> 
+      ) : (
       <ul className="profileSections">
         {members.map((member, index) => (
           <li key={index}>
@@ -193,6 +198,7 @@ const MemberList = ({ id, user }) => {
           </li>
         ))}
       </ul>
+      )}
       {(isMainuser && editMode) &&
       <div>
         <button onClick={() => setMemberType(0)}>Jäsenet</button>
@@ -201,7 +207,7 @@ const MemberList = ({ id, user }) => {
       </div>}
       {(isMainuser && !editMode) && <button onClick={() => setEditMode(true)} className="basicbutton">Hallitse</button>}
       {(isMainuser && editMode) && <button onClick={() => setEditMode(false)} className="basicbutton">Lopeta</button>}
-    </>
+    </> 
   );
 };
 
