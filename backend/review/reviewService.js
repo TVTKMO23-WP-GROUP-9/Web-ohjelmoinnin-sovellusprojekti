@@ -1,5 +1,36 @@
 const reviewModel = require('./reviewModel');
 
+
+// arvostelun tarkistaminen onko käyttäjä jo arvostellut tämän elokuvan
+async function movieReviewFromThisUser(req, res) {
+  profileId = res.locals.profileid;
+  revieweditem = req.params.id;
+  mediatype = 0;
+
+try {
+  const checkIfExists = await reviewModel.reviewFromThisUser(profileId, revieweditem, mediatype);
+  res.status(200).send(checkIfExists);
+} catch (error) {
+  console.error('Virhe haettaessa arvosteluja:', error);
+  res.status(500).send('Virhe haettaessa arvosteluja');
+}
+}
+
+// arvostelun tarkistaminen onko käyttäjä jo arvostellut tämän sarjan
+async function serieReviewFromThisUser(req, res) {
+  profileId = res.locals.profileid;
+  revieweditem = req.params.id;
+  mediatype = 1;
+
+try {
+  const checkIfExists = await reviewModel.reviewFromThisUser(profileId, revieweditem, mediatype);
+  res.status(200).send(checkIfExists);
+} catch (error) {
+  console.error('Virhe haettaessa arvosteluja:', error);
+  res.status(500).send('Virhe haettaessa arvosteluja');
+}
+}
+
 // arvostelun lähettäminen käyttöliittymästä (elokuva)
 async function movieReviewFromUser(req, res) {
   profileid = res.locals.profileid;
@@ -145,4 +176,6 @@ module.exports = {
   serieReviewExists,
   updateReviewToAnon,
   getAnonReviews,
+  movieReviewFromThisUser,
+  serieReviewFromThisUser,
 };

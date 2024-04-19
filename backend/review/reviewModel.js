@@ -9,6 +9,22 @@ async function queryDatabase(query) {
   }
 }
 
+async function reviewFromThisUser(profileid, revieweditem, mediatype) {
+  try {
+    console.log (profileid, revieweditem, mediatype);
+    const query = {
+      text: 'SELECT profileid, revieweditem, mediatype FROM Review_ WHERE profileid = $1 AND revieweditem = $2 AND mediatype = $3',
+      values: [profileid, revieweditem, mediatype],
+    };
+    result = await pool.query(query);
+    console.log(result.rows);
+    return result.rows.length > 0;
+  } catch (error) {
+    console.error('Hakuvirhe:', error);
+    throw error;
+  }
+}
+
 async function movieReviewFromUser(profileid, mediatype, rating, review, revieweditem) {
 
   try {
@@ -143,4 +159,5 @@ module.exports = {
   getReviewsByItem,
   updateReviewToAnon, 
   getAnonReviews,
+  reviewFromThisUser,
 };
