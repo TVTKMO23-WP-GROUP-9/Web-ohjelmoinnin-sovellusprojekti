@@ -10,6 +10,7 @@ const UserList = ({ searchTerm, setSearchTerm }) => {
     const [currentPage, setCurrentPage] = useState(1);
     const [profilesPerPage, setProfilesPerPage] = useState(10);
     const [loading, setLoading] = useState(true);
+    const token = sessionStorage.getItem('token');
 
     useEffect(() => {
         const fetchProfiles = async () => {
@@ -89,14 +90,26 @@ const UserList = ({ searchTerm, setSearchTerm }) => {
             </div>
 
             <div className="two-right">
-                <h2>Eläköön Elokuvayhteisö!</h2>
+    <h2>Eläköön Elokuvayhteisö!</h2>
 
-                <div className="communityBox">
-                    Meillä on täällä <b>{profiles.length}</b><br />
-                    rekisteröitynyttä käyttäjää. <span className="emoji uni03"></span> <br /><br />
-                    Liity mukaan jo tänään!</div>
-                    <Link to={'/login'}><button className='basicbutton justMargin'>Rekisteröidy</button></Link>
-            </div>
+    {/* Näytetään kaikille */}
+    <div className="communityBox">
+        Meillä on täällä <b>{profiles.length}</b><br />
+        rekisteröitynyttä käyttäjää. <span className="emoji uni03"></span> <br /><br />
+    </div>
+
+    {/* Näytetään vain, kun token on tyhjä */}
+    {token === '' && (
+        <div className="communityBox">
+            Liity mukaan jo tänään!
+        </div>
+    )}
+    
+    {/* Näytetään vain, kun token on tyhjä */}
+    {token === '' && (
+        <Link to={'/login'}><button className='basicbutton justMargin'>Rekisteröidy</button></Link>
+    )}
+</div>
 
         </div>
     );
