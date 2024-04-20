@@ -32,11 +32,26 @@ const { VITE_APP_BACKEND_URL } = import.meta.env;
 function App() {
   const { theme, toggleTheme } = useTheme();
   const [user, setUser] = useState(null);
+  const [showLogin, setShowLogin] = useState(false);
 
   const handleLogin = (userData) => {
     setUser(userData);
     localStorage.setItem('user', JSON.stringify(userData));
   };
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (!event.target.closest('.header-container')) {
+        setShowLogin(false);
+      }
+    };
+
+    document.body.addEventListener('click', handleClickOutside);
+
+    return () => {
+      document.body.removeEventListener('click', handleClickOutside);
+    };
+  }, []);
 
   useEffect(() => {
     const savedTheme = localStorage.getItem('theme');
@@ -81,6 +96,7 @@ function App() {
       <Router>
 
         <ThemeProvider>
+          <Header showLogin={showLogin} setShowLogin={setShowLogin} />
           <ScrollToTop />
 
           <div className={`body ${theme}`}>
