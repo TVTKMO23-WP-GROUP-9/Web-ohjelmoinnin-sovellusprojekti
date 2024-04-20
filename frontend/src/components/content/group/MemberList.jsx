@@ -166,7 +166,7 @@ const MemberList = ({ id, user }) => {
       <ul className="profileSections">
         {members.map((member, index) => (
           <span className='singleMember' key={index}>
-            {(isMainuser && editMode && member.mainuser===1 && member.pending ===0) && (
+            {(isMainuser && editMode && member.mainuser===1 && member.pending ===0 && member.profileid !== profileId) && (
             <button className="remove" onClick={() => updateMemberRank(member.name.profileid, id, 0)}>
             <span className='emoji'>&#x2B07;</span></button>
             )}
@@ -182,7 +182,7 @@ const MemberList = ({ id, user }) => {
             <button className="remove" onClick={() => handleAddUser(member.name.profileid, id)}>
             <span className='emoji'>&#10003;</span></button>
             )}
-            {(isMainuser && editMode) && (
+            {(isMainuser && editMode && member.profileid !== profileId) && (
               confirmRemove === member.name.profileid ? (
                 <>
                   <button className="confirm" onClick={() => handleRemoveUser(member.name.profileid, id)}>
