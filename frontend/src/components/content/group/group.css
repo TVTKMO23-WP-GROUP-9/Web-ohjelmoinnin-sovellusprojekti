@@ -1,7 +1,6 @@
 
 
 .groupProfileMain {
-
     border-radius: 10px;
     color: var(--profile);
     margin-top: 25px;
@@ -13,7 +12,7 @@
     padding: 1em;
     color: var(--profile);
     display: flex; 
-    flex-direction: colum;
+    flex-direction: row;
     flex-wrap: wrap; 
     margin-top: 25px;
     border: var(--solid);
