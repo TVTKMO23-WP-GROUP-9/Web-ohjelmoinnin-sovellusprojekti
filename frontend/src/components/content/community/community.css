@@ -210,6 +210,10 @@ ul {
     color: var(--blueish);
 }
 
+.tdNames {
+    font-size: 1.1em;
+}
+
 .communityDiv {
     width: 100%;
     margin-left: 0px;
@@ -298,5 +302,17 @@ ul {
     float: inline-start;
     margin-right: 20px;
     border: var(--solid);
+    box-shadow: var(--shadow02);
+}
+
+.tinyPrfPic {
+    max-width: 230px;
+    height: 230px;
+    border-radius: 50%;
+    float: inline-start;
+    margin-right: 20px;
+    border: var(--solid);
+    display: flex;
+    align-items: center;
     box-shadow: var(--shadow02);
 }

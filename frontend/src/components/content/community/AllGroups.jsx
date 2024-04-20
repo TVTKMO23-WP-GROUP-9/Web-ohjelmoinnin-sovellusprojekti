@@ -111,7 +111,9 @@ const AllGroups = ({ user, searchTerm, setSearchTerm }) => {
                                     <tbody>
                                         <tr>
                                             <td width="250px"><b><Link to={`/group/${group.groupid}`}>{group.groupname}</Link></b></td>
-                                            <td><b>---</b></td>
+                                            {group.groupexplanation && (
+                                            <td>{group.groupexplanation && group.groupexplanation .length > 54 ? group.groupexplanation .substring(0, 44) + '...' : group.groupexplanation }</td>
+                                            )}
                                         </tr>
                                     </tbody>
                                 </table>

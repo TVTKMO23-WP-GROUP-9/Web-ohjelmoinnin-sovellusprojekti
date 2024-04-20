@@ -10,6 +10,7 @@ const UserList = ({ searchTerm, setSearchTerm }) => {
     const [currentPage, setCurrentPage] = useState(1);
     const [profilesPerPage, setProfilesPerPage] = useState(10);
     const [loading, setLoading] = useState(true);
+    const [hoveredProfile, setHoveredProfile] = useState(null);
     const token = sessionStorage.getItem('token');
 
     useEffect(() => {
@@ -74,11 +75,14 @@ const UserList = ({ searchTerm, setSearchTerm }) => {
 
                         <div className="communityDiv">
                             {currentProfiles.map(profile => (
-                                <table className="communityTbl" key={profile.profileid}>
+                                <table className="communityTbl" key={profile.profileid} onMouseEnter={() => setHoveredProfile(profile)}
+                                onMouseLeave={() => setHoveredProfile(null)}> 
                                     <tbody>
                                         <tr>
-                                            <td width="250px"><b><Link to={`/profile/${profile.profilename}`}>{profile.profilename}</Link></b></td>
-                                            <td><b>---</b></td>
+                                            <td width="250px"><b className='tdNames'><Link to={`/profile/${profile.profilename}`}>{profile.profilename}</Link></b></td>
+                                            {profile && profile.description && profile.is_private === false && (
+                                            <td>{profile.description && profile.description.length > 44 ? profile.description.substring(0, 54) + '...' : profile.description}</td>
+                                            )}
                                         </tr>
                                     </tbody>
                                 </table>
@@ -89,27 +93,46 @@ const UserList = ({ searchTerm, setSearchTerm }) => {
 
             </div>
 
-            <div className="two-right">
-    <h2>Eläköön Elokuvayhteisö!</h2>
+    <       div className="two-right">
+                <h2>Eläköön Elokuvayhteisö!</h2>
 
-    {/* Näytetään kaikille */}
-    <div className="communityBox">
-        Meillä on täällä <b>{profiles.length}</b><br />
-        rekisteröitynyttä käyttäjää. <span className="emoji uni03"></span> <br /><br />
-    </div>
+                {/* Näytetään kaikille */}
+                <div className="communityBox">
+                    Meillä on täällä <b>{profiles.length}</b><br />
+                    rekisteröitynyttä käyttäjää. <span className="emoji uni03"></span> <br /><br />
+                </div>
 
-    {/* Näytetään vain, kun token on tyhjä */}
-    {token === '' && (
-        <div className="communityBox">
-            Liity mukaan jo tänään!
-        </div>
-    )}
-    
-    {/* Näytetään vain, kun token on tyhjä */}
-    {token === '' && (
-        <Link to={'/login'}><button className='basicbutton justMargin'>Rekisteröidy</button></Link>
-    )}
-</div>
+                {/* Näytetään vain, kun token on tyhjä */}
+                {token === '' && (
+                    <div className="communityBox">
+                        Liity mukaan jo tänään!
+                    </div>
+                )}
+                
+                {/* Näytetään vain, kun token on tyhjä */}
+                {token === '' && (
+                    <Link to={'/login'}><button className='basicbutton justMargin'>Rekisteröidy</button></Link>
+                )}
+
+                {hoveredProfile && (
+                    <div className="communityBox">
+                        <h1>Kurkistusikkunassa</h1>
+                        <h3><b>{hoveredProfile.profilename}</b></h3>
+                        {hoveredProfile.profilepicurl ? (
+                        <span>
+                            <img src={hoveredProfile.profilepicurl} className='tinyPrfPic' alt="Group Picture" />
+                        </span>
+                        ) : (
+                        <span>
+                            <img src="/pic.png" className='tinyPrfPic' alt="Default Group Picture" />
+                        </span>
+                        )}
+                    </div>
+                )}
+            </div>
+
+
+
 
         </div>
     );
