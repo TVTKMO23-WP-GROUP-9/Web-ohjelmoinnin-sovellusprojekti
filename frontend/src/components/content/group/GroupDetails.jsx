@@ -18,6 +18,7 @@ const GroupDetails = ({ user }) => {
   const [isPending, setIsPending] = useState(false);
   const [isMainuser, setMainuser] = useState(null);
   const [profileId, setProfileid] = useState(null);
+  const [groupMembers, setGroupMembers] = useState([]);
   
   useEffect(() => { 
     const fetchProfile = async () => {
@@ -73,6 +74,19 @@ console.log("Token from sessionStorage:", user);
     fetchGroup();
   }, [id]);
 
+  useEffect(() => {
+    const fetchGroupMembers = async () => {
+      try {
+        const response = await axios.get(`${VITE_APP_BACKEND_URL}/memberlist/group/${id}/0`);
+        setGroupMembers(response.data);
+      } catch (error) {
+        console.error('Virhe ryhmän jäsenten hakemisessa:', error);
+      }
+    };
+
+    fetchGroupMembers();
+  }, [id]);
+
   const handleApplicationToJoin = async (profileId, groupId) => {
     try {
       await axios.post(`${VITE_APP_BACKEND_URL}/memberstatus/${profileId}/0/${groupId}/1`);
@@ -84,6 +98,12 @@ console.log("Token from sessionStorage:", user);
 
   const handleRemoveApplication = async (profileId, id) => {
     try {
+      if (groupMembers.length === 1) { 
+        alert('Et voi poistua ryhmästä, koska olet ainoa jäsen. Voit poistaa koko ryhmän.');
+      } else {
+        if (isMainuser && groupMembers.filter(member => member.mainuser === 1).length === 1) { 
+          alert('Et voi poistua ryhmästä, koska olet ainoa pääkäyttäjä ja ryhmä jäisi ilman ylläpitäjää. Ylennä ensin toinen jäsen pääkäyttäjäksi.');
+        } else {
       const memberResponse = await axios.get(`${VITE_APP_BACKEND_URL}/memberstatus/${profileId}/${id}`);
       console.log(memberResponse); 
       if (memberResponse && memberResponse.data && memberResponse.data.memberlistid) {
@@ -96,6 +116,8 @@ console.log("Token from sessionStorage:", user);
       } else {
         console.error('Jäsennumeron hakeminen epäonnistui tai memberlistid puuttuu vastauksesta.');
       }
+    }
+    }
     } catch (error) {
       console.error('Virhe jäsennumeron hakemisessa:', error);
     }
