@@ -94,6 +94,11 @@ const MemberList = ({ id, user }) => {
     fetchMembers();
   }, [id, user, memberType]);
 
+  const handleSetMemberType = async (type) => {
+    setLoading(true); 
+    setMemberType(type);
+  };
+
   const handleRemoveUser= async (profileId, id) => {
     try {
       const memberResponse = await axios.get(`${VITE_APP_BACKEND_URL}/memberstatus/${profileId}/${id}`);
@@ -202,9 +207,9 @@ const MemberList = ({ id, user }) => {
       )}
       {(isMainuser && editMode) &&
       <div>
-        <button onClick={() => setMemberType(0)}>Jäsenet</button>
-        <button onClick={() => setMemberType(1)}>Pyynnöt</button>
-        <button onClick={() => setMemberType(2)}>Kutsut</button>
+        <button onClick={() => handleSetMemberType(0)}>Jäsenet</button>
+        <button onClick={() => handleSetMemberType(1)}>Pyynnöt</button>
+        <button onClick={() => handleSetMemberType(2)}>Kutsut</button>
       </div>}
       {(isMainuser && !editMode) && <button onClick={() => setEditMode(true)} className="basicbutton">Hallinnoi jäsenlistaa</button>}
       {(isMainuser && editMode) && <button onClick={() => setEditMode(false)} className="basicbutton">Lopeta</button>}
