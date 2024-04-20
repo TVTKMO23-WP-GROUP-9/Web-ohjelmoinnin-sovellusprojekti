@@ -133,14 +133,15 @@ const AllGroups = ({ user, searchTerm, setSearchTerm }) => {
                             tai koko maailman parhaalle leffakansalle! <span className='emoji uni01'></span>
                         </div> <br />
                         {(!creatingGroup && profileId !== null ) && (
-                        <button className='basicbutton justMargin' onClick={() => setCreatingGroup(true)}>Luo uusi ryhmä</button>
+                        <button className='basicbutton justMargin' onClick={() => setCreatingGroup(true)}>Luo uusi ryhmä</button> 
                         )}
                     </>
                 
                 {creatingGroup && (
                     <>
-                        <input type="text" value={newGroupName} onChange={(e) => setNewGroupName(e.target.value)} placeholder="Syötä uuden ryhmän nimi" />
-                        <button className='basicbutton' onClick={handleCreateGroup}>Luo</button> <br/><br/>
+                        <input className='justMargin' type="text" value={newGroupName} onChange={(e) => setNewGroupName(e.target.value)} placeholder="Syötä uuden ryhmän nimi" />
+                        <button className='basicbutton justMargin' onClick={handleCreateGroup}>Luo</button> 
+                        <button className='basicbutton' onClick={() => setCreatingGroup(false)}>Peruuta</button> <br/><br/>
 
 
                         
