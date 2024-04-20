@@ -1,5 +1,4 @@
 
-
 .groupProfileMain {
 
     border-radius: 10px;
@@ -138,30 +137,10 @@ ul {
     margin-left: 5%;
 }
 
-.singleEvent2 {
-    background-color: var(--table-bg);
-    border-radius: 1px;
-    color: var(--grp-text);
-    display: block;
-    padding: 0.2em;
-    padding-left: 30px;
-    padding-right: 30px;
-    margin-top: 0em;
-    line-height: 1.8em;
-    font-family: var(--thasadith);
-    font-size: 1em;
-    border-collapse: collapse;
-    border-top: var(--dashed);
-}
-
-.singleEvent2:hover {
-    background-color: var(--table-tr-hover);
-}
-
 .singleEvent {
 
     border-radius: 1px;
-    color: var(--grp-text);
+    color: var(--darktext);
     display: block;
     padding: 0.2em;
     padding-left: 30px;
@@ -175,7 +154,7 @@ ul {
 }
 
 .singleEvent:hover {
-    background-color: var(--table-tr-hover);
+    background-color: var(--reviewbox);
 }
 
 .gmessages {
