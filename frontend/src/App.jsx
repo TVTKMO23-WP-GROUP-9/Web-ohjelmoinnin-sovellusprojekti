@@ -33,6 +33,7 @@ function App() {
   const { theme, toggleTheme } = useTheme();
   const [user, setUser] = useState(null);
   const [showLogin, setShowLogin] = useState(false);
+  const [isburgerOpen, setIsburgerOpen] = useState(false);
 
   const handleLogin = (userData) => {
     setUser(userData);
@@ -43,8 +44,11 @@ function App() {
     const handleClickOutside = (event) => {
       if (!event.target.closest('.header-container')) {
         setShowLogin(false);
+        setIsburgerOpen(false);
       }
+
     };
+
 
     document.body.addEventListener('click', handleClickOutside);
 
@@ -98,9 +102,9 @@ function App() {
         <ThemeProvider>
           <ScrollToTop />
 
-          <div className={`body ${theme}`}>
+          <div className={`body ${theme}`}> 
             <Error />
-            <Header user={user} setUser={handleLogin} handleLogout={handleLogout} toggleTheme={toggleTheme} theme={theme} showLogin={showLogin} setShowLogin={setShowLogin} />
+            <Header user={user} setUser={handleLogin} handleLogout={handleLogout} toggleTheme={toggleTheme} theme={theme} showLogin={showLogin} setShowLogin={setShowLogin} isburgerOpen={isburgerOpen} setIsburgerOpen={setIsburgerOpen} />
             <Routes>
               <Route path="/" exact element={<Home />} />
               <Route path="/search" element={<Search />} />
