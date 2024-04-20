@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './community.css';
+import GroupCarousel from './GroupCarousel';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 const { VITE_APP_BACKEND_URL } = import.meta.env;
@@ -13,6 +14,8 @@ const AllGroups = ({ user, searchTerm, setSearchTerm }) => {
     const [newGroupName, setNewGroupName] = useState('');
     const [creatingGroup, setCreatingGroup] = useState(false);
 
+
+    if (user.user !== null) {
     useEffect(() => {
         const fetchProfile = async () => {
             try {
@@ -39,6 +42,7 @@ const AllGroups = ({ user, searchTerm, setSearchTerm }) => {
     
         fetchProfile();
       }, [user]);
+    }
 
     useEffect(() => {
         const fetchGroups = async () => {
@@ -131,16 +135,26 @@ const AllGroups = ({ user, searchTerm, setSearchTerm }) => {
                             tai koko maailman parhaalle leffakansalle! <span className='emoji uni01'></span>
                         </div> <br />
                         {(!creatingGroup && profileId !== null ) && (
-                        <button className='basicbutton justMargin' onClick={() => setCreatingGroup(true)}>Luo uusi ryhmä</button>
+                        <button className='basicbutton justMargin' onClick={() => setCreatingGroup(true)}>Luo uusi ryhmä</button> 
                         )}
                     </>
                 
                 {creatingGroup && (
                     <>
-                        <input type="text" value={newGroupName} onChange={(e) => setNewGroupName(e.target.value)} placeholder="Syötä uuden ryhmän nimi" />
-                        <button className='basicbutton' onClick={handleCreateGroup}>Luo</button>
+                        <input className='justMargin' type="text" value={newGroupName} onChange={(e) => setNewGroupName(e.target.value)} placeholder="Syötä uuden ryhmän nimi" />
+                        <button className='basicbutton justMargin' onClick={handleCreateGroup}>Luo</button> 
+                        <button className='basicbutton' onClick={() => setCreatingGroup(false)}>Peruuta</button> <br/><br/>
+
+
+                        
                     </>
                 )}
+
+                    <>
+                        <div className="communityBox">
+                            <GroupCarousel />
+                        </div>
+                    </>
             </div>
         </div>
     );

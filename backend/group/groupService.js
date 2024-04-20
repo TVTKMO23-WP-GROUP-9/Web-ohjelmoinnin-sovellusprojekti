@@ -1,5 +1,26 @@
 const groupModel = require('./groupModel');
 
+
+const getNewestGroup = async (req, res) => {
+    try {
+      const newestGroup = await groupModel.getNewestGroup();
+      res.json(newestGroup);
+    } catch (error) {
+      console.error('Error fetching newest group:', error);
+      res.status(500).send('Error fetching newest group');
+    }
+  };
+  
+  const getPopularGroup = async (req, res) => {
+    try {
+      const popularGroup = await groupModel.getPopularGroup();
+      res.json(popularGroup);
+    } catch (error) {
+      console.error('Error fetching popular group:', error);
+      res.status(500).send('Error fetching popular group');
+    }
+  };
+
 async function getAllGroups(req, res) {
     try {
         const groups = await groupModel.getAllGroups();
@@ -250,5 +271,7 @@ module.exports = {
     getMemberStatus,
     deleteMember,
     deleteMemberlist,
-    createMemberList
+    createMemberList,
+    getNewestGroup,
+    getPopularGroup,
 };
