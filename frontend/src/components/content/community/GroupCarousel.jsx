@@ -37,7 +37,7 @@ const GroupCarousel = () => {
   return (
     <CarouselProvider
       naturalSlideWidth={100}
-      naturalSlideHeight={75}
+      naturalSlideHeight={58}
       totalSlides={3}
     >
               <ButtonBack>⯇</ButtonBack>
