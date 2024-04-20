@@ -77,8 +77,10 @@ const UserList = ({ searchTerm, setSearchTerm }) => {
                                 <table className="communityTbl" key={profile.profileid}>
                                     <tbody>
                                         <tr>
-                                            <td width="250px"><b><Link to={`/profile/${profile.profilename}`}>{profile.profilename}</Link></b></td>
-                                            <td><b>---</b></td>
+                                            <td width="250px"><b className='tdNames'><Link to={`/profile/${profile.profilename}`}>{profile.profilename}</Link></b></td>
+                                            {profile && profile.description && (
+                                            <td>{profile.description && profile.description.length > 44 ? profile.description.substring(0, 54) + '...' : profile.description}</td>
+                                            )}
                                         </tr>
                                     </tbody>
                                 </table>

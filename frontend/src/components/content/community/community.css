@@ -210,6 +210,10 @@ ul {
     color: var(--blueish);
 }
 
+.tdNames {
+    font-size: 1.1em;
+}
+
 .communityDiv {
     width: 100%;
     margin-left: 0px;
