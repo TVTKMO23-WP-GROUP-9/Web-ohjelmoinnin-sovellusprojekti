@@ -199,7 +199,7 @@ const MemberList = ({ id, user }) => {
         <button onClick={() => setMemberType(1)}>Pyynnöt</button>
         <button onClick={() => setMemberType(2)}>Kutsut</button>
       </div>}
-      {(isMainuser && !editMode) && <button onClick={() => setEditMode(true)} className="basicbutton">Hallitse</button>}
+      {(isMainuser && !editMode) && <button onClick={() => setEditMode(true)} className="basicbutton">Hallinnoi jäsenlistaa</button>}
       {(isMainuser && editMode) && <button onClick={() => setEditMode(false)} className="basicbutton">Lopeta</button>}
     </>
   );

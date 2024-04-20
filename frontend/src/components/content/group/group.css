@@ -22,7 +22,7 @@
 }
 
 .gform-view {
-    background-color: var(--grp-background);
+    background-color: var(--profile-view);
     border-radius: 10px;
     color: var(--profile);
     padding: 1em;
@@ -42,6 +42,7 @@
     padding-top: 8px;
     color: var(--profile);
 }
+
 
 .toggleLinks {
     display: flex;
