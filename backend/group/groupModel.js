@@ -9,6 +9,26 @@ async function queryDatabase(query) {
     }
 }
 
+const getNewestGroup = async () => {
+    const query = `SELECT * FROM Group_ ORDER BY timestamp DESC LIMIT 1`;
+    const { rows } = await pool.query(query);
+    return rows;
+};
+  
+const getPopularGroup = async () => {
+    const query = `
+      SELECT G.*, COUNT(M.profileid) AS member_count
+      FROM Group_ G
+      JOIN Memberlist_ M ON G.groupid = M.groupid
+      GROUP BY G.groupid
+      ORDER BY member_count DESC
+      LIMIT 1
+    `;
+    const { rows } = await pool.query(query);
+    return rows;
+};
+
+
 async function getAllGroups() {
     const query = 'SELECT * FROM group_';
     return queryDatabase(query);
@@ -31,14 +51,13 @@ async function getGroupIdByName(groupname) {
 }
 
 async function getGroupById(groupid) {
+    console.log('groupid', groupid);
     const query = {
         text: 'SELECT * FROM Group_ WHERE groupid = $1',
         values: [groupid],
     };
     const result = await pool.query(query);
     return result.rows[0];
-
-
 }
 
 async function deleteGroupById(groupid) {
@@ -203,5 +222,7 @@ module.exports = {
     deleteMemberlist,
     createMemberList,
     getMessagesById,
-    deleteMessage
+    deleteMessage,
+    getNewestGroup,
+    getPopularGroup,
 };

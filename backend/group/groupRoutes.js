@@ -23,7 +23,8 @@ router.put('/memberstatus/:memberlistid/:pending', groupService.updateMemberStat
 router.put('/memberrank/:memberlistid/:mainuser', groupService.updateMemberRank);
 router.delete('/memberstatus/:memberlistid', groupService.deleteMember);
 router.delete('/memberlist/:groupid', groupService.deleteMemberlist);
-
+router.get('/groups/getnewest', groupService.getNewestGroup);
+router.get('/groups/getpopular', groupService.getPopularGroup);
 // ovatko nämä käytössä jossain? en löytänyt näitä!
 router.get('/group/groupname/:groupid', groupService.getGroupNameById);
 router.post('/memberlist', groupService.createMemberList);
