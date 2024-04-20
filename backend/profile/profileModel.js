@@ -1,7 +1,7 @@
 const pool = require('../database/db_connection');
 
 async function getAllProfiles() {
-    const query = 'SELECT profileid, profilename, email, profilepicurl, timestamp, description FROM Profile_';
+    const query = 'SELECT profileid, profilename, email, profilepicurl, timestamp, description, is_private FROM Profile_';
     const result = await pool.query(query);
     return result.rows;
 }

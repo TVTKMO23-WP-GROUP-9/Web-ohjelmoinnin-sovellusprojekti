@@ -78,7 +78,7 @@ const UserList = ({ searchTerm, setSearchTerm }) => {
                                     <tbody>
                                         <tr>
                                             <td width="250px"><b className='tdNames'><Link to={`/profile/${profile.profilename}`}>{profile.profilename}</Link></b></td>
-                                            {profile && profile.description && (
+                                            {profile && profile.description && profile.is_private === false && (
                                             <td>{profile.description && profile.description.length > 44 ? profile.description.substring(0, 54) + '...' : profile.description}</td>
                                             )}
                                         </tr>
