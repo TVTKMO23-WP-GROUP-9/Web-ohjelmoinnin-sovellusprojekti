@@ -1,11 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Login from './Login';
 
 const Header = ({ user, setUser, handleLogout, toggleTheme }) => {
   const [isburgerOpen, setIsburgerOpen] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
+  
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (!event.target.closest('.header-container')) {
+        setShowLogin(false);
+      }
+    };
 
+    document.body.addEventListener('click', handleClickOutside);
+
+    return () => {
+      document.body.removeEventListener('click', handleClickOutside);
+    };
+  }, []);
+  
   const toggleburger = () => {
     setIsburgerOpen(!isburgerOpen);
   };
