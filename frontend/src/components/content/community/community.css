@@ -290,3 +290,13 @@ ul {
     height: 170px;
     box-shadow: var(--shadow02);
 }
+
+.tinyGrpPic {
+    width: 170px;
+    height: 170px;
+    border-radius: 50%;
+    float: inline-start;
+    margin-right: 20px;
+    border: var(--solid);
+    box-shadow: var(--shadow02);
+}
