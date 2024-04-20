@@ -222,6 +222,15 @@ h1 {
 #footer a:hover {
   color: var(--footer-hover);
 }
+
+.gh-mark {
+  width: 30px;
+  height: 30px;
+  margin-right: 5px;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
 /******* CONTENT incl. PAGES AND COMPONENTS *******/
 
 .content {
