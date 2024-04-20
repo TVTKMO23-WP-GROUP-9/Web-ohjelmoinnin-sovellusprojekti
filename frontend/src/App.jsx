@@ -96,12 +96,11 @@ function App() {
       <Router>
 
         <ThemeProvider>
-          <Header showLogin={showLogin} setShowLogin={setShowLogin} />
           <ScrollToTop />
 
           <div className={`body ${theme}`}>
             <Error />
-            <Header user={user} setUser={handleLogin} handleLogout={handleLogout} toggleTheme={toggleTheme} theme={theme} />
+            <Header user={user} setUser={handleLogin} handleLogout={handleLogout} toggleTheme={toggleTheme} theme={theme} showLogin={showLogin} setShowLogin={setShowLogin} />
             <Routes>
               <Route path="/" exact element={<Home />} />
               <Route path="/search" element={<Search />} />
