@@ -157,6 +157,7 @@ const MemberList = ({ id, user }) => {
     }
   };
   
+
   return (
     <>
       {loading ? (
@@ -164,7 +165,7 @@ const MemberList = ({ id, user }) => {
       ) : (
       <ul className="profileSections">
         {members.map((member, index) => (
-          <li key={index}>
+          <span className='singleMember' key={index}>
             {(isMainuser && editMode && member.mainuser===1 && member.pending ===0) && (
             <button className="remove" onClick={() => updateMemberRank(member.name.profileid, id, 0)}>
             <span className='emoji'>&#x2B07;</span></button>
@@ -195,7 +196,7 @@ const MemberList = ({ id, user }) => {
                 </button>
               )
             )}
-          </li>
+          </span>
         ))}
       </ul>
       )}
@@ -205,7 +206,7 @@ const MemberList = ({ id, user }) => {
         <button onClick={() => setMemberType(1)}>Pyynnöt</button>
         <button onClick={() => setMemberType(2)}>Kutsut</button>
       </div>}
-      {(isMainuser && !editMode) && <button onClick={() => setEditMode(true)} className="basicbutton">Hallitse</button>}
+      {(isMainuser && !editMode) && <button onClick={() => setEditMode(true)} className="basicbutton">Hallinnoi jäsenlistaa</button>}
       {(isMainuser && editMode) && <button onClick={() => setEditMode(false)} className="basicbutton">Lopeta</button>}
     </> 
   );

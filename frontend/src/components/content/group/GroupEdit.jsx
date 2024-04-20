@@ -78,13 +78,13 @@ const GroupEdit = ({ id, user }) => {
                 <button className="basicbutton" onClick={() => setEditMode(false)}>Peruuta</button>
             </form>
             <h2>Poista ryhmä</h2>
-                    <div className="form-view">
+                    <div className="gform-view">
                         {!deleteClicked ? (
-                            <button className="basicbutton" onClick={handleDeleteClick}>Poista ryhmä</button>
+                            <button className="basicbutton confirm" onClick={handleDeleteClick}>Poista ryhmä</button>
                         ) : (
                             <div>
                                 <b>Haluatko varmasti poistaa tämän ryhmän?</b> <br />
-                                <button className="basicbutton" onClick={handleDelete}>Kyllä, poista ryhmä</button>
+                                <button className="basicbutton confirm" onClick={handleDelete}>Kyllä, poista ryhmä</button>
                                 <button className="basicbutton" onClick={handleCancelDelete}>En, peruuta</button>
                             </div>
                         )}

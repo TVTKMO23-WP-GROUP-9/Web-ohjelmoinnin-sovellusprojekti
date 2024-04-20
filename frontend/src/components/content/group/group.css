@@ -1,27 +1,37 @@
 
-.ginner-view {
-    background-color: var(--grp-background);
+
+.groupProfileMain {
+
     border-radius: 10px;
     color: var(--profile);
-    display: flex; 
-    flex-direction: row;
-    flex-wrap: wrap; 
+    margin-top: 25px;
+
+}
+
+.ginner-view {
+    background-color: var(--grp-background);
     padding: 1em;
+    color: var(--profile);
+    display: flex; 
+    flex-direction: colum;
+    flex-wrap: wrap; 
     margin-top: 25px;
     border: var(--solid);
+    border-radius: 10px;
+    
 }
 
 .gform-view {
-    background-color: var(--grp-background);
+    background-color: var(--profile-view);
     border-radius: 10px;
     color: var(--profile);
-
     padding: 1em;
     margin-top: 25px;
     border: var(--solid);
 }
 
 .ginner-view .ginner-left {
+    width: 280px;
     padding: 10px;
     margin-right: 10px;
     color: var(--profile);
@@ -29,9 +39,35 @@
 }
 
 .ginner-view .ginner-right {
-    flex: 70%;
-    padding: 8px;
+    padding-top: 8px;
     color: var(--profile);
+}
+
+
+.toggleLinks {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0px;
+    margin: 0 auto;
+}
+
+.toggleLinks h3 {
+    color: var(--profile);
+    font-size: 1.4em;
+    margin-right: 40px;
+}
+
+.singleMember {
+    width: 400px;
+    border-radius: 1px;
+    color: var(--grp-text);
+    display: inline-block;
+    padding: 0.2em;
+    padding-left: 30px;
+    padding-right: 30px;
+    margin-top: 0em;
+    line-height: 2.1em;
+    font-size: 1em;
 }
 
 .grouppic {
@@ -49,8 +85,6 @@ ul {
     padding: 8px;
 }
 
-
-
 .groupSections {
     line-height: 1.8em;
     list-style: decimal;
@@ -64,13 +98,84 @@ ul {
     background-color: var(--grp-background);
     border-radius: 10px;
     color: var(--profile);
-    display: flex-table;
-    flex-wrap: wrap;
+
     padding: 1em;
     padding-left: 2%;
     padding-right: 2%;
     margin-top: 25px;
     border: var(--solid);
+}
+
+.gevents-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.gevents {
+    background-color: var(--greyblue);
+    border-top-left-radius: 70px;
+    border-top-right-radius: 70px;
+    width: 80%;
+    color: var(--grp-text);
+    display: block;
+    margin-top: 25px;
+    border: var(--solid);
+    margin-bottom: 7px;
+}
+
+.gevents a {
+    font-weight: 600;
+    color: var(--table-link);
+}
+
+.gevents a:hover {
+    color: var(--table-linkH);
+
+}
+
+.gevents h2 {
+    margin-left: 5%;
+}
+
+.singleEvent2 {
+    background-color: var(--table-bg);
+    border-radius: 1px;
+    color: var(--grp-text);
+    display: block;
+    padding: 0.2em;
+    padding-left: 30px;
+    padding-right: 30px;
+    margin-top: 0em;
+    line-height: 1.8em;
+    font-family: var(--thasadith);
+    font-size: 1em;
+    border-collapse: collapse;
+    border-top: var(--dashed);
+}
+
+.singleEvent2:hover {
+    background-color: var(--table-tr-hover);
+}
+
+.singleEvent {
+
+    border-radius: 1px;
+    color: var(--grp-text);
+    display: block;
+    padding: 0.2em;
+    padding-left: 30px;
+    padding-right: 30px;
+    margin-top: 0em;
+    line-height: 1.8em;
+    font-family: var(--thasadith);
+    font-size: 1em;
+    border-collapse: collapse;
+    border-top: var(--dashed);
+}
+
+.singleEvent:hover {
+    background-color: var(--table-tr-hover);
 }
 
 .gmessages {
@@ -92,7 +197,6 @@ ul {
 
 .messageArea {
     background-color: var(--grp-background);
-
     border-radius: 10px;
     color: var(--profile);
     display: flex-table;
@@ -136,15 +240,19 @@ ul {
 .group-view {
     display: flex-table;
     flex-wrap: wrap;
-    width: 42%;
-    margin-top: 25px;
-    border-top-left-radius: 60px;
-    border-bottom-right-radius: 60px;
+    width: 92%;
+    margin-top: 0px;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    border-bottom-left-radius: 50px;
+    border-bottom-right-radius: 50px;
     background-color: var(--profile-view);
     color: var(--profile);
     padding: 1em;
-    padding-left: 3%;
-    border: var(--solid);
+    border-top: none;
+    border-right: var(--solid);
+    border-left: var(--solid);
+    border-bottom: var(--solid);
 }
 
 .justify {
@@ -164,20 +272,11 @@ ul {
 .group-content {
     flex-basis: 90%;
     padding: 10px;
+    padding-left: 5%;
+    padding-right: 5%;
     margin: 0 auto;
 }
 
-.group-middle {
-    flex-basis: 30%;
-    padding: 10px;
-    margin: 0 auto;
-}
-
-.group-right {
-    flex-basis: 30%;
-    padding: 10px;
-    margin: 0 auto;
-}
 
 .reviewinfo {
     color: var(--profile);

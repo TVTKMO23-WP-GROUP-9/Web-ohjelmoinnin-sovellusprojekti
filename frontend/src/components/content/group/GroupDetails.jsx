@@ -19,6 +19,10 @@ const GroupDetails = ({ user }) => {
   const [isMainuser, setMainuser] = useState(null);
   const [profileId, setProfileid] = useState(null);
   const [groupMembers, setGroupMembers] = useState([]);
+  const [showMembers, setShowMembers] = useState(false);
+  const [showEvents, setShowEvents] = useState(false);
+  const [showFavorites, setShowFavorites] = useState(false);
+
   
   useEffect(() => { 
     const fetchProfile = async () => {
@@ -87,6 +91,7 @@ console.log("Token from sessionStorage:", user);
     fetchGroupMembers();
   }, [id]);
 
+
   const handleApplicationToJoin = async (profileId, groupId) => {
     try {
       await axios.post(`${VITE_APP_BACKEND_URL}/memberstatus/${profileId}/0/${groupId}/1`);
@@ -95,6 +100,7 @@ console.log("Token from sessionStorage:", user);
       console.error('Virhe pyynnön lähettämisessä:', error);
     }
   };
+
 
   const handleRemoveApplication = async (profileId, id) => {
     try {
@@ -123,19 +129,41 @@ console.log("Token from sessionStorage:", user);
     }
   };
 
+  const toggleMembers = () => {
+    setShowMembers(!showMembers);
+    setShowEvents(false);
+    setShowFavorites(false);
+  };
+
+  const toggleEvents = () => {
+    setShowEvents(!showEvents);
+    setShowFavorites(false);
+    setShowMembers(false);
+  };
+
+  const toggleFavorites = () => {
+    setShowFavorites(!showFavorites);
+    setShowEvents(false);
+    setShowMembers(false);
+  }
+
+
+
   return (
     <div className="content"> 
-      <div className="ginner-view">
-        <div className="ginner-left">
+    {editMode && <GroupEdit id={id} />}
+      <div className="groupProfileMain">
+        <div className="ginner-view">
 
-           <img 
+        <div className="ginner-left">
+          <img 
               src={group?.grouppicurl ? group.grouppicurl : '/pic.png'} 
               className="profilepic" 
               alt="Käyttäjän kuva" 
             />
 
-           {(isMainuser && !editMode) && <button onClick={() => setEditMode(true)} className="basicbutton">Muokkaa ryhmää</button>}
-           {(!isMember && !isPending && user && user.user !== null && user.user !== undefined) && (
+          {(isMainuser && !editMode) && <button onClick={() => setEditMode(true)} className="basicbutton">Muokkaa ryhmää</button>}
+          {(!isMember && !isPending && user && user.user !== null && user.user !== undefined) && (
           <button className="basicbutton" onClick={() => handleApplicationToJoin(profileId, id)}>Liittymispyyntö</button>
           )}
           {isPending && (
@@ -143,40 +171,99 @@ console.log("Token from sessionStorage:", user);
           )}
           <br />
 
-        </div>
-        
-        <div className="ginner-right">
-          <h2>{group?.groupname}</h2>
-          <ul>
-            <p className="info">{group?.groupexplanation || ''} </p>
+          </div>
+          
+          <div className="ginner-right">
+            <h2>{group?.groupname}</h2>
+            <ul>
+              <p className="info">{group?.groupexplanation || ''} </p>
+            </ul>
 
-          </ul>
-        </div>
-      </div>
-
-      {editMode && <GroupEdit id={id} />}
-
-      {isMember && (
-
-      <div className='group-between'>
-      
-        <div className="group-view">
-          <div className="group-content">
-            <h2>Ryhmän suosikit &nbsp;<span className='emoji uni10'></span></h2>
-            <span>Listaus tähän?</span>
+            {isMember && (
+            <><h2>Näytä lisää</h2>
+             <div className="toggleLinks">
+              <h3 onClick={toggleMembers}><span className='emoji uni07'></span>&nbsp; Jäsenlista </h3>
+              <h3 onClick={toggleFavorites}><span className='emoji uni10'></span> Suosikit &nbsp;</h3>
+              <h3 onClick={toggleEvents}><span className='emoji uni15'></span> &nbsp; Näytösajat</h3>
+            </div></>
+            )}
           </div>
         </div>
-
+        
+      {isMember && (
+      <div className='group-between'>
         <div className="group-view">
-          <div className="group-content">
-            <h2>Jäsenet &nbsp;<span className='emoji uni07'></span></h2>
-            <MemberList id={id} user={user} />
+          <div className='group-content'>
+
+          {showMembers && <MemberList id={id} user={user} />}
+          {showFavorites && ( <span>Listaus tähän?</span>)}
+
+
+          {showEvents && 
+          
+          ( <><span className='singleEvent'><b> Selaa / Hallinnoi / yms </b></span>
+          
+          <span className='singleEvent'>
+            00.00.2024 &nbsp;&nbsp;
+            Paikkakunta &nbsp;&nbsp;
+            Teatteri, sali X &nbsp;&nbsp;
+            klo 00:00 &nbsp;&nbsp;
+            <a href="#"><b>Elokuvan nimi</b></a> &nbsp;&nbsp;
+            Lisätietoja
+          </span>
+
+          <span className='singleEvent'>
+            00.00.2024 &nbsp;&nbsp;
+            Paikkakunta &nbsp;&nbsp;
+            Teatteri, sali X &nbsp;&nbsp;
+            klo 00:00 &nbsp;&nbsp;
+            <a href="#"><b>Elokuvan nimi</b></a> &nbsp;&nbsp;
+            Lisätietoja
+          </span>
+
+          <span className='singleEvent'>
+            00.00.2024 &nbsp;&nbsp;
+            Paikkakunta &nbsp;&nbsp;
+            Teatteri, sali X &nbsp;&nbsp;
+            klo 00:00 &nbsp;&nbsp;
+            <a href="#"><b>Elokuvan nimi</b></a> &nbsp;&nbsp;
+            Lisätietoja
+          </span>
+
+          <span className='singleEvent'>
+            00.00.2024 &nbsp;&nbsp;
+            Paikkakunta &nbsp;&nbsp;
+            Teatteri, sali X &nbsp;&nbsp;
+            klo 00:00 &nbsp;&nbsp;
+            <a href="#"><b>Elokuvan nimi</b></a> &nbsp;&nbsp;
+            Lisätietoja
+          </span>
+
+          <span className='singleEvent'>
+            00.00.2024 &nbsp;&nbsp;
+            Paikkakunta &nbsp;&nbsp;
+            Teatteri, sali X &nbsp;&nbsp;
+            klo 00:00 &nbsp;&nbsp;
+            <a href="#"><b>Elokuvan nimi</b></a> &nbsp;&nbsp;
+            Lisätietoja
+          </span>
+
+          <span className='singleEvent'>
+            00.00.2024 &nbsp;&nbsp;
+            Paikkakunta &nbsp;&nbsp;
+            Teatteri, sali X &nbsp;&nbsp;
+            klo 00:00 &nbsp;&nbsp;
+            <a href="#"><b>Elokuvan nimi</b></a> &nbsp;&nbsp;
+            Lisätietoja
+          </span></>
+          )}
+
           </div>
         </div>
       </div>
       )}
+  </div>
 
-      
       {isMember && (
       <div className='gmessages'>
         <h2>Keskustelu  &nbsp;<span className='emoji uni08'></span></h2>
