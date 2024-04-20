@@ -99,7 +99,7 @@ const Latestreviews = () => {
                   </td>
                   
                   <td className="review-info">
-                    <h2>{review.data.title}{review.data.name}</h2>
+                    <h2><Link to={`/movie/${review.revieweditem}`} className="titleHover">{review.data.title}{review.data.name}</Link></h2>
                     <p><b>Arvostelu: </b> {review.review}</p>
                     <p><b>Arvosteltu: </b>{new Date(review.timestamp).toLocaleString('fi-FI', {
                       day: 'numeric',
