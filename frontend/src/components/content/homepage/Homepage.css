@@ -108,8 +108,7 @@
   flex-direction: column;
 }
 
-.review-item:hover,
-.review-item:hover a {
+.review-item:hover {
   color: var(--table-Link);
   background-color: var(--table-bg);
   box-shadow: var(--shadow1);
@@ -121,4 +120,24 @@
 
 .review-item:hover h2 {
   color: var(--td-review-hover);
+}
+
+.link-style {
+  color: var(--table-Link);
+}
+
+.link-style:hover {
+  color: var(--section1);
+}
+
+.link-style:hover {
+  color: var(--section1);
+}
+
+.titleHover {
+  color: var(--table-Link);
+}
+
+.titleHover:hover {
+  color: var(--darktext);
 }
