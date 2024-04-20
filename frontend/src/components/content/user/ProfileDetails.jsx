@@ -16,6 +16,7 @@ const ProfileDetails = ({ user }) => {
     const [editMode, setEditMode] = useState(false);
     const [isOwnProfile, setOwnProfile] = useState(false);
     const [isPrivate, setPrivate] = useState(false);
+    const [loading, setLoading] = useState(true);
     const headers = getHeaders();
 
     useEffect(() => {
@@ -26,7 +27,7 @@ const ProfileDetails = ({ user }) => {
                 setProfile(response.data);
                 setOwnProfile(response.data.isOwnProfile);
                 setPrivate(response.data.is_private);
-
+                setLoading(false);
 
             } catch (error) {
                 console.error('Virhe haettaessa profiilitietoja:', error);
@@ -53,9 +54,12 @@ const ProfileDetails = ({ user }) => {
         return `${day}.${month}.${year}`;
     };
 
-    
     return (
         <div className="content">
+            {loading ? (
+                <div>Ladataan sisältöä</div>
+            ) : (
+                <>
             <div className="inner-view">
                 <div className="inner-left">
      
@@ -111,8 +115,12 @@ const ProfileDetails = ({ user }) => {
                     </div>
 
                 </>
+                )}
+
+                </>
 
             )}
+            
         </div>
     );
 };
