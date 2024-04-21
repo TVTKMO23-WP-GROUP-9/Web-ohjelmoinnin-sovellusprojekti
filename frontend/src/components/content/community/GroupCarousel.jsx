@@ -62,7 +62,7 @@ const GroupCarousel = () => {
             ))}
         </Slide>
         
-        <Slide index={0}>
+        <Slide index={1}>
             <h2>Suosituin ryhmä</h2>
             {popularGroup.length > 0 && popularGroup.map((group, index) => (
                 <>

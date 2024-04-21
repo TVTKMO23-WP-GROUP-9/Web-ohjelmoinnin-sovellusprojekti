@@ -164,7 +164,7 @@ const AllReviews = ({ searchTerm, setSearchTerm, user }) => {
                 </span><br />
                 <span className='userinfo'>{review.review}</span> <br />
                 {user.user.usertype === 'admin' && (
-                  <AdminDeleteReview id={review.id} />
+                  <AdminDeleteReview id={review.idreview} />
                 )}
               </li>
             ))}

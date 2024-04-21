@@ -31,7 +31,7 @@ const { VITE_APP_BACKEND_URL } = import.meta.env;
 
 function App() {
   const { theme, toggleTheme } = useTheme();
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null);
   const [showLogin, setShowLogin] = useState(false);
   const [isburgerOpen, setIsburgerOpen] = useState(false);
 

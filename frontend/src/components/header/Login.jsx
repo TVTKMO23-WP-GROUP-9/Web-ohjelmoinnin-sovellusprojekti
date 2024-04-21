@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
-import { jwtToken } from '../auth/authSignal';
+import { jwtToken, usertype } from '../auth/authSignal';
 const { VITE_APP_BACKEND_URL } = import.meta.env;
 
 
@@ -32,9 +32,10 @@ export default function Login({ setUser, window, fullpage }) {
 
       if (response.status === 200) {
         jwtToken.value = response.data.jwtToken;
-        setUser({ user: username });
+        usertype.value = response.data.usertype;
+        console.log('userType:', usertype.value);
+        setUser({ user: username, usertype: usertype.value });
         navigate('/myaccount');
-
         //setShowLogin(!showLogin);
       }
     } catch (error) {
