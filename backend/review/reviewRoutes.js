@@ -15,10 +15,10 @@ router.get('/reviews', reviewService.getAllReviews);
 router.get('/reviews/profile/:id', reviewService.getReviewsByProfile);
 router.get('/reviews/:id/:mediatype', reviewService.getReviewsByItem);
 router.get('/review/new', reviewService.getNewestReviews);
-router.put('/reviews/update/:id', reviewService.updateReview);
+router.put('/reviews/update/:id', auth, reviewService.updateReview);
 router.put('/reviews/toanon', auth, reviewService.updateReviewToAnon);
 router.get('/reviews/anon', reviewService.getAnonReviews);
-router.delete('/review/:id', reviewService.deleteReview);
+router.delete('/review/:id', auth, reviewService.deleteReview);
 router.delete('/admin/deletereview/:id', auth, reviewService.adminDeleteReview);
 
 module.exports = router;
