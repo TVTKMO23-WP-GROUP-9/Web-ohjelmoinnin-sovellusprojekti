@@ -161,11 +161,11 @@ export default function Login({ setUser, window, fullpage }) {
 
             <form onSubmit={handleLogin}>
               Käyttäjätunnus: <br />
-              <input className="field" value={username} onChange={e => setUsername(e.target.value)} placeholder="Käyttäjänimi"></input>
+              <input id="robot01" className="field" value={username} onChange={e => setUsername(e.target.value)} placeholder="Käyttäjänimi"></input>
               <br /><br />
               Salasana: <br />
-              <input className="field" type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Salasana"></input> <br />
-              <button className="basicbutton" type="submit">Kirjaudu sisään</button>
+              <input id="robot02" className="field" type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Salasana"></input> <br />
+              <button id="robot03" className="basicbutton" type="submit">Kirjaudu sisään</button>
             </form>
           </div>
         </div>
@@ -188,12 +188,12 @@ export default function Login({ setUser, window, fullpage }) {
               <form onSubmit={handleRegister}>
                 <span className="userinfo">Kaikki kentät ovat pakollisia, sähköposti ei saa olla jo käytössä jollain käyttäjällä.</span> <br/><br/>
                 <b>Käyttäjänimi</b> <br />
-                <input className="field" type="text" name="profilename" value={formData.profilename || null} onChange={handleChange} /><br />
+                <input id="robot04" className="field" type="text" name="profilename" value={formData.profilename || null} onChange={handleChange} /><br />
                 <b>Sähköposti</b><br />
-                <input className="field" type='text' name="email" value={formData.email || null} onChange={handleChange} /><br />
+                <input id="robot05" className="field" type='text' name="email" value={formData.email || null} onChange={handleChange} /><br />
                 <b>Salasana</b><br />
-                <input className="field" type='password' name="password" value={formData.password || null} onChange={handleChange} /><br />
-                <button className="basicbutton" type="submit">Rekisteröidy</button> <br/>
+                <input id="robot06" className="field" type='password' name="password" value={formData.password || null} onChange={handleChange} /><br />
+                <button id="robot07" className="basicbutton" type="submit">Rekisteröidy</button> <br/>
                 {messageRegister && <span className='communityinfo'>{messageRegister}</span>}
               </form>
             </div>

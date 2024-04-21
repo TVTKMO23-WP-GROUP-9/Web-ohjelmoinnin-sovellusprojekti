@@ -45,7 +45,7 @@ const Header = ({ user, setUser, handleLogout, toggleTheme, showLogin, setShowLo
             <div className="menu-items-left">
               <ul className="whiteLinks">
                 <li><Link to="/search"><span className="emoji uni02"></span> Leffat ja sarjat</Link></li>
-                <li><Link to="/community">Yhteisö</Link></li>
+                <li><Link id="link01" to="/community">Yhteisö</Link></li>
               </ul>
             </div>
 
@@ -57,8 +57,8 @@ const Header = ({ user, setUser, handleLogout, toggleTheme, showLogin, setShowLo
               {!user && <li className="lilogin"><Link onClick={toggleLogin}>Kirjautuminen</Link></li>}
               {!user && showLogin && <Login setUser={setUser} window={true} />}
 
-              {user && <li><Link to={`/profile/${user.user}`}>Profiili</Link></li>}
-              {user && <li><Link to="/myaccount">Tili</Link></li>}
+              {user && <li><Link id="link03" to={`/profile/${user.user}`}>Profiili</Link></li>}
+              {user && <li><Link id="link02"  to="/myaccount">Tili</Link></li>}
               {user && <li className="lilogin"><Link onClick={handleLogout}>Kirjaudu ulos</Link></li>}
             </ul>
 

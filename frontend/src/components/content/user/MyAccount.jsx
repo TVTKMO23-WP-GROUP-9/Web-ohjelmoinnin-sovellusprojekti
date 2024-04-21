@@ -201,12 +201,12 @@ export default function MyAccount({ user }) {
                     <h2>Poista käyttäjätili</h2>
                     <div className="form-view">
                         {!deleteClicked ? (
-                            <button className="basicbutton" onClick={handleDeleteClick}>Poista tili</button>
+                            <button id="robot01" className="basicbutton" onClick={handleDeleteClick}>Poista tili</button>
                         ) : (
                             <div>
                                 <b>Haluatko varmasti poistaa käyttäjätilisi?</b> <br />
                                 <button className="basicbutton confirm" onClick={handleDelete}>Kyllä, poista kaikki tietoni</button>
-                                <button className="basicbutton confirm" onClick={handlePartialDelete}>Kyllä, säästä arvosteluni</button>
+                                <button id="robot02" className="basicbutton confirm" onClick={handlePartialDelete}>Kyllä, säästä arvosteluni</button>
                                 <button className="basicbutton" onClick={handleCancelDelete}>En, peruuta</button>
                             </div>
                         )}

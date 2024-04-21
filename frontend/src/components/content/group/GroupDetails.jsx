@@ -180,7 +180,7 @@ console.log("Token from sessionStorage:", user);
             </div>
               
             <div className="ginner-right">
-              <h2>{group?.groupname}</h2>
+              <h2 id="groupname">{group?.groupname}</h2>
               <ul>
                 <p className="info">{group?.groupexplanation || ''} </p>
               </ul>
