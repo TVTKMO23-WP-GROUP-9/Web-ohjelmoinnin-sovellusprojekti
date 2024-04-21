@@ -56,27 +56,31 @@ async function getFavoritelistByGroup(req, res) {
 
   //lisää uuden suosikkilistan profiiliin tai grouppiin
   async function createFavoritelist(req, res) {
-    const { favoriteditem, showtime, groupid, profileid } = req.body;
+    const { favoriteditem, showtime, groupid, profileid} = req.body;
     try {
         const now = new Date();
         let favoritelistQuery;
-        if (groupid) {
-            favoritelistQuery = {
-                text: 'INSERT INTO favoritelist_ (groupid, favoriteditem, showtime, timestamp) VALUES ($1, $2, $3, $4)',
-                values: [groupid, favoriteditem, showtime, now],
-                
-            };
-            
-        } else if (profileid) {
-            favoritelistQuery = {
-                text: 'INSERT INTO favoritelist_ (profileid, favoriteditem, showtime, timestamp) VALUES ($1, $2, $3, $4)',
-                values: [profileid, favoriteditem, showtime, now],
-            };
-        } 
-        await favoritelistModel.queryDatabase(favoritelistQuery);
-        res.status(201).send('Suosikkilista lisätty onnistuneesti');
+        
+        if (groupid || profileid) {
+            if (groupid) {
+                favoritelistQuery = {
+                    text: 'INSERT INTO favoritelist_ (groupid, favoriteditem, showtime, timestamp, mediatype) VALUES ($1, $2, $3, $4, $5)',
+                    values: [groupid, favoriteditem, showtime, now, mediatype],
+                };
+            } else {
+                favoritelistQuery = {
+                    text: 'INSERT INTO favoritelist_ (profileid, favoriteditem, showtime, timestamp, mediatype) VALUES ($1, $2, $3, $4, $5)',
+                    values: [profileid, favoriteditem, showtime, now, mediatype],
+                };
+            }
+            await favoritelistModel.queryDatabase(favoritelistQuery);
+            res.status(201).send('Suosikkilista lisätty onnistuneesti');
+        } else {
+            res.status(400).send('Profiili- tai ryhmätunniste puuttuu');
+        }
     } catch (error) {
         console.error('Virhe lisättäessä suosikkilistaa:', error);
+        res.status(500).send('Virhe lisättäessä suosikkilistaa');
     }
   }
 
@@ -111,7 +115,44 @@ async function getFavoritelistByGroup(req, res) {
         res.status(500).send('Virhe poistettaessa listaa');
       }
     };
+    async function deletePIDFavoritelist(req, res) {
+      const profileid = req.params.profileid;
+      try {
+        const query = {
+          text: 'DELETE FROM favoritelist_ WHERE profileid = $1',
+          values: [profileid],
+        };
     
+        const result = await favoritelistModel.queryDatabase(query);
+          res.send(`Lista poistettu onnistuneesti`);
+      } catch (error) {
+        console.error('Virhe poistettaessa listaa:', error);
+        res.status(500).send('Virhe poistettaessa listaa');
+      }
+    }
+    async function getFavorite(req, res) {
+      try {
+        // const profileid = res.locals.profileid; 
+       // const profilename = res.locals.username;
+    
+      /*  const profileIdQuery = 'SELECT profileid FROM profile_ ';
+        const profileIdValues = [profileid];
+        const profileIdResult = await profileModel.queryDatabase(profileIdQuery, profileIdValues);
+        
+        if (profileIdResult.length === 0) {
+          return res.status(404).json({ message: 'Profiilia ei löytynyt' });
+        }*/
+        const favoriteListQuery = 'SELECT favoriteditem FROM favoritelist_ WHERE profileid = $1';
+        const favoriteListValues = [profileid];
+        const favoriteListResult = await profileModel.queryDatabase(favoriteListQuery, favoriteListValues);
+
+        res.status(200).json({ favorites: favoriteListResult });
+      } catch (error) {
+        console.error('Virhe haettaessa suosikkilistaa:', error);
+        res.status(500).json({ message: 'Virhe haettaessa suosikkilistaa' });
+      }
+    }
+
   
   module.exports = {
     getAllFavoritelist,
@@ -120,4 +161,6 @@ async function getFavoritelistByGroup(req, res) {
     deleteFavoritelist,
     getFavoritelistByProfile,
     getFavoritelistByGroup,
+    getFavorite,
+    deletePIDFavoritelist,
   };
