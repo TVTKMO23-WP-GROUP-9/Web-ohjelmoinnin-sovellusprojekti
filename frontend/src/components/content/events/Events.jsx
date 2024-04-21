@@ -117,7 +117,7 @@ const Events = () => {
   return (
     <div className="content">
       
-      <h2>Näytösajat ja Tapahtumat</h2>
+      <h2>Näytösajat</h2>
 
         <p>Finnkinon näytösajat ja tapahtumat haettavissa teattereittain ympäri Suomea.</p>
 

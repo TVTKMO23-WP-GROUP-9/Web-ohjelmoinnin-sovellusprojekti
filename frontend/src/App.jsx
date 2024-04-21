@@ -24,6 +24,7 @@ import AllReviews from '@content/community/AllReviews';
 import Error from '@content/error/Error';
 import ProfileEdit from '@content/user/ProfileEdit';
 import ReviewForm from '@content/movies/ReviewForm';
+import Events from '@content/events/Events';
 import Faq from '@content/faq/Faq';
 import { jwtToken, usertype } from './components/auth/authSignal';
 const { VITE_APP_BACKEND_URL } = import.meta.env;
@@ -109,6 +110,7 @@ function App() {
             <Routes>
               <Route path="/" exact element={<Home />} />
               <Route path="/search" element={<Search />} />
+              <Route path="/events" element={<Events />} />
               <Route path="/movie/:id" element={<MovieDetails user={user}/>} />
               {/*<Route path="/movie/:id/review" element={<ReviewForm user={user}/>} />*/}
               <Route path="/series/:id" element={<SeriesDetails user={user}/>} />
