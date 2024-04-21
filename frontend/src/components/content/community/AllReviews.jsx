@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import './community.css';
+import AdminDeleteReview from './AdminDeleteReview'; 
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 const { VITE_APP_BACKEND_URL } = import.meta.env;
 
 
-const AllReviews = ({ searchTerm, setSearchTerm }) => {
+const AllReviews = ({ searchTerm, setSearchTerm, user }) => {
 
   const [reviews, setReviews] = useState([]);
   const [reviewsPerPage, setReviewsPerPage] = useState(4);
@@ -93,8 +94,9 @@ const AllReviews = ({ searchTerm, setSearchTerm }) => {
   const indexOfLastReview = currentPage * reviewsPerPage;
   const indexOfFirstReview = indexOfLastReview - reviewsPerPage;
   const currentReviews = filteredReviews.slice(indexOfFirstReview, indexOfLastReview);
-
-  
+  console.log(user);
+  console.log(user.user.usertype);
+  console.log(user.usertype === 'admin');
   return (
     <div className='allreviews'>
       <ul className="review-list">
@@ -161,6 +163,9 @@ const AllReviews = ({ searchTerm, setSearchTerm }) => {
                   )}
                 </span><br />
                 <span className='userinfo'>{review.review}</span> <br />
+                {user.user.usertype === 'admin' && (
+                  <AdminDeleteReview id={review.id} />
+                )}
               </li>
             ))}
           </>

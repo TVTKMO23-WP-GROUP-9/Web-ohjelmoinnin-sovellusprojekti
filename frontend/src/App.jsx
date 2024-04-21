@@ -25,7 +25,7 @@ import Error from '@content/error/Error';
 import ProfileEdit from '@content/user/ProfileEdit';
 import ReviewForm from '@content/movies/ReviewForm';
 import Faq from '@content/faq/Faq';
-import { jwtToken } from './components/auth/authSignal';
+import { jwtToken, usertype } from './components/auth/authSignal';
 const { VITE_APP_BACKEND_URL } = import.meta.env;
 
 
@@ -85,6 +85,7 @@ function App() {
           setUser(null);
           localStorage.removeItem('user');
           jwtToken.value = '';
+          usertype.value = '';
           window.location.href = '/';
         } else {
           console.error('Uloskirjautuminen epäonnistui');
@@ -118,7 +119,7 @@ function App() {
               <Route path="/community" element={<Community user={user} />} />
               <Route path="/users" element={<UserList />} />
               <Route path="/groups" element={<AllGroups />} />
-              <Route path="/reviews" element={<AllReviews />} />
+              <Route path="/reviews" element={<AllReviews usertype={usertype} />} />
               <Route path="/about" element={<Faq />} />
               <Route path="/group/:id" element={<GroupDetails user={user} />} />
               {/* ja loput puuttuvat routet myös */}

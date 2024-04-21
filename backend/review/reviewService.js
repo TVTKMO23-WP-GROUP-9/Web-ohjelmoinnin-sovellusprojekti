@@ -106,6 +106,25 @@ async function deleteReview(req, res) {
   }
 }
 
+// arvostelun poistaminen adminin toimesta
+async function adminDeleteReview(req, res) {
+  const id = req.params.id;
+  //const usertype = res.locals.usertype;
+
+  const usertype = res.locals.usertype;
+    if (usertype !== 'admin') {
+        return res.status(403).json({ message: 'Vain admin voi vaihtaa salasanan' });
+    }
+    
+  try {
+    await reviewModel.deleteReview(id);
+    res.send('Arvostelu poistettu onnistuneesti');
+  } catch (error) {
+    console.error('Virhe poistettaessa arvostelua:', error);
+    res.status(500).send('Virhe poistettaessa arvostelua');
+  }
+}
+
 // arvostelut käyttäjältä x esim. profiilisivulle
 async function getReviewsByProfile(req, res) {
   const id = req.params.id;
@@ -178,4 +197,5 @@ module.exports = {
   getAnonReviews,
   movieReviewFromThisUser,
   serieReviewFromThisUser,
+  adminDeleteReview,
 };

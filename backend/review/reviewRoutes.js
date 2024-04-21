@@ -19,5 +19,6 @@ router.put('/reviews/update/:id', reviewService.updateReview);
 router.put('/reviews/toanon', auth, reviewService.updateReviewToAnon);
 router.get('/reviews/anon', reviewService.getAnonReviews);
 router.delete('/review/:id', reviewService.deleteReview);
+router.delete('/admin/deletereview/:id', auth, reviewService.adminDeleteReview);
 
 module.exports = router;
