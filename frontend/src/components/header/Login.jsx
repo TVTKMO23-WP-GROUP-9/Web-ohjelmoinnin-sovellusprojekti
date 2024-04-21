@@ -17,9 +17,9 @@ export default function Login({ setUser, window, fullpage }) {
   const [messageRegister, setMessageRegister] = useState('');
 
   const [formData, setFormData] = useState({
-    profilename: null,
-    email: null,
-    password: null
+    profilename: '',
+    email: '',
+    password: ''
   });
 
   const handleLogin = async (e) => {
@@ -121,9 +121,9 @@ export default function Login({ setUser, window, fullpage }) {
       <div className="login-window">
         {showRegisterForm ? (
           <form onSubmit={handleRegister}>
-            <input className="field" type="text" name="profilename" value={formData.profilename || null} onChange={handleChange} placeholder="Käyttäjänimi" /><br />
-            <input className="field" type='email' name="email" value={formData.email || null} onChange={handleChange} placeholder="Sähköposti" /><br />
-            <input className="field" type='password' name="password" value={formData.password || null} onChange={handleChange} placeholder="Salasana" /><br />
+            <input className="field" type="text" name="profilename" value={formData.profilename || ''} onChange={handleChange} placeholder="Käyttäjänimi" /><br />
+            <input className="field" type='email' name="email" value={formData.email || ''} onChange={handleChange} placeholder="Sähköposti" /><br />
+            <input className="field" type='password' name="password" value={formData.password || ''} onChange={handleChange} placeholder="Salasana" /><br />
             <button className="formButton" type="submit">Rekisteröidy</button>
             <button className="formButton" type="button" onClick={handleToggleRegisterForm}>Peruuta</button>
           </form>
@@ -140,14 +140,14 @@ export default function Login({ setUser, window, fullpage }) {
             <button className="formButton" type="submit">Kirjaudu sisään</button>
             <hr />
 
-              <button className="formButton" onClick={handleToggleRegisterForm}>Rekisteröidy</button>
-              
-              <button className="formButton" onClick={handleToggleForgotPasswordForm}>Unohtuiko salasana?</button> 
+            <button className="formButton" onClick={handleToggleRegisterForm}>Rekisteröidy</button>
+
+            <button className="formButton" onClick={handleToggleForgotPasswordForm}>Unohtuiko salasana?</button>
 
           </form>
 
         )}
-        
+
         <div className='lilInfoBox'>{messageRegister && <span className='login-window-info'>{messageRegister}</span>}</div>
       </div>
     );
@@ -187,14 +187,14 @@ export default function Login({ setUser, window, fullpage }) {
           <div className="full-page">
             <div className='form-view'>
               <form onSubmit={handleRegister}>
-                <span className="userinfo">Kaikki kentät ovat pakollisia, sähköposti ei saa olla jo käytössä jollain käyttäjällä.</span> <br/><br/>
+                <span className="userinfo">Kaikki kentät ovat pakollisia, sähköposti ei saa olla jo käytössä jollain käyttäjällä.</span> <br /><br />
                 <b>Käyttäjänimi</b> <br />
-                <input id="robot04" className="field" type="text" name="profilename" value={formData.profilename || null} onChange={handleChange} /><br />
+                <input id="robot04" className="field" type="text" name="profilename" value={formData.profilename || ''} onChange={handleChange} /><br />
                 <b>Sähköposti</b><br />
-                <input id="robot05" className="field" type='text' name="email" value={formData.email || null} onChange={handleChange} /><br />
+                <input id="robot05" className="field" type='text' name="email" value={formData.email || ''} onChange={handleChange} /><br />
                 <b>Salasana</b><br />
-                <input id="robot06" className="field" type='password' name="password" value={formData.password || null} onChange={handleChange} /><br />
-                <button id="robot07" className="basicbutton" type="submit">Rekisteröidy</button> <br/>
+                <input id="robot06" className="field" type='password' name="password" value={formData.password || ''} onChange={handleChange} /><br />
+                <button id="robot07" className="basicbutton" type="submit">Rekisteröidy</button> <br />
                 {messageRegister && <span className='communityinfo'>{messageRegister}</span>}
               </form>
             </div>
