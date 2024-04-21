@@ -23,7 +23,7 @@ useEffect(() => {
   };
 
   fetchFavorites();
-}, [profile]);
+}, []);
 
 // poistetaan suosikeista suosikki
 const handleDeleteFavorite = async (idfavoritelist) => {
@@ -35,8 +35,6 @@ const handleDeleteFavorite = async (idfavoritelist) => {
   } catch (error) {
   }
 };
-
-
 
 const indexOfLastFavorite = currentPage * favoritesPerPage;
 const indexOfFirstFavorite = indexOfLastFavorite - favoritesPerPage;
