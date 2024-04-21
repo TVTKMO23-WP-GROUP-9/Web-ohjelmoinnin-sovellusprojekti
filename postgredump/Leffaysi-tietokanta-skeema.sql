@@ -66,7 +66,6 @@ CREATE TABLE IF NOT EXISTS Favoritelist_
     profileid INTEGER,
     groupid INTEGER,
     favoriteditem VARCHAR(40),
-    showtime VARCHAR(80),
     mediatype SMALLINT,
     timestamp TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (profileid) REFERENCES Profile_(profileid) ON DELETE CASCADE,
