@@ -6,7 +6,6 @@ const app = express();
 app.use(cors({ origin: 'http://localhost:5173', credentials: true })); 
 //const profile = require(origin: './routes/profileRoutes', credentials: true); // Tuo 'profile' reitityksen
 const group = require('./group/groupRoutes'); // Tuo 'group' reitityksen
-const message = require('./routes/messageRoutes'); // Tuo 'message' reitityksen
 const favoritelist = require('./favoritelist/favoritelistRoutes'); // tuo 'favoritelist' reitityksen
 const profile = require('./profile/profileRoutes'); // Tuo 'profile' reitityksen
 const register = require('./auth/authRoutes'); // Tuo 'register' reitityksen
@@ -18,7 +17,6 @@ const movie = require('./movie/movieRoutes'); // Tuo 'movie' reitityksen
 const review = require('./review/reviewRoutes'); // Tuo 'review' reitityksen
 
 app.use(cors({ origin: 'http://localhost:5173' })); // sallii CORS-pyynnöt alkuperästä localhost:5173 (react)
-app.use('/', message);  // Käytä 'message' reititystä juuressa
 app.use('/', profile);  // Käytä 'profile' reititystä juuressa
 app.use('/', group);  // Käytä 'group' reititystä juuressa
 app.use('/', register); // Käytä 'register' reititystä juuressa

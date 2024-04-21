@@ -64,11 +64,11 @@ async function getAllReviews() {
 
 async function getNewestReviews() {
   const query = `
-      SELECT review_.*, profile_.profilename 
-      FROM review_ 
-      INNER JOIN profile_ ON review_.profileid = profile_.profileid
-      ORDER BY review_.timestamp DESC 
-      LIMIT 12
+    SELECT review_.*, profile_.profilename 
+    FROM review_ 
+    LEFT JOIN profile_ ON review_.profileid = profile_.profileid
+    ORDER BY review_.timestamp DESC 
+    LIMIT 12;
   `;
   return await queryDatabase(query);
 }
