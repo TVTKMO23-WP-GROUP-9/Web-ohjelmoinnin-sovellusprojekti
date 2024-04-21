@@ -16,6 +16,7 @@ async function getProfileById(profileId) {
 }
 
 async function getProfileByName(profilename) {
+    
     const query = {
         text: 'SELECT profileid, profilename, email, profilepicurl, description, is_private FROM Profile_ WHERE profilename = $1',
         values: [profilename],
@@ -26,13 +27,35 @@ async function getProfileByName(profilename) {
 }
 
 async function deleteProfileById(profileid) {
-    const query = {
-        text: 'DELETE FROM Profile_ WHERE profileid = $1',
-        values: [profileid],
-    };
-    const result = await pool.query(query);
-    return result.rowCount;
-}
+    try {
+        console.log('deleteProfileById', profileid);
+        await pool.query('BEGIN');
+        const query1 = {
+            text: 'DELETE FROM Memberlist_ WHERE profileid = $1',
+            values: [profileid],
+        };
+        // Poista ryhmät, joissa ei ole jäseniä
+        const query2 = {
+            text: 'DELETE FROM Group_ WHERE groupid NOT IN (SELECT DISTINCT groupid FROM Memberlist_)',
+            values: [],
+        };
+        const query3 = {
+            text: 'DELETE FROM Profile_ WHERE profileid = $1',
+            values: [profileid],
+        };
+        const result = await pool.query(query1);
+        await pool.query(query2);
+        await pool.query(query3);
+        await pool.query('COMMIT');
+        console.log('deleteProfileById result', result);
+        return result.rowCount;
+        
+    }
+    catch (error) {
+        await pool.query('ROLLBACK');
+        throw error; 
+    }
+} 
 
 async function updateProfilenameAndEmail(profileid, profilename, email) {
     const now = new Date();
