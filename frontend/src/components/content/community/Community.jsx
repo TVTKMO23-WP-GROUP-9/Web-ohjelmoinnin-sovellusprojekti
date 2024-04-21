@@ -9,7 +9,7 @@ const Community = ( user ) => {
   const [groupSearchTerm, setGroupSearchTerm] = useState('');
   const [reviewSearchTerm, seReviewSearchTerm] = useState('');
 
-
+console.log(user);
   return (
 
     <div className="content">
@@ -18,7 +18,7 @@ const Community = ( user ) => {
       <UserList searchTerm={userSearchTerm} setSearchTerm={setUserSearchTerm} />
       <AllGroups user={user} searchTerm={groupSearchTerm} setSearchTerm={setGroupSearchTerm} />
     
-      <AllReviews searchTerm={reviewSearchTerm} setSearchTerm={seReviewSearchTerm} />
+      <AllReviews searchTerm={reviewSearchTerm} setSearchTerm={seReviewSearchTerm} user={user} />
 
     </div>
   );

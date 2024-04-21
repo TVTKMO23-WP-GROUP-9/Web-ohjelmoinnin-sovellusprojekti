@@ -44,6 +44,20 @@ async function loginUser(username, password) {
     }
 }
 
+async function getUserTypeByUsername(username) {
+    try {
+        const user = await authModel.getUserByUsername(username);
+        if (user) {
+            return user.usertype;
+        } else {
+            return null;
+        }
+    } catch (error) {
+        console.error('Virhe käyttäjätyypin haussa:', error);
+        return null;
+    }
+}
+
 async function getProfileIdByName(profilename) {
     try {
         const result = await authModel.getProfileIdByName(profilename);
@@ -86,10 +100,12 @@ async function forgotPassword(email) {
     }
 }
 
+
 module.exports = {
     registerUser,
     loginUser,
     getProfileIdByName,
     changePassword,
-    forgotPassword
+    forgotPassword,
+    getUserTypeByUsername,
 };
