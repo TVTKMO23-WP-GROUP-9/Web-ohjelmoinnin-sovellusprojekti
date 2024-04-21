@@ -4,8 +4,8 @@ import Dates from './Dates';
 import Shows from './Shows';
 
 const Events = () => {
-  const [selectedArea, setSelectedArea] = useState('');
-  const [selectedDate, setSelectedDate] = useState('');
+  const [selectedArea, setSelectedArea] = useState('1018');
+  const [selectedDate, setSelectedDate] = useState(new Date());
   const [events, setEvents] = useState([]);
   const [showtimes, setShowtimes] = useState([]);
 
@@ -15,36 +15,36 @@ const Events = () => {
 
   // jaottelu pienempiin on paikallaan 
 
-        // jäsennelty näytösaika näytöshakuihin
-        const formattedShowtimes = showtimes.map(show => {
-            const startDateTime = new Date(show.start_time);
-            
-            const day = startDateTime.getDate() < 10 ? `0${startDateTime.getDate()}` : startDateTime.getDate();
-            const month = (startDateTime.getMonth() + 1) < 10 ? `0${startDateTime.getMonth() + 1}` : startDateTime.getMonth() + 1;
-            const year = startDateTime.getFullYear();
-            const hours = startDateTime.getHours() < 10 ? `0${startDateTime.getHours()}` : startDateTime.getHours();
-            const minutes = startDateTime.getMinutes() < 10 ? `0${startDateTime.getMinutes()}` : startDateTime.getMinutes();
-          
-            const formattedStartTime = `${day}.${month}.${year} klo ${hours}:${minutes}`;
-        
-            return {
-              ...show,
-              start_time: formattedStartTime,
-            };
-        
-          });
-        
-  
+  // jäsennelty näytösaika näytöshakuihin
+  const formattedShowtimes = showtimes.map(show => {
+    const startDateTime = new Date(show.start_time);
+
+    const day = startDateTime.getDate() < 10 ? `0${startDateTime.getDate()}` : startDateTime.getDate();
+    const month = (startDateTime.getMonth() + 1) < 10 ? `0${startDateTime.getMonth() + 1}` : startDateTime.getMonth() + 1;
+    const year = startDateTime.getFullYear();
+    const hours = startDateTime.getHours() < 10 ? `0${startDateTime.getHours()}` : startDateTime.getHours();
+    const minutes = startDateTime.getMinutes() < 10 ? `0${startDateTime.getMinutes()}` : startDateTime.getMinutes();
+
+    const formattedStartTime = `${day}.${month}.${year} klo ${hours}:${minutes}`;
+
+    return {
+      ...show,
+      start_time: formattedStartTime,
+      end_time: new Date(show.end_time).toLocaleTimeString('fi-FI', { hour: '2-digit', minute: '2-digit' }),
+    };
+
+  });
+
   // haetaan näytösajat valitulta alueelta ja päivältä
   const haeNaytokset = async () => {
     if (!selectedArea || !selectedDate) {
       console.error('Valitse alue ja päivämäärä');
       return;
     }
-  
+
     console.log('Valittu alue:', selectedArea);
     console.log('Valittu päivämäärä:', selectedDate);
-  
+
     setShowtimes([]);
     setEvents([]);
 
@@ -53,20 +53,25 @@ const Events = () => {
     const day = formattedDate.getDate() < 10 ? `0${formattedDate.getDate()}` : formattedDate.getDate();
     const month = (formattedDate.getMonth() + 1) < 10 ? `0${formattedDate.getMonth() + 1}` : formattedDate.getMonth() + 1;
     const formattedDateString = `${day}.${month}.${formattedDate.getFullYear()}`;
-    
-    console.log('Muotoiltu päivämäärä:', formattedDateString);
-  
+
     try {
       const showsResponse = await fetch(`https://www.finnkino.fi/xml/Schedule/?area=${selectedArea}&dt=${formattedDateString}`);
       const showsData = await showsResponse.text();
+      console.log('Näytösajat:', showsData);
       const showsParser = new DOMParser();
       const showsXmlDoc = showsParser.parseFromString(showsData, 'text/xml');
       const shows = Array.from(showsXmlDoc.getElementsByTagName('Show')).map(show => {
         const id = show.querySelector('ID')?.textContent || '';
         const title = show.querySelector('Title')?.textContent || '';
         const start_time = show.querySelector('dttmShowStart')?.textContent || '';
-  
-        return { id, title, start_time };
+        const end_time = show.querySelector('dttmShowEnd')?.textContent || '';
+        const theatre = show.querySelector('Theatre')?.textContent || '';
+        const auditorium = show.querySelector('TheatreAuditorium')?.textContent || '';
+        const ratingImageUrl = show.querySelector('RatingImageUrl')?.textContent || '';
+        const genres = show.querySelector('Genres')?.textContent || '';
+        const spokenLanguage = show.querySelector('Name')?.textContent || '';
+
+        return { id, title, start_time, end_time, theatre, auditorium, ratingImageUrl, genres, spokenLanguage };
       });
       setShowtimes(shows);
     } catch (error) {
@@ -113,33 +118,41 @@ const Events = () => {
 
     console.log('Lista tyhjennetty manuaalisesti');
   };
-          
+
   return (
     <div className="content">
-      
+
       <h2>Näytösajat</h2>
 
-        <p>Finnkinon näytösajat ja tapahtumat haettavissa teattereittain ympäri Suomea.</p>
+      <p>Finnkinon näytösajat ja tapahtumat haettavissa teattereittain ympäri Suomea.</p>
 
-        <Area setSelectedArea={setSelectedArea} /> <br/>
-        <Dates onSelectDate={handleDateSelection} /> <br/>
+      <Area setSelectedArea={setSelectedArea} /> <br />
+      <Dates onSelectDate={handleDateSelection} /> <br />
 
-        <label htmlFor="date"> Valitse metodi:</label>
-        <button onClick={haeNaytokset}>Hae näytösajat</button>
-        <button onClick={haeTapahtumat}>Teattereissa nyt</button>
-        <button onClick={tyhjennaHaku}>Tyhjennä lista</button>
+      <label htmlFor="date"> Valitse metodi:</label>
+      <button className='basicbutton' onClick={haeNaytokset}>Hae näytösajat</button>
+      <button className='basicbutton' onClick={haeTapahtumat}>Teattereissa nyt</button>
+      <button className='basicbutton' onClick={tyhjennaHaku}>Tyhjennä lista</button>
 
-        <h3>Hakutulos:</h3>
-        <hr/>
-        
-        <Shows events={events}/>
+      <h3>Hakutulos:</h3>
+      <hr />
 
-        {formattedShowtimes.map(show => ( 
-          <div key={show.id}>
+      <Shows events={events} />
+
+      {formattedShowtimes.map(show => (
+        <div key={show.id}>
+          <div>
             <h4>{show.title}</h4>
-            <p>Alkaa: {show.start_time}</p>
-            <hr/>
+            <p>{show.start_time}-{show.end_time}</p>
+            <p>{show.auditorium}, {show.theatre}</p>
           </div>
+          <div>
+            <p>{show.genres}</p>
+            <p>{show.spokenLanguage}</p>
+            <img src={show.ratingImageUrl} alt={show.title} />
+          </div>
+          <hr />
+        </div>
       ))}
     </div>
 
