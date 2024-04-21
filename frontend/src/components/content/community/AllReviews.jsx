@@ -87,6 +87,11 @@ const AllReviews = ({ searchTerm, setSearchTerm, user }) => {
     return `${day}.${month}.${year}`;
   };
 
+  
+  const handleDelete = async (idreview) => {
+      setReviews(reviews.filter(review => review.idreview !== idreview));
+  };
+
   const filteredReviews = reviews.filter(review =>
     review.review.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -94,9 +99,7 @@ const AllReviews = ({ searchTerm, setSearchTerm, user }) => {
   const indexOfLastReview = currentPage * reviewsPerPage;
   const indexOfFirstReview = indexOfLastReview - reviewsPerPage;
   const currentReviews = filteredReviews.slice(indexOfFirstReview, indexOfLastReview);
-  console.log(user);
-  console.log(user.user.usertype);
-  console.log(user.usertype === 'admin');
+
   return (
     <div className='allreviews'>
       <ul className="review-list">
@@ -163,8 +166,8 @@ const AllReviews = ({ searchTerm, setSearchTerm, user }) => {
                   )}
                 </span><br />
                 <span className='userinfo'>{review.review}</span> <br />
-                {user.user.usertype === 'admin' && (
-                  <AdminDeleteReview id={review.idreview} />
+                {user.user !== null && user.user.usertype === 'admin' && (
+                  <AdminDeleteReview id={review.idreview} handleDelete={handleDelete} />
                 )}
               </li>
             ))}
