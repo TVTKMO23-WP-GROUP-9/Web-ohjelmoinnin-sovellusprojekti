@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import './community.css';
-import GroupCarousel from './GroupCarousel';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import AdminDeleteGroups from './AdminDeleteGroups';
+import './admins.css';
 const { VITE_APP_BACKEND_URL } = import.meta.env;
-import { getHeaders } from '@auth/token';
 
-const AllGroups = ({ user, searchTerm, setSearchTerm }) => {
+const GroupsAsList = ({ user, searchTerm, setSearchTerm }) => {
     const [groups, setGroups] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [groupsPerPage, setGroupsPerPage] = useState(10);
@@ -14,33 +13,12 @@ const AllGroups = ({ user, searchTerm, setSearchTerm }) => {
     const [profileId, setProfileid] = useState(null);
     const [newGroupName, setNewGroupName] = useState('');
     const [creatingGroup, setCreatingGroup] = useState(false);
-    const headers = getHeaders();
-
-    if (user.user !== null) {
-    useEffect(() => {
-        const fetchProfile = async () => {
-            try {
-
-                const { user: username } = user;
-
-                const response = await axios.get(`${VITE_APP_BACKEND_URL}/profile/${username.user}`, { headers });
-    
-                setProfileid(response.data.profileid);
-
-            } catch (error) {
-                console.error('Virhe haettaessa profiilitietoja:', error);
-            }
-        };
-    
-        fetchProfile();
-      }, [user]);
-    }
 
     useEffect(() => {
         const fetchGroups = async () => {
             try {
                 const response = await axios.get(`${VITE_APP_BACKEND_URL}/group`);
-                const sortedGroups = response.data.sort((a, b) => a.groupname.localeCompare(b.groupname), { headers });
+                const sortedGroups = response.data.sort((a, b) => a.groupname.localeCompare(b.groupname));
                 setGroups(sortedGroups);
                 setLoading(false);
             } catch (error) {
@@ -62,10 +40,10 @@ const AllGroups = ({ user, searchTerm, setSearchTerm }) => {
 
     const handleCreateGroup = async () => {
         try {
-            const response = await axios.post(`${VITE_APP_BACKEND_URL}/group`, { groupname: newGroupName }, { headers }) ;  
+            const response = await axios.post(`${VITE_APP_BACKEND_URL}/group`, { groupname: newGroupName });  
             console.log('palauttaako mitään', response.data);
             const groupid = response.data[0].groupid;
-            await axios.post(`${VITE_APP_BACKEND_URL}/memberstatus/${profileId}/1/${groupid}/0`, {}, { headers });
+            await axios.post(`${VITE_APP_BACKEND_URL}/memberstatus/${profileId}/1/${groupid}/0`);
             setNewGroupName('');
             setCreatingGroup(false);
             console.log('Uusi ryhmä luotu ja jäsen lisätty onnistuneesti');
@@ -76,10 +54,14 @@ const AllGroups = ({ user, searchTerm, setSearchTerm }) => {
         }
     };
 
+    const handleDelete = async (id) => {
+       setGroups(groups.filter(group => group.groupid !== id));
+    };
+
     return (
-        <div className="two-view">
-            <div className="two-left">
-                <h2>Ryhmät</h2>
+        <div className="admin-view">
+            <div className="admin-left">
+                <h2>Ryhmien hallinnointi</h2>
                 {loading ? (
                     <div className="loading-text">Ladataan Ryhmiä...</div>
                 ) : (
@@ -103,8 +85,11 @@ const AllGroups = ({ user, searchTerm, setSearchTerm }) => {
                                     <tbody>
                                         <tr>
                                             <td width="250px"><b><Link to={`/group/${group.groupid}`}>{group.groupname}</Link></b></td>
+                                            <td width="250px">{user !== null && user.usertype === 'admin' && (
+                                            <AdminDeleteGroups id={group.groupid} handleDelete={handleDelete} />
+                                            )}</td>
                                             {group.groupexplanation && (
-                                            <td>{group.groupexplanation && group.groupexplanation .length > 54 ? group.groupexplanation .substring(0, 44) + '...' : group.groupexplanation }</td>
+                                            <td>{group.groupexplanation && group.groupexplanation .length > 74 ? group.groupexplanation .substring(0, 74) + '...' : group.groupexplanation }</td>
                                             )}
                                         </tr>
                                     </tbody>
@@ -115,41 +100,8 @@ const AllGroups = ({ user, searchTerm, setSearchTerm }) => {
                 )}
             </div>
 
-            <div className="two-right">
-                <h2>Muut ryhmätoiminnot</h2>
-                
-                    <>
-                        <div className="communityBox">
-                            Mikäs sen mukavampaa, kuin löytää samanhenkistä leffaporukkaa,<br />
-                            jonka kanssa jakaa leffa-elämyksiä ja chattailla reaaliajassa. <br /><br />
-                            Meillä on jo <b>{groups.length}</b> ryhmää, mistä valita <br />
-                            Tai saitko uuden ryhmä-idean? Voit luoda sellaisen itsellesi ja kavereillesi <br />
-                            tai koko maailman parhaalle leffakansalle! <span className='emoji uni01'></span>
-                        </div> <br />
-                        {(!creatingGroup && profileId !== null ) && (
-                        <button id="robot01" className='basicbutton justMargin' onClick={() => setCreatingGroup(true)}>Luo uusi ryhmä</button> 
-                        )}
-                    </>
-                
-                {creatingGroup && (
-                    <>
-                        <input id="robot03" className='justMargin' type="text" value={newGroupName} onChange={(e) => setNewGroupName(e.target.value)} placeholder="Syötä uuden ryhmän nimi" />
-                        <button id="robot02" className='basicbutton justMargin' onClick={handleCreateGroup}>Luo</button> 
-                        <button className='basicbutton' onClick={() => setCreatingGroup(false)}>Peruuta</button> <br/><br/>
-
-
-                        
-                    </>
-                )}
-
-                    <>
-                        <div className="communityBox">
-                            <GroupCarousel />
-                        </div>
-                    </>
-            </div>
         </div>
     );
 };
 
-export default AllGroups;
+export default GroupsAsList;

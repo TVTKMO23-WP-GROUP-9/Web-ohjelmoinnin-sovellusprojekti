@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import './community.css';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import AdminDeleteUsers from './AdminDeleteUsers';
 const { VITE_APP_BACKEND_URL } = import.meta.env;
 
 
-const UserList = ({ searchTerm, setSearchTerm }) => {
+const UsersAsList = ({ searchTerm, setSearchTerm, user }) => {
     const [profiles, setProfiles] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [profilesPerPage, setProfilesPerPage] = useState(10);
@@ -37,11 +37,15 @@ const UserList = ({ searchTerm, setSearchTerm }) => {
     const indexOfFirstProfile = indexOfLastProfile - profilesPerPage;
     const currentProfiles = filteredProfiles.slice(indexOfFirstProfile, indexOfLastProfile);
 
-    return (
-        <div className="two-view">
-            <div className="two-left">
+    const handleDelete = async (id) => {
+        setProfiles(profiles.filter(profile => profile.profileid !== id));
+     };
 
-                <h2>Käyttäjät</h2>
+    return (
+        <div className="admin-view">
+            <div className="admin-left">
+
+                <h2>Käyttäjien hallinnointi</h2>
                 {loading ? (
 
                     <div className="loading-text">
@@ -80,8 +84,11 @@ const UserList = ({ searchTerm, setSearchTerm }) => {
                                     <tbody>
                                         <tr>
                                             <td width="250px"><b className='tdNames'><Link to={`/profile/${profile.profilename}`}>{profile.profilename}</Link></b></td>
-                                            {profile && profile.description && profile.is_private === false && (
-                                            <td>{profile.description && profile.description.length > 44 ? profile.description.substring(0, 54) + '...' : profile.description}</td>
+                                            <td width="250px">{user !== null && user.usertype === 'admin' && (
+                                            <AdminDeleteUsers id={profile.profileid} handleDelete={handleDelete} />
+                                            )}</td>
+                                            {profile && profile.description && (
+                                            <td>{profile.description && profile.description.length > 74 ? profile.description.substring(0, 74) + '...' : profile.description}</td>
                                             )}
                                         </tr>
                                     </tbody>
@@ -93,44 +100,6 @@ const UserList = ({ searchTerm, setSearchTerm }) => {
 
             </div>
 
-    <       div className="two-right">
-                <h2>Eläköön Elokuvayhteisö!</h2>
-
-                {/* Näytetään kaikille */}
-                <div className="communityBox">
-                    Meillä on täällä <b>{profiles.length}</b><br />
-                    rekisteröitynyttä käyttäjää. <span className="emoji uni03"></span> <br /><br />
-                </div>
-
-                {/* Näytetään vain, kun token on tyhjä */}
-                {token === '' && (
-                    <div className="communityBox">
-                        Liity mukaan jo tänään!
-                    </div>
-                )}
-                
-                {/* Näytetään vain, kun token on tyhjä */}
-                {token === '' && (
-                    <Link to={'/login'}><button className='basicbutton justMargin'>Rekisteröidy</button></Link>
-                )}
-
-                {hoveredProfile && (
-                    <div className="communityBox">
-                        <h1>Kurkistusikkunassa</h1>
-                        <h3 className='title1'><b>{hoveredProfile.profilename}</b></h3>
-                        {hoveredProfile.profilepicurl ? (
-                        <span>
-                            <img src={hoveredProfile.profilepicurl} className='tinyPrfPic' alt="Group Picture" />
-                        </span>
-                        ) : (
-                        <span>
-                            <img src="/pic.png" className='tinyPrfPic' alt="Default Group Picture" />
-                        </span>
-                        )}
-                    </div>
-                )}
-            </div>
-
 
 
 
@@ -138,4 +107,4 @@ const UserList = ({ searchTerm, setSearchTerm }) => {
     );
 };
 
-export default UserList;
+export default UsersAsList;
