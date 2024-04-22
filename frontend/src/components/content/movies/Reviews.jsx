@@ -82,11 +82,11 @@ const Reviews = ({ movieId, mediatype }) => {
                       hour: 'numeric',
                       minute: 'numeric',
                     })} <br />
-                <b>Käyttäjältä:</b> 
-                <i>{(review.profile.eilink !== "true") && <Link to={`/profile/${review.profile.profilename}`}>{review.profile.profilename}</Link>}
-                {(review.profile.eilink === "true") && "Anonyymi" }
+                <b>Käyttäjältä:</b>&nbsp; 
+                {(review.profile.eilink !== "true") && <b><Link to={`/profile/${review.profile.profilename}`}>{review.profile.profilename}</Link></b>}
+                {(review.profile.eilink === "true") && <i>Anonyymi</i> }
                 
-                </i> <br /> 
+                 <br /> 
                 <b>Arvio:</b>                             
                   {[...Array(review.rating)].map((_, i) => (
                     <span key={i} >&#11088;</span>

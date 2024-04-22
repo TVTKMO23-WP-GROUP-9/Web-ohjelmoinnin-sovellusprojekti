@@ -24,6 +24,7 @@ import AllReviews from '@content/community/AllReviews';
 import Error from '@content/error/Error';
 import ProfileEdit from '@content/user/ProfileEdit';
 import ReviewForm from '@content/movies/ReviewForm';
+import AdminPage from '@content/admin/AdminPage';
 import Events from '@content/events/Events';
 import Faq from '@content/faq/Faq';
 import { jwtToken, usertype } from './components/auth/authSignal';
@@ -124,7 +125,7 @@ function App() {
               <Route path="/reviews" element={<AllReviews usertype={usertype} />} />
               <Route path="/about" element={<Faq />} />
               <Route path="/group/:id" element={<GroupDetails user={user} />} />
-              {/* ja loput puuttuvat routet myös */}
+              <Route path="/admin" element={<AdminPage user={user} usertype={usertype} />} />
             </Routes>
 
           </div>

@@ -1,0 +1,80 @@
+.admin-view .pagination {
+    padding-left: 30px;
+}
+
+.admin-view {
+    margin-top: 25px;
+    background-color: var(--greyblue);
+    border-top-right-radius: 40px;
+    border-top-left-radius: 40px;
+    border: 3px solid #000000;
+    color: var(--grp-text);
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap; 
+    padding: 0em;
+    box-shadow: var(--shadow02);
+}
+
+.admin-view h2 {
+    padding-left: 30px;
+    padding-top: 20px;
+}
+
+.admin-left {
+    width: 100%;
+}
+
+.buttonnext {
+    font-size: 0.8em;
+    padding: 4px;
+    box-shadow: var(--shadow02);
+}
+
+
+
+
+.adminrews {
+    min-height: 180px;
+    padding: 20px;
+    border-bottom: var(--dashedGr);
+}
+
+.adminrews:hover {
+    background-color: var(--table-tr-hover);
+}
+
+.admin-reviews {
+    background-color: var(--greyblue);
+    border-top-left-radius: 40px;
+    border-bottom-right-radius: 40px;
+    color: var(--profile);
+    display: flex-table;
+    flex-wrap: wrap;
+    padding: 1em;
+    padding-left: 2%;
+    padding-right: 2%;
+    margin-top: 25px;
+    border: 3px solid #000000;
+}
+
+.admininfo {
+    color: var(--grp-text);
+    font-size: 0.9em;
+    font-weight: 100;
+}
+
+.admininfo2 {
+    font-size: 1.4em;
+}
+
+.reviewitems {
+    color: var(--profile);
+}
+
+.reviewimg {
+    float: left;
+    margin-right: 20px;
+    height: 170px;
+    box-shadow: var(--shadow02);
+}

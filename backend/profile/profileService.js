@@ -42,6 +42,17 @@ async function deleteProfileById(req, res) {
     }
 }
 
+async function deleteProfileAsAdmin(req, res) {
+    const profileid = req.params.id;
+    try {
+        await profileModel.deleteProfileById(profileid);
+        res.status(200).json({ message: `Tietue poistettu onnistuneesti` });
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+}
+
+
 async function updateProfilenameAndEmail(req, res) {
     const profileid = res.locals.profileid;
     const { profilename, email } = req.body;
@@ -82,5 +93,6 @@ module.exports = {
     deleteProfileById,
     updateProfilenameAndEmail,
     updateProfileDetails,
-    updateProfileVisibility
+    updateProfileVisibility,
+    deleteProfileAsAdmin,
 };

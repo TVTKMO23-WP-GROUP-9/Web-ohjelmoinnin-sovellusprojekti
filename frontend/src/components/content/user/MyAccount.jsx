@@ -153,7 +153,12 @@ export default function MyAccount({ user }) {
                 <div className="section2">
 
                     <h2>Olet kirjautunut käyttäjänä:</h2>
-                    <h1>{user.user}</h1>
+                    <h1>{user.user} </h1>
+
+                    {user && user.usertype === 'admin' && 
+                    <h2>Olet {user.usertype}: siirry {user && user.usertype === 'admin' && <Link to={`/admin`}>ylläpitoon</Link>}</h2>
+                    }
+
                     <hr />
 
                     <p>

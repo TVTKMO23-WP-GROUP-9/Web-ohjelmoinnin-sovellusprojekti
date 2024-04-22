@@ -14,6 +14,38 @@ const Movies = () => {
   const [movies, setMovies] = useState([]);
   const [series, setSeries] = useState([]);
   const [showTitles, setShowTitles] = useState(false);
+  const [showMovies, setShowMovies] = useState(true);
+  const [showSeries, setShowSeries] = useState(false);
+
+  const [currentPage, setCurrentPage] = useState(0);
+  const [pageSize, setPageSize] = useState([]); 
+  const [pagePerSize, setPagePerSize] = useState([]); 
+  const totalPages = Math.ceil(movies.length / pageSize);
+
+  
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 1981) {
+        setPageSize(10);
+        setPagePerSize(2);
+      } else if (window.innerWidth >= 1601) {
+        setPageSize(5);
+        setPagePerSize(4);
+      } else if (window.innerWidth >= 1001) {
+        setPageSize(4);
+        setPagePerSize(5);
+      } else {
+        setPageSize(1);
+        setPagePerSize(20);
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    handleResize();
+
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   useEffect(() => {
     searchMovies();
@@ -32,7 +64,7 @@ const Movies = () => {
           params: { genre, sort_by: 'popularity.desc', page: moviePage, year }
         });
       }
-      setMovies(response.data.slice(0, 10));
+      setMovies(response.data);
     } catch (error) {
       console.error('Hakuvirhe elokuvissa:', error);
     }
@@ -50,7 +82,7 @@ const Movies = () => {
           params: { genre, sort_by: 'popularity.desc', page: seriesPage, year }
         });
       }
-      setSeries(response.data.slice(0, 10));
+      setSeries(response.data);
     } catch (error) {
       console.error('Hakuvirhe sarjoissa:', error);
     }
@@ -62,6 +94,7 @@ const Movies = () => {
     } else {
       setMoviePage((page) => page + 1);
     }
+    window.scrollTo(0, 0);
   };
 
   const handleSeriesPageChange = (action) => {
@@ -70,6 +103,7 @@ const Movies = () => {
     } else {
       setSeriesPage((page) => page + 1);
     }
+    window.scrollTo(0, 0);
   };
 
   const handleInputChange = (event) => {
@@ -94,12 +128,21 @@ const Movies = () => {
     searchSeries();
   };
 
+  const toggleMovies = () => {
+    setShowMovies(!showMovies);
+    setShowSeries(false);
+  };
+
+  const toggleSeries = () => {
+    setShowSeries(!showSeries);
+    setShowMovies(false);
+  };
+
   return (
     <>
       <h2>Leffa- ja sarjahaku</h2>
 
-      <p className="group-view">Löydä elokuvia ja sarjoja eri parametreillä tai etsi nimellä. <br /> Annetaan enintään 20 hakutulosta per. sivu.</p>
-
+  
       <div className="group-view-long">
 
         <div className="flex">
@@ -163,22 +206,26 @@ const Movies = () => {
           </div>
 
         </div>
-        <div>
-          <button className="basicbutton" onClick={handleSearch}>Hae</button>
+        <div className='toggleLinks'>
+        <button className="basicbutton" onClick={handleSearch}>Hae</button></div>
+        <div className='toggleLinks'>
+        <h2 onClick={toggleMovies}><span className='emoji uni01'></span> Leffat </h2>&nbsp;&nbsp;&nbsp;
+        <h2 onClick={toggleSeries}><span className='emoji'>📺</span> Sarjat </h2>
         </div>
-      </div>
+        </div>
+      
+      <p className="group-view">Löydä elokuvia ja sarjoja eri parametreillä tai etsi nimellä. <br /> Valitse yltä haluatko nähdä leffoja vai sarjoja.</p>
 
-      <div className="movie-container">
-
-        {/* Näytetään sekä elokuvat että sarjat , allekain */}
-        {showTitles && (
         
+        {/* Näytetään sekä elokuvat että sarjat , allekain */}
+        {(showMovies && movies !== null && movies.length > 0) && (
+        <div>
         <div className="resultsTitle">
-<button onClick={() => handleMoviePageChange('prev')} className='bigArrow'>{'⯇'}</button>
+        <button onClick={() => handleMoviePageChange('prev')} className='bigArrow'>{'⯇'}</button>
             <h2>Elokuvat</h2>
-            <button onClick={() => handleMoviePageChange('next')} className='bigArrow'>{'⯈'}</button>
-          
-          </div>)}
+            <button onClick={() => handleMoviePageChange('next')} className='bigArrow'>{'⯈'}</button>      
+          </div>
+        <div className="movie-container">
         {movies.map((result) => (
           <div key={result.id} className="movie-item">
             <Link to={`/movie/${result.id}`}>
@@ -188,27 +235,51 @@ const Movies = () => {
                 <div>{result.overview.length > 200 ? `${result.overview.substring(0, 200)}...` : result.overview}</div>
               </div>
             </Link>
+            
+              <div className='movie-mini-item'><Link to={`/movie/${result.id}`}>{result.title}</Link></div>
+            
           </div>
         ))}
 
-        {showTitles && (<div className="resultsTitle">
-        <button onClick={() => handleSeriesPageChange('prev')} className='bigArrow'>{'⯇'}</button>
+        </div>
+        <div className="resultsTitle">
+        <button onClick={() => handleMoviePageChange('prev')} className='bigArrow'>{'⯇'}</button>
+            <h2>Elokuvat</h2>
+            <button onClick={() => handleMoviePageChange('next')} className='bigArrow'>{'⯈'}</button>      
+          </div>
+        </div>
+        )}
+        {(showSeries && series !== null && movies.length > 0) && (
+        <div>
+          <div className="resultsTitle">
+            <button onClick={() => handleSeriesPageChange('prev')} className='bigArrow'>{'⯇'}</button>
             <h2>Sarjat</h2>
             <button onClick={() => handleSeriesPageChange('next')} className='bigArrow'>{'⯈'}</button>
-        </div>)}
-        {series.map((result) => (
-          <div key={result.id} className="movie-item">
-            <Link to={`/series/${result.id}`}>
-              <img src={result.poster_path} alt={result.title} />
-              <div className="headoverview">
-                <div><h3>{result.title}</h3></div>
-                <div>{result.overview.length > 200 ? `${result.overview.substring(0, 200)}...` : result.overview}</div>
-              </div>
-            </Link>
           </div>
+        <div className="movie-container">  
+        {series.map((result) => (
+        <div key={result.id} className="movie-item">
+          <Link to={`/series/${result.id}`}>
+            <img src={result.poster_path} alt={result.title} />
+            <div className="headoverview">
+              <div><h3>{result.title}</h3></div>
+              <div>{result.overview.length > 200 ? `${result.overview.substring(0, 200)}...` : result.overview}</div>
+            </div>
+          </Link>
+    
+          <div className='movie-mini-item'><Link to={`/series/${result.id}`}>{result.title}</Link></div>
+            
+        </div>
         ))}
-
-      </div>
+        </div>
+        <div className="resultsTitle">
+            <button onClick={() => handleSeriesPageChange('prev')} className='bigArrow'>{'⯇'}</button>
+            <h2>Sarjat</h2>
+            <button onClick={() => handleSeriesPageChange('next')} className='bigArrow'>{'⯈'}</button>
+          </div>
+        </div>
+      )}
+    
     </>
   );
 };

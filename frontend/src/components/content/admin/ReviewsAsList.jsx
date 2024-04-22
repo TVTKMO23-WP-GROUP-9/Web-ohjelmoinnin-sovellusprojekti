@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './community.css';
-//import AdminDeleteReview from './AdminDeleteReview'; 
-import AdminDeleteReview from '@content/admin/AdminDeleteReview';
+import AdminDeleteReview from './AdminDeleteReview';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 const { VITE_APP_BACKEND_URL } = import.meta.env;
@@ -21,16 +19,9 @@ const AllReviews = ({ searchTerm, setSearchTerm, user }) => {
   const fetchReviews = async () => {
     try {
       const newReviewResponse = await axios.get(`${VITE_APP_BACKEND_URL}/reviews`);
-      //const anonReviewResponse = await axios.get(`${VITE_APP_BACKEND_URL}/reviews/anon`);
-      
       const newReviews = newReviewResponse.data;
-      //const anonReviews = anonReviewResponse.data;
-      
-      //const reviewData = [...newReviews, ...anonReviews];
-
       const reviewData = newReviews;
 
-      // Haetaan profiilitiedot
       const reviewsWithProfiles = await Promise.all(reviewData.map(async review => {
         try {
           if (review.profileid !== null) {
@@ -45,7 +36,6 @@ const AllReviews = ({ searchTerm, setSearchTerm, user }) => {
           return review;
         }
       }));
-
 
       const reviewsWithMovies = await Promise.all(reviewsWithProfiles.map(async review => {
         try {
@@ -102,7 +92,7 @@ const AllReviews = ({ searchTerm, setSearchTerm, user }) => {
   const currentReviews = filteredReviews.slice(indexOfFirstReview, indexOfLastReview);
 
   return (
-    <div className='allreviews'>
+    <div className='admin-reviews'>
       <ul className="review-list">
         {loading ? (
           <div className="loading-text">
@@ -110,18 +100,14 @@ const AllReviews = ({ searchTerm, setSearchTerm, user }) => {
           </div>
         ) : (
           <>
-            <li className="userinfo">
-              Palvelussa on <b>{reviews.length}</b> arvostelua ja niiden keskiarvo 
-              on <b>{reviews.length > 0 && (reviews.reduce((sum, review) => sum + review.rating, 0) / reviews.length).toFixed(1)}</b>.<br />
-              Voit luoda uusia arvosteluja elokuvien ja sarjojen sivuilta. <br />
-            </li>
+            <h2>Arvostelujen hallinnointi</h2>
   
             <ul className="pagination">
               <li>
                 <button className="buttonnext" onClick={() => setCurrentPage(currentPage > 1 ? currentPage - 1 : 1)}>
                   ⯇
                 </button>
-                &nbsp; <span className="communityinfo">selaa</span> &nbsp;
+                &nbsp; <span className="admininfo">selaa</span> &nbsp;
                 <button className="buttonnext" onClick={() => setCurrentPage(currentPage < Math.ceil(filteredReviews.length / reviewsPerPage) ? currentPage + 1 : Math.ceil(filteredReviews.length / reviewsPerPage))}>
                   ⯈
                 </button>
@@ -131,7 +117,7 @@ const AllReviews = ({ searchTerm, setSearchTerm, user }) => {
             <hr />
   
             {currentReviews.map((review, index) => (
-              <li className='minheightrews' key={index}>
+              <li className='adminrews' key={index}>
                 {review.mediatype === 0 ? (
                   <Link to={`/movie/${review.revieweditem}`}>
                     <img className='reviewimg' src={`https://image.tmdb.org/t/p/w342${review.movie.poster_path}`} alt={review.movie.title} />
@@ -143,9 +129,9 @@ const AllReviews = ({ searchTerm, setSearchTerm, user }) => {
                 )}
   
                 {review.mediatype === 0 ? (
-                  <Link className='reviewtitle' to={`/movie/${review.revieweditem}`}>{review.movie.title}</Link>
+                  <Link className='admininfo2' to={`/movie/${review.revieweditem}`}>{review.movie.title}</Link>
                 ) : (
-                  <Link className='reviewtitle' to={`/series/${review.revieweditem}`}>{review.movie.name}</Link>
+                  <Link className='admininfo2' to={`/series/${review.revieweditem}`}>{review.movie.name}</Link>
                 )}    
   
                 <br/>
@@ -155,19 +141,19 @@ const AllReviews = ({ searchTerm, setSearchTerm, user }) => {
                   {[...Array(5 - review.rating)].map((_, i) => (
                     <span key={i + review.rating}>&#x2605;</span>
                 ))}
-                <span className='userinfo'>| <b>{review.rating}/5</b> tähteä</span> <br />
-                <span className='reviewinfo'>
-                  <span className='reviewinfo'>{formatDate(review.timestamp)}</span> | &nbsp;
+                <span className='admininfo'>| <b>{review.rating}/5</b> tähteä</span> <br />
+                <span className='admininfo'>
+                  <span className='admininfo'>{formatDate(review.timestamp)}</span> | &nbsp;
                   {review.userProfile && review.userProfile.profilename !== undefined ? (
-                    <Link className="reviewitems" to={`/profile/${review.userProfile.profilename}`}>
+                    <Link className="admininfo" to={`/profile/${review.userProfile.profilename}`}>
                       {review.userProfile.profilename}
                     </Link>
                   ) : (
                     <i>anonyymi</i>
                   )}
                 </span><br />
-                <span className='userinfo'>{review.review}</span> <br />
-                {user.user !== null && user.user.usertype === 'admin' && (
+                <span className='admininfo'>{review.review}</span> <br />
+                {user !== null && user.usertype === 'admin' && (
                   <AdminDeleteReview id={review.idreview} handleDelete={handleDelete} />
                 )}
               </li>

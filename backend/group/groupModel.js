@@ -71,7 +71,7 @@ async function deleteGroupById(groupid) {
 async function updateGroupById(groupid, grouppicurl, groupexplanation) {
     const now = new Date();
     const query = {
-        text: 'UPDATE group_ SET grouppicurl = $2, groupexplanation = $3, timestamp = $4 WHERE groupid = $1',
+        text: 'UPDATE group_ SET grouppicurl = $2, groupexplanation = $3, last_modified = $4 WHERE groupid = $1',
         values: [groupid, grouppicurl, groupexplanation, now],
     };
     return queryDatabase(query);

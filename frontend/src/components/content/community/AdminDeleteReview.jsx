@@ -24,6 +24,8 @@ const AdminDeleteReview = ({ id, handleDelete }) => {
     setShowConfirm(!showConfirm); 
   };
 
+  
+
   return (
     <div>
       {showConfirm ? ( 

@@ -54,4 +54,8 @@ dist-ssr
 /robot/log.html
 /robot/output.xml
 /robot/report.html
+/robot/__pycache__/*
 selenium*
+frontend/src/images/grp*
+frontend/src/images/prof*
+frontend/.vite/*

@@ -312,9 +312,9 @@ h3 /* hamburger */ {
   cursor: not-allowed; 
 }
 
-.confirm {
-  background-color: var(--confirm-red);
-  color: #ffffff;
+.basicbutton:hover {
+  border: var(--solid);
+  box-shadow: var(--shadow05);
 }
 
 .confirm {
@@ -330,6 +330,24 @@ h3 /* hamburger */ {
 
 .confirm:hover {
   background-color: var(--confirm-hover);
+  color: #ffffff;
+}
+
+.brownBtn {
+  margin-top: 12px;
+  margin-bottom: 4px;
+  margin-right: 8px;
+  padding: 11px;
+  border-radius: 4px;
+  border: var(--solid);
+  background-color: #43311f;
+  color: #ffffff;
+}
+
+.brownBtn:hover {
+  background-color: #b77b40;
+  border: var(--solid);
+  box-shadow: var(--shadow05);
   color: #ffffff;
 }
 
