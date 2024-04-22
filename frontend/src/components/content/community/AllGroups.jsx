@@ -65,7 +65,7 @@ const AllGroups = ({ user, searchTerm, setSearchTerm }) => {
             const response = await axios.post(`${VITE_APP_BACKEND_URL}/group`, { groupname: newGroupName }, { headers }) ;  
             console.log('palauttaako mitään', response.data);
             const groupid = response.data[0].groupid;
-            await axios.post(`${VITE_APP_BACKEND_URL}/memberstatus/${profileId}/1/${groupid}/0`);
+            await axios.post(`${VITE_APP_BACKEND_URL}/memberstatus/${profileId}/1/${groupid}/0`, {}, { headers });
             setNewGroupName('');
             setCreatingGroup(false);
             console.log('Uusi ryhmä luotu ja jäsen lisätty onnistuneesti');

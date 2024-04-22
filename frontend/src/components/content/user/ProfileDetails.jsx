@@ -77,7 +77,7 @@ const ProfileDetails = ({ user }) => {
                 <div className="inner-right">
                     <h2>{profile?.profilename}</h2>
                     <ul>
-                        {(user && user.usertype === 'admin' || !isPrivate || isOwnProfile) && <p className="info">{profile?.description || ''} </p>}
+                        {(!isPrivate || isOwnProfile) && <p className="info">{profile?.description || ''} </p>}
                         {isPrivate && !isOwnProfile && <span className="userinfo">Tämä profiili on yksityinen.</span>}
                     </ul>
                 </div>
@@ -85,7 +85,7 @@ const ProfileDetails = ({ user }) => {
 
             {editMode && <ProfileEdit profilename={profilename} />}
 
-            {(user && user.usertype === 'admin' || !isPrivate || isOwnProfile) && (
+            {(!isPrivate || isOwnProfile) && (
                 <>
                     <div className='profile-between'>
 

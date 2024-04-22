@@ -6,8 +6,9 @@ import MemberList from './MemberList';
 import ReviewList from './ReviewList';
 import Forum from './Forum';
 import GroupEdit from './GroupEdit';
-const { VITE_APP_BACKEND_URL } = import.meta.env;
 import { getHeaders } from '@auth/token';
+const { VITE_APP_BACKEND_URL } = import.meta.env;
+
 
 
 const GroupDetails = ({ user }) => {
@@ -91,9 +92,9 @@ console.log("Token from sessionStorage:", user);
   }, [id]);
 
 
-  const handleApplicationToJoin = async (profileId, groupId) => {
+  const handleApplicationToJoin = async (profileId, id) => {
     try {
-      await axios.post(`${VITE_APP_BACKEND_URL}/memberstatus/${profileId}/0/${groupId}/1`);
+      await axios.post(`${VITE_APP_BACKEND_URL}/memberstatus/${profileId}/0/${id}/1`, {}, {headers});
       window.location.reload(); 
     } catch (error) {
       console.error('Virhe pyynnön lähettämisessä:', error);
@@ -113,7 +114,7 @@ console.log("Token from sessionStorage:", user);
       console.log(memberResponse); 
       if (memberResponse && memberResponse.data && memberResponse.data.memberlistid) {
         try {
-          await axios.delete(`${VITE_APP_BACKEND_URL}/memberstatus/${memberResponse.data.memberlistid}`);
+          await axios.delete(`${VITE_APP_BACKEND_URL}/memberstatus/${memberResponse.data.memberlistid}`, {headers});
           window.location.reload(); 
         } catch (error) {
           console.error('Virhe pyynnön poistamisessa:', error);
