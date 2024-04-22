@@ -1,0 +1,18 @@
+// Backend
+PORT = your-backend-port // port where the backend is running, eg. 3001
+TMDB_API_KEY = 'you-api-key' // get your own TMDB API key from https://www.themoviedb.org/
+JWT_SECRET = 'your-secret' // for example 'abc123'
+EMAIL_SERVICE = 'your-email-service' // for example 'gmail'
+EMAIL_USER = 'your-email@mail.com'
+EMAIL_PASS = 'your email password'
+
+// Database
+DB_USER = 'your-database-user'
+DB_HOST = 'your-database-host'
+DB_DATABASE = 'your-database-name'
+DB_PASSWORD = 'your-database-password'
+DB_PORT = your-database-port // for example 5432
+DB_SSL = true // if you are using ssl
+
+// Frontend
+VITE_APP_BACKEND_URL = 'backend-url' // url where the backend is running
