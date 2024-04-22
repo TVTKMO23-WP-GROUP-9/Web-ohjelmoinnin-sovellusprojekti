@@ -2,18 +2,36 @@
 .emoji {
   font-family: 'Noto Color Emoji', sans-serif;
   font-size: 28px;
+  margin-right: 7px;
+}
+
+.emoji26 {
+  font-family: 'Noto Color Emoji', sans-serif;
+  font-size: 26px;
+  margin-right: 7px;
 }
 
 .emoji22 {
   font-family: 'Noto Color Emoji', sans-serif;
   font-size: 22px;
+  padding-right: 7px;
 }
 
-.review {
+.review, 
+.updateState {
   font-family: 'Noto Color Emoji', sans-serif;
   font-size: 0.9em;
   padding: 0.02em;
 }
+
+.emoji :active,
+.emoji26 :active,
+.emoji22 :active,
+.review :active,
+.updateState :active {
+  border: none;
+}
+
 
 /*popcorn*/
 .uni01::before { content: "\1F37F"; }
@@ -37,11 +55,14 @@
 .uni10::before { content: "\1F5A4"; }
 /*edit*/
 .uni11::before { content: "\270F"; }
-/*delete*/
+/*delete , remove*/
 .uni12::before { content: "\274C"; }
-/*checkmark*/
+/*checkmark / approve*/
 .uni13::before { content: "\2705"; }
 /*crown*/
 .uni14::before { content: "\1F451"; }
 /*events*/
 .uni15::before { content: "\1F3A5"; }
+/*noentry*/
+.uni16::before { content: "\26D4"; }
+
