@@ -49,14 +49,13 @@ async function deleteProfileById(profileid) {
         await pool.query('COMMIT');
         console.log('deleteProfileById result', result);
         return result.rowCount;
-        
     }
     catch (error) {
         await pool.query('ROLLBACK');
         throw error; 
     }
 } 
-
+  
 async function updateProfilenameAndEmail(profileid, profilename, email) {
     const now = new Date();
     const query = {

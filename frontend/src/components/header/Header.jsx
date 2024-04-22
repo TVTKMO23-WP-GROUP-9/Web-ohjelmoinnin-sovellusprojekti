@@ -33,6 +33,7 @@ const Header = ({ user, setUser, handleLogout, toggleTheme, showLogin, setShowLo
               {user && <li>Kirjautunut:</li>} 
               {user && <li>{user.user}</li> } <br/>
 
+              {user && user.usertype === 'admin' && <li><Link to={`/admin`}>Ylläpito</Link></li>}
               {user && <li><Link to={`/profile/${user.user}`}>Oma profiili</Link></li>}
               {user && <li><Link to="/myaccount">Tilinhallinta</Link></li>}
               {user && <li><Link onClick={handleLogout}>Kirjaudu ulos</Link></li>}
