@@ -20,18 +20,19 @@ const AdminDeleteUsers = ({ id, handleDelete }) => {
           console.error('Virhe poistaessa käyttäjää:', error);
       }
   };
+  
 
   return (
     <div>
 
       <>
-        {confirmDeleteAccountId === id.idprofile ? (
+        {confirmDeleteAccountId === id.profileid ? (
           <>
-            <button className="confirm" onClick={() => handleDeleteAccount(id.idprofile)}><span className='user uni12'></span> Vahvista</button>
+            <button className="confirm" onClick={() => handleDeleteAccount(id.profileid)}><span className='user uni12'></span> Vahvista</button>
             <button className="compactButton" onClick={() => setConfirmDeleteAccountId(null)}>Peruuta</button>
           </>
         ) : (
-          <button className="compactButton" onClick={() => setConfirmDeleteAccountId(id.idprofile)}><span className='user uni12'></span> Poista käyttäjä</button>
+          <button className="compactButton" onClick={() => setConfirmDeleteAccountId(id.profileid)}><span className='user uni12'></span> Poista käyttäjä</button>
         )}
       </>
 
