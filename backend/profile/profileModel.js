@@ -85,6 +85,15 @@ async function updateProfileVisibility(profileid, is_private) {
     return result.rowCount;
 }
 
+async function updateProfileAdultcontent(profileid, adult) {
+    const query = {
+        text: 'UPDATE "profile_" SET adult = $2 WHERE profileid = $1',
+        values: [profileid, adult],
+    };
+    const result = await pool.query(query);
+    return result.rowCount;
+}
+
 module.exports = {
     getAllProfiles,
     getProfileById,
@@ -92,5 +101,6 @@ module.exports = {
     deleteProfileById,
     updateProfilenameAndEmail,
     updateProfileDetails,
-    updateProfileVisibility
+    updateProfileVisibility,
+    updateProfileAdultcontent
 };
