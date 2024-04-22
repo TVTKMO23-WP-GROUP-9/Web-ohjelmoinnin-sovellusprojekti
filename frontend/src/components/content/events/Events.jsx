@@ -10,6 +10,7 @@ const Events = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [events, setEvents] = useState([]);
   const [showtimes, setShowtimes] = useState([]);
+  const currentDate = new Date();
 
   const handleDateSelection = (date) => {
     setSelectedDate(date);
@@ -83,7 +84,12 @@ const Events = () => {
 
         return { id, title, start_time, end_time, theatre, auditorium, ratingImageUrl, genres, spokenLanguage };
       });
-      setShowtimes(shows);
+      const filteredShows = shows.filter(show => {
+        const showDate = new Date(show.start_time);
+        return showDate >= currentDate;
+      });
+      console.log('Näytösajat:', filteredShows);
+      setShowtimes(filteredShows);
     } catch (error) {
       console.error('Virhe haettaessa näytösaikoja:', error);
     }
@@ -93,7 +99,6 @@ const Events = () => {
   const tyhjennaHaku = () => {
     setEvents([]);
     setShowtimes([]);
-
     console.log('Lista tyhjennetty manuaalisesti');
   };
 
