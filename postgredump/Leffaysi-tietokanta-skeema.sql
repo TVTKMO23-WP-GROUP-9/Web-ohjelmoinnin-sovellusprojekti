@@ -21,7 +21,8 @@ CREATE TABLE IF NOT EXISTS Profile_
     is_private BOOLEAN DEFAULT FALSE, 
     timestamp TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     description VARCHAR(1000),
-    usertype VARCHAR(10) DEFAULT 'user' CHECK (usertype IN ('admin', 'user'))
+    usertype VARCHAR(10) DEFAULT 'user' CHECK (usertype IN ('admin', 'user')),
+    adult BOOLEAN DEFAULT FALSE
 );
 
 -- Ryhmät
