@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Area from './Area';
 import Dates from './Dates';
 import Shows from './Shows';
+import NowShowing from './NowShowing';
+import './events.css';
 
 const Events = () => {
   const [selectedArea, setSelectedArea] = useState('1018');
+  const [selectedMovie, setSelectedMovie] = useState('');
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [events, setEvents] = useState([]);
   const [showtimes, setShowtimes] = useState([]);
@@ -13,7 +16,9 @@ const Events = () => {
     setSelectedDate(date);
   };
 
-  // jaottelu pienempiin on paikallaan 
+  const handleMovieSelection = (movie) => {
+    setSelectedMovie(movie);
+  };
 
   // jäsennelty näytösaika näytöshakuihin
   const formattedShowtimes = showtimes.map(show => {
@@ -25,12 +30,14 @@ const Events = () => {
     const hours = startDateTime.getHours() < 10 ? `0${startDateTime.getHours()}` : startDateTime.getHours();
     const minutes = startDateTime.getMinutes() < 10 ? `0${startDateTime.getMinutes()}` : startDateTime.getMinutes();
 
-    const formattedStartTime = `${day}.${month}.${year} klo ${hours}:${minutes}`;
+    const formattedStartTime = `klo ${hours}:${minutes}`;
+    const showDate = `${day}.${month}.${year}`;
 
     return {
       ...show,
       start_time: formattedStartTime,
       end_time: new Date(show.end_time).toLocaleTimeString('fi-FI', { hour: '2-digit', minute: '2-digit' }),
+      date: showDate,
     };
 
   });
@@ -41,10 +48,8 @@ const Events = () => {
       console.error('Valitse alue ja päivämäärä');
       return;
     }
-
-    console.log('Valittu alue:', selectedArea);
-    console.log('Valittu päivämäärä:', selectedDate);
-
+    //console.log('Valittu alue:', selectedArea);
+    //console.log('Valittu päivämäärä:', selectedDate);
     setShowtimes([]);
     setEvents([]);
 
@@ -53,9 +58,15 @@ const Events = () => {
     const day = formattedDate.getDate() < 10 ? `0${formattedDate.getDate()}` : formattedDate.getDate();
     const month = (formattedDate.getMonth() + 1) < 10 ? `0${formattedDate.getMonth() + 1}` : formattedDate.getMonth() + 1;
     const formattedDateString = `${day}.${month}.${formattedDate.getFullYear()}`;
+    console.log('Jäsennelty päivämäärä:', formattedDateString);
 
     try {
-      const showsResponse = await fetch(`https://www.finnkino.fi/xml/Schedule/?area=${selectedArea}&dt=${formattedDateString}`);
+      console.log('selectedMovie:' + selectedMovie);
+      if (selectedMovie === '') {
+        const showsResponse = await fetch(`https://www.finnkino.fi/xml/Schedule/?area=${selectedArea}&dt=${formattedDateString}`);
+      }
+
+      const showsResponse = await fetch(`https://www.finnkino.fi/xml/Schedule/?area=${selectedArea}&dt=${formattedDateString}&eventID=${selectedMovie}`);
       const showsData = await showsResponse.text();
       console.log('Näytösajat:', showsData);
       const showsParser = new DOMParser();
@@ -79,38 +90,6 @@ const Events = () => {
     }
   };
 
-  // haetaan tiedot elokuvista, jotka ovat teattereissa nyt
-  const haeTapahtumat = () => {
-    if (!selectedArea || !selectedDate) {
-      console.error('Valitse alue ja päivämäärä ennen hakua.');
-      return;
-    }
-
-    setEvents([]);
-    setShowtimes([]);
-
-    console.log('Teattereissa nyt, alue:', selectedArea);
-
-    fetch(`https://www.finnkino.fi/xml/Events/?listType=NowInTheatres&area=${selectedArea}`)
-      .then(response => response.text())
-      .then(data => {
-        const parser = new DOMParser();
-        const xmlDoc = parser.parseFromString(data, 'text/xml');
-        const eventsData = Array.from(xmlDoc.getElementsByTagName('Event')).map(event => {
-          const id = event.querySelector('ID')?.textContent || '';
-          const title = event.querySelector('Title')?.textContent || '';
-          const synopsis = event.querySelector('ShortSynopsis')?.textContent || '';
-          const genres = event.querySelector('Genres')?.textContent || '';
-          const imageUrl = event.querySelector('EventMediumImagePortrait')?.textContent || '';
-          const trailerUrl = event.querySelector('Videos EventVideo Location')?.textContent || '';
-
-          return { id, title, synopsis, genres, imageUrl, trailerUrl };
-        });
-        setEvents(eventsData);
-      })
-      .catch(error => console.error('Virhe haettaessa tapahtumia:', error));
-  };
-
   // manuaalinen haun tyhjennys
   const tyhjennaHaku = () => {
     setEvents([]);
@@ -121,39 +100,40 @@ const Events = () => {
 
   return (
     <div className="content">
+      <div className="form-view">
+        <h2>Näytösajat</h2>
 
-      <h2>Näytösajat</h2>
+        <p>Finnkinon näytösajat ja tapahtumat haettavissa teattereittain ympäri Suomea.</p>
+        <NowShowing setSelectedMovie={handleMovieSelection} /> <br />
+        <Area setSelectedArea={setSelectedArea} /> <br />
+        <Dates onSelectDate={handleDateSelection} /> <br />
 
-      <p>Finnkinon näytösajat ja tapahtumat haettavissa teattereittain ympäri Suomea.</p>
+        <label htmlFor="date"> Valitse metodi:</label>
+        <button className='basicbutton' onClick={haeNaytokset}>Hae näytösajat</button>
+        <button className='basicbutton' onClick={tyhjennaHaku}>Tyhjennä lista</button>
+      </div>
+      <div className="form-view">
+        <h2>Hakutulokset:</h2>
+        <hr />
 
-      <Area setSelectedArea={setSelectedArea} /> <br />
-      <Dates onSelectDate={handleDateSelection} /> <br />
+        <Shows events={events} />
 
-      <label htmlFor="date"> Valitse metodi:</label>
-      <button className='basicbutton' onClick={haeNaytokset}>Hae näytösajat</button>
-      <button className='basicbutton' onClick={haeTapahtumat}>Teattereissa nyt</button>
-      <button className='basicbutton' onClick={tyhjennaHaku}>Tyhjennä lista</button>
-
-      <h3>Hakutulos:</h3>
-      <hr />
-
-      <Shows events={events} />
-
-      {formattedShowtimes.map(show => (
-        <div key={show.id}>
-          <div>
-            <h4>{show.title}</h4>
-            <p>{show.start_time}-{show.end_time}</p>
-            <p>{show.auditorium}, {show.theatre}</p>
+        {formattedShowtimes.map(show => (
+          <div key={show.id}>
+            <div>
+              <b>{show.date} {show.start_time}</b>
+              <h2>{show.title}</h2>
+              <p>{show.auditorium}, {show.theatre}</p>
+            </div>
+            <div>
+              <p>{show.spokenLanguage}</p>
+              <p>Näytös päättyy noin klo {show.end_time}</p>
+              <img src={show.ratingImageUrl} alt={show.title} />
+            </div>
+            <hr />
           </div>
-          <div>
-            <p>{show.genres}</p>
-            <p>{show.spokenLanguage}</p>
-            <img src={show.ratingImageUrl} alt={show.title} />
-          </div>
-          <hr />
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
 
   );
