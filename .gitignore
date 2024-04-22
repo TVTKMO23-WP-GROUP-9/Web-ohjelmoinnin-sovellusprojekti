@@ -58,4 +58,4 @@ dist-ssr
 selenium*
 frontend/src/images/grp*
 frontend/src/images/prof*
-frontendt/.vite/*
+frontend/.vite/*
