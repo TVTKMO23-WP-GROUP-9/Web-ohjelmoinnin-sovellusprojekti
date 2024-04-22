@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Area from './Area';
 import Dates from './Dates';
-import Shows from './Shows';
 import NowShowing from './NowShowing';
 import './events.css';
 
@@ -116,19 +115,19 @@ const Events = () => {
         <h2>Hakutulokset:</h2>
         <hr />
 
-        <Shows events={events} />
-
         {formattedShowtimes.map(show => (
           <div key={show.id}>
-            <div>
-              <b>{show.date} {show.start_time}</b>
-              <h2>{show.title}</h2>
-              <p>{show.auditorium}, {show.theatre}</p>
-            </div>
-            <div>
-              <p>{show.spokenLanguage}</p>
-              <p>Näytös päättyy noin klo {show.end_time}</p>
-              <img src={show.ratingImageUrl} alt={show.title} />
+            <div className="show">
+              <div className='showLeft'>
+                <b>{show.date} {show.start_time}</b>
+                <h2>{show.title}</h2>
+                <p>{show.auditorium}, {show.theatre}</p>
+              </div>
+              <div className='showRight'>
+                <p>{show.spokenLanguage}</p>
+                <p>Näytös päättyy noin klo {show.end_time}</p>
+                <img src={show.ratingImageUrl} alt={show.title} />
+              </div>
             </div>
             <hr />
           </div>
