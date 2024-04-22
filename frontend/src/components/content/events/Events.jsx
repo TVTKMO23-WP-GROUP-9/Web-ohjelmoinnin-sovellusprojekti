@@ -10,6 +10,7 @@ const Events = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [events, setEvents] = useState([]);
   const [showtimes, setShowtimes] = useState([]);
+  const [error, setError] = useState('');
   const currentDate = new Date();
 
   const handleDateSelection = (date) => {
@@ -88,10 +89,16 @@ const Events = () => {
         const showDate = new Date(show.start_time);
         return showDate >= currentDate;
       });
+      if (filteredShows.length === 0) {
+        setError('Valituilla kriteereillä ei löytynyt näytöksiä');
+      } else {
+        setError('');
+      }
       console.log('Näytösajat:', filteredShows);
       setShowtimes(filteredShows);
     } catch (error) {
       console.error('Virhe haettaessa näytösaikoja:', error);
+      setError('Näytösaikojen haku epäonnistui');
     }
   };
 
@@ -120,6 +127,7 @@ const Events = () => {
         <h2>Hakutulokset:</h2>
         <hr />
 
+        {error && <p className="error">{error}</p>}
         {formattedShowtimes.map(show => (
           <div key={show.id}>
             <div className="show">
