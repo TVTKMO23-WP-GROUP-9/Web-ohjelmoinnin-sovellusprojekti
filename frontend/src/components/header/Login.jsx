@@ -125,13 +125,13 @@ export default function Login({ setUser, window, fullpage }) {
             <input className="field" type='email' name="email" value={formData.email || null} onChange={handleChange} placeholder="Sähköposti" /><br />
             <input className="field" type='password' name="password" value={formData.password || null} onChange={handleChange} placeholder="Salasana" /><br />
             <button className="formButton" type="submit">Rekisteröidy</button>
-            <button className="formButton" type="button" onClick={handleToggleRegisterForm}>Peruuta</button>
+            <button className="formButton" type="button" onClick={(e) => {handleToggleRegisterForm(); e.stopPropagation(); }}>Peruuta</button>
           </form>
         ) : showForgotPassword ? (
           <form onSubmit={handleForgotPassword}>
             <input className="field" type="email" name="email" value={email} onChange={handleEmailChange} placeholder="Sähköpostiosoite" required />
             <button className="formButton" type="submit">Palauta salasana</button>
-            <button className="formButton" onClick={handleToggleForgotPasswordForm}>Peruuta</button>
+            <button className="formButton" onClick={(e) => { handleToggleForgotPasswordForm(); e.stopPropagation(); }}>Peruuta</button>
           </form>
         ) : (
           <form onSubmit={handleLogin}>
