@@ -10,10 +10,8 @@ router.get('/favoritelist', favoritelistService.getAllFavoritelist);
 router.get('/favoritelist/profile/:profileid', favoritelistService.getFavoritelistByProfile);
 router.get('/favoritelist/group/:groupid', favoritelistService.getFavoritelistByGroup);
 router.post('/favoritelist', favoritelistService.createFavoritelist);
-router.delete('/favoritelist/:profileid/:idfavoritelist', favoritelistService.deleteFavoritelist);
-router.get('/favoritelist/favoriteditem', optionalAuth, favoritelistService.getFavorite);
-router.delete('/favoritelist/:profileid/:idfavoritelist', favoritelistService.deleteFavorite);
-router.delete('/favoritelist/:groupid', favoritelistService.deleteFavoritelist);
-router.delete('/favoritelist/:profileid', favoritelistService.deletePIDFavoritelist);
+router.get('/favoritelist/profile/:profileid/:favoriteditem', optionalAuth, favoritelistService.getFavorite);
+router.delete('/favoritelist/:profileid/:favoriteditem', favoritelistService.deleteFavorite);
+//router.delete('/favoritelist/:groupid', favoritelistService.deleteFavoritelist);
 
 module.exports = router;

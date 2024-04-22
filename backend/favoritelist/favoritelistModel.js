@@ -10,13 +10,14 @@ const pool = new Pool({
 });
 
 async function queryDatabase(query) {
-    try {
-      const result = await pool.query(query);
-      return result.rows;
-    } catch (error) {
-      throw error;
-    }
+  try {
+    const result = await pool.query(query);
+    return result.rows;
+  } catch (error) {
+    console.error('Virhe tietokantakyselyssä:', error);
+    throw error;
   }
+}
   
   module.exports = {
     queryDatabase,

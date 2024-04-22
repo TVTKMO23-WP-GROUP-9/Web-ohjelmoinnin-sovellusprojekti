@@ -85,22 +85,29 @@ async function getFavoritelistByGroup(req, res) {
   }
 
   async function deleteFavorite(req, res) {
-    const idfavoritelist = req.params.idfavoritelist;
+    const profileid = req.params.profileid;
+    const favoriteditem = req.params.favoriteditem
+
+    
     try {
-      const query = {
-        text: 'DELETE  FROM favoritelist_ WHERE favoriteditem = $1 AND profileid = $2',
-        values: [idfavoritelist],
-      };
+        const query = {
+            text: 'DELETE FROM favoritelist_ WHERE profileid = $1 AND favoriteditem = $2',
+            values: [profileid, favoriteditem],
+            
+        };
+            console.log("Profile ID:", req.params.profileid);
+console.log("Favorited Item:", req.params.favoriteditem);
 
-      const result = await favoritelistModel.queryDatabase(query);
-        res.send(`Lista poistettu onnistuneesti`);
+        const result = await favoritelistModel.queryDatabase(query);
+        res.send(`Lista poistettu onnistuneesti deletefavorite`);
     } catch (error) {
-      console.error('Virhe poistettaessa listaa:', error);
-      res.status(500).send('Virhe poistettaessa listaa');
+        console.error('Virhe poistettaessa listaa:', error);
+        res.status(500).send('Virhe poistettaessa listaa');
     }
-  };
+}
 
-    async function deleteFavoritelist(req, res) {
+
+  /*  async function deleteFavoritelist(req, res) {
       const groupid = req.params.groupid;
       try {
         const query = {
@@ -109,58 +116,37 @@ async function getFavoritelistByGroup(req, res) {
         };
     
         const result = await favoritelistModel.queryDatabase(query);
-          res.send(`Lista poistettu onnistuneesti`);
+          res.send(`Lista poistettu onnistuneesti asdsa`);
       } catch (error) {
         console.error('Virhe poistettaessa listaa:', error);
         res.status(500).send('Virhe poistettaessa listaa');
       }
-    };
-    async function deletePIDFavoritelist(req, res) {
-      const profileid = req.params.profileid;
-      try {
-        const query = {
-          text: 'DELETE FROM favoritelist_ WHERE profileid = $1',
-          values: [profileid],
-        };
-    
-        const result = await favoritelistModel.queryDatabase(query);
-          res.send(`Lista poistettu onnistuneesti`);
-      } catch (error) {
-        console.error('Virhe poistettaessa listaa:', error);
-        res.status(500).send('Virhe poistettaessa listaa');
-      }
-    }
+    }; */
+
     async function getFavorite(req, res) {
       try {
-        // const profileid = res.locals.profileid; 
-       // const profilename = res.locals.username;
+        const profileid = req.params.profileid;
+        const favoriteditem = req.params.favoriteditem;
     
-      /*  const profileIdQuery = 'SELECT profileid FROM profile_ ';
-        const profileIdValues = [profileid];
-        const profileIdResult = await profileModel.queryDatabase(profileIdQuery, profileIdValues);
-        
-        if (profileIdResult.length === 0) {
-          return res.status(404).json({ message: 'Profiilia ei löytynyt' });
-        }*/
-        const favoriteListQuery = 'SELECT favoriteditem FROM favoritelist_ WHERE profileid = $1';
-        const favoriteListValues = [profileid];
-        const favoriteListResult = await profileModel.queryDatabase(favoriteListQuery, favoriteListValues);
-
+        let favoriteListQuery = 'SELECT * FROM favoritelist_WHERE profileid = $1 AND favoriteditem = $2;';
+        let favoriteListValues = [profileid, favoriteditem];
+    
+        const favoriteListResult = await favoritelistModel.queryDatabase(favoriteListQuery, favoriteListValues);
+    
         res.status(200).json({ favorites: favoriteListResult });
       } catch (error) {
         console.error('Virhe haettaessa suosikkilistaa:', error);
         res.status(500).json({ message: 'Virhe haettaessa suosikkilistaa' });
       }
     }
+    
 
-  
   module.exports = {
     getAllFavoritelist,
     createFavoritelist,
     deleteFavorite,
-    deleteFavoritelist,
+   // deleteFavoritelist,
     getFavoritelistByProfile,
     getFavoritelistByGroup,
     getFavorite,
-    deletePIDFavoritelist,
   };
