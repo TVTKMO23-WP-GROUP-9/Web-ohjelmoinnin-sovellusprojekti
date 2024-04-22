@@ -20,19 +20,10 @@ const AllGroups = ({ user, searchTerm, setSearchTerm }) => {
     useEffect(() => {
         const fetchProfile = async () => {
             try {
-                const token = sessionStorage.getItem('token');
-                const headers = {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json'
-                };
-                console.log("Profilename from token:", user.user);
+
                 const { user: username } = user;
-                console.log("username:", username);
+
                 const response = await axios.get(`${VITE_APP_BACKEND_URL}/profile/${username.user}`, { headers });
-    
-                console.log("Token from sessionStorage:", token);
-                console.log("Profilename from token:", user);
-                console.log("Response from profile:", response.data);
     
                 setProfileid(response.data.profileid);
 
@@ -49,7 +40,7 @@ const AllGroups = ({ user, searchTerm, setSearchTerm }) => {
         const fetchGroups = async () => {
             try {
                 const response = await axios.get(`${VITE_APP_BACKEND_URL}/group`);
-                const sortedGroups = response.data.sort((a, b) => a.groupname.localeCompare(b.groupname));
+                const sortedGroups = response.data.sort((a, b) => a.groupname.localeCompare(b.groupname), { headers });
                 setGroups(sortedGroups);
                 setLoading(false);
             } catch (error) {
