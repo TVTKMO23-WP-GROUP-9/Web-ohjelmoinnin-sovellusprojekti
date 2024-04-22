@@ -207,11 +207,13 @@ const Movies = () => {
 
         </div>
         <div className='toggleLinks'>
-        <button className="basicbutton" onClick={handleSearch}>Hae</button>
+        <button className="basicbutton" onClick={handleSearch}>Hae</button></div>
+        <div className='toggleLinks'>
         <h2 onClick={toggleMovies}><span className='emoji uni01'></span> Leffat </h2>&nbsp;&nbsp;&nbsp;
         <h2 onClick={toggleSeries}><span className='emoji uni01'></span> Sarjat </h2>
         </div>
-      </div>
+        </div>
+      
       <p className="group-view">Löydä elokuvia ja sarjoja eri parametreillä tai etsi nimellä. <br /> Valitse yltä haluatko nähdä leffoja vai sarjoja.</p>
 
         
@@ -233,9 +235,12 @@ const Movies = () => {
                 <div>{result.overview.length > 200 ? `${result.overview.substring(0, 200)}...` : result.overview}</div>
               </div>
             </Link>
+            
+              <div className='movie-mini-item'><Link to={`/movie/${result.id}`}>{result.title}</Link></div>
+            
           </div>
-          
         ))}
+
         </div>
         <div className="resultsTitle">
         <button onClick={() => handleMoviePageChange('prev')} className='bigArrow'>{'⯇'}</button>
@@ -261,6 +266,9 @@ const Movies = () => {
               <div>{result.overview.length > 200 ? `${result.overview.substring(0, 200)}...` : result.overview}</div>
             </div>
           </Link>
+    
+          <div className='movie-mini-item'><Link to={`/series/${result.id}`}>{result.title}</Link></div>
+            
         </div>
         ))}
         </div>
