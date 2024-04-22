@@ -5,7 +5,16 @@
     margin-top: 0px;
     margin-bottom: 40px;
  }
-  
+
+ .itemcarousel {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+
+}
+
 .movie-item {
     position: relative;
     max-width: 300px; 
@@ -17,7 +26,7 @@
   
 .movie-item img {
     width: 100%;
-    min-height: 450px;
+    height: 100%;
     transition: transform 0.5s ease-in-out;
 }
 
@@ -88,12 +97,12 @@
 .group-view-long {
     background-color: var(--table-bg);
     color: var(--grp-text);
-    padding: 1em; 
+
     border-radius: 10px;
     border-top-right-radius: 170px;
     border-bottom-right-radius: 30px;
-    margin-top: 25px;
-    margin-bottom: 25px;
+    margin-top: 0px;
+    margin-bottom: 0px;
     border: var(--solid);
     box-shadow: var(--shadow02);
 }
@@ -109,7 +118,7 @@
     color: var(--grp-text);
     padding: 1em; 
     border-radius: 10px;
-    margin-top: 25px;
+    margin-top: 0px;
     margin-bottom: 25px;
     box-shadow: var(--shadow02);
 }
