@@ -43,7 +43,7 @@ async function deleteProfileById(req, res) {
 }
 
 async function deleteProfileAsAdmin(req, res) {
-    const profileid = req.params.groupid;
+    const profileid = req.params.id;
     try {
         await profileModel.deleteProfileById(profileid);
         res.status(200).json({ message: `Tietue poistettu onnistuneesti` });
