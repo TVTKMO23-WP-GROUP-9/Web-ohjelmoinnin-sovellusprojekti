@@ -21,7 +21,8 @@ CREATE TABLE IF NOT EXISTS Profile_
     is_private BOOLEAN DEFAULT FALSE, 
     timestamp TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     description VARCHAR(1000),
-    usertype VARCHAR(10) DEFAULT 'user' CHECK (usertype IN ('admin', 'user'))
+    usertype VARCHAR(10) DEFAULT 'user' CHECK (usertype IN ('admin', 'user')),
+    adult BOOLEAN DEFAULT FALSE
 );
 
 -- Ryhmät
@@ -65,8 +66,8 @@ CREATE TABLE IF NOT EXISTS Favoritelist_
     idfavoritelist SERIAL PRIMARY KEY,
     profileid INTEGER,
     groupid INTEGER,
-    favoriteditem TEXT,
-    showtime TEXT,
+    favoriteditem VARCHAR(40),
+    mediatype SMALLINT,
     timestamp TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (profileid) REFERENCES Profile_(profileid) ON DELETE CASCADE,
     FOREIGN KEY (groupid) REFERENCES Group_(groupid) ON DELETE CASCADE
