@@ -18,7 +18,7 @@ router.get('/messages/:groupid', groupService.getMessagesById);
 router.post('/messages', auth, groupService.createMessage);
 router.delete('/messages/:messageid', auth, groupService.deleteMessage);
 router.get('/memberstatus/:profileid/:groupid', groupService.getMemberStatus);
-router.post('/memberstatus/:profileid/:mainuser/:groupid/:pending', auth, groupService.createMember);
+router.post('/memberstatus/:profileid/:mainuser/:groupid/:pending', groupService.createMember);
 router.put('/memberstatus/:memberlistid/:pending', auth, groupService.updateMemberStatus);
 router.put('/memberrank/:memberlistid/:mainuser', auth, groupService.updateMemberRank);
 router.delete('/memberstatus/:memberlistid', auth, groupService.deleteMember);

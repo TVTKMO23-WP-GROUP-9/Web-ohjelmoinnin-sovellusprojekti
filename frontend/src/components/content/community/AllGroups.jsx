@@ -4,6 +4,7 @@ import GroupCarousel from './GroupCarousel';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 const { VITE_APP_BACKEND_URL } = import.meta.env;
+import { getHeaders } from '@auth/token';
 
 const AllGroups = ({ user, searchTerm, setSearchTerm }) => {
     const [groups, setGroups] = useState([]);
@@ -13,7 +14,7 @@ const AllGroups = ({ user, searchTerm, setSearchTerm }) => {
     const [profileId, setProfileid] = useState(null);
     const [newGroupName, setNewGroupName] = useState('');
     const [creatingGroup, setCreatingGroup] = useState(false);
-
+    const headers = getHeaders();
 
     if (user.user !== null) {
     useEffect(() => {
@@ -27,7 +28,7 @@ const AllGroups = ({ user, searchTerm, setSearchTerm }) => {
                 console.log("Profilename from token:", user.user);
                 const { user: username } = user;
                 console.log("username:", username);
-                const response = await axios.get(`${VITE_APP_BACKEND_URL}/profile/${username.user}`);
+                const response = await axios.get(`${VITE_APP_BACKEND_URL}/profile/${username.user}`, { headers });
     
                 console.log("Token from sessionStorage:", token);
                 console.log("Profilename from token:", user);
@@ -70,7 +71,7 @@ const AllGroups = ({ user, searchTerm, setSearchTerm }) => {
 
     const handleCreateGroup = async () => {
         try {
-            const response = await axios.post(`${VITE_APP_BACKEND_URL}/group`, { groupname: newGroupName });  
+            const response = await axios.post(`${VITE_APP_BACKEND_URL}/group`, { groupname: newGroupName }, { headers }) ;  
             console.log('palauttaako mitään', response.data);
             const groupid = response.data[0].groupid;
             await axios.post(`${VITE_APP_BACKEND_URL}/memberstatus/${profileId}/1/${groupid}/0`);
