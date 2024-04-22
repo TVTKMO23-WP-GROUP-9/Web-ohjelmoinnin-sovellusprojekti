@@ -210,7 +210,7 @@ const Movies = () => {
         <button className="basicbutton" onClick={handleSearch}>Hae</button></div>
         <div className='toggleLinks'>
         <h2 onClick={toggleMovies}><span className='emoji uni01'></span> Leffat </h2>&nbsp;&nbsp;&nbsp;
-        <h2 onClick={toggleSeries}><span className='emoji uni01'></span> Sarjat </h2>
+        <h2 onClick={toggleSeries}><span className='emoji'>📺</span> Sarjat </h2>
         </div>
         </div>
       
