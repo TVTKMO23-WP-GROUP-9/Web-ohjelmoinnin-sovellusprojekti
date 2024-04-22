@@ -140,9 +140,9 @@ export default function Login({ setUser, window, fullpage }) {
             <button className="formButton" type="submit">Kirjaudu sisään</button>
             <hr />
 
-              <button className="formButton" onClick={handleToggleRegisterForm}>Rekisteröidy</button>
-              
-              <button className="formButton" onClick={handleToggleForgotPasswordForm}>Unohtuiko salasana?</button> 
+            <button className="formButton" onClick={(e) => { handleToggleRegisterForm(); e.stopPropagation(); }}>Rekisteröidy</button>
+            
+            <button className="formButton" onClick={(e) => { handleToggleForgotPasswordForm(); e.stopPropagation(); }}>Unohtuiko salasana?</button>
 
           </form>
 
