@@ -49,8 +49,6 @@ const Events = () => {
       console.error('Valitse alue ja päivämäärä');
       return;
     }
-    //console.log('Valittu alue:', selectedArea);
-    //console.log('Valittu päivämäärä:', selectedDate);
     setShowtimes([]);
     setEvents([]);
 
@@ -62,7 +60,6 @@ const Events = () => {
     console.log('Jäsennelty päivämäärä:', formattedDateString);
 
     try {
-      console.log('selectedMovie:' + selectedMovie);
       if (selectedMovie === '') {
         const showsResponse = await fetch(`https://www.finnkino.fi/xml/Schedule/?area=${selectedArea}&dt=${formattedDateString}`);
       }
@@ -82,8 +79,10 @@ const Events = () => {
         const ratingImageUrl = show.querySelector('RatingImageUrl')?.textContent || '';
         const genres = show.querySelector('Genres')?.textContent || '';
         const spokenLanguage = show.querySelector('Name')?.textContent || '';
+        const showUrl = show.querySelector('ShowURL')?.textContent || '';
+        const eventPortrait = show.querySelector('EventSmallImagePortrait')?.textContent || '';
 
-        return { id, title, start_time, end_time, theatre, auditorium, ratingImageUrl, genres, spokenLanguage };
+        return { id, title, start_time, end_time, theatre, auditorium, ratingImageUrl, genres, spokenLanguage, showUrl, eventPortrait };
       });
       const filteredShows = shows.filter(show => {
         const showDate = new Date(show.start_time);
@@ -131,9 +130,12 @@ const Events = () => {
         {formattedShowtimes.map(show => (
           <div key={show.id}>
             <div className="show">
+              <div className='showPortrait'>
+                <img src={show.eventPortrait} alt={show.title} />
+              </div>
               <div className='showLeft'>
                 <b>{show.date} {show.start_time}</b>
-                <h2>{show.title}</h2>
+                <a href={show.showUrl} target="_blank" rel="noreferrer"><h2>{show.title}</h2></a>
                 <p>{show.auditorium}, {show.theatre}</p>
               </div>
               <div className='showRight'>

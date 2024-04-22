@@ -1,22 +1,35 @@
-.form-view {
-    background-color: var(--grp-background);
-    border-radius: 10px;
-    color: var(--profile);
-
-    padding: 1em;
-    margin-top: 25px;
-    border: var(--solid);
-}
-
 .show {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
+    flex-wrap: wrap;
     padding: 0 1em 0 1em;
 }
 
-h2 {
-    color: var(--profile);
-    margin: 0.3em 0 0 0;
+.showPortrait {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1em 0 1em;
+    margin: 0;
+}
+
+.showLeft {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1em 0 1em;
+    margin: 0;
+}
+
+.showRight {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1em 0 1em;
+    margin: 0;
 }
