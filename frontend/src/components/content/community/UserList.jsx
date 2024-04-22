@@ -117,7 +117,7 @@ const UserList = ({ searchTerm, setSearchTerm }) => {
                 {hoveredProfile && (
                     <div className="communityBox">
                         <h1>Kurkistusikkunassa</h1>
-                        <h3><b>{hoveredProfile.profilename}</b></h3>
+                        <h3 className='title1'><b>{hoveredProfile.profilename}</b></h3>
                         {hoveredProfile.profilepicurl ? (
                         <span>
                             <img src={hoveredProfile.profilepicurl} className='tinyPrfPic' alt="Group Picture" />

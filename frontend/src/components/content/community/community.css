@@ -316,3 +316,9 @@ ul {
     align-items: center;
     box-shadow: var(--shadow02);
 }
+
+.title1 {
+    font-size: 1.8em;
+    color: var(--title1);
+    font-weight: 600;
+}
