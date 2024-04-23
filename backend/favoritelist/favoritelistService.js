@@ -111,7 +111,38 @@ async function getFavoritelistByGroup(req, res) {
         res.status(500).send('Virhe poistettaessa listaa');
       }
     };
-    
+
+    async function deleteOnProfileFavorite(req, res) {
+      const idfavoritelist = req.params.idfavoritelist;
+      const profileid = req.params.profileid;
+      try {
+        const query = {
+          text: 'DELETE FROM favoritelist_ WHERE idfavoritelist = $1 AND profileid =$2',
+          values: [idfavoritelist, profileid],
+        };
+  
+        const result = await favoritelistModel.queryDatabase(query);
+          res.send(`Lista poistettu onnistuneesti`);
+      } catch (error) {
+        console.error('Virhe poistettaessa listaa:', error);
+        res.status(500).send('Virhe poistettaessa listaa');
+      }
+    };
+    async function getFavorite(req, res) {
+      try {
+        const profileid = req.params.profileid;
+        const favoriteditem = req.params.favoriteditem;
+
+        let favoriteListQuery = 'SELECT * FROM favoritelist_WHERE profileid = $1 AND favoriteditem = $2';
+        let favoriteListValues = [profileid, favoriteditem];
+
+        const favoriteListResult = await favoritelistModel.queryDatabase(favoriteListQuery, favoriteListValues)
+        res.status(200).json({ favorites: favoriteListResult });
+      } catch (error) {
+        console.error('Virhe haettaessa suosikkilistaa:', error);
+        res.status(500).json({ message: 'Virhe haettaessa suosikkilistaa' });
+      }
+    }
   
   module.exports = {
     getAllFavoritelist,
@@ -120,4 +151,6 @@ async function getFavoritelistByGroup(req, res) {
     deleteFavoritelist,
     getFavoritelistByProfile,
     getFavoritelistByGroup,
+    getFavorite,
+    deleteOnProfileFavorite
   };

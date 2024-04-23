@@ -252,3 +252,13 @@ ul {
 input {
     margin: 1em 0;
 }
+.favoritetitle {
+    color: var(--profile);
+    font-size: 1em;
+    font-weight: 500;
+}
+.favoriteimg {
+    margin-right: 20px;
+    height: 200px;
+    box-shadow: var(--shadow02);
+}
