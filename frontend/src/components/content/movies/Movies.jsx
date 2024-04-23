@@ -16,8 +16,9 @@ const Movies = () => {
   const [showTitles, setShowTitles] = useState(false);
   const [pageSize, setPageSize] = useState([]); 
   const totalPages = Math.ceil(movies.length / pageSize);
-  const [showMovies, setShowMovies] = useState(false);
+  const [showMovies, setShowMovies] = useState(true);
   const [showSeries, setShowSeries] = useState(false);
+  const [adult, setAdult] = useState(false);
   const [showText, setShowText] = useState(true);
 
   useEffect(() => {
@@ -33,32 +34,34 @@ const Movies = () => {
 
   const searchMovies = async () => {
     try {
+      console.log(genre);
       let response;
       if (query !== '') {
         response = await axios.get(`${VITE_APP_BACKEND_URL}/movie/search`, {
-          params: { query, page: moviePage, year }
-        });
+        params: { query, genre, page: moviePage, year }
+      });
       } else {
         response = await axios.get(`${VITE_APP_BACKEND_URL}/movie/discover`, {
-          params: { genre, sort_by: 'popularity.desc', page: moviePage, year }
+        params: { genre, sort_by: 'popularity.desc', page: moviePage, year }
         });
       }
+      console.log(genre);
       setMovies(response.data);
     } catch (error) {
       console.error('Hakuvirhe elokuvissa:', error);
     }
   };
-
+  
   const searchSeries = async () => {
     try {
       let response;
       if (query !== '') {
         response = await axios.get(`${VITE_APP_BACKEND_URL}/series/search`, {
-          params: { query, page: seriesPage, year }
-        });
+        params: { query, genre, page: seriesPage, year }
+      });
       } else {
         response = await axios.get(`${VITE_APP_BACKEND_URL}/series/discover`, {
-          params: { genre, sort_by: 'popularity.desc', page: seriesPage, year }
+        params: { genre, sort_by: 'popularity.desc', page: seriesPage, year }
         });
       }
       setSeries(response.data);
@@ -73,6 +76,7 @@ const Movies = () => {
     } else {
       setMoviePage((page) => page + 1);
     }
+    window.scrollTo(0, 600);
   };
 
   const handleSeriesPageChange = (action) => {
@@ -81,15 +85,14 @@ const Movies = () => {
     } else {
       setSeriesPage((page) => page + 1);
     }
+    window.scrollTo(0, 600);
   };
 
   const handleInputChange = (event) => {
-    setGenre('');
     setQuery(event.target.value);
   };
 
   const handleGenreChange = (event) => {
-    setQuery('');
     setGenre(event.target.value);
   };
 
@@ -184,30 +187,6 @@ const Movies = () => {
               onChange={handleYearChange}
             />
           </div>
-
-          <div className="pdd-right">
-            <b>Sivu:</b><br />
-            {showText && (
-              <i>Valitse tyyppi</i>)}
-            {showMovies && (
-            <input
-              id="moviesHideable"
-              className="field shortInput"
-              type="number"
-              placeholder="..."
-              value={moviePage}
-              onChange={(event) => setMoviePage(event.target.value)}
-            />)}
-            {showSeries && (
-            <input
-              id="seriesHideable"
-              className="field shortInput"
-              type="number"
-              placeholder="..."
-              value={seriesPage}
-              onChange={(event) => setSeriesPage(event.target.value)}
-            />)}
-          </div>
         </div>
 
         <div className='toggleLinks'>
@@ -256,6 +235,23 @@ const Movies = () => {
             <h2>Elokuvat</h2>
             <button onClick={() => handleMoviePageChange('next')} className='bigArrow'>{'⯈'}</button>      
           </div>
+          <div className="resultsTitle">
+            <input
+              id="moviesHideable"
+              className="field shortInput"
+              type="number"
+              placeholder="..."
+              value={moviePage}
+              onChange={(event) => {
+              setMoviePage(event.target.value);
+              }}
+              onKeyDown={(event) => {
+              if (event.key === 'Enter') {
+                window.scrollTo(0, 600);
+                }
+              }}
+            />
+          </div>
         </div>
         )}
         {(showSeries && series !== null && movies.length > 0) && (
@@ -284,7 +280,26 @@ const Movies = () => {
         <div className="resultsTitle">
             <button onClick={() => handleSeriesPageChange('prev')} className='bigArrow'>{'⯇'}</button>
             <h2>Sarjat</h2>
+            
             <button onClick={() => handleSeriesPageChange('next')} className='bigArrow'>{'⯈'}</button>
+
+          </div>
+          <div className="resultsTitle">
+            <input
+              id="seriesHideable"
+              className="field shortInput"
+              type="number"
+              placeholder="..."
+              value={seriesPage}
+              onChange={(event) => {
+              setSeriesPage(event.target.value);
+              }}
+              onKeyDown={(event) => {
+              if (event.key === 'Enter') {
+                window.scrollTo(0, 600);
+                }
+              }}
+            />
           </div>
         </div>
       )}
