@@ -35,8 +35,9 @@ export default function MyAccount({ user }) {
             try {
                 const response = await axios.get(`${VITE_APP_BACKEND_URL}/profile/${profilename}`, { headers });
 
-                const { is_private, email } = response.data;
+                const { is_private, adult, email } = response.data;
                 setVisibility({ is_private });
+                setK18({ adult });
                 setFormData({ profilename, email });
             } catch (error) {
                 console.error('Hakuvirhe:', error);
@@ -46,7 +47,7 @@ export default function MyAccount({ user }) {
         fetchProfileData();
     }, [profilename]);
 
-    const handleVisibility = async (e) => {
+    const handleVisibility = async () => {
         try {
             console.log(headers);
             const data = {
@@ -60,7 +61,7 @@ export default function MyAccount({ user }) {
         }
     };
 
-    const handleK18 = async (e) => {
+    const handleK18 = async () => {
         try {
             console.log(headers);
             const data = {
