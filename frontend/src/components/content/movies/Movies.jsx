@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import './movies.css';
+
 const { VITE_APP_BACKEND_URL } = import.meta.env;
 
 const Movies = () => {
@@ -9,49 +10,26 @@ const Movies = () => {
   const [genre, setGenre] = useState('');
   const [moviePage, setMoviePage] = useState(1); 
   const [seriesPage, setSeriesPage] = useState(1); 
-  const [page, setPage] = useState(1); 
   const [year, setYear] = useState('');
   const [movies, setMovies] = useState([]);
   const [series, setSeries] = useState([]);
   const [showTitles, setShowTitles] = useState(false);
-  const [showMovies, setShowMovies] = useState(true);
-  const [showSeries, setShowSeries] = useState(false);
-  const [adult, setAdult] = useState(false);
-
-  const [currentPage, setCurrentPage] = useState(0);
   const [pageSize, setPageSize] = useState([]); 
-  const [pagePerSize, setPagePerSize] = useState([]); 
   const totalPages = Math.ceil(movies.length / pageSize);
-
-  
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth >= 1981) {
-        setPageSize(10);
-        setPagePerSize(2);
-      } else if (window.innerWidth >= 1601) {
-        setPageSize(5);
-        setPagePerSize(4);
-      } else if (window.innerWidth >= 1001) {
-        setPageSize(4);
-        setPagePerSize(5);
-      } else {
-        setPageSize(1);
-        setPagePerSize(20);
-      }
-    };
-
-    window.addEventListener('resize', handleResize);
-
-    handleResize();
-
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
+  const [showMovies, setShowMovies] = useState(false);
+  const [showSeries, setShowSeries] = useState(false);
+  const [showText, setShowText] = useState(true);
 
   useEffect(() => {
     searchMovies();
     searchSeries();
   }, [moviePage, seriesPage]);
+
+  useEffect(() => {
+    if (!showMovies && !showSeries) {
+      setShowText(true);
+    }
+  }, [showMovies, showSeries]);
 
   const searchMovies = async () => {
     try {
@@ -97,7 +75,6 @@ const Movies = () => {
     } else {
       setMoviePage((page) => page + 1);
     }
-    window.scrollTo(0, 0);
   };
 
   const handleSeriesPageChange = (action) => {
@@ -106,7 +83,6 @@ const Movies = () => {
     } else {
       setSeriesPage((page) => page + 1);
     }
-    window.scrollTo(0, 0);
   };
 
   const handleInputChange = (event) => {
@@ -131,19 +107,24 @@ const Movies = () => {
 
   const toggleMovies = () => {
     setShowMovies(!showMovies);
+    setSeriesPage(1);
+    setMoviePage(1);
     setShowSeries(false);
+    setShowText(false);
   };
 
   const toggleSeries = () => {
     setShowSeries(!showSeries);
+    setMoviePage(1);
+    setSeriesPage(1);
     setShowMovies(false);
+    setShowText(false);
   };
 
   return (
     <>
       <h2>Leffa- ja sarjahaku</h2>
 
-  
       <div className="group-view-long">
 
         <div className="flex">
@@ -173,7 +154,6 @@ const Movies = () => {
               <option value="drama">Draama</option>
               <option value="soap">Saippuasarjat</option>
               <option value="western">Länkkäri</option>
-
               <option value="thriller">Jännitys</option>
               <option value="science fiction">Scifi</option>
               <option value="fantasy">Fantasia</option>
@@ -181,7 +161,6 @@ const Movies = () => {
               <option value="animation">Animaatio</option>
               <option value="family">Perhe</option>
               <option value="kids">Lapsille</option>
-
               <option value="history">Historia</option>
               <option value="war">Sota ja politiikka</option>
               <option value="mystery">Mysteeri</option>
@@ -206,20 +185,49 @@ const Movies = () => {
             />
           </div>
 
+          <div className="pdd-right">
+            <b>Sivu:</b><br />
+            {showText && (
+              <i>Valitse tyyppi</i>)}
+            {showMovies && (
+            <input
+              id="moviesHideable"
+              className="field shortInput"
+              type="number"
+              placeholder="..."
+              value={moviePage}
+              onChange={(event) => setMoviePage(event.target.value)}
+            />)}
+            {showSeries && (
+            <input
+              id="seriesHideable"
+              className="field shortInput"
+              type="number"
+              placeholder="..."
+              value={seriesPage}
+              onChange={(event) => setSeriesPage(event.target.value)}
+            />)}
+          </div>
         </div>
-        <div className='toggleLinks'>
-        <button className="basicbutton" onClick={handleSearch}>Hae</button></div>
+
         <div className='toggleLinks'>
         <h2 onClick={toggleMovies}><span className='emoji uni01'></span> Leffat </h2>&nbsp;&nbsp;&nbsp;
-        <h2 onClick={toggleSeries}><span className='emoji'>📺</span> Sarjat </h2>
+        <h2 onClick={toggleSeries}><span className='emoji justMargin'>📺</span> Sarjat </h2>
         </div>
-        </div>
-      
-      <p className="group-view">Löydä elokuvia ja sarjoja eri parametreillä tai etsi nimellä. <br /> Valitse yltä haluatko nähdä leffoja vai sarjoja.</p>
 
-        
-        {/* Näytetään sekä elokuvat että sarjat , allekain */}
-        {(showMovies && movies !== null && movies.length > 0) && (
+        <div>
+          <button className="basicbutton" onClick={handleSearch}>Hae</button>
+        </div>
+
+      </div>
+
+      <div className="group-view">
+        <span className='movieinfo'>Löydä elokuvia ja sarjoja eri parametreillä tai etsi nimellä.</span><br/>
+        <span className='movieinfo'>Valitse yltä haluatko nähdä leffoja vai sarjoja.</span>
+      </div>
+
+    {/* Näytetään sekä elokuvat että sarjat , allekain */}
+    {(showMovies && movies !== null && movies.length > 0) && (
         <div>
         <div className="resultsTitle">
         <button onClick={() => handleMoviePageChange('prev')} className='bigArrow'>{'⯇'}</button>
@@ -280,9 +288,8 @@ const Movies = () => {
           </div>
         </div>
       )}
-    
     </>
   );
-};
+}
 
 export default Movies;
