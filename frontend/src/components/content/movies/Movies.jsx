@@ -117,11 +117,16 @@ const Movies = ({ user }) => {
     }
   };
 
+  // setGenre ja setQuery nollaus:
+  // laitoin nää siks, kun search ja discover kumoaa toisensa eli genreä ei huomioida jos on query annettu
+  // tämä hidastaa hakuja, jos pitää tyhjentää toinen osio erikseen 
   const handleInputChange = (event) => {
+    setGenre('');
     setQuery(event.target.value);
   };
 
   const handleGenreChange = (event) => {
+    setQuery(''); 
     setGenre(event.target.value);
   };
 
@@ -158,6 +163,18 @@ const Movies = ({ user }) => {
     setSeriesPage(1);
   };
   
+  const handleNullify = () => {
+    setQuery('');
+    setGenre('');
+    setYear('');
+    setMovies([]);
+    setSeries([]);
+    setShowTitles(false);
+    setMoviePage(1);
+    setSeriesPage(1);
+    setShowMovies(false);
+    setShowSeries(false);
+  }
 
   return (
     <>
@@ -242,7 +259,8 @@ const Movies = ({ user }) => {
         </div>
 
         <div>
-          <button className="basicbutton" onClick={handleSearch}>Hae</button>
+          <button className="basicbutton" onClick={handleSearch}>Hae !</button> &nbsp;
+          <button className="basicbutton" onClick={handleNullify}>Tyhjennä</button>
         </div>
 
       </div>
