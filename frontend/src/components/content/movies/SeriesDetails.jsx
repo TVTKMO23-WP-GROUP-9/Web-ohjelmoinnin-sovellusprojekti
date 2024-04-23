@@ -9,48 +9,17 @@ import Reviews from './Reviews';
 import { getHeaders } from '@auth/token';
 
 
-const SeriesDetails = ({user}) => {
-  const { id} = useParams();
-  const { profilename} = useParams();
+const SeriesDetails = (user) => {
+  const { id, profilename } = useParams();
   const [series, setSeries] = useState(null);
   const [providers, setProviders] = useState(null);
-  const [profileid, setProfileid] = useState();
-  const [isFavorite, setIsFavorite] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(false); 
+  const { favoriteditem } = useParams();
   const headers = getHeaders();
-  const { favoriteditem} = useParams();
-
   
 
+
   useEffect(() => {
-    const fetchProfile = async () => {
-      try {
-          const token = sessionStorage.getItem('token');
-          const headers = {
-              'Authorization': `Bearer ${token}`,
-              'Content-Type': 'application/json'
-          };
-          console.log("Token from sessionStorage:", token);
-          console.log("Profilename from token:", user);
-          const response = await axios.get(`${VITE_APP_BACKEND_URL}/profile/${user.user}`);
-
-          console.log("Response from profile id:", response.data.profileid);
-
-          setProfileid(response.data.profileid);
-
-          console.log("Response from profile:", response.data);
-      } catch (error) {
-          console.error('Virhe haettaessa profiilitietoja:', error);
-      }
-
-      const FLresponse = await axios.get(`${VITE_APP_BACKEND_URL}/favoritelist/${profileid}?favoriteditem=${series.id}`);
-
-      console.log(FLresponse.data)
-      if (FLresponse.data.hasOwnProperty('favoriteditem') && FLresponse.data.favoriteditem === true)
-      setIsFavorite(true);
-  };
-
-  fetchProfile();
-
     const fetchSeries = async () => {
       try {
         const response = await axios.get(`${VITE_APP_BACKEND_URL}/series/${id}`);
@@ -69,8 +38,6 @@ const SeriesDetails = ({user}) => {
         setProviders({});
       }
     };
-    
-
 
     fetchSeries();
 
@@ -79,82 +46,82 @@ const SeriesDetails = ({user}) => {
 
     // Palautetaan poisto-funktio, joka suoritetaan komponentin purkamisen yhteydessä
     return () => clearTimeout(timeoutId);
-
-    
-  }, [id, user]);
+  }, [id]);
 
 
+  console.log('Käyttäjä:', user.user.profileid);
+  if (user.user.profileid !== null) {
 
-  // tarkistetaan onko valmiiksi favoritelistalla
- /* useEffect(() => {
-    const checkFavorite = async () => {
-      try {
-        let isFavorite;
-        if (profileid && series) {
-          console.log(`Profiililla ${profileid} on sarja ${series.id}`);
-          console.log(`isFavorite ennen axios = ${isFavorite}`)
-          const response = await axios.get(`${VITE_APP_BACKEND_URL}/favoritelist/${profileid}?favoriteditem=${series.id}`);
-          setisFavorite = response.data.isFavorites.length > 0;
-          console.log(`isFavorite jälkeen axios= ${isFavorite}`)
-        } else {
-          console.log('profileid tai series puuttuu');
+    useEffect(() => {
+        const checkFavoriteStatus = async () => {
+            try {
 
-        } 
-      } catch (error) {
-        console.error('Virhe tarkistaessa checkfavorite:', error);
-      }
-    };
-    checkFavorite();
-  }, [profileid, series]); */
+              const FLresponse = await axios.get(`${VITE_APP_BACKEND_URL}/favoritelist/${user.user.profileid}/${id}`, { headers });
+              console.log (FLresponse.data);
+              if (FLresponse.data.hasOwnProperty('favoriteditem') && FLresponse.data.favoriteditem === true) {
+                  setIsFavorite(true);
+              } else {
+                  setIsFavorite(false);
+              }
 
-const addToFavorites = async () => {
-  try {
-    if (profileid && series) { 
-      const data = {
-        favoriteditem: series.id,
-        groupid: null,
-        profileid: profileid,
-        mediatype: 1
-      };
-       // lisätään tässä suosikki suosikkilistaan 
-      await axios.post(`${VITE_APP_BACKEND_URL}/favoritelist`, data);
-
-      setIsFavorite(true); 
-      console.log('Suosikki lisättiin onnistuneesti');
-    } else {
-      console.error('Sarjaa tai profiilia ei löydy');
-    }
-  } catch (error) {
-    console.error('JEESUSKO EI TOIMI TÄMÄ ADDTOFAVORITES', error);
-  }
-};
-
-// Poistetaan suosikeista sarja
-const deleteFromFavorites = async () => {
-  try {
-    const response = await axios.delete(`${VITE_APP_BACKEND_URL}/favorite/${profileid}?favoriteditem=${series.id}`);
-    console.log(response.data);
-    setIsFavorite(false);
-    console.log('Suosikki poistettiin onnistuneesti');
-  } catch (error) {
-    console.error('Virhe suosikin poistossa:', error);
-  }
+            } catch (error) {
+                console.error("Tarkistusvirhe:", error);
+            }
+        }
+        
+        checkFavoriteStatus();
+    }, [user.user.profileid, id]);
 }
 
+const handleFavoriteAction = async () => {
+  try {
+    if (user.user.profileid !== null) {
+      if (isFavorite === true) {
+
+        await axios.delete(`${VITE_APP_BACKEND_URL}/favoritelist/${user.user.profileid}/${id}`);
+        setIsFavorite(false);
+        console.log('Suosikki poistettiin onnistuneesti');
+      } else if (isFavorite === false) {
+
+        const data = {
+          favoriteditem: id,
+          groupid: null,
+          profileid: user.user.profileid,
+          mediatype: 1
+        };
+        await axios.post(`${VITE_APP_BACKEND_URL}/favoritelist`, data);
+        setIsFavorite(true);
+        console.log('Suosikki lisättiin onnistuneesti');
+      }
+    } else {
+      console.error('Profiili-id puuttuu');
+    }
+  } catch (error) {
+    console.error('Virhe suosikin käsittelyssä:', error);
+  }
+};
+  
   return (
+    <>
     <div id="backdrop" style={series && { backgroundImage: `url(https://image.tmdb.org/t/p/original${series.backdrop_path})`, backgroundSize: 'cover' }}>
       <div className="content">
+
         {series && (
-          <div id="backdropbg">
+          <>
+
             <div className="moviemain">
+
             <div style={{ position: 'relative' }}>
-        <button className="favorite-button" onClick={isFavorite ? deleteFromFavorites : addToFavorites}>
-        {isFavorite ? <FaHeart className="favorite-icon" size={34} /> : <FaRegHeart size={34} />}
-        </button>
-        <img className="poster-img" src={`https://image.tmdb.org/t/p/w342${series.poster_path}`} alt={series.title} />
-      </div>
+              <button className="favorite-button" onClick={handleFavoriteAction}>
+                {isFavorite ? <FaHeart className="favorite-icon" size={34} /> : <FaRegHeart size={34} />}
+              </button>
+            </div>
+
+              <img className="posterimg" src={`https://image.tmdb.org/t/p/w342${series.poster_path}`} alt={series.title} />
+
               <div className="movieinfo">
 
+                <>
                 <h2>{series.name}</h2>
                 <p><b>Kuvaus:</b> {series.overview}</p>
                 <p><b>Kesto:</b> {series.episode_run_time.map(time => `${time}`).join('-')} min / per jakso</p>
@@ -163,43 +130,55 @@ const deleteFromFavorites = async () => {
                 <p><b>Tuotantoyhtiöt:</b> {series.production_companies.map(company => company.name).join(', ')}</p>
                 <p><b>Kerännyt ääniä:</b> {series.vote_count}</p>
                 <p><b>Äänten keskiarvo:</b> {series.vote_average} / 10 </p>
-              <button onClick={() => deleteFromFavorites(series)}>Poista testinappi</button>
-                {providers && providers.flatrate && (
-                  <table className='providers'>
-                    <tbody>
-                      <tr>
-                        <td><h3>Katso</h3></td>
-                        {providers.flatrate.map(provider => (
-                          <td key={provider.provider_id}>
-                            <a href={`https://www.themoviedb.org/tv/${series.id}/watch`}><img src={`https://image.tmdb.org/t/p/w185${provider.logo_path}`} alt={provider.provider_name} /></a>
-                          </td>
-                        ))}
-                      </tr>
-                      <tr>
-                        <td colSpan="6">
-                          <a href='https://www.justwatch.com/'>Saatavuus Suomessa JustWatch</a>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
+
+                <button onClick={() => deleteFromFavorites(series)}>Poista testinappi</button>
+                {providers && providers.flatrate && providers.rent && (
+                  <>
+                  <p><b>Katsottavissa:</b> <br/>
+                    {providers.flatrate.map(provider => (
+                      <span key={provider.provider_id}>
+                        <a href={`https://www.themoviedb.org/tv/${series.id}/watch`}><img src={`https://image.tmdb.org/t/p/w185${provider.logo_path}`} alt={provider.provider_name} /></a>
+                      </span>
+                    ))}
+                  </p>
+
+                  <p><b>Vuokrattavissa:</b> <br/>
+                  {providers.rent.map(provider => (
+                      <span key={provider.provider_id}>
+                        <a href={`https://www.themoviedb.org/movie/${movie.id}/watch`}><img className='tinyImg' src={`https://image.tmdb.org/t/p/w185${provider.logo_path}`} alt={provider.provider_name} /></a>
+                      </span>
+                    ))}
+                  </p>
+
+                  <p>
+                    <a href='https://www.justwatch.com/'>Saatavuus Suomessa JustWatch</a>
+                  </p>
+                  </>
                 )}
+                </>
+
+
               </div>
             </div>
 
             <div className="moviereviews">
 
-            {/*<div><ReviewFormSerie tvShowId={id} /></div>*/}
+            <div><ReviewFormSerie tvShowId={id} user={user} /></div>
 
             <br/>
             <h2>Viimeisimmät arvostelut</h2>
 
             <div className="reviewslisted"><Reviews movieId={id} mediatype={1}/></div>
             </div>
-            </div>
+            
+          </>
         )}
+
       </div>
     </div>
+    </>
   );
-}
+};
+
 
 export default SeriesDetails;
