@@ -77,7 +77,8 @@ async function searchMovies(req, res) {
             result.id,
             result.title,
             result.poster_path,
-            result.overview
+            result.overview,
+            result.adult
         )).filter(movie => movie.poster_path !== null);
         res.json(movies);
     } catch (error) {

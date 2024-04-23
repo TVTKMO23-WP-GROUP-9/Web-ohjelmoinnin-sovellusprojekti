@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 const { VITE_APP_BACKEND_URL } = import.meta.env;
 
 
-const ReviewList = ({ id,  user }) => {
+const ReviewList = ({ id, user }) => {
 
   const [reviews, setReviews] = useState([]);
   const [reviewsPerPage, setReviewsPerPage] = useState(4);

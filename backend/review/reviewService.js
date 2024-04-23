@@ -35,9 +35,9 @@ try {
 async function movieReviewFromUser(req, res) {
   profileid = res.locals.profileid;
 
-  const { mediatype, rating, review, revieweditem } = req.body;
+  const { mediatype, rating, review, revieweditem, adult } = req.body;
 
-  const addReview = await reviewModel.movieReviewFromUser(profileid, mediatype, rating, review, revieweditem);
+  const addReview = await reviewModel.movieReviewFromUser(profileid, mediatype, rating, review, revieweditem, adult);
   if (addReview) {
     res.status(201).send('Arvostelu lisätty onnistuneesti');
   } else {
@@ -50,9 +50,9 @@ async function movieReviewFromUser(req, res) {
 async function serieReviewFromUser(req, res) {
   profileid = res.locals.profileid;
 
-  const { mediatype, rating, review, revieweditem } = req.body;
+  const { mediatype, rating, review, revieweditem, adult } = req.body;
 
-  const addReview = await reviewModel.serieReviewFromUser(profileid, mediatype, rating, review, revieweditem);
+  const addReview = await reviewModel.serieReviewFromUser(profileid, mediatype, rating, review, revieweditem, adult);
   if (addReview) {
     res.status(201).send('Arvostelu lisätty onnistuneesti');
   } else {
