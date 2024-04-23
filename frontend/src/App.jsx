@@ -24,14 +24,15 @@ import AllReviews from '@content/community/AllReviews';
 import Error from '@content/error/Error';
 import ProfileEdit from '@content/user/ProfileEdit';
 import ReviewForm from '@content/movies/ReviewForm';
+import AdminPage from '@content/admin/AdminPage';
 import Faq from '@content/faq/Faq';
-import { jwtToken } from './components/auth/authSignal';
+import { jwtToken, usertype } from './components/auth/authSignal';
 const { VITE_APP_BACKEND_URL } = import.meta.env;
 
 
 function App() {
   const { theme, toggleTheme } = useTheme();
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null);
   const [showLogin, setShowLogin] = useState(false);
   const [isburgerOpen, setIsburgerOpen] = useState(false);
 
@@ -85,6 +86,7 @@ function App() {
           setUser(null);
           localStorage.removeItem('user');
           jwtToken.value = '';
+          usertype.value = '';
           window.location.href = '/';
         } else {
           console.error('Uloskirjautuminen epäonnistui');
@@ -118,10 +120,10 @@ function App() {
               <Route path="/community" element={<Community user={user} />} />
               <Route path="/users" element={<UserList />} />
               <Route path="/groups" element={<AllGroups />} />
-              <Route path="/reviews" element={<AllReviews />} />
+              <Route path="/reviews" element={<AllReviews usertype={usertype} />} />
               <Route path="/about" element={<Faq />} />
               <Route path="/group/:id" element={<GroupDetails user={user} />} />
-              {/* ja loput puuttuvat routet myös */}
+              <Route path="/admin" element={<AdminPage user={user} usertype={usertype} />} />
             </Routes>
 
           </div>

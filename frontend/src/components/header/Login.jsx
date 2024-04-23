@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
-import { jwtToken } from '../auth/authSignal';
+import { jwtToken, usertype } from '../auth/authSignal';
 const { VITE_APP_BACKEND_URL } = import.meta.env;
 
 
@@ -32,9 +32,10 @@ export default function Login({ setUser, window, fullpage }) {
 
       if (response.status === 200) {
         jwtToken.value = response.data.jwtToken;
-        setUser({ user: username });
+        usertype.value = response.data.usertype;
+        console.log('userType:', usertype.value);
+        setUser({ user: username, usertype: usertype.value });
         navigate('/myaccount');
-
         //setShowLogin(!showLogin);
       }
     } catch (error) {
@@ -124,13 +125,13 @@ export default function Login({ setUser, window, fullpage }) {
             <input className="field" type='email' name="email" value={formData.email || null} onChange={handleChange} placeholder="Sähköposti" /><br />
             <input className="field" type='password' name="password" value={formData.password || null} onChange={handleChange} placeholder="Salasana" /><br />
             <button className="formButton" type="submit">Rekisteröidy</button>
-            <button className="formButton" type="button" onClick={handleToggleRegisterForm}>Peruuta</button>
+            <button className="formButton" type="button" onClick={(e) => {handleToggleRegisterForm(); e.stopPropagation(); }}>Peruuta</button>
           </form>
         ) : showForgotPassword ? (
           <form onSubmit={handleForgotPassword}>
             <input className="field" type="email" name="email" value={email} onChange={handleEmailChange} placeholder="Sähköpostiosoite" required />
             <button className="formButton" type="submit">Palauta salasana</button>
-            <button className="formButton" onClick={handleToggleForgotPasswordForm}>Peruuta</button>
+            <button className="formButton" onClick={(e) => { handleToggleForgotPasswordForm(); e.stopPropagation(); }}>Peruuta</button>
           </form>
         ) : (
           <form onSubmit={handleLogin}>
@@ -139,9 +140,9 @@ export default function Login({ setUser, window, fullpage }) {
             <button className="formButton" type="submit">Kirjaudu sisään</button>
             <hr />
 
-              <button className="formButton" onClick={handleToggleRegisterForm}>Rekisteröidy</button>
-              
-              <button className="formButton" onClick={handleToggleForgotPasswordForm}>Unohtuiko salasana?</button> 
+            <button className="formButton" onClick={(e) => { handleToggleRegisterForm(); e.stopPropagation(); }}>Rekisteröidy</button>
+            
+            <button className="formButton" onClick={(e) => { handleToggleForgotPasswordForm(); e.stopPropagation(); }}>Unohtuiko salasana?</button>
 
           </form>
 
@@ -161,11 +162,11 @@ export default function Login({ setUser, window, fullpage }) {
 
             <form onSubmit={handleLogin}>
               Käyttäjätunnus: <br />
-              <input className="field" value={username} onChange={e => setUsername(e.target.value)} placeholder="Käyttäjänimi"></input>
+              <input id="robot01" className="field" value={username} onChange={e => setUsername(e.target.value)} placeholder="Käyttäjänimi"></input>
               <br /><br />
               Salasana: <br />
-              <input className="field" type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Salasana"></input> <br />
-              <button className="basicbutton" type="submit">Kirjaudu sisään</button>
+              <input id="robot02" className="field" type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Salasana"></input> <br />
+              <button id="robot03" className="basicbutton" type="submit">Kirjaudu sisään</button>
             </form>
           </div>
         </div>
@@ -188,12 +189,12 @@ export default function Login({ setUser, window, fullpage }) {
               <form onSubmit={handleRegister}>
                 <span className="userinfo">Kaikki kentät ovat pakollisia, sähköposti ei saa olla jo käytössä jollain käyttäjällä.</span> <br/><br/>
                 <b>Käyttäjänimi</b> <br />
-                <input className="field" type="text" name="profilename" value={formData.profilename || null} onChange={handleChange} /><br />
+                <input id="robot04" className="field" type="text" name="profilename" value={formData.profilename || null} onChange={handleChange} /><br />
                 <b>Sähköposti</b><br />
-                <input className="field" type='text' name="email" value={formData.email || null} onChange={handleChange} /><br />
+                <input id="robot05" className="field" type='text' name="email" value={formData.email || null} onChange={handleChange} /><br />
                 <b>Salasana</b><br />
-                <input className="field" type='password' name="password" value={formData.password || null} onChange={handleChange} /><br />
-                <button className="basicbutton" type="submit">Rekisteröidy</button> <br/>
+                <input id="robot06" className="field" type='password' name="password" value={formData.password || null} onChange={handleChange} /><br />
+                <button id="robot07" className="basicbutton" type="submit">Rekisteröidy</button> <br/>
                 {messageRegister && <span className='communityinfo'>{messageRegister}</span>}
               </form>
             </div>

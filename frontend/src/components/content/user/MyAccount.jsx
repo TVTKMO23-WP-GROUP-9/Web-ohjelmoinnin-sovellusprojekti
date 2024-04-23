@@ -153,7 +153,12 @@ export default function MyAccount({ user }) {
                 <div className="section2">
 
                     <h2>Olet kirjautunut käyttäjänä:</h2>
-                    <h1>{user.user}</h1>
+                    <h1>{user.user} </h1>
+
+                    {user && user.usertype === 'admin' && 
+                    <h2>Olet {user.usertype}: siirry {user && user.usertype === 'admin' && <Link to={`/admin`}>ylläpitoon</Link>}</h2>
+                    }
+
                     <hr />
 
                     <p>
@@ -201,12 +206,12 @@ export default function MyAccount({ user }) {
                     <h2>Poista käyttäjätili</h2>
                     <div className="form-view">
                         {!deleteClicked ? (
-                            <button className="basicbutton" onClick={handleDeleteClick}>Poista tili</button>
+                            <button id="robot01" className="basicbutton" onClick={handleDeleteClick}>Poista tili</button>
                         ) : (
                             <div>
                                 <b>Haluatko varmasti poistaa käyttäjätilisi?</b> <br />
                                 <button className="basicbutton confirm" onClick={handleDelete}>Kyllä, poista kaikki tietoni</button>
-                                <button className="basicbutton confirm" onClick={handlePartialDelete}>Kyllä, säästä arvosteluni</button>
+                                <button id="robot02" className="basicbutton confirm" onClick={handlePartialDelete}>Kyllä, säästä arvosteluni</button>
                                 <button className="basicbutton" onClick={handleCancelDelete}>En, peruuta</button>
                             </div>
                         )}

@@ -6,7 +6,9 @@ import MemberList from './MemberList';
 import ReviewList from './ReviewList';
 import Forum from './Forum';
 import GroupEdit from './GroupEdit';
+import { getHeaders } from '@auth/token';
 const { VITE_APP_BACKEND_URL } = import.meta.env;
+
 
 
 const GroupDetails = ({ user }) => {
@@ -15,6 +17,7 @@ const GroupDetails = ({ user }) => {
   const [editMode, setEditMode] = useState(false);
   const [confirmDeleteId, setConfirmDeleteId] = useState(null);
   const [isMember, setIsMember] = useState(false);
+  const [isAdmin, setAdmin] = useState(false);
   const [isPending, setIsPending] = useState(false);
   const [isMainuser, setMainuser] = useState(null);
   const [profileId, setProfileid] = useState(null);
@@ -23,26 +26,18 @@ const GroupDetails = ({ user }) => {
   const [showEvents, setShowEvents] = useState(false);
   const [showFavorites, setShowFavorites] = useState(false);
   const [loading, setLoading] = useState(true);
+  const headers = getHeaders();
 
   
   useEffect(() => { 
     const fetchProfile = async () => {
         try {
-            const token = sessionStorage.getItem('token');
-            const headers = {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json'
-            };
-
-            const response = await axios.get(`${VITE_APP_BACKEND_URL}/profile/${user.user}`);
-
-            console.log("Token from sessionStorage:", token);
-            console.log("Profilename from token:", user);
-            console.log("Response from profile:", response.data);
+           
+            const response = await axios.get(`${VITE_APP_BACKEND_URL}/profile/${user.user}`, { headers });
 
             setProfileid(response.data.profileid);
-
-            const groupResponse = await axios.get(`${VITE_APP_BACKEND_URL}/memberstatus/${response.data.profileid}/${id}`);
+            
+            const groupResponse = await axios.get(`${VITE_APP_BACKEND_URL}/memberstatus/${response.data.profileid}/${id}`, { headers });
 
             if (groupResponse.data.hasOwnProperty('pending') && groupResponse.data.pending === 0) {
               setIsMember(true);
@@ -52,7 +47,10 @@ const GroupDetails = ({ user }) => {
             }
             if (groupResponse.data.hasOwnProperty('mainuser') && groupResponse.data.mainuser === 1) {
               setMainuser(true);
-            }
+            };
+            if (user.usertype === 'admin') {
+              setAdmin(true);
+            };
 
         } catch (error) {
             console.error('Virhe haettaessa profiilitietoja:', error);
@@ -94,9 +92,9 @@ console.log("Token from sessionStorage:", user);
   }, [id]);
 
 
-  const handleApplicationToJoin = async (profileId, groupId) => {
+  const handleApplicationToJoin = async (profileId, id) => {
     try {
-      await axios.post(`${VITE_APP_BACKEND_URL}/memberstatus/${profileId}/0/${groupId}/1`);
+      await axios.post(`${VITE_APP_BACKEND_URL}/memberstatus/${profileId}/0/${id}/1`, {}, {headers});
       window.location.reload(); 
     } catch (error) {
       console.error('Virhe pyynnön lähettämisessä:', error);
@@ -116,7 +114,7 @@ console.log("Token from sessionStorage:", user);
       console.log(memberResponse); 
       if (memberResponse && memberResponse.data && memberResponse.data.memberlistid) {
         try {
-          await axios.delete(`${VITE_APP_BACKEND_URL}/memberstatus/${memberResponse.data.memberlistid}`);
+          await axios.delete(`${VITE_APP_BACKEND_URL}/memberstatus/${memberResponse.data.memberlistid}`, {headers});
           window.location.reload(); 
         } catch (error) {
           console.error('Virhe pyynnön poistamisessa:', error);
@@ -148,7 +146,8 @@ console.log("Token from sessionStorage:", user);
     setShowEvents(false);
     setShowMembers(false);
   }
-  
+
+  console.log ('usertype:', user.usertype);
 
   return (
     <div className="content"> 
@@ -168,7 +167,7 @@ console.log("Token from sessionStorage:", user);
                   alt="Käyttäjän kuva" 
                 />
 
-              {(isMainuser && !editMode) && <button onClick={() => setEditMode(true)} className="basicbutton">Muokkaa ryhmää</button>}
+              {(isAdmin || isMainuser && !editMode) && <button onClick={() => setEditMode(true)} className="basicbutton">Muokkaa ryhmää</button>}
               {(!isMember && !isPending && user && user.user !== null && user.user !== undefined) && (
               <button className="basicbutton" onClick={() => handleApplicationToJoin(profileId, id)}>Liittymispyyntö</button>
               )}
@@ -180,12 +179,12 @@ console.log("Token from sessionStorage:", user);
             </div>
               
             <div className="ginner-right">
-              <h2>{group?.groupname}</h2>
+              <h2 id="groupname">{group?.groupname}</h2>
               <ul>
                 <p className="info">{group?.groupexplanation || ''} </p>
               </ul>
 
-              {isMember && (
+              {(isAdmin || isMember) && (
               <><h2>Näytä lisää</h2>
               <div className="toggleLinks">
                 <h3 onClick={toggleMembers}><span className='emoji uni07'></span>&nbsp; Jäsenlista </h3>
@@ -196,7 +195,7 @@ console.log("Token from sessionStorage:", user);
             </div>
           </div>
         
-          {isMember && (
+          {(isAdmin || isMember) && (
           <div className='group-between'>
             <div className="group-view">
               <div className='group-content'>
@@ -243,7 +242,7 @@ console.log("Token from sessionStorage:", user);
         )}
       </div>
 
-      {isMember && (
+      {(isAdmin || isMember) && (
       <div className='gmessages'>
         <h2>Keskustelu  &nbsp;<span className='emoji uni08'></span></h2>
 
@@ -254,14 +253,14 @@ console.log("Token from sessionStorage:", user);
       </div>
       )}
 
-      {isMember && (
+      {(isAdmin || isMember) && (
       <div className='greviews-view'>
         <h2>Arvostelut  &nbsp;<span className='emoji uni08'></span></h2>
         <ReviewList id={id} />
       </div>
       )}
 
-      {isMember && (
+      {(isMember) && (
       <>
         {confirmDeleteId === profileId ? (
           <>

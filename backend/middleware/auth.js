@@ -8,8 +8,10 @@ function auth(req, res, next) {
         const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
         const username = decodedToken.username;
         const profileid = decodedToken.profileid;
+        const usertype = decodedToken.usertype;
         res.locals.username = username;
         res.locals.profileid = profileid;
+        res.locals.usertype = usertype;
         next();
     } catch (error) {
         console.error('Virhe tokenin tarkastuksessa:', error);
@@ -26,8 +28,10 @@ function optionalAuth(req, res, next) {
         const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
         const username = decodedToken.username;
         const profileid = decodedToken.profileid;
+        const usertype = decodedToken.usertype;
         res.locals.username = username;
         res.locals.profileid = profileid;
+        res.locals.usertype = usertype;
         next();
     } catch (error) {
         console.error('Virhe tokenin tarkastuksessa:', error);

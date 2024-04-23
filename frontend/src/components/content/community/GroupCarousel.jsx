@@ -36,18 +36,17 @@ const GroupCarousel = () => {
 
   return (
     <CarouselProvider
-      naturalSlideWidth={100}
-      naturalSlideHeight={58}
-      totalSlides={3}
-    >
-              <ButtonBack>⯇</ButtonBack>
+    totalSlides={3}
+    isIntrinsicHeight={true}
+  >
+      <ButtonBack>⯇</ButtonBack>
       <ButtonNext>⯈</ButtonNext>
       <Slider>
       
         <Slide index={0}>
             <h2>Uusin ryhmä</h2>
             {newestGroup.length > 0 && newestGroup.map((group, index) => (
-                <>
+                <div key={index}>
                 {group.grouppicurl ? (
                 <span>
                     <img src={group.grouppicurl} className='tinyGrpPic' alt="Group Picture" />
@@ -58,14 +57,14 @@ const GroupCarousel = () => {
                 </span>
                 )}
                 <h3><a href={`group/${group.groupid}`}>{group.groupname}</a></h3>
-                </>
+                </div>
             ))}
         </Slide>
         
-        <Slide index={0}>
+        <Slide index={1}>
             <h2>Suosituin ryhmä</h2>
             {popularGroup.length > 0 && popularGroup.map((group, index) => (
-                <>
+                <div key={index}>
                 {group.grouppicurl ? (
                 <span>
                     <img src={group.grouppicurl} className='tinyGrpPic' alt="Group Picture" />
@@ -76,7 +75,7 @@ const GroupCarousel = () => {
                 </span>
                 )}
                 <h3><a href={`group/${group.groupid}`}>{group.groupname}</a></h3>
-                </>
+                </div>
             ))}
         </Slide>
         <Slide index={2}>

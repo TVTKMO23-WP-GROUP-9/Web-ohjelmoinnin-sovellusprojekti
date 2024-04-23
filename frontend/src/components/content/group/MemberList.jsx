@@ -3,7 +3,7 @@ import './group.css';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 const { VITE_APP_BACKEND_URL } = import.meta.env;
-
+import { getHeaders } from '@auth/token';
 
 
 const MemberList = ({ id, user }) => {
@@ -15,25 +15,19 @@ const MemberList = ({ id, user }) => {
   const [isMainuser, setMainuser] = useState(false);
   const [memberType, setMemberType] = useState(0); 
   const [loading, setLoading] = useState(true); 
-
+  const headers = getHeaders();
+  
+  
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-          const token = sessionStorage.getItem('token');
-          const headers = {
-              'Authorization': `Bearer ${token}`,
-              'Content-Type': 'application/json'
-          };
-          
-          const response = await axios.get(`${VITE_APP_BACKEND_URL}/profile/${user.user}`);
 
-          console.log("Token from sessionStorage:", token);
-          console.log("Profilename from token:", user);
-          console.log("Response from profile:", response.data);
+          
+          const response = await axios.get(`${VITE_APP_BACKEND_URL}/profile/${user.user}`, { headers });
 
           setProfileid(response.data.profileid);
           
-          const groupResponse = await axios.get(`${VITE_APP_BACKEND_URL}/memberstatus/${response.data.profileid}/${id}`);
+          const groupResponse = await axios.get(`${VITE_APP_BACKEND_URL}/memberstatus/${response.data.profileid}/${id}`, { headers });
           
           console.log("Response from status:", groupResponse.data);
 
@@ -55,13 +49,13 @@ const MemberList = ({ id, user }) => {
       let response;
       switch (memberType) {
         case 0:
-          response = await axios.get(`${VITE_APP_BACKEND_URL}/memberlist/group/${id}/0`);
+          response = await axios.get(`${VITE_APP_BACKEND_URL}/memberlist/group/${id}/0`, { headers });
           break;
         case 1:
-          response = await axios.get(`${VITE_APP_BACKEND_URL}/memberlist/group/${id}/1`);
+          response = await axios.get(`${VITE_APP_BACKEND_URL}/memberlist/group/${id}/1`, { headers });
           break;
         case 2:
-          response = await axios.get(`${VITE_APP_BACKEND_URL}/memberlist/group/${id}/2`);
+          response = await axios.get(`${VITE_APP_BACKEND_URL}/memberlist/group/${id}/2`, { headers });
           break;
         default:
           break;
@@ -70,7 +64,7 @@ const MemberList = ({ id, user }) => {
 
         const membersWithnames = await Promise.all(memberData.map(async member => {
           try {
-            const nameResponse = await axios.get(`${VITE_APP_BACKEND_URL}/profile/id/${encodeURIComponent(member.profileid)}`);
+            const nameResponse = await axios.get(`${VITE_APP_BACKEND_URL}/profile/id/${encodeURIComponent(member.profileid)}`, { headers });
             const nameData = nameResponse.data;
             return {
               ...member,
@@ -105,7 +99,7 @@ const MemberList = ({ id, user }) => {
       console.log(memberResponse); 
       if (memberResponse && memberResponse.data && memberResponse.data.memberlistid) {
         try {
-          await axios.delete(`${VITE_APP_BACKEND_URL}/memberstatus/${memberResponse.data.memberlistid}`);
+          await axios.delete(`${VITE_APP_BACKEND_URL}/memberstatus/${memberResponse.data.memberlistid}`, { headers });
           window.location.reload(); 
         } catch (error) {
           console.error('Virhe pyynnön poistamisessa:', error);
@@ -124,8 +118,8 @@ const MemberList = ({ id, user }) => {
       console.log(memberResponse); 
       if (memberResponse && memberResponse.data && memberResponse.data.memberlistid) {
         try {
-          await axios.put(`${VITE_APP_BACKEND_URL}/memberstatus/${memberResponse.data.memberlistid}/0`);
-          window.location.reload(); 
+          await axios.put(`${VITE_APP_BACKEND_URL}/memberstatus/${memberResponse.data.memberlistid}/0`, {}, { headers });
+          window.location.reload();
         } catch (error) {
           console.error('Virhe pyynnön poistamisessa:', error);
         }
@@ -149,7 +143,7 @@ const MemberList = ({ id, user }) => {
       console.log("haettu memberlist:", memberResponse.data.memberlistid);  
       if (memberResponse && memberResponse.data && memberResponse.data.memberlistid) {
         try {
-          await axios.put(`${VITE_APP_BACKEND_URL}/memberrank/${memberResponse.data.memberlistid}/${rank}`);
+          await axios.put(`${VITE_APP_BACKEND_URL}/memberrank/${memberResponse.data.memberlistid}/${rank}`, {}, {headers});
           window.location.reload(); 
         } catch (error) {
           console.error('Virhe aseman muutoksessa:', error);
@@ -173,25 +167,25 @@ const MemberList = ({ id, user }) => {
           <span className='singleMember' key={index}>
             {(isMainuser && editMode && member.mainuser===1 && member.pending ===0 && member.profileid !== profileId) && (
             <button className="remove" onClick={() => updateMemberRank(member.name.profileid, id, 0)}>
-            <span className='emoji'>&#x2B07;</span></button>
+            <span className='emoji22'>&#x2B07;</span></button>
             )}
             {(isMainuser && editMode && member.mainuser===0 && member.pending ===0) && (
             <button className="remove" onClick={() => updateMemberRank(member.name.profileid, id, 1)}>
-            <span className='emoji'>&#x2B06;</span></button>
+            <span className='emoji22'>&#x2B06;</span></button>
             )}
             {(member.mainuser===1) && (
-            <span className='emoji'>&#x1F451;</span> 
+            <span className='emoji26 uni14'></span>
             )}
             <Link to={`/profile/${member.name.profilename}`}>{member.name.profilename}</Link>&nbsp;&nbsp;&nbsp;
             {(isMainuser && editMode && memberType===1) && (
             <button className="remove" onClick={() => handleAddUser(member.name.profileid, id)}>
-            <span className='emoji'>&#10003;</span></button>
+            <span className='updateState uni13'></span></button>
             )}
             {(isMainuser && editMode && member.profileid !== profileId) && (
               confirmRemove === member.name.profileid ? (
                 <>
                   <button className="confirm" onClick={() => handleRemoveUser(member.name.profileid, id)}>
-                  &nbsp;<span className='emoji'>&times;</span> Vahvista
+                  &nbsp;<span className='updateState uni12'></span> Vahvista
                   </button>
                   <button className="compactButton" onClick={() => setConfirmRemove(null)}>Peruuta</button>
                 </>
@@ -205,14 +199,17 @@ const MemberList = ({ id, user }) => {
         ))}
       </ul>
       )}
-      {(isMainuser && editMode) &&
-      <div>
-        <button onClick={() => handleSetMemberType(0)}>Jäsenet</button>
-        <button onClick={() => handleSetMemberType(1)}>Pyynnöt</button>
-        <button onClick={() => handleSetMemberType(2)}>Kutsut</button>
-      </div>}
-      {(isMainuser && !editMode) && <button onClick={() => setEditMode(true)} className="basicbutton">Hallinnoi jäsenlistaa</button>}
-      {(isMainuser && editMode) && <button onClick={() => setEditMode(false)} className="basicbutton">Lopeta</button>}
+      {(isMainuser && !editMode) && <button onClick={() => setEditMode(true)} className="basicbutton justMargin">Hallinnoi jäsenlistaa</button>}
+     
+      {(isMainuser && editMode) && (
+        <>
+        <button className='basicbutton brownBtn justMargin' onClick={() => handleSetMemberType(0)}>Jäsenet</button>
+        <button className='basicbutton brownBtn' onClick={() => handleSetMemberType(1)}>Pyynnöt</button>
+        <button className='basicbutton brownBtn' onClick={() => handleSetMemberType(2)}>Kutsut</button>
+        </>
+      )}
+       {(isMainuser && editMode) && <button onClick={() => setEditMode(false)} className="basicbutton justMargin">Lopeta</button>}
+      
     </> 
   );
 };

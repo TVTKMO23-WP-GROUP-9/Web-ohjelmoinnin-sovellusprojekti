@@ -16,7 +16,6 @@ const Reviews = ({ movieId, mediatype }) => {
         const response = await axios.get(`${VITE_APP_BACKEND_URL}/reviews/${movieId}/${mediatype}`);
         const reviewData = response.data;
 
-        // Hae jokaisen arvostelun review.revieweditem arvolla liittyvä elokuva
         const reviewsWithMovies = await Promise.all(reviewData.map(async review => {
           try {
             let responseData;
@@ -27,24 +26,28 @@ const Reviews = ({ movieId, mediatype }) => {
               const tvResponse = await axios.get(`${import.meta.env.VITE_APP_BACKEND_URL}/series/${encodeURIComponent(review.revieweditem)}`);
               responseData = tvResponse.data;
             }
-            console.log(responseData)
-            // Haetaan profiilitiedot
-            const profileResponse = await axios.get(`${VITE_APP_BACKEND_URL}/profile/id/${review.profileid}`);
-            const profileData = profileResponse.data;
+            console.log("responssit:", review);
+            
+            let profileData = {}; 
 
-            if (profileResponse && profileResponse.data) {
+            if (review.profileid !== null) {
+              const profileResponse = await axios.get(`${VITE_APP_BACKEND_URL}/profile/id/${review.profileid}`);
+              profileData = profileResponse.data; 
+            } else {
+              profileData.profilename = 'anonyymi';
+              profileData.eilink = 'true';
+            }
+        
+            console.log("profiilidata", profileData);
+            
             return {
               ...review,
               data: responseData,      
               profile: profileData,
             };
-          } else {
-            console.error('Profiilitiedon hakeminen epäonnistui:', profileResponse);
-            return {};
-          }
+
           } catch (error) {
             console.error('Virhe tiedon hakemisessa:', error);
-            // Palauta tyhjä objekti, jos hakeminen epäonnistuu
             return {};
           }
         }));
@@ -79,7 +82,11 @@ const Reviews = ({ movieId, mediatype }) => {
                       hour: 'numeric',
                       minute: 'numeric',
                     })} <br />
-                <b>Käyttäjältä:</b> <i><Link to={`/profile/${review.profile.profilename}`}>{review.profile.profilename}</Link></i> <br />
+                <b>Käyttäjältä:</b>&nbsp; 
+                {(review.profile.eilink !== "true") && <b><Link to={`/profile/${review.profile.profilename}`}>{review.profile.profilename}</Link></b>}
+                {(review.profile.eilink === "true") && <i>Anonyymi</i> }
+                
+                 <br /> 
                 <b>Arvio:</b>                             
                   {[...Array(review.rating)].map((_, i) => (
                     <span key={i} >&#11088;</span>
