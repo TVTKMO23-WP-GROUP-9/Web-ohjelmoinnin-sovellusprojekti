@@ -92,12 +92,12 @@
 .group-view-long {
     background-color: var(--table-bg);
     color: var(--grp-text);
-
-    border-radius: 10px;
+    border-top-left-radius: 10px;
     border-top-right-radius: 170px;
     border-bottom-right-radius: 30px;
     margin-top: 0px;
     margin-bottom: 0px;
+    padding: 20px;
     border: var(--solid);
     box-shadow: var(--shadow02);
 }
