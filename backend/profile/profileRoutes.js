@@ -13,5 +13,6 @@ router.delete('/admin/deleteprofile/:id', auth, profileService.deleteProfileAsAd
 router.put('/profile/nameandemail', auth, profileService.updateProfilenameAndEmail);
 router.put('/profile', auth, profileService.updateProfileDetails);
 router.put('/profile/visibility', auth, profileService.updateProfileVisibility);
+router.put('/profile/k18', auth, profileService.updateProfileAdultcontent);
 
 module.exports = router;

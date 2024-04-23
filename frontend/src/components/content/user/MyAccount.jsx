@@ -13,6 +13,7 @@ export default function MyAccount({ user }) {
     }
 
     const [visibility, setVisibility] = useState('');
+    const [k18, setK18] = useState('');
     const [formData, setFormData] = useState({
         profilename: '',
         email: ''
@@ -56,6 +57,20 @@ export default function MyAccount({ user }) {
             setVisibility({ is_private: !visibility.is_private });
         } catch (error) {
             console.error('Virhe muutettaessa profiilin näkyvyyttä:', error);
+        }
+    };
+
+    const handleK18 = async (e) => {
+        try {
+            console.log(headers);
+            const data = {
+                adult: !k18.adult
+            };
+            await axios.put(`${VITE_APP_BACKEND_URL}/profile/k18`, data, { headers });
+
+            setK18({ adult: !k18.adult});
+        } catch (error) {
+            console.error('Virhe muutettaessa profiilin k18 sisältöä:', error);
         }
     };
 
@@ -178,6 +193,14 @@ export default function MyAccount({ user }) {
                         <span className='communityinfo'>{visibility.is_private ? 'Sinä ja kaverisi näkevät tietosi. Muille näytetään vain profiilikuva ja -esittely.' : 'Kaikki voivat nähdä profiilisi tiedot.'}</span><br/>
 
                         <button className="basicbutton" onClick={handleVisibility}>Vaihda tilin näkyvyyttä</button>
+                    </div>
+
+                    <h2>K-18 sisällön näkyvyys</h2>
+                    <div className="form-view">
+                        <b>K-18 sisältö: <span className='colored'>{k18.adult ? 'näkyy' : 'piilotettu'}</span></b> <br />
+                        <span className='communityinfo'>{k18.adult ? 'Näet hakutuloksissa myös K-18 sisältöä' : 'K-18 sisältö on piilotettu hakutuloksista.'}</span><br/>
+
+                        <button className="basicbutton" onClick={handleK18}>Vaihda K-18 asetusta</button>
                     </div>
 
                     <h2>Vaihda salasana</h2>
