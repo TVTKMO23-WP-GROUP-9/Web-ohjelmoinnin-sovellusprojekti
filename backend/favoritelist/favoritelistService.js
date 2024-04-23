@@ -88,17 +88,15 @@ async function getFavoritelistByGroup(req, res) {
     const profileid = req.params.profileid;
     const favoriteditem = req.params.favoriteditem
 
-    
     try {
         const query = {
             text: 'DELETE FROM favoritelist_ WHERE profileid = $1 AND favoriteditem = $2',
             values: [profileid, favoriteditem],
-            
         };
             console.log("Profile ID:", req.params.profileid);
-console.log("Favorited Item:", req.params.favoriteditem);
+            console.log("Favorited Item:", req.params.favoriteditem);
 
-        const result = await favoritelistModel.queryDatabase(query);
+        await favoritelistModel.queryDatabase(query);
         res.send(`Lista poistettu onnistuneesti deletefavorite`);
     } catch (error) {
         console.error('Virhe poistettaessa listaa:', error);

@@ -15,7 +15,7 @@ const SeriesDetails = ({user}) => {
   const [series, setSeries] = useState(null);
   const [providers, setProviders] = useState(null);
   const [profileid, setProfileid] = useState();
-  const [isFavorite, setIsFavorite] = useState();
+  const [isFavorite, setIsFavorite] = useState(false);
   const headers = getHeaders();
   const { favoriteditem} = useParams();
 
@@ -41,6 +41,12 @@ const SeriesDetails = ({user}) => {
       } catch (error) {
           console.error('Virhe haettaessa profiilitietoja:', error);
       }
+
+      const FLresponse = await axios.get(`${VITE_APP_BACKEND_URL}/favoritelist/${profileid}?favoriteditem=${series.id}`);
+
+      console.log(FLresponse.data)
+      if (FLresponse.data.hasOwnProperty('favoriteditem') && FLresponse.data.favoriteditem === true)
+      setIsFavorite(true);
   };
 
   fetchProfile();
@@ -80,15 +86,15 @@ const SeriesDetails = ({user}) => {
 
 
   // tarkistetaan onko valmiiksi favoritelistalla
-  useEffect(() => {
+ /* useEffect(() => {
     const checkFavorite = async () => {
       try {
         let isFavorite;
-        if (profileid && series && typeof series.name === 'string') {
-          console.log(`Profiililla ${profileid} on sarja ${series ? series.name : 'N/A'}`);
+        if (profileid && series) {
+          console.log(`Profiililla ${profileid} on sarja ${series.id}`);
           console.log(`isFavorite ennen axios = ${isFavorite}`)
-          const response = await axios.get(`${VITE_APP_BACKEND_URL}/favoritelist/${profileid}?favoriteditem=${series.name}`);
-          isFavorite = response.data.isFavorites.length > 0;
+          const response = await axios.get(`${VITE_APP_BACKEND_URL}/favoritelist/${profileid}?favoriteditem=${series.id}`);
+          setisFavorite = response.data.isFavorites.length > 0;
           console.log(`isFavorite jälkeen axios= ${isFavorite}`)
         } else {
           console.log('profileid tai series puuttuu');
@@ -99,13 +105,13 @@ const SeriesDetails = ({user}) => {
       }
     };
     checkFavorite();
-  }, [profileid, series]);
+  }, [profileid, series]); */
 
 const addToFavorites = async () => {
   try {
-    if (profileid && series && typeof series.name === 'string') { 
+    if (profileid && series) { 
       const data = {
-        favoriteditem: series.name,
+        favoriteditem: series.id,
         groupid: null,
         profileid: profileid,
         mediatype: 1
@@ -124,9 +130,9 @@ const addToFavorites = async () => {
 };
 
 // Poistetaan suosikeista sarja
-async function deleteFromFavorites(profileid, favoriteditem) {
+const deleteFromFavorites = async () => {
   try {
-    const response = await axios.delete(`${VITE_APP_BACKEND_URL}/favoritelist/${profileid}?favoriteditem=${series.name}`);
+    const response = await axios.delete(`${VITE_APP_BACKEND_URL}/favorite/${profileid}?favoriteditem=${series.id}`);
     console.log(response.data);
     setIsFavorite(false);
     console.log('Suosikki poistettiin onnistuneesti');

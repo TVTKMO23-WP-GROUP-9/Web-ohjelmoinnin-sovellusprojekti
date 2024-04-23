@@ -11,7 +11,7 @@ router.get('/favoritelist/profile/:profileid', favoritelistService.getFavoriteli
 router.get('/favoritelist/group/:groupid', favoritelistService.getFavoritelistByGroup);
 router.post('/favoritelist', favoritelistService.createFavoritelist);
 router.get('/favoritelist/:profileid/:favoriteditem', optionalAuth, favoritelistService.getFavorite);
-router.delete('/favoritelist/:profileid/:favoriteditem', favoritelistService.deleteFavorite);
+router.delete('/favorite/:profileid/:favoriteditem', favoritelistService.deleteFavorite);
 router.delete('/favoritelist/:groupid', favoritelistService.deleteFavoritelist);
 
 module.exports = router;
