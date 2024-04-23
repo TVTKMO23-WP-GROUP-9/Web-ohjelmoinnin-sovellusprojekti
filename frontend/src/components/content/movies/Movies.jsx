@@ -88,11 +88,11 @@ const Movies = ({ user }) => {
       let response;
       if (query !== '') {
         response = await axios.get(`${VITE_APP_BACKEND_URL}/series/search`, {
-        params: { query, genre, page: seriesPage, year }
+        params: { query, genre, page: seriesPage, year, adult }
       });
       } else {
         response = await axios.get(`${VITE_APP_BACKEND_URL}/series/discover`, {
-        params: { genre, sort_by: 'popularity.desc', page: seriesPage, year }
+        params: { genre, sort_by: 'popularity.desc', page: seriesPage, year, adult }
         });
       }
       setSeries(response.data);
