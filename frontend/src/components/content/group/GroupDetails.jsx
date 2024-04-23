@@ -256,7 +256,7 @@ console.log("Token from sessionStorage:", user);
       {(isAdmin || isMember) && (
       <div className='greviews-view'>
         <h2>Arvostelut  &nbsp;<span className='emoji uni08'></span></h2>
-        <ReviewList id={id} />
+        <ReviewList user={user} id={id} />
       </div>
       )}
 
