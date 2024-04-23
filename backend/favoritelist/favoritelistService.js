@@ -113,12 +113,12 @@ async function getFavoritelistByGroup(req, res) {
     };
 
     async function deleteOnProfileFavorite(req, res) {
-      const idfavoritelist = req.params.idfavoritelist;
+      const favoriteditem = req.params.favoriteditem;
       const profileid = req.params.profileid;
       try {
         const query = {
-          text: 'DELETE FROM favoritelist_ WHERE idfavoritelist = $1 AND profileid =$2',
-          values: [idfavoritelist, profileid],
+          text: 'DELETE FROM favoritelist_ WHERE favoriteditem = $1 AND profileid =$2',
+          values: [favoriteditem, profileid],
         };
   
         const result = await favoritelistModel.queryDatabase(query);
