@@ -122,6 +122,11 @@
   }
 
 
+  .changePageLeft,
+  .changePageRight {
+    font-size: 0.7em !important;
+  }
+
 }
 
 @media (max-width: 1040px) {
@@ -179,6 +184,10 @@
     min-width: 100%; /* Leveys täyteen ruutuun */
     border-left-width: 0;
     border-left: none !important;
+  }
+
+  .group-view {
+    width: 85% !important;
   }
 
 }
@@ -287,8 +296,6 @@
 }
 
 .ginner-view {    
-
-
   border-bottom-left-radius: 0px !important;
   border-bottom-right-radius: 0px !important;
 }
@@ -296,13 +303,16 @@
 .group-between {
   display: block;
   width: 100%;
-
 }
 
 .singleMember, 
 .singleEvent {
   max-width: 250px;
+}
 
+.changePageLeft,
+.changePageRight {
+  font-size: 0.5em !important;
 }
 
 }
@@ -404,11 +414,15 @@
  }
 
  .singleMember, 
-  .singleEvent {
-    padding-left: 0px !important;
+.singleEvent {
+  padding-left: 0px !important;
   max-width: 180px;
 
-}
+  }
+
+  .group-view {
+    width: 80% !important;
+  }
 
 }
 

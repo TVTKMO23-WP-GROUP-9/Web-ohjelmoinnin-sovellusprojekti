@@ -107,7 +107,6 @@ const Movies = ({ user }) => {
     } else {
       setMoviePage((page) => Math.max(parseInt(page, 10) + 1));
     }
-    window.scrollTo(0, 600);
   };
 
   const handleSeriesPageChange = (action) => {
@@ -116,8 +115,6 @@ const Movies = ({ user }) => {
     } else {
       setSeriesPage((page) => Math.max(parseInt(page, 10) + 1));
     }
-
-    window.scrollTo(0, 600);
   };
 
   const handleInputChange = (event) => {
@@ -141,20 +138,26 @@ const Movies = ({ user }) => {
   };
 
   const toggleMovies = () => {
-    setShowMovies(!showMovies);
+    setShowMovies(true);
     setSeriesPage(1);
     setMoviePage(1);
     setShowSeries(false);
-    setShowText(false);
   };
 
   const toggleSeries = () => {
-    setShowSeries(!showSeries);
+    setShowSeries(true);
     setMoviePage(1);
     setSeriesPage(1);
     setShowMovies(false);
-    setShowText(false);
   };
+
+  const toggleAll = () => {
+    setShowMovies(true);
+    setShowSeries(true);
+    setMoviePage(1);
+    setSeriesPage(1);
+  };
+  
 
   return (
     <>
@@ -162,9 +165,7 @@ const Movies = ({ user }) => {
       <h2>Leffa- ja sarjahaku</h2>
 
       <div className="group-view-long">
-
         <div className="flex">
-
           <div className="pdd-right">
             <b>Hae nimellä</b>
             <div>
@@ -221,10 +222,23 @@ const Movies = ({ user }) => {
             />
           </div>
         </div>
-
+        
+            {showText && (
+             <div> 
+              <span className='userinfo'>Valitse tyyppi:</span>
+              {showMovies && (
+                <span className='userinfo'>elokuvat</span>
+              )}
+              {showSeries && (
+                <span className='userinfo'>sarjat</span>
+              )}
+             </div>
+            )} 
+           
         <div className='toggleLinks'>
-        <h2 onClick={toggleMovies}><span className='emoji uni01'></span> Leffat </h2>&nbsp;&nbsp;&nbsp;
-        <h2 onClick={toggleSeries}><span className='emoji justMargin'>📺</span> Sarjat </h2>
+          <h2 className='activeSearch' onClick={toggleMovies}><span className='emoji uni01'></span> Leffat </h2>&nbsp;&nbsp;&nbsp;
+          <h2 className='activeSearch' onClick={toggleSeries}><span className='emoji justMargin'>📺</span> Sarjat </h2>
+          <h2 className='activeSearch' onClick={toggleAll}><span className='emoji uni17 justMargin'></span> Kaikki </h2>&nbsp;&nbsp;&nbsp;
         </div>
 
         <div>
@@ -238,7 +252,6 @@ const Movies = ({ user }) => {
         <span className='movieinfo'>Valitse yltä haluatko nähdä leffoja vai sarjoja.</span>
       </div>
 
-    {/* Näytetään sekä elokuvat että sarjat , allekain */}
     {(showMovies && movies !== null && movies.length > 0) && (
         <div>
         <div className="resultsTitle">
@@ -256,54 +269,39 @@ const Movies = ({ user }) => {
               onChange={(event) => {
               setMoviePage(event.target.value);
               }}
-              onKeyDown={(event) => {
-              if (event.key === 'Enter') {
-                window.scrollTo(0, 600);
-                }
-              }}
+       
             />
           </div>
-        <div className="movie-container">
-        {movies.map((result) => (
-          <div key={result.id} className="movie-item">
-            <Link to={`/movie/${result.id}`}>
-              <img src={result.poster_path} alt={result.title} />
-              <div className="headoverview">
-                <div><h3>{result.title}</h3></div>
-                <div>{result.overview.length > 200 ? `${result.overview.substring(0, 200)}...` : result.overview}</div>
-              </div>
-            </Link>
-            
-              <div className='movie-mini-item'><Link to={`/movie/${result.id}`}>{result.title}</Link></div>
-            
-          </div>
-        ))}
 
+          <table class="ResultsWithButtons">
+            <tr>
+            <td class="changePageLeft" onClick={() => handleMoviePageChange('prev')}>
+                  <span class='bigArrow'>{'⯇'}</span>
+                </td>
+                <td class="betweenPages">
+                    {movies.map((result) => (
+                    <div key={result.id} class="movie-item">
+                        <Link to={`/movie/${result.id}`}>
+                            <img src={result.poster_path} alt={result.title} />
+                            <div class="headoverview">
+                                <div><h3>{result.title}</h3></div>
+                                <div>{result.overview.length > 200 ? `${result.overview.substring(0, 200)}...` : result.overview}</div>
+                            </div>
+                        </Link>
+                        <div class='movie-mini-item'><Link to={`/movie/${result.id}`}>{result.title}</Link></div>
+                    </div>
+                    ))}
+                </td>
+                <td class="changePageRight" onClick={() => handleMoviePageChange('next')}>
+                    <span class='bigArrow'>{'⯈'}</span>
+                </td>
+            </tr>
+          </table>
+          
         </div>
-        <div className="resultsTitle">
-        <button onClick={() => handleMoviePageChange('prev')} className='bigArrow'>{'⯇'}</button>
-            <h2>Elokuvat</h2>
-            <button onClick={() => handleMoviePageChange('next')} className='bigArrow'>{'⯈'}</button>      
-          </div>
-          <div className="resultsTitle">
-            <input
-              id="moviesHideable"
-              className="field shortInput"
-              type="number"
-              placeholder="..."
-              value={moviePage}
-              onChange={(event) => {
-              setMoviePage(event.target.value);
-              }}
-              onKeyDown={(event) => {
-              if (event.key === 'Enter') {
-                window.scrollTo(0, 600);
-                }
-              }}
-            />
-          </div>
-        </div>
-        )}
+      )}
+
+
         {(showSeries && series !== null && movies.length > 0) && (
         <div>
           <div className="resultsTitle">
@@ -321,53 +319,35 @@ const Movies = ({ user }) => {
               onChange={(event) => {
               setSeriesPage(event.target.value);
               }}
-              onKeyDown={(event) => {
-              if (event.key === 'Enter') {
-                window.scrollTo(0, 600);
-                }
-              }}
-            />
-          </div>
-        <div className="movie-container">  
-        {series.map((result) => (
-        <div key={result.id} className="movie-item">
-          <Link to={`/series/${result.id}`}>
-            <img src={result.poster_path} alt={result.title} />
-            <div className="headoverview">
-              <div><h3>{result.title}</h3></div>
-              <div>{result.overview.length > 200 ? `${result.overview.substring(0, 200)}...` : result.overview}</div>
-            </div>
-          </Link>
-    
-          <div className='movie-mini-item'><Link to={`/series/${result.id}`}>{result.title}</Link></div>
-            
-        </div>
-        ))}
-        </div>
-        <div className="resultsTitle">
-            <button onClick={() => handleSeriesPageChange('prev')} className='bigArrow'>{'⯇'}</button>
-            <h2>Sarjat</h2>
-            
-            <button onClick={() => handleSeriesPageChange('next')} className='bigArrow'>{'⯈'}</button>
 
-          </div>
-          <div className="resultsTitle">
-            <input
-              id="seriesHideable"
-              className="field shortInput"
-              type="number"
-              placeholder="..."
-              value={seriesPage}
-              onChange={(event) => {
-              setSeriesPage(event.target.value);
-              }}
-              onKeyDown={(event) => {
-              if (event.key === 'Enter') {
-                window.scrollTo(0, 600);
-                }
-              }}
             />
           </div>
+
+          <table class="ResultsWithButtons">
+            <tr>
+            <td class="changePageLeft" onClick={() => handleSeriesPageChange('prev')}>
+              <span class='bigArrow'>{'⯇'}</span>
+                </td>
+                <td class="betweenPages">
+                    {series.map((result) => (
+                    <div key={result.id} class="movie-item">
+                        <Link to={`/series/${result.id}`}>
+                            <img src={result.poster_path} alt={result.title} />
+                            <div class="headoverview">
+                                <div><h3>{result.title}</h3></div>
+                                <div>{result.overview.length > 200 ? `${result.overview.substring(0, 200)}...` : result.overview}</div>
+                            </div>
+                        </Link>
+                        <div class='movie-mini-item'><Link to={`/series/${result.id}`}>{result.title}</Link></div>
+                    </div>
+                    ))}
+                </td>
+                <td class="changePageRight" onClick={() => handleSeriesPageChange('next')}>
+                  <span class='bigArrow'>{'⯈'}</span>
+                </td>
+            </tr>
+          </table>
+
         </div>
       )}
       </div>

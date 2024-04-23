@@ -65,4 +65,6 @@
 .uni15::before { content: "\1F3A5"; }
 /*noentry*/
 .uni16::before { content: "\26D4"; }
+/*wtf*/
+.uni17::before { content: "\1F5EF"; }
 
