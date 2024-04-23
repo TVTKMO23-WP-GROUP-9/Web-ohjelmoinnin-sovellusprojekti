@@ -258,20 +258,16 @@
 .activeSearch:hover,
 .activeSearch:host {
     color: var(--profile);
-
 }
 
 .activeSearch:checked {
     color: var(--profile);
-
 }
 
 .changePageLeft,
 .changePageRight {
     background-color: var(--table-bg);
-    border-left: 1px solid #000000; 
-    border-right: 1px solid #000000; 
-    box-shadow: var(--shadow05); 
+    box-shadow: var(--shadow02); 
     align-items: left;
     height: 100%;
     font-size: 1.1em;
@@ -280,6 +276,15 @@
     padding-right: 2px;
     flex-grow: 1; 
 }
+
+.changePageLeft {
+    border-left: 1px solid #232323; 
+}
+
+.changePageRight {
+    border-right: 1px solid #232323; 
+}
+
 
 .ResultsWithButtons td.changePageLeft:hover,
 .ResultsWithButtons td.changePageLeft:active,
