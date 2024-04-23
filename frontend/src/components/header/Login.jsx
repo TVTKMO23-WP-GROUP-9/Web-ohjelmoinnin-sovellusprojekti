@@ -29,7 +29,7 @@ export default function Login({ setUser, window, fullpage }) {
         username: username,
         password: password
       });
-
+      
       if (response.status === 200) {
         jwtToken.value = response.data.jwtToken;
         usertype.value = response.data.usertype;

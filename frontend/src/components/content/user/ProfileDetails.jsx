@@ -28,6 +28,7 @@ const ProfileDetails = ({ user }) => {
                 setOwnProfile(response.data.isOwnProfile);
                 setPrivate(response.data.is_private);
                 setLoading(false);
+                setLastLoggedIn(response.data.timestamp);
 
             } catch (error) {
                 console.error('Virhe haettaessa profiilitietoja:', error);
@@ -69,7 +70,7 @@ const ProfileDetails = ({ user }) => {
                             alt="Käyttäjän kuva" 
                         />
 
-                    {(!isPrivate || isOwnProfile) && <span className='userinfo'>Viimeksi kirjautuneena: {formatDate(lastLoggedIn)}</span>}
+                    {(!isPrivate || isOwnProfile) && <span className='userinfo'>Viimeksi muokattu: {formatDate(lastLoggedIn)}</span>}
 
                     {(isOwnProfile && !editMode) && <button onClick={() => setEditMode(true)} className="basicbutton">Muokkaa profiilia</button>}
                 </div>
