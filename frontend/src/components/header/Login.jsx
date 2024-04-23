@@ -33,8 +33,10 @@ export default function Login({ setUser, window, fullpage }) {
       if (response.status === 200) {
         jwtToken.value = response.data.jwtToken;
         usertype.value = response.data.usertype;
+        const profileid = response.data.profileid;
         console.log('userType:', usertype.value);
-        setUser({ user: username, usertype: usertype.value });
+        console.log('profileid:' , profileid);
+        setUser({ user: username, usertype: usertype.value, profileid: profileid});
         navigate('/myaccount');
         //setShowLogin(!showLogin);
       }

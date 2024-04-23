@@ -182,7 +182,7 @@ export default function MyAccount({ user }) {
                     </p>
 
                     <p>Omasta profiilista löydät omat tietosi ja pääset hallinnoimaan niitä. <br />
-                        <span className="userinfo">Profiilikuva  | Esittelyteskti | Suosikkilista | Leffa-arvostelut | Ryhmät</span> <br />
+                        <span className="userinfo">Profiilikuva  | Esittelyteksti | Suosikkilista | Leffa-arvostelut | Ryhmät</span> <br />
                     </p>
                 </div>
 
