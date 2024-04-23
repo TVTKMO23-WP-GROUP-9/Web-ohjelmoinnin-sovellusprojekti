@@ -24,6 +24,7 @@ const SeriesDetails = (user) => {
       try {
         const response = await axios.get(`${VITE_APP_BACKEND_URL}/series/${id}`);
         setSeries(response.data);
+        console.log(response.data.adult)
       } catch (error) {
         console.error('Hakuvirhe', error);
       }
@@ -168,7 +169,7 @@ const handleFavoriteAction = async () => {
             <br/>
             <h2>Viimeisimmät arvostelut</h2>
 
-            <div className="reviewslisted"><Reviews movieId={id} mediatype={1}/></div>
+            <div className="reviewslisted"><Reviews movieId={id} mediatype={1} adult={series.adult}/></div>
             </div>
             
           </>

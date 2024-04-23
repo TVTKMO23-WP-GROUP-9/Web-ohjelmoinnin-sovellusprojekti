@@ -9,6 +9,8 @@ const ReviewForm = ({ movieId, user }) => {
   const [profileHasReview, setProfileHasReview] = useState(true); 
   const [rating, setRating] = useState(0);
   const [review, setReview] = useState("");
+  const [movieAdult, setMovieAdult] = useState(true); // Asetetaan oletusarvoksi true
+
   const headers = getHeaders();
 
   console.log("user", user === null, user.user);
@@ -29,7 +31,17 @@ const ReviewForm = ({ movieId, user }) => {
       checkIfUserHasReview();
     }, [movieId]);
   }
-  
+  useEffect(() => {
+    const fetchMovie = async () => {
+      try {
+        const response = await axios.get(`${VITE_APP_BACKEND_URL}/movie/${movieId}`);
+        setMovieAdult(response.data.adult); // Asetetaan elokuvan adult-arvo
+      } catch (error) {
+        console.error('Hakuvirhe:', error);
+      }
+    };
+    fetchMovie();
+  }, [movieId]);
 
   const closeReviewForm = () => {
     setShowReviewForm(false);
@@ -51,6 +63,7 @@ const ReviewForm = ({ movieId, user }) => {
           review,
           mediatype: '0',
           revieweditem: `${movieId}`,
+          adult: `${movieAdult}`,
         }, { headers }
       );
       window.location.reload();
@@ -96,7 +109,7 @@ const ReviewForm = ({ movieId, user }) => {
                 required
               ></textarea>
             </p>
-            <button onClick={handleSubmit} disabled={rating < 1 || rating > 5} className='basicbutton'>Lähetä arvostelu</button>
+            <button onClick={handleSubmit} disabled={rating < 1 || rating > 5 } className='basicbutton'>Lähetä arvostelu</button>
             <button onClick={closeReviewForm} className="basicbutton">Peruuta</button>
           </div>
         )

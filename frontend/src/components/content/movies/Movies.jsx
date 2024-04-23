@@ -5,7 +5,7 @@ import './movies.css';
 
 const { VITE_APP_BACKEND_URL } = import.meta.env;
 
-const Movies = () => {
+const Movies = ({ user }) => {
   const [query, setQuery] = useState('');
   const [genre, setGenre] = useState('');
   const [moviePage, setMoviePage] = useState(1); 
@@ -16,9 +16,40 @@ const Movies = () => {
   const [showTitles, setShowTitles] = useState(false);
   const [pageSize, setPageSize] = useState([]); 
   const totalPages = Math.ceil(movies.length / pageSize);
-  const [showMovies, setShowMovies] = useState(false);
+  const [showMovies, setShowMovies] = useState(true);
   const [showSeries, setShowSeries] = useState(false);
+  const [adult, setAdult] = useState(false);
   const [showText, setShowText] = useState(true);
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+        try {
+            const token = sessionStorage.getItem('token');
+            const headers = {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            };
+            console.log("Token from sessionStorage:", token);
+            console.log("Profilename from token:", user);
+            const response = await axios.get(`${VITE_APP_BACKEND_URL}/profile/${user.user}`);
+
+            console.log("Token from sessionStorage:", token);
+            console.log("Profilename from token:", user);
+            console.log("Response from adult:", response.data.adult);
+
+            setAdult(response.data.adult);
+            console.log("mitä haku luulee adult olevan: ",adult)
+
+            console.log("Response from status:", response.data);
+
+
+        } catch (error) {
+            console.error('Virhe haettaessa profiilitietoja:', error);
+        }
+    };
+
+    fetchProfile();
+  }, [user]);
 
   useEffect(() => {
     searchMovies();
@@ -33,32 +64,35 @@ const Movies = () => {
 
   const searchMovies = async () => {
     try {
+      console.log(genre);
       let response;
+      console.log("mitä haku luulee adult olevan: ",adult)
       if (query !== '') {
         response = await axios.get(`${VITE_APP_BACKEND_URL}/movie/search`, {
-          params: { query, page: moviePage, year }
-        });
+        params: { query, genre, page: moviePage, year, adult }
+      });
       } else {
         response = await axios.get(`${VITE_APP_BACKEND_URL}/movie/discover`, {
-          params: { genre, sort_by: 'popularity.desc', page: moviePage, year }
+        params: { genre, sort_by: 'popularity.desc', page: moviePage, year, adult }
         });
       }
+      console.log(genre);
       setMovies(response.data);
     } catch (error) {
       console.error('Hakuvirhe elokuvissa:', error);
     }
   };
-
+  
   const searchSeries = async () => {
     try {
       let response;
       if (query !== '') {
         response = await axios.get(`${VITE_APP_BACKEND_URL}/series/search`, {
-          params: { query, page: seriesPage, year }
-        });
+        params: { query, genre, page: seriesPage, year, adult }
+      });
       } else {
         response = await axios.get(`${VITE_APP_BACKEND_URL}/series/discover`, {
-          params: { genre, sort_by: 'popularity.desc', page: seriesPage, year }
+        params: { genre, sort_by: 'popularity.desc', page: seriesPage, year, adult }
         });
       }
       setSeries(response.data);
@@ -69,27 +103,28 @@ const Movies = () => {
 
   const handleMoviePageChange = (action) => {
     if (action === 'prev') {
-      setMoviePage((page) => Math.max(page - 1, 1));
+      setMoviePage((page) => Math.max(parseInt(page, 10) - 1, 1));
     } else {
-      setMoviePage((page) => page + 1);
+      setMoviePage((page) => Math.max(parseInt(page, 10) + 1));
     }
+    window.scrollTo(0, 600);
   };
 
   const handleSeriesPageChange = (action) => {
     if (action === 'prev') {
-      setSeriesPage((page) => Math.max(page - 1, 1));
+      setSeriesPage((page) => Math.max(parseInt(page, 10) - 1, 1));
     } else {
-      setSeriesPage((page) => page + 1);
+      setSeriesPage((page) => Math.max(parseInt(page, 10) + 1));
     }
+
+    window.scrollTo(0, 600);
   };
 
   const handleInputChange = (event) => {
-    setGenre('');
     setQuery(event.target.value);
   };
 
   const handleGenreChange = (event) => {
-    setQuery('');
     setGenre(event.target.value);
   };
 
@@ -123,6 +158,7 @@ const Movies = () => {
 
   return (
     <>
+    <div className="content">
       <h2>Leffa- ja sarjahaku</h2>
 
       <div className="group-view-long">
@@ -184,30 +220,6 @@ const Movies = () => {
               onChange={handleYearChange}
             />
           </div>
-
-          <div className="pdd-right">
-            <b>Sivu:</b><br />
-            {showText && (
-              <i>Valitse tyyppi</i>)}
-            {showMovies && (
-            <input
-              id="moviesHideable"
-              className="field shortInput"
-              type="number"
-              placeholder="..."
-              value={moviePage}
-              onChange={(event) => setMoviePage(event.target.value)}
-            />)}
-            {showSeries && (
-            <input
-              id="seriesHideable"
-              className="field shortInput"
-              type="number"
-              placeholder="..."
-              value={seriesPage}
-              onChange={(event) => setSeriesPage(event.target.value)}
-            />)}
-          </div>
         </div>
 
         <div className='toggleLinks'>
@@ -234,6 +246,23 @@ const Movies = () => {
             <h2>Elokuvat</h2>
             <button onClick={() => handleMoviePageChange('next')} className='bigArrow'>{'⯈'}</button>      
           </div>
+          <div className="resultsTitle">
+            <input
+              id="moviesHideable"
+              className="field shortInput"
+              type="number"
+              placeholder="..."
+              value={moviePage}
+              onChange={(event) => {
+              setMoviePage(event.target.value);
+              }}
+              onKeyDown={(event) => {
+              if (event.key === 'Enter') {
+                window.scrollTo(0, 600);
+                }
+              }}
+            />
+          </div>
         <div className="movie-container">
         {movies.map((result) => (
           <div key={result.id} className="movie-item">
@@ -256,6 +285,23 @@ const Movies = () => {
             <h2>Elokuvat</h2>
             <button onClick={() => handleMoviePageChange('next')} className='bigArrow'>{'⯈'}</button>      
           </div>
+          <div className="resultsTitle">
+            <input
+              id="moviesHideable"
+              className="field shortInput"
+              type="number"
+              placeholder="..."
+              value={moviePage}
+              onChange={(event) => {
+              setMoviePage(event.target.value);
+              }}
+              onKeyDown={(event) => {
+              if (event.key === 'Enter') {
+                window.scrollTo(0, 600);
+                }
+              }}
+            />
+          </div>
         </div>
         )}
         {(showSeries && series !== null && movies.length > 0) && (
@@ -264,6 +310,23 @@ const Movies = () => {
             <button onClick={() => handleSeriesPageChange('prev')} className='bigArrow'>{'⯇'}</button>
             <h2>Sarjat</h2>
             <button onClick={() => handleSeriesPageChange('next')} className='bigArrow'>{'⯈'}</button>
+          </div>
+          <div className="resultsTitle">
+            <input
+              id="seriesHideable"
+              className="field shortInput"
+              type="number"
+              placeholder="..."
+              value={seriesPage}
+              onChange={(event) => {
+              setSeriesPage(event.target.value);
+              }}
+              onKeyDown={(event) => {
+              if (event.key === 'Enter') {
+                window.scrollTo(0, 600);
+                }
+              }}
+            />
           </div>
         <div className="movie-container">  
         {series.map((result) => (
@@ -284,10 +347,30 @@ const Movies = () => {
         <div className="resultsTitle">
             <button onClick={() => handleSeriesPageChange('prev')} className='bigArrow'>{'⯇'}</button>
             <h2>Sarjat</h2>
+            
             <button onClick={() => handleSeriesPageChange('next')} className='bigArrow'>{'⯈'}</button>
+
+          </div>
+          <div className="resultsTitle">
+            <input
+              id="seriesHideable"
+              className="field shortInput"
+              type="number"
+              placeholder="..."
+              value={seriesPage}
+              onChange={(event) => {
+              setSeriesPage(event.target.value);
+              }}
+              onKeyDown={(event) => {
+              if (event.key === 'Enter') {
+                window.scrollTo(0, 600);
+                }
+              }}
+            />
           </div>
         </div>
       )}
+      </div>
     </>
   );
 }

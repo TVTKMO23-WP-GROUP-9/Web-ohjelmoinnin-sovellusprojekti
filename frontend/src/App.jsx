@@ -13,7 +13,6 @@ import Home from '@content/homepage/Home';
 import Login from '@components/header/Login';
 import MyAccount from '@content/user/MyAccount';
 import ProfileDetails from '@content/user/ProfileDetails';
-import Search from '@content/movies/Search';
 import MovieDetails from '@content/movies/MovieDetails';
 import GroupDetails from '@content/group/GroupDetails';
 import SeriesDetails from '@content/movies/SeriesDetails';
@@ -27,6 +26,7 @@ import ReviewForm from '@content/movies/ReviewForm';
 import AdminPage from '@content/admin/AdminPage';
 import Faq from '@content/faq/Faq';
 import { jwtToken, usertype } from './components/auth/authSignal';
+import Movies from '@content/movies/Movies';
 const { VITE_APP_BACKEND_URL } = import.meta.env;
 
 
@@ -109,7 +109,7 @@ function App() {
             <Header user={user} setUser={handleLogin} handleLogout={handleLogout} toggleTheme={toggleTheme} theme={theme} showLogin={showLogin} setShowLogin={setShowLogin} isburgerOpen={isburgerOpen} setIsburgerOpen={setIsburgerOpen} />
             <Routes>
               <Route path="/" exact element={<Home />} />
-              <Route path="/search" element={<Search />} />
+              <Route path="/search" element={<Movies user={user}/>} />
               <Route path="/movie/:id" element={<MovieDetails user={user}/>} />
               {/*<Route path="/movie/:id/review" element={<ReviewForm user={user}/>} />*/}
               <Route path="/series/:id" element={<SeriesDetails user={user}/>} />
