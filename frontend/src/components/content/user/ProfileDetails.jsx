@@ -85,7 +85,7 @@ const ProfileDetails = ({ user }) => {
                 <>
                     <div className='profile-between'>
 
-                    <div className="profile-view">
+                    <div className="favorite-view">
                             <div className="profile-content">
                                 <h2>Suosikit &nbsp;<span className='emoji uni10'></span></h2>
                                 <FavoriteList profile={profile} />

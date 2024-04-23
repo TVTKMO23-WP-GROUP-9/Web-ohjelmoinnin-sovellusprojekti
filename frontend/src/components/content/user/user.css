@@ -252,13 +252,81 @@ ul {
 input {
     margin: 1em 0;
 }
-.favoritetitle {
+/*FAVORITE*/
+.favorite-view {
+    background-color: #E6DFC4;
+    border-radius: 10px;
     color: var(--profile);
-    font-size: 1em;
-    font-weight: 500;
+    display: flex-table;
+    flex-direction: column;
+    padding-left: 2%;
+    padding-right: 2%;
+    margin-top: 25px;
+    border: var(--solid);
+    width: 42%;
+    border-top-left-radius: 10px;
+    border-bottom-right-radius: 10px;
 }
+
+.favoritetitle {
+    color: #333;
+    font-size: 20px;
+    display: block;
+    margin-bottom: 10px; 
+}
+
 .favoriteimg {
-    margin-right: 20px;
-    height: 200px;
-    box-shadow: var(--shadow02);
+    max-width: 100%;
+    height: auto;
+    margin-right: 10px;
 }
+
+.favoritetitle:hover {
+    color: #666;
+}
+.favorite-list {
+    list-style-type: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /*Säädetään miten posterit menee ruudulle */
+    grid-gap: 50px;
+    flex-wrap: wrap;
+  }
+  .favorite-list > li {
+    width: 50%; 
+    box-sizing: border-box;
+    padding: 0 10px; 
+  }
+  .favorite-list > li:last-child {
+    margin-right: 0;
+  }
+.favoriteDButton {
+    position: absolute;
+    top: 5px; 
+    right: 5px; 
+    background-color: #f31000;
+    border: none;
+    color: white;
+    font-weight: bold;
+    padding: 7px;
+    border-radius: 50%; 
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+.favoriteDButton:hover {
+    background-color: #d32f2f;
+}
+.favorite-item {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 20px;
+  }
+  .favorite-poster {
+    position: relative;
+    width: 150px; 
+    height: auto;
+  }
+  .favorite-poster:hover .favoriteDButton {
+    opacity: 1;
+  }

@@ -7,7 +7,7 @@ const { VITE_APP_BACKEND_URL } = import.meta.env;
 const FavoriteList = ({ profile }) => {
   const isOwnProfile = profile && profile.isOwnProfile;
   const [currentPage, setCurrentPage] = useState(1);
-  const [favoritesPerPage, setfavoritesPerPage] = useState(5);
+  const [favoritesPerPage, setfavoritesPerPage] = useState(6);
   const [favorites, setFavorites] = useState([]);
 
   useEffect(() => {
@@ -69,6 +69,7 @@ const FavoriteList = ({ profile }) => {
 
   return (
     <>
+    <ul className="favorite-list">
       <span className="userinfo">
         Löytyi <b>{favorites.length}</b> Suosikkia.<br />
       </span>
@@ -83,26 +84,33 @@ const FavoriteList = ({ profile }) => {
           </button>
         </li>
       </ul>
-      <ul className="profileSections">
+
         {currentFavorites.map((favorite, index) => (
           <li key={index}>
             {favorite.mediatype === 0 ? (
-              <Link to={`/movie/${favorite.favoriteditem}`}><img className='favoriteimg' src={`https://image.tmdb.org/t/p/w342${favorite.movie.poster_path}`} alt={favorite.movie.title} /></Link>
-            ) : (
-              <Link to={`/series/${favorite.favoriteditem}`}><img className='favoriteimg' src={`https://image.tmdb.org/t/p/w342${favorite.movie.poster_path}`} alt={favorite.movie.name} /></Link>
-            )}
-
-            {favorite.mediatype === 0 ? (
-              <Link className='favoritetitle' to={`/movie/${favorite.favoriteeditem}`}>{favorite.movie.title}</Link>
-            ) : (
-              <Link className='favoritetitle' to={`/series/${favorite.favoriteeditem}`}>{favorite.movie.name}</Link>
-            )}  
+           <div className="favorite-poster">
+           <img className='favoriteimg' src={`https://image.tmdb.org/t/p/w342${favorite.movie.poster_path}`} alt={favorite.movie.title} />
+           {isOwnProfile && (
+             <button className="favoriteDButton" onClick={() => DeleteFavorite(favorite.favoriteditem)}>X</button> 
+           )}
+         </div>
+       ) : (
+          <div className="favorite-poster">
+          <img className='favoriteimg' src={`https://image.tmdb.org/t/p/w342${favorite.movie.poster_path}`} alt={favorite.movie.name} />
             {isOwnProfile && (
-              <button onClick={() => DeleteFavorite(favorite.favoriteditem)}>Poista</button> 
-            )}
+            <button className="favoriteDButton" onClick={() => DeleteFavorite(favorite.favoriteditem)}>X</button> 
+         )}
+  </div>
+
+          )}
+            {favorite.mediatype === 0 ? (
+              <Link className='favoritetitle' to={`/movie/${favorite.favoriteditem}`}>{favorite.movie.title}</Link>
+            ) : (
+              <Link className='favoritetitle' to={`/series/${favorite.favoriteditem}`}>{favorite.movie.name}</Link>
+            )}  
           </li>
         ))}
-      </ul>
+     </ul>
     </>
   );
 }

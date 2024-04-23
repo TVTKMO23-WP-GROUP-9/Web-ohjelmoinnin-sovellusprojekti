@@ -62,15 +62,15 @@ async function getFavoritelistByGroup(req, res) {
         let favoritelistQuery;
         if (groupid) {
             favoritelistQuery = {
-                text: 'INSERT INTO favoritelist_ (groupid, favoriteditem, showtime, timestamp) VALUES ($1, $2, $3, $4)',
-                values: [groupid, favoriteditem, showtime, now],
+                text: 'INSERT INTO favoritelist_ (groupid, favoriteditem, timestamp, mediatype) VALUES ($1, $2, $3, $4)',
+                values: [groupid, favoriteditem, mediatype],
                 
             };
             
         } else if (profileid) {
             favoritelistQuery = {
-                text: 'INSERT INTO favoritelist_ (profileid, favoriteditem, showtime, timestamp) VALUES ($1, $2, $3, $4)',
-                values: [profileid, favoriteditem, showtime, now],
+                text: 'INSERT INTO favoritelist_ (profileid, favoriteditem, timestamp, mediatype) VALUES ($1, $2, $3, $4)',
+                values: [profileid, favoriteditem, mediatype],
             };
         } 
         await favoritelistModel.queryDatabase(favoritelistQuery);
