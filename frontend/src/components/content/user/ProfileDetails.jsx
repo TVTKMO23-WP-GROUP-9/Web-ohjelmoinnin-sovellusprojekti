@@ -5,15 +5,17 @@ import { useParams, Link } from 'react-router-dom';
 import { getHeaders } from '@auth/token';
 import GroupList from './GroupList';
 import ReviewList from './ReviewList';
-import ProfileEdit from './ProfileEdit';
+import ProfileEdit from './ProfileEdit'; 
+import FavoriteList from './FavoriteList';
+//Juurikansiossa npm install react-simple-timestamp-to-date
+import SimpleDateTime from 'react-simple-timestamp-to-date';
 const { VITE_APP_BACKEND_URL } = import.meta.env;
 
 
-const ProfileDetails = ({ user }) => {
+const ProfileDetails = ({ user, favorites}) => {
     const [profile, setProfile] = useState(null);
     const { profilename } = useParams();
-    const [lastLoggedIn, setLastLoggedIn] = useState(null);
-    const [editMode, setEditMode] = useState(false);
+    const [editMode, setEditMode] = useState(false); 
     const [isOwnProfile, setOwnProfile] = useState(false);
     const [isPrivate, setPrivate] = useState(false);
     const [loading, setLoading] = useState(true);
@@ -37,23 +39,14 @@ const ProfileDetails = ({ user }) => {
         fetchProfile();
     }, [profilename]);
 
-    useEffect(() => {
-        const simulateLogin = async () => {
-            const timestamp = new Date().toLocaleString();
-            setLastLoggedIn(timestamp);
-        };
-
-        simulateLogin();
-    }, [user]);
-
-    const formatDate = (timestamp) => {
-        const date = new Date(timestamp);
-        const day = date.getDate();
-        const month = date.getMonth() + 1;
-        const year = date.getFullYear();
-        return `${day}.${month}.${year}`;
+    const handleEditClick = () => {
+        setEditMode(true);
     };
 
+    const removeFavorite = (item) => {
+        const newFavorites = favorites.filter((favorite) => favorite.id !== item.id);
+        setFavorites(newFavorites);
+      };
     return (
         <div className="content">
             {loading ? (
@@ -62,15 +55,11 @@ const ProfileDetails = ({ user }) => {
                 <>
             <div className="inner-view">
                 <div className="inner-left">
-     
                         <img 
                             src={profile?.profilepicurl ? profile.profilepicurl : '/pic.png'} 
                             className="profilepic" 
                             alt="Käyttäjän kuva" 
                         />
-
-                    {(!isPrivate || isOwnProfile) && <span className='userinfo'>Viimeksi kirjautuneena: {formatDate(lastLoggedIn)}</span>}
-
                     {(isOwnProfile && !editMode) && <button onClick={() => setEditMode(true)} className="basicbutton">Muokkaa profiilia</button>}
                 </div>
 
@@ -92,9 +81,7 @@ const ProfileDetails = ({ user }) => {
                         <div className="profile-view">
                             <div className="profile-content">
                                 <h2>Suosikit &nbsp;<span className='emoji uni10'></span></h2>
-                                <ul>
-                                    <li><span className='userinfo'>Ei vielä suosikkeja</span></li>
-                                </ul>
+                                <FavoriteList profile={profile} />
                             </div>
                         </div>
 
@@ -111,7 +98,9 @@ const ProfileDetails = ({ user }) => {
 
                     <div className='reviews-view'>
                         <h2>Arvostelut  &nbsp;<span className='emoji uni08'></span></h2>
-                        <ReviewList user={user} profile={profile} />
+
+                      { <ReviewList profile={profile} /> }
+
                     </div>
 
                 </>
@@ -123,6 +112,32 @@ const ProfileDetails = ({ user }) => {
             
         </div>
     );
+    
 };
 
+// viimeksi kirjautunu
+const DatabaseDateTime = () => {
+    const [dateTimeFromDatabase, setDateTimeFromDatabase] = useState('');
+    const { profilename } = useParams();
+    useEffect(() => {
+        const fetchDateTimeFromDatabase = async () => {
+            try {
+                const response = await axios.get(`http://localhost:3001/profile/${profilename}`);
+                const data = response.data;
+                console.log("Tietokannasta saatu timestamp:", data); 
+                setDateTimeFromDatabase(data.timestamp);
+            } catch (error) {
+                console.error('Virhe haettaessa päivämäärää ja aikaa tietokannasta:', error);
+            }
+        };
+
+        fetchDateTimeFromDatabase();
+    }, []);
+
+    return (
+        <SimpleDateTime dateSeparator="-" timeSeparator=":">
+            {dateTimeFromDatabase}
+        </SimpleDateTime>
+    );
+};
 export default ProfileDetails;

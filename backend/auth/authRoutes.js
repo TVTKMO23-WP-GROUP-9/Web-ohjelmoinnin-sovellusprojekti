@@ -25,7 +25,7 @@ router.post('/auth/login', async (req, res) => {
         const profileid = await authService.getProfileIdByName(username);
         const usertype = await authService.getUserTypeByUsername(username);
         const token = jwt.sign({ username: username, profileid: profileid, usertype: usertype }, process.env.JWT_SECRET);
-        res.status(200).json({ jwtToken: token, usertype: usertype});
+        res.status(200).json({ jwtToken: token, usertype: usertype, profileid: profileid});
     } else {
         res.status(400).json({ message: result.message });
     }
