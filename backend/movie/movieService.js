@@ -66,7 +66,9 @@ async function searchMovies(req, res) {
     const { query, page, year, adult } = req.query;
     const apiKey = process.env.TMDB_API_KEY;
 
-    const url = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${query}&page=${page}&year=${year}&include_adult${adult}`;
+    const includeAdult = adult === 'true' ? '&include_adult=true' : '&include_adult=false';
+
+    const url = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${query}&page=${page}&year=${year}${includeAdult}`;
 
     try {
         const response = await axios.get(url);
@@ -111,7 +113,7 @@ async function discoverMovies(req, res) {
     console.log('language:', paramLanguage);
     console.log('genre:', genre);
 
-    const url = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=${genreId}&sort_by=${paramSort_by}&page=${paramPage}&primary_release_year=${paramYear}&language=${paramLanguage}&include_adult${adult}`;
+    const url = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=${genreId}&sort_by=${paramSort_by}&page=${paramPage}&primary_release_year=${paramYear}&language=${paramLanguage}&include_adult=${adult}`;
 
     try {
         const response = await axios.get(url);
