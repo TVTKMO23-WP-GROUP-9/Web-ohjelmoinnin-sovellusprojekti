@@ -16,6 +16,7 @@ const Movies = () => {
   const [showTitles, setShowTitles] = useState(false);
   const [showMovies, setShowMovies] = useState(true);
   const [showSeries, setShowSeries] = useState(false);
+  const [adult, setAdult] = useState(false);
 
   const [currentPage, setCurrentPage] = useState(0);
   const [pageSize, setPageSize] = useState([]); 
@@ -54,32 +55,34 @@ const Movies = () => {
 
   const searchMovies = async () => {
     try {
+      console.log(genre);
       let response;
       if (query !== '') {
         response = await axios.get(`${VITE_APP_BACKEND_URL}/movie/search`, {
-          params: { query, page: moviePage, year }
-        });
+        params: { query, genre, page: moviePage, year }
+      });
       } else {
         response = await axios.get(`${VITE_APP_BACKEND_URL}/movie/discover`, {
-          params: { genre, sort_by: 'popularity.desc', page: moviePage, year }
+        params: { genre, sort_by: 'popularity.desc', page: moviePage, year }
         });
       }
+      console.log(genre);
       setMovies(response.data);
     } catch (error) {
       console.error('Hakuvirhe elokuvissa:', error);
     }
   };
-
+  
   const searchSeries = async () => {
     try {
       let response;
       if (query !== '') {
         response = await axios.get(`${VITE_APP_BACKEND_URL}/series/search`, {
-          params: { query, page: seriesPage, year }
-        });
+        params: { query, genre, page: seriesPage, year }
+      });
       } else {
         response = await axios.get(`${VITE_APP_BACKEND_URL}/series/discover`, {
-          params: { genre, sort_by: 'popularity.desc', page: seriesPage, year }
+        params: { genre, sort_by: 'popularity.desc', page: seriesPage, year }
         });
       }
       setSeries(response.data);
@@ -107,12 +110,10 @@ const Movies = () => {
   };
 
   const handleInputChange = (event) => {
-    setGenre('');
     setQuery(event.target.value);
   };
 
   const handleGenreChange = (event) => {
-    setQuery('');
     setGenre(event.target.value);
   };
 

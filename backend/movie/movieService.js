@@ -63,9 +63,10 @@ function setUndefinedToEmptyStrings(param) {
 
 // Etsi elokuvia hakutermin perusteella
 async function searchMovies(req, res) {
-    const { query, page, year, language } = req.query;
+    const { query, page, year,  } = req.query;
     const apiKey = process.env.TMDB_API_KEY;
-    const url = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${query}&page=${page}&year=${year}&language=${language}`;
+
+    const url = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${query}&page=${page}&year=${year}`;
 
     try {
         const response = await axios.get(url);
