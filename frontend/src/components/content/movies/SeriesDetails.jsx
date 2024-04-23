@@ -15,7 +15,7 @@ const SeriesDetails = ({user}) => {
   const [series, setSeries] = useState(null);
   const [providers, setProviders] = useState(null);
   const [profileid, setProfileid] = useState();
-  const [isFavorite, setIsFavorite] = useState(false);
+  const [isFavorite, setIsFavorite] = useState();
   const headers = getHeaders();
   const { favoriteditem} = useParams();
 
@@ -83,28 +83,23 @@ const SeriesDetails = ({user}) => {
   useEffect(() => {
     const checkFavorite = async () => {
       try {
-
+        let isFavorite;
         if (profileid && series && typeof series.name === 'string') {
-          const response = await axios.get(`${VITE_APP_BACKEND_URL}/favoritelist/${profileid}?favoriteditem=${encodeURIComponent(series.name)}`);
-          isFavorite = response.data.favorites.length > 0;
+          console.log(`Profiililla ${profileid} on sarja ${series ? series.name : 'N/A'}`);
+          console.log(`isFavorite ennen axios = ${isFavorite}`)
+          const response = await axios.get(`${VITE_APP_BACKEND_URL}/favoritelist/${profileid}?favoriteditem=${series.name}`);
+          isFavorite = response.data.isFavorites.length > 0;
+          console.log(`isFavorite jälkeen axios= ${isFavorite}`)
         } else {
-          console.log('Profiililla tai sarjalla ei ole nimeä, tietokantakyselyä ei suoriteta.');
-        }
-        
-        console.log(`Profiililla ${profileid} on sarja ${series ? series.name : 'N/A'} suosikkilistalla: ${isFavorite}`);
-        
-        // Tässä on isFavorite-muuttuja käytettävissä
+          console.log('profileid tai series puuttuu');
+
+        } 
       } catch (error) {
-        console.error('Virhe tarkistaessa suosikkia:', error);
+        console.error('Virhe tarkistaessa checkfavorite:', error);
       }
     };
-  
     checkFavorite();
   }, [profileid, series]);
-  
-  
-  
-  
 
 const addToFavorites = async () => {
   try {
@@ -119,7 +114,7 @@ const addToFavorites = async () => {
       await axios.post(`${VITE_APP_BACKEND_URL}/favoritelist`, data);
 
       setIsFavorite(true); 
-      console.log('Suosikki poistettiin onnistuneesti');
+      console.log('Suosikki lisättiin onnistuneesti');
     } else {
       console.error('Sarjaa tai profiilia ei löydy');
     }
@@ -131,7 +126,7 @@ const addToFavorites = async () => {
 // Poistetaan suosikeista sarja
 async function deleteFromFavorites(profileid, favoriteditem) {
   try {
-    const response = await axios.delete(`${VITE_APP_BACKEND_URL}/favoritelist/${profileid}/${favoriteditem}`);
+    const response = await axios.delete(`${VITE_APP_BACKEND_URL}/favoritelist/${profileid}?favoriteditem=${series.name}`);
     console.log(response.data);
     setIsFavorite(false);
     console.log('Suosikki poistettiin onnistuneesti');

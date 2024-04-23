@@ -107,7 +107,7 @@ console.log("Favorited Item:", req.params.favoriteditem);
 }
 
 
-  /*  async function deleteFavoritelist(req, res) {
+    async function deleteFavoritelist(req, res) {
       const groupid = req.params.groupid;
       try {
         const query = {
@@ -121,17 +121,17 @@ console.log("Favorited Item:", req.params.favoriteditem);
         console.error('Virhe poistettaessa listaa:', error);
         res.status(500).send('Virhe poistettaessa listaa');
       }
-    }; */
+    }; 
 
     async function getFavorite(req, res) {
+      const profileid = req.params.profileid;
+      const favoriteditem = req.params.favoriteditem;
       try {
-        const profileid = req.params.profileid;
-        const favoriteditem = req.params.favoriteditem;
-    
-        let favoriteListQuery = 'SELECT * FROM favoritelist_WHERE profileid = $1 AND favoriteditem = $2;';
-        let favoriteListValues = [profileid, favoriteditem];
-    
-        const favoriteListResult = await favoritelistModel.queryDatabase(favoriteListQuery, favoriteListValues);
+      const query = {
+      text: `SELECT * FROM favoritelist_ WHERE profileid = $1 AND favoriteditem = $2;`,
+      values: [profileid, favoriteditem],
+      }
+        const favoriteListResult = await favoritelistModel.queryDatabase(query);
     
         res.status(200).json({ favorites: favoriteListResult });
       } catch (error) {
@@ -145,7 +145,7 @@ console.log("Favorited Item:", req.params.favoriteditem);
     getAllFavoritelist,
     createFavoritelist,
     deleteFavorite,
-   // deleteFavoritelist,
+    deleteFavoritelist,
     getFavoritelistByProfile,
     getFavoritelistByGroup,
     getFavorite,
