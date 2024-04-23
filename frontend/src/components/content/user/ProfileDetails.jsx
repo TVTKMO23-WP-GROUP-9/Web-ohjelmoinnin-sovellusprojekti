@@ -5,17 +5,15 @@ import { useParams, Link } from 'react-router-dom';
 import { getHeaders } from '@auth/token';
 import GroupList from './GroupList';
 import ReviewList from './ReviewList';
-import ProfileEdit from './ProfileEdit'; 
-import FavoriteList from './FavoriteList';
-//Juurikansiossa npm install react-simple-timestamp-to-date
-import SimpleDateTime from 'react-simple-timestamp-to-date';
+import ProfileEdit from './ProfileEdit';
 const { VITE_APP_BACKEND_URL } = import.meta.env;
 
 
-const ProfileDetails = ({ user, favorites}) => {
+const ProfileDetails = ({ user }) => {
     const [profile, setProfile] = useState(null);
     const { profilename } = useParams();
-    const [editMode, setEditMode] = useState(false); 
+    const [lastLoggedIn, setLastLoggedIn] = useState(null);
+    const [editMode, setEditMode] = useState(false);
     const [isOwnProfile, setOwnProfile] = useState(false);
     const [isPrivate, setPrivate] = useState(false);
     const [loading, setLoading] = useState(true);
@@ -40,14 +38,23 @@ const ProfileDetails = ({ user, favorites}) => {
         fetchProfile();
     }, [profilename]);
 
-    const handleEditClick = () => {
-        setEditMode(true);
+    useEffect(() => {
+        const simulateLogin = async () => {
+            const timestamp = new Date().toLocaleString();
+            setLastLoggedIn(timestamp);
+        };
+
+        simulateLogin();
+    }, [user]);
+
+    const formatDate = (timestamp) => {
+        const date = new Date(timestamp);
+        const day = date.getDate();
+        const month = date.getMonth() + 1;
+        const year = date.getFullYear();
+        return `${day}.${month}.${year}`;
     };
 
-    const removeFavorite = (item) => {
-        const newFavorites = favorites.filter((favorite) => favorite.id !== item.id);
-        setFavorites(newFavorites);
-      };
     return (
         <div className="content">
             {loading ? (
@@ -56,13 +63,14 @@ const ProfileDetails = ({ user, favorites}) => {
                 <>
             <div className="inner-view">
                 <div className="inner-left">
+     
                         <img 
                             src={profile?.profilepicurl ? profile.profilepicurl : '/pic.png'} 
                             className="profilepic" 
                             alt="Käyttäjän kuva" 
                         />
 
-                    {(!isPrivate || isOwnProfile) && <span className='userinfo'>Viimeksi muokattu: {formatDate(lastLoggedIn)}</span>}
+                    {(!isPrivate || isOwnProfile) && <span className='userinfo'>Viimeksi kirjautuneena: {formatDate(lastLoggedIn)}</span>}
 
                     {(isOwnProfile && !editMode) && <button onClick={() => setEditMode(true)} className="basicbutton">Muokkaa profiilia</button>}
                 </div>
@@ -85,7 +93,9 @@ const ProfileDetails = ({ user, favorites}) => {
                         <div className="profile-view">
                             <div className="profile-content">
                                 <h2>Suosikit &nbsp;<span className='emoji uni10'></span></h2>
-                                <FavoriteList profile={profile} />
+                                <ul>
+                                    <li><span className='userinfo'>Ei vielä suosikkeja</span></li>
+                                </ul>
                             </div>
                         </div>
 
@@ -102,9 +112,7 @@ const ProfileDetails = ({ user, favorites}) => {
 
                     <div className='reviews-view'>
                         <h2>Arvostelut  &nbsp;<span className='emoji uni08'></span></h2>
-
-                      { <ReviewList profile={profile} /> }
-
+                        <ReviewList user={user} profile={profile} />
                     </div>
 
                 </>
@@ -116,32 +124,6 @@ const ProfileDetails = ({ user, favorites}) => {
             
         </div>
     );
-    
 };
 
-// viimeksi kirjautunu
-const DatabaseDateTime = () => {
-    const [dateTimeFromDatabase, setDateTimeFromDatabase] = useState('');
-    const { profilename } = useParams();
-    useEffect(() => {
-        const fetchDateTimeFromDatabase = async () => {
-            try {
-                const response = await axios.get(`http://localhost:3001/profile/${profilename}`);
-                const data = response.data;
-                console.log("Tietokannasta saatu timestamp:", data); 
-                setDateTimeFromDatabase(data.timestamp);
-            } catch (error) {
-                console.error('Virhe haettaessa päivämäärää ja aikaa tietokannasta:', error);
-            }
-        };
-
-        fetchDateTimeFromDatabase();
-    }, []);
-
-    return (
-        <SimpleDateTime dateSeparator="-" timeSeparator=":">
-            {dateTimeFromDatabase}
-        </SimpleDateTime>
-    );
-};
 export default ProfileDetails;
