@@ -39,7 +39,7 @@ const SeriesDetails = (user) => {
           console.log("Käyttäjän id:", response.data.profileid);
           console.log("sivun listatuotteen id:", id);
 
-          const FLresponse = await axios.get(`${VITE_APP_BACKEND_URL}/favoritelist/${response.data.profileid}/${id}`);
+          const FLresponse = await axios.get(`${VITE_APP_BACKEND_URL}/favoritelist/${response.data.profileid}/${id}/1`);
 
          /* console.log(FLresponse.data)
           if (FLresponse.data.hasOwnProperty('favoriteditem') && FLresponse.data.favoriteditem === 1) {
