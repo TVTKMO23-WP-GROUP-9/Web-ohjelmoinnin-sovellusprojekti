@@ -15,6 +15,7 @@ const MovieDetails = (user) => {
       try {
         const response = await axios.get(`${VITE_APP_BACKEND_URL}/movie/${id}`);
         setMovie(response.data);
+        console.log(response.data.adult)
       } catch (error) {
         console.error('Hakuvirhe:', error);
       }
@@ -103,7 +104,7 @@ const MovieDetails = (user) => {
               <br/>
               <h2>Viimeisimmät arvostelut</h2>
 
-              <div className="reviewslisted"><Reviews movieId={id} mediatype={0}/></div>
+              <div className="reviewslisted"><Reviews movieId={id} mediatype={0} adult={movie.adult}/></div>
             </div>
 
           </>
