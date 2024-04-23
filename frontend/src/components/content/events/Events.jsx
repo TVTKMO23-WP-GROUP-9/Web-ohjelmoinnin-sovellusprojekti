@@ -31,7 +31,7 @@ const Events = () => {
     const hours = startDateTime.getHours() < 10 ? `0${startDateTime.getHours()}` : startDateTime.getHours();
     const minutes = startDateTime.getMinutes() < 10 ? `0${startDateTime.getMinutes()}` : startDateTime.getMinutes();
 
-    const formattedStartTime = `klo ${hours}:${minutes}`;
+    const formattedStartTime = `${hours}:${minutes}`;
     const showDate = `${day}.${month}.${year}`;
 
     return {
@@ -123,30 +123,49 @@ const Events = () => {
         <button className='basicbutton' onClick={tyhjennaHaku}>Tyhjennä lista</button>
       </div>
       <div className="form-view">
-        <h2>Hakutulokset:</h2>
-        <hr />
 
-        {error && <p className="error">{error}</p>}
-        {formattedShowtimes.map(show => (
-          <div key={show.id}>
-            <div className="show">
-              <div className='showPortrait'>
-                <img src={show.eventPortrait} alt={show.title} />
-              </div>
-              <div className='showLeft'>
-                <b>{show.date} {show.start_time}</b>
-                <a href={show.showUrl} target="_blank" rel="noreferrer"><h2>{show.title}</h2></a>
-                <p>{show.auditorium}, {show.theatre}</p>
-              </div>
-              <div className='showRight'>
-                <p>{show.spokenLanguage}</p>
-                <p>Näytös päättyy noin klo {show.end_time}</p>
-                <img src={show.ratingImageUrl} alt={show.title} />
-              </div>
+          <div className="showtimes">
+          <h2>Hakutulokset:</h2>
+          <hr />
+
+          {error && <p className="error">{error}</p>}
+          {formattedShowtimes.map(show => (
+            <div key={show.id}>
+              
+              <table className="showTable">
+              <tbody>
+                <tr>
+                  <td className='portraitTd'>
+                    <div className='showPortrait'>
+                      <img className='reviewimg' src={show.eventPortrait} alt={show.title} />
+                    </div>
+                  </td>
+
+                  <td className="showContentCellLeft">
+                    <span className='eventTitle2'><a href={show.showUrl} target="_blank" rel="noreferrer">{show.title}</a></span>
+                    <br/><span className='eventInfo2'><b>{show.date}</b> &nbsp;klo <b>{show.start_time}</b></span>
+                    <br/><span className='eventInfo2'>{show.auditorium}, {show.theatre}</span>
+                    
+                  </td>
+
+                  <td className="showContentCellRight">                    
+                    <span className='eventInfo'>Näytös alkaa ja päättyy</span> <br/>
+                    <span className='eventInfo'>{show.start_time} - {show.end_time}</span> <br/>
+                    <div className='showRight-inside'>
+                      <img src={show.ratingImageUrl} alt={show.title} />&nbsp;&nbsp;<span className='userinfo'>{show.spokenLanguage}</span>
+                    </div>
+                  </td>
+
+                </tr>
+
+              </tbody>
+            </table>
+
+            <hr/>
+              
             </div>
-            <hr />
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
 
