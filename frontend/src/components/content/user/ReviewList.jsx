@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import './user.css';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { getHeaders } from '@auth/token';
 const { VITE_APP_BACKEND_URL } = import.meta.env;
+
 
 
 const ReviewList = ({ user, profile }) => {
@@ -18,36 +20,7 @@ const ReviewList = ({ user, profile }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [adult, setAdult] = useState(false);
   const isOwnProfile = profile && profile.isOwnProfile;
-
-  useEffect(() => {
-    const fetchProfile = async () => {
-        try {
-            const token = sessionStorage.getItem('token');
-            const headers = {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json'
-            };
-            console.log("Token from sessionStorage:", token);
-            console.log("Profilename from token:", user);
-            const response = await axios.get(`${VITE_APP_BACKEND_URL}/profile/${user.user}`);
-
-            console.log("Token from sessionStorage:", token);
-            console.log("Profilename from token:", user);
-            console.log("Response from adult:", response.data.adult);
-
-            setAdult(response.data.adult);
-            console.log("mitä haku luulee adult olevan: ",adult)
-
-            console.log("Response from status:", response.data);
-
-
-        } catch (error) {
-            console.error('Virhe haettaessa profiilitietoja:', error);
-        }
-    };
-
-    fetchProfile();
-  }, [user]);
+  const headers = getHeaders();
 
   const fetchReviews = async () => {
     try {
@@ -92,16 +65,6 @@ const ReviewList = ({ user, profile }) => {
     fetchReviews();
   }, [profile]);
 
-  {/*const handleDeleteReview = async (idreview) => {
-      try {
-        const response = await axios.delete(`${VITE_APP_BACKEND_URL}/review/${idreview}`);
-        console.log(response.data);
-        setReviews(reviews.filter(review => review.idreview !== idreview));
-      } catch (error) {
-        console.error('Poistovirhe:', error);
-      }
-    };*/}
-
   const handleConfirmDelete = async (idreview) => {
     try {
       const response = await axios.delete(`${VITE_APP_BACKEND_URL}/review/${idreview}`);
@@ -119,7 +82,7 @@ const ReviewList = ({ user, profile }) => {
 
   const handleUpdateReview = async (idreview) => {
     try {
-      const response = await axios.put(`${VITE_APP_BACKEND_URL}/reviews/update/${idreview}`, updatedReview);
+      const response = await axios.put(`${VITE_APP_BACKEND_URL}/reviews/update/${idreview}`, updatedReview, { headers });
       setEditReviewId(null);
       fetchReviews();
     } catch (error) {
