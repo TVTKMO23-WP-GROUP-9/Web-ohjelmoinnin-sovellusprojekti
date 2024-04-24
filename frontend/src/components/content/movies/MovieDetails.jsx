@@ -3,18 +3,70 @@ import axios from 'axios';
 import { useParams, Link } from 'react-router-dom';
 const { VITE_APP_BACKEND_URL } = import.meta.env;
 import ReviewForm from './ReviewForm';
+import { FaHeart, FaRegHeart } from 'react-icons/fa';
+import './movies.css';
 import Reviews from './Reviews';
+import { getHeaders } from '@auth/token';
 
 const MovieDetails = (user) => {
   const { id } = useParams();
   const [movie, setMovie] = useState(null);
   const [providers, setProviders] = useState(null);
+  const [isFavorite, setIsFavorite] = useState(false); 
+  const [profileId, setProfileId] = useState(false); 
+  const { favoriteditem } = useParams();
+  const headers = getHeaders();
 
   useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+          const token = sessionStorage.getItem('token');
+          const headers = {
+              'Authorization': `Bearer ${token}`,
+              'Content-Type': 'application/json'
+          };
+          console.log("Token from sessionStorage:", token);
+          console.log("Profilename from token:", user.user.user);
+          const response = await axios.get(`${VITE_APP_BACKEND_URL}/profile/${user.user.user}`);
+
+          console.log("Käyttäjän id:", response.data.profileid);
+          
+          setProfileId(response.data.profileid);
+
+          console.log("Käyttäjän id:", response.data.profileid);
+          console.log("sivun listatuotteen id:", id);
+
+          const FLresponse = await axios.get(`${VITE_APP_BACKEND_URL}/favoritelist/${response.data.profileid}/${id}/0`);
+
+         /* console.log(FLresponse.data)
+          if (FLresponse.data.hasOwnProperty('favoriteditem') && FLresponse.data.favoriteditem === 1) {
+          setIsFavorite(true);
+          } */
+          
+          console.log("asdasdas", FLresponse.data.favorites)
+
+          const isitFavorite = FLresponse.data.favorites.find(item => item.favoriteditem === id);
+
+          if (isitFavorite) {
+            setIsFavorite(true);
+          } else {
+            setIsFavorite(false);
+          }
+          
+
+          console.log("Response from profile:", response.data);
+      } catch (error) {
+          console.error('Virhe haettaessa profiilitietoja:', error);
+      }
+  };
+
+  fetchProfile();
+
     const fetchMovie = async () => {
       try {
         const response = await axios.get(`${VITE_APP_BACKEND_URL}/movie/${id}`);
         setMovie(response.data);
+        console.log(response.data.adult)
       } catch (error) {
         console.error('Hakuvirhe:', error);
       }
@@ -37,8 +89,33 @@ const MovieDetails = (user) => {
 
     // Palautetaan poisto-funktio, joka suoritetaan komponentin purkamisen yhteydessä
     return () => clearTimeout(timeoutId);
-  }, [id]);
+  }, [id, user]);
 
+  const handleFavoriteAction = async () => {
+    try {
+        if (profileId&& id) {
+            if (isFavorite) {
+                await axios.delete(`${VITE_APP_BACKEND_URL}/favorite/${profileId}/${id}`, { headers });
+                setIsFavorite(false);
+                console.log('Suosikki poistettiin onnistuneesti');
+            } else {
+                const data = {
+                    favoriteditem: id,
+                    groupid: null,
+                    profileid: profileId,
+                    mediatype: 0
+                };
+                await axios.post(`${VITE_APP_BACKEND_URL}/favoritelist`, data, { headers });
+                setIsFavorite(true);
+                console.log('Suosikki lisättiin onnistuneesti');
+            }
+        } else {
+            console.error('Profiili-id tai sarjan id puuttuu');
+        }
+    } catch (error) {
+        console.error('Virhe suosikin käsittelyssä:', error);
+    }
+  };
 
   return (
 
@@ -51,7 +128,11 @@ const MovieDetails = (user) => {
 
             <div className="moviemain">
               <img className="posterimg" src={`https://image.tmdb.org/t/p/w342${movie.poster_path}`} alt={movie.title} />
-
+              <div style={{ position: 'relative' }}>
+              <button className="favorite-button" onClick={handleFavoriteAction}>
+                {isFavorite ? <FaHeart className="favorite-icon" size={34} /> : <FaRegHeart size={34} />}
+              </button>
+              </div>
               <div className="movieinfo">
               {movie && (
 
@@ -103,7 +184,7 @@ const MovieDetails = (user) => {
               <br/>
               <h2>Viimeisimmät arvostelut</h2>
 
-              <div className="reviewslisted"><Reviews movieId={id} mediatype={0}/></div>
+              <div className="reviewslisted"><Reviews movieId={id} mediatype={0} adult={movie.adult}/></div>
             </div>
 
           </>

@@ -61,16 +61,18 @@ CREATE TABLE IF NOT EXISTS Message_
 );
 
 -- Suosikkilistaukset
-CREATE TABLE IF NOT EXISTS Favoritelist_
-(
+CREATE TABLE IF NOT EXISTS Favoritelist_ (
     idfavoritelist SERIAL PRIMARY KEY,
     profileid INTEGER,
     groupid INTEGER,
     favoriteditem VARCHAR(40),
     mediatype SMALLINT,
+    userfavorites INTEGER DEFAULT 1,
     timestamp TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (profileid) REFERENCES Profile_(profileid) ON DELETE CASCADE,
-    FOREIGN KEY (groupid) REFERENCES Group_(groupid) ON DELETE CASCADE
+    FOREIGN KEY (groupid) REFERENCES Group_(groupid) ON DELETE CASCADE,
+    CONSTRAINT unique_fav_group UNIQUE (groupid, favoriteditem, mediatype),
+    CONSTRAINT unique_fav_profile UNIQUE (profileid, mediatype, favoriteditem)
 );
 
 -- Arvostelut
@@ -82,6 +84,7 @@ CREATE TABLE IF NOT EXISTS Review_ (
     rating SMALLINT NOT NULL,
     timestamp TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     mediatype SMALLINT,
+    adult BOOLEAN DEFAULT FALSE,
     FOREIGN KEY (profileid) REFERENCES Profile_(profileid) ON DELETE CASCADE,
     CONSTRAINT unique_review UNIQUE NULLS DISTINCT (profileid, revieweditem, mediatype),
     CONSTRAINT check_rating_range CHECK (rating >= 1 AND rating <= 5)
@@ -104,3 +107,10 @@ ADD COLUMN last_modified TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP;
 
 ALTER TABLE Memberlist_
 ADD COLUMN join_timestamp TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP;
+
+ALTER TABLE Favoritelist_
+CONSTRAINT unique_fav_profile UNIQUE NULLS DISTINCT (profileid, favoriteditem, mediatype),
+CONSTRAINT unique_fav_group UNIQUE NULLS DISTINCT (groupid, favoriteditem, mediatype)
+
+
+

@@ -31,6 +31,7 @@ const ProfileDetails = ({ user }) => {
                 setOwnProfile(response.data.isOwnProfile);
                 setPrivate(response.data.is_private);
                 setLoading(false);
+                setLastLoggedIn(response.data.timestamp);
 
             } catch (error) {
                 console.error('Virhe haettaessa profiilitietoja:', error);
@@ -105,7 +106,7 @@ const ProfileDetails = ({ user }) => {
 
                     <div className='reviews-view'>
                         <h2>Arvostelut  &nbsp;<span className='emoji uni08'></span></h2>
-                        {/*<ReviewList profile={profile} /> */}
+                        <ReviewList user={user} profile={profile} />
                     </div>
 
                 </>

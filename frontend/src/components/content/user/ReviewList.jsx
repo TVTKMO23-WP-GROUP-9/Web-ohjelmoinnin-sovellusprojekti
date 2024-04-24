@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 const { VITE_APP_BACKEND_URL } = import.meta.env;
 
 
-const ReviewList = ({ profile }) => {
+const ReviewList = ({ user, profile }) => {
 
   const [reviews, setReviews] = useState([]);
   const [editReviewId, setEditReviewId] = useState(null);
@@ -16,8 +16,38 @@ const ReviewList = ({ profile }) => {
   const [reviewsPerPage, setReviewsPerPage] = useState(4);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState('');
+  const [adult, setAdult] = useState(false);
   const isOwnProfile = profile && profile.isOwnProfile;
 
+  useEffect(() => {
+    const fetchProfile = async () => {
+        try {
+            const token = sessionStorage.getItem('token');
+            const headers = {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            };
+            console.log("Token from sessionStorage:", token);
+            console.log("Profilename from token:", user);
+            const response = await axios.get(`${VITE_APP_BACKEND_URL}/profile/${user.user}`);
+
+            console.log("Token from sessionStorage:", token);
+            console.log("Profilename from token:", user);
+            console.log("Response from adult:", response.data.adult);
+
+            setAdult(response.data.adult);
+            console.log("mitä haku luulee adult olevan: ",adult)
+
+            console.log("Response from status:", response.data);
+
+
+        } catch (error) {
+            console.error('Virhe haettaessa profiilitietoja:', error);
+        }
+    };
+
+    fetchProfile();
+  }, [user]);
 
   const fetchReviews = async () => {
     try {
@@ -157,7 +187,9 @@ const ReviewList = ({ profile }) => {
 
         <hr />
 
-        {currentReviews.map((review, index) => (
+        {currentReviews
+        .filter(review => review.adult === false || adult === true)
+        .map((review, index) => (
           <li className='minheight' key={index}>
             {review.mediatype === 0 ? (
             <Link to={`/movie/${review.revieweditem}`}><img className='reviewimg' src={`https://image.tmdb.org/t/p/w342${review.movie.poster_path}`} alt={review.movie.title} /></Link>

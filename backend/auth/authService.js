@@ -58,10 +58,10 @@ async function getUserTypeByUsername(username) {
     }
 }
 
-async function getProfileIdByName(profilename) {
+async function getProfileIdByName(username) {
     try {
-        const result = await authModel.getProfileIdByName(profilename);
-        return result.profileid;
+        const user = await authModel.getProfileIdByName(username);
+        return user.profileid;
     } catch (error) {
         console.error('Virhe profiilin id:n haussa:', error);
         return { success: false, message: 'Profiilin id:n haku epäonnistui', error };
