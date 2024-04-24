@@ -27,25 +27,16 @@ const Forum = ({ id, user }) => {
             };
             
             const response = await axios.get(`${VITE_APP_BACKEND_URL}/profile/${user.user}`);
-
-            console.log("Token from sessionStorage:", token);
-            console.log("Profilename from token:", user);
-            console.log("Response from profile:", response.data);
-
             setProfileid(response.data.profileid);
             
             const groupResponse = await axios.get(`${VITE_APP_BACKEND_URL}/memberstatus/${response.data.profileid}/${id}`);
-            
-            console.log("Response from status:", groupResponse.data);
 
             if (groupResponse.data.hasOwnProperty('pending') && groupResponse.data.pending === 0) {
               setIsMember(true);
             }
-            console.log("Response from setMember:", groupResponse.pending);
             if (groupResponse.data.hasOwnProperty('mainuser') && groupResponse.data.mainuser === 1) {
               setMainuser(true);
             }
-            console.log("Response from profile:", groupResponse.data);
         } catch (error) {
             console.error('Virhe haettaessa profiilitietoja:', error);
         }
@@ -118,7 +109,6 @@ useEffect(() => {
 
   const handleNewMessageSubmit = async (event) => {
     event.preventDefault();
-    console.log(profileId); // Tarkista, että profileId on saatavilla
   
     try {
       const token = sessionStorage.getItem('token');
@@ -128,12 +118,11 @@ useEffect(() => {
       };
       
       const response = await axios.post(`${VITE_APP_BACKEND_URL}/messages`, {
-        profileid: profileId, // Käytä profileId:tä tässä
+        profileid: profileId,
         groupid: id,
         message: newMessage
       }, { headers });
-      
-      console.log(response.data);
+    
       setNewMessage('');
       fetchMessages();
       setCurrentPage(1);
@@ -158,7 +147,6 @@ useEffect(() => {
   const indexOfLastMessage = currentPage * messagesPerPage;
   const indexOfFirstMessage = indexOfLastMessage - messagesPerPage;
   const currentMessages = filteredMessages.slice(indexOfFirstMessage, indexOfLastMessage);
-
 
   return (
     <>
@@ -201,7 +189,6 @@ useEffect(() => {
           })} &nbsp;<b><Link to={`/profile/${message.name.profilename}`}>{message.name.profilename}</Link> :</b>
           &nbsp;&nbsp;{message.message} 
           {(isMainuser && editMode) && <button className='remove' onClick={() => handleRemoveMessage(message.messageid)}>&nbsp;<span className='emoji'>&times;</span></button>}
-         
           </span>
         ))}
       </div>

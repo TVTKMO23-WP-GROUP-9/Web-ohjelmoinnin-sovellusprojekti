@@ -21,19 +21,10 @@ const ReviewList = ({ id, user }) => {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
             };
-            console.log("Token from sessionStorage:", token);
-            console.log("Profilename from token:", user);
+
             const profresponse = await axios.get(`${VITE_APP_BACKEND_URL}/profile/${user.user}`);
 
-            console.log("Token from sessionStorage:", token);
-            console.log("Profilename from token:", user);
-            console.log("Response from adult:", profresponse.data.adult);
-
             setAdult(profresponse.data.adult);
-            console.log("mitä haku luulee adult olevan: ",adult)
-
-            console.log("Response from status:", profresponse.data);
-
 
         } catch (error) {
             console.error('Virhe haettaessa profiilitietoja:', error);
@@ -105,7 +96,6 @@ const ReviewList = ({ id, user }) => {
       console.error('Hakuvirhe:', error);
     }
   };
-
 
   useEffect(() => {
     fetchReviews();

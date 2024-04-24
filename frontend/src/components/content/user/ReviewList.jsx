@@ -5,8 +5,6 @@ import { Link } from 'react-router-dom';
 import { getHeaders } from '@auth/token';
 const { VITE_APP_BACKEND_URL } = import.meta.env;
 
-
-
 const ReviewList = ({ user, profile }) => {
 
   const [reviews, setReviews] = useState([]);
@@ -21,6 +19,27 @@ const ReviewList = ({ user, profile }) => {
   const [adult, setAdult] = useState(false);
   const isOwnProfile = profile && profile.isOwnProfile;
   const headers = getHeaders();
+
+  
+  useEffect(() => {
+    const fetchProfile = async () => {
+        try {
+            const token = sessionStorage.getItem('token');
+            const headers = {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            };
+            const response = await axios.get(`${VITE_APP_BACKEND_URL}/profile/${user.user}`);
+
+            setAdult(response.data.adult);
+
+        } catch (error) {
+            console.error('Virhe haettaessa profiilitietoja:', error);
+        }
+    };
+
+    fetchProfile();
+  }, [user]);
 
   const fetchReviews = async () => {
     try {
@@ -68,7 +87,6 @@ const ReviewList = ({ user, profile }) => {
   const handleConfirmDelete = async (idreview) => {
     try {
       const response = await axios.delete(`${VITE_APP_BACKEND_URL}/review/${idreview}`);
-      console.log(response.data);
       setReviews(reviews.filter(review => review.idreview !== idreview));
       setConfirmDeleteId(null);
     } catch (error) {
@@ -206,7 +224,6 @@ const ReviewList = ({ user, profile }) => {
           </li>
         ))}
       </ul>
-
     </>
   );
 }

@@ -32,7 +32,6 @@ const ProfileDetails = ({ user }) => {
             };
             
             fetchProfile();
-
             setLoading(false);
         
     }, [profilename]);
@@ -88,21 +87,15 @@ const ProfileDetails = ({ user }) => {
 
                     </div>
 
-
                     <div className='reviews-view'>
                         <h2>Arvostelut  &nbsp;<span className='emoji uni08'></span></h2>
                         <ReviewList user={user} profile={profile} /> 
                     </div>
-
                 </>
                 )}
-
                 </>
-
             )}
-            
         </div>
-        
     );
 };
 

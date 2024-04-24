@@ -5,11 +5,8 @@
   align-items: center;
   margin-top: 0vmin;
   margin-bottom: 1vmin;
-  /*margin-left: 2vmin;
-  margin-right: 2vmin;*/
   font-family: sans-serif;
   overflow: hidden;
-  /*transform: skew(5deg);*/
 }
 
 .event-item {
@@ -18,13 +15,16 @@
   height: 40vmin;
   position: relative;
 }
+
 .arrow {
   height: 40vmin;
 }
+
 .arrow img{
   height: 100%;
   width: auto;
 }
+
 .event-item img {
   width: 100%; 
   height: 100%; 
@@ -52,9 +52,11 @@
 .event-item:hover {
   flex-grow: 3;
 }
+
 .event-item:hover img {
   filter: grayscale(0);
 }
+
 .event-item:hover .head {
   text-align: center;
   top: calc(100%-2em);
@@ -104,7 +106,7 @@
   margin-top: 15px;
   padding: 20px;
   margin-right: 5px;
-  display: flex; /* Aseta elementin sisällön alkamaan yläreunasta */
+  display: flex; 
   flex-direction: column;
 }
 

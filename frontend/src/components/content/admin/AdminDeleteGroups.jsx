@@ -13,7 +13,6 @@ const AdminDeleteGroups = ({ id, handleDelete }) => {
   const handleDeleteGroup = async () => {
     try {
         const response = await axios.delete(`${VITE_APP_BACKEND_URL}/group/${id}`, { headers });
-        console.log(response.data);
         handleDelete(id);
         setConfirmDeleteGroupId(null);
     } catch (error) {

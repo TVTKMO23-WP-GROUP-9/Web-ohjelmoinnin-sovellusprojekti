@@ -12,7 +12,6 @@ const AdminDeleteReview = ({ id, handleDelete }) => {
   const handleDeleteReview = async () => {
     try {
         const response = await axios.delete(`${VITE_APP_BACKEND_URL}/admin/deletereview/${id}`, { headers });
-        console.log(response.data);
         handleDelete(id);
         setConfirmDeleteId(null);
     } catch (error) {

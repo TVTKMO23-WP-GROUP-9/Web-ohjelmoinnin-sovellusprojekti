@@ -35,12 +35,9 @@ export default function Login({ setUser, window, fullpage }) {
         jwtToken.value = response.data.jwtToken;
         usertype.value = response.data.usertype;
         const profileid = response.data.profileid;
-        console.log('userType:', usertype.value);
-        console.log('profileid:', profileid);
         setUser({ user: username, usertype: usertype.value, profileid: profileid });
         navigate('/myaccount');
         setMessageLogin('');
-        //setShowLogin(!showLogin);
       }
     } catch (error) {
       console.error('Kirjautumisvirhe:', error);

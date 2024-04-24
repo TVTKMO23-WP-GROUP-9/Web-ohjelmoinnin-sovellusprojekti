@@ -1,9 +1,6 @@
 import React from 'react';
 
-
-
 const Dates = ({ onSelectDate }) => {
-
 
   return (
     <div>

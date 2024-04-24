@@ -11,8 +11,6 @@ const AdminPage = ({ user }) => {
     const [reviewSearchTerm, setReviewSearchTerm] = useState('');
 
     const headers = getHeaders();
-
-    console.log(user);
   
 return (
     <div className="content">

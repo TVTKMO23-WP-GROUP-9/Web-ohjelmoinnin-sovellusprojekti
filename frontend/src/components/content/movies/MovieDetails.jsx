@@ -16,60 +16,42 @@ const MovieDetails = (user) => {
   const [profileId, setProfileId] = useState(false); 
   const { favoriteditem } = useParams();
   const headers = getHeaders();
-
+ 
   useEffect(() => {
     const fetchProfile = async () => {
       try {
           const token = sessionStorage.getItem('token');
-          
           const headers = {
               'Authorization': `Bearer ${token}`,
               'Content-Type': 'application/json'
           };
-          console.log("Token from sessionStorage:", token);
-          console.log("Profilename from token:", user.user.user);
+
+          const response = await axios.get(`${VITE_APP_BACKEND_URL}/profile/${user.user.user}`);
           
-            const response = await axios.get(`${VITE_APP_BACKEND_URL}/profile/${user.user.user}`);
+          setProfileId(response.data.profileid);
 
-            console.log("Käyttäjän id:", response.data.profileid);
-          
-            setProfileId(response.data.profileid);
+          const FLresponse = await axios.get(`${VITE_APP_BACKEND_URL}/favoritelist/${response.data.profileid}/${id}/0`);
 
-            console.log("Käyttäjän id:", response.data.profileid);
-            console.log("sivun listatuotteen id:", id);
-
-            const FLresponse = await axios.get(`${VITE_APP_BACKEND_URL}/favoritelist/${response.data.profileid}/${id}/0`);
-
-         /* console.log(FLresponse.data)
-          if (FLresponse.data.hasOwnProperty('favoriteditem') && FLresponse.data.favoriteditem === 1) {
-          setIsFavorite(true);
-          } */
-          
-            console.log("asdasdas", FLresponse.data.favorites)
-
-            const isitFavorite = FLresponse.data.favorites.find(item => item.favoriteditem === id);
+          const isitFavorite = FLresponse.data.favorites.find(item => item.favoriteditem === id);
 
           if (isitFavorite) {
             setIsFavorite(true);
           } else {
             setIsFavorite(false);
           }
-                 
           
-          console.log("Response from profile:", response.data);
       } catch (error) {
           console.error('Virhe haettaessa profiilitietoja:', error);
       }
-    
   };
-
+    
+    
   fetchProfile();
 
     const fetchMovie = async () => {
       try {
         const response = await axios.get(`${VITE_APP_BACKEND_URL}/movie/${id}`);
         setMovie(response.data);
-        console.log(response.data)
       } catch (error) {
         console.error('Hakuvirhe:', error);
       }
@@ -100,7 +82,6 @@ const MovieDetails = (user) => {
             if (isFavorite) {
                 await axios.delete(`${VITE_APP_BACKEND_URL}/favorite/${profileId}/${id}`, { headers });
                 setIsFavorite(false);
-                console.log('Suosikki poistettiin onnistuneesti');
             } else {
                 const data = {
                     favoriteditem: id,
@@ -110,7 +91,6 @@ const MovieDetails = (user) => {
                 };
                 await axios.post(`${VITE_APP_BACKEND_URL}/favoritelist`, data, { headers });
                 setIsFavorite(true);
-                console.log('Suosikki lisättiin onnistuneesti');
             }
         } else {
             console.error('Profiili-id tai sarjan id puuttuu');
@@ -120,9 +100,7 @@ const MovieDetails = (user) => {
     }
   };
 
-
   return (
-
     <>
     <div id="backdrop" style={movie && { backgroundImage: `url(https://image.tmdb.org/t/p/original${movie.backdrop_path})`, backgroundSize: 'cover' }}>
       <div className="content">
@@ -183,8 +161,6 @@ const MovieDetails = (user) => {
               </div>
             </div>
 
-            
-            
             <div className="moviereviews">
               {profileId &&
               <div><ReviewForm movieId={id} user={user} /></div>
@@ -195,7 +171,6 @@ const MovieDetails = (user) => {
 
               <div className="reviewslisted"><Reviews movieId={id} mediatype={0} adult={movie.adult}/></div>
             </div>
-
           </>
           
         )}

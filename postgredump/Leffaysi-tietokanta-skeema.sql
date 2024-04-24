@@ -31,8 +31,9 @@ CREATE TABLE IF NOT EXISTS Group_
     groupid SERIAL PRIMARY KEY,
     groupname VARCHAR(255) UNIQUE NOT NULL,
     groupexplanation VARCHAR(1000),
-    timestamp TIMESTAMP WITHOUT TIME ZONE NOT NULL,
-    grouppicurl TEXT
+    grouppicurl TEXT,
+    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    last_modified TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Ryhmien jäsenet ja omistajat
@@ -45,7 +46,8 @@ CREATE TABLE IF NOT EXISTS Memberlist_
     pending INTEGER NOT NULL DEFAULT 0,
     FOREIGN KEY (profileid) REFERENCES Profile_(profileid) ON DELETE CASCADE,
     FOREIGN KEY (groupid) REFERENCES Group_(groupid) ON DELETE CASCADE,
-    CONSTRAINT unique_userInGroup UNIQUE (profileid, groupid)
+    CONSTRAINT unique_userInGroup UNIQUE (profileid, groupid),
+    join_timestamp TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Viestit (ryhmäkohtaiset)
@@ -68,6 +70,7 @@ CREATE TABLE IF NOT EXISTS Favoritelist_ (
     favoriteditem VARCHAR(40),
     mediatype SMALLINT,
     userfavorites INTEGER DEFAULT 1,
+    adult BOOLEAN DEFAULT FALSE,
     timestamp TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (profileid) REFERENCES Profile_(profileid) ON DELETE CASCADE,
     FOREIGN KEY (groupid) REFERENCES Group_(groupid) ON DELETE CASCADE,
@@ -101,16 +104,13 @@ ALTER SEQUENCE public.message__messageid_seq RESTART WITH 1;
 --DROP CONSTRAINT unique_review,
 --ADD CONSTRAINT unique_review UNIQUE NULLS DISTINCT (profileid, revieweditem, mediatype);
 
-ALTER TABLE Group_ 
-ALTER COLUMN timestamp SET DEFAULT CURRENT_TIMESTAMP,
-ADD COLUMN last_modified TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP;
+--ALTER TABLE Group_ 
+--ALTER COLUMN timestamp SET DEFAULT CURRENT_TIMESTAMP,
+--ADD COLUMN last_modified TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP;
 
-ALTER TABLE Memberlist_
-ADD COLUMN join_timestamp TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP;
+--ALTER TABLE Memberlist_
+--ADD COLUMN join_timestamp TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP;
 
-ALTER TABLE Favoritelist_
-CONSTRAINT unique_fav_profile UNIQUE NULLS DISTINCT (profileid, favoriteditem, mediatype),
-CONSTRAINT unique_fav_group UNIQUE NULLS DISTINCT (groupid, favoriteditem, mediatype)
-
-
-
+--ALTER TABLE Favoritelist_
+--CONSTRAINT unique_fav_profile UNIQUE NULLS DISTINCT (profileid, favoriteditem, mediatype),
+--CONSTRAINT unique_fav_group UNIQUE NULLS DISTINCT (groupid, favoriteditem, mediatype)

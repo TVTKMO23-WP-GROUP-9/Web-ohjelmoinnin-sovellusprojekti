@@ -160,7 +160,6 @@ const Rightsidebar = () => {
     });
   };
 
-
   return (
     <>
       {loading && <p>Ladataan...</p>}
@@ -188,9 +187,7 @@ const Rightsidebar = () => {
               ))}
 
               <button onClick={showLess} className='show-more-button'>{'⯇'}</button>
-
               &nbsp; Selaa &nbsp;
-
               <button onClick={showMore} className='show-more-button'>{'⯈'}</button>
 
             </div>
