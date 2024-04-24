@@ -28,7 +28,6 @@ const GroupDetails = ({ user }) => {
   const [loading, setLoading] = useState(true);
   const headers = getHeaders();
 
-  
   useEffect(() => {
     if (user !== null && user !== undefined) {
       setProfileid(user.user);
