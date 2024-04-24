@@ -21,43 +21,46 @@ const MovieDetails = (user) => {
     const fetchProfile = async () => {
       try {
           const token = sessionStorage.getItem('token');
+          
           const headers = {
               'Authorization': `Bearer ${token}`,
               'Content-Type': 'application/json'
           };
           console.log("Token from sessionStorage:", token);
           console.log("Profilename from token:", user.user.user);
-          const response = await axios.get(`${VITE_APP_BACKEND_URL}/profile/${user.user.user}`);
-
-          console.log("Käyttäjän id:", response.data.profileid);
           
-          setProfileId(response.data.profileid);
+            const response = await axios.get(`${VITE_APP_BACKEND_URL}/profile/${user.user.user}`);
 
-          console.log("Käyttäjän id:", response.data.profileid);
-          console.log("sivun listatuotteen id:", id);
+            console.log("Käyttäjän id:", response.data.profileid);
+          
+            setProfileId(response.data.profileid);
 
-          const FLresponse = await axios.get(`${VITE_APP_BACKEND_URL}/favoritelist/${response.data.profileid}/${id}/0`);
+            console.log("Käyttäjän id:", response.data.profileid);
+            console.log("sivun listatuotteen id:", id);
+
+            const FLresponse = await axios.get(`${VITE_APP_BACKEND_URL}/favoritelist/${response.data.profileid}/${id}/0`);
 
          /* console.log(FLresponse.data)
           if (FLresponse.data.hasOwnProperty('favoriteditem') && FLresponse.data.favoriteditem === 1) {
           setIsFavorite(true);
           } */
           
-          console.log("asdasdas", FLresponse.data.favorites)
+            console.log("asdasdas", FLresponse.data.favorites)
 
-          const isitFavorite = FLresponse.data.favorites.find(item => item.favoriteditem === id);
+            const isitFavorite = FLresponse.data.favorites.find(item => item.favoriteditem === id);
 
           if (isitFavorite) {
             setIsFavorite(true);
           } else {
             setIsFavorite(false);
           }
+                 
           
-
           console.log("Response from profile:", response.data);
       } catch (error) {
           console.error('Virhe haettaessa profiilitietoja:', error);
       }
+    
   };
 
   fetchProfile();
@@ -66,7 +69,7 @@ const MovieDetails = (user) => {
       try {
         const response = await axios.get(`${VITE_APP_BACKEND_URL}/movie/${id}`);
         setMovie(response.data);
-        console.log(response.data.adult)
+        console.log(response.data)
       } catch (error) {
         console.error('Hakuvirhe:', error);
       }
@@ -134,18 +137,22 @@ const MovieDetails = (user) => {
               {movie && (
 
                 <>
-                <div class="flex-container">
+                <div className="flex-container">
                   <h2>{movie.title}</h2> 
+                  {profileId &&
                   <button className="favorite-button" onClick={handleFavoriteAction}>{isFavorite ? <FaHeart className="favorite-icon" size={34} /> : <FaRegHeart size={34} />}</button>
+                  }
                 </div>
 
                 <p><b>Kuvaus:</b> {movie.overview}</p>
                 <p><b>Kesto:</b> {movie.runtime} min</p>
                 <p><b>Genre:</b> {movie.genres.map(genre => genre.name).join(', ')}</p>
-                <p><b>Julkaistu:</b> {movie.release_date}</p>
+                <p><b>Julkaistu:</b> {new Date(movie.release_date).toLocaleString('fi-FI', {
+                      day: 'numeric',
+                      month: 'numeric',
+                      year: 'numeric',
+                    })}</p>
                 <p><b>Tuotantoyhtiöt:</b> {movie.production_companies.map(company => company.name).join(', ')}</p>
-                <p><b>Kerännyt ääniä:</b> {movie.vote_count}</p>
-                <p><b>Äänten keskiarvo:</b> {movie.vote_average} / 10 </p>
 
                 {providers && providers.flatrate && providers.rent && (
                     <>
@@ -177,12 +184,13 @@ const MovieDetails = (user) => {
             </div>
 
             
-
+            
             <div className="moviereviews">
-
+              {profileId &&
               <div><ReviewForm movieId={id} user={user} /></div>
-
+              }
               <br/>
+              
               <h2>Viimeisimmät arvostelut</h2>
 
               <div className="reviewslisted"><Reviews movieId={id} mediatype={0} adult={movie.adult}/></div>
