@@ -95,6 +95,8 @@ const Movies = () => {
 
   const handleGenreChange = (event) => {
     setQuery('');
+    setMoviePage(1);
+    setSeriesPage(1);
     setGenre(event.target.value);
   };
 
