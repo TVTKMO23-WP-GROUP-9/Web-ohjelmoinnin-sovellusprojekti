@@ -29,46 +29,39 @@ const GroupDetails = ({ user }) => {
   const headers = getHeaders();
 
   
-  useEffect(() => { 
-    const fetchProfile = async () => {
+  useEffect(() => {
+    if (user !== null && user !== undefined) {
+      setProfileid(user.user);
+      setAdmin(user.usertype === 'admin');
+  
+      const fetchPending = async () => {
         try {
-           
-            const response = await axios.get(`${VITE_APP_BACKEND_URL}/profile/${user.user}`, { headers });
-
-            setProfileid(response.data.profileid);
-            
-            const groupResponse = await axios.get(`${VITE_APP_BACKEND_URL}/memberstatus/${response.data.profileid}/${id}`, { headers });
-
-            if (groupResponse.data.hasOwnProperty('pending') && groupResponse.data.pending === 0) {
-              setIsMember(true);
-            }
-            if (groupResponse.data.hasOwnProperty('pending') && (groupResponse.data.pending === 1 || groupResponse.data.pending === 2 )) {
-              setIsPending(true);
-            }
-            if (groupResponse.data.hasOwnProperty('mainuser') && groupResponse.data.mainuser === 1) {
-              setMainuser(true);
-            };
-            if (user.usertype === 'admin') {
-              setAdmin(true);
-            };
-
+          const groupResponse = await axios.get(`${VITE_APP_BACKEND_URL}/memberstatus/${user.user}/${id}`, { headers });
+  
+          if (groupResponse.data.hasOwnProperty('pending') && groupResponse.data.pending === 0) {
+            setIsMember(true);
+          }
+          if (groupResponse.data.hasOwnProperty('pending') && (groupResponse.data.pending === 1 || groupResponse.data.pending === 2 )) {
+            setIsPending(true);
+          }
+          if (groupResponse.data.hasOwnProperty('mainuser') && groupResponse.data.mainuser === 1) {
+            setMainuser(true);
+          }
         } catch (error) {
-            console.error('Virhe haettaessa profiilitietoja:', error);
+          console.error('Virhe haettaessa profiilitietoja:', error);
         }
-    };
-
-    fetchProfile();
+      };
+  
+      fetchPending();
+    }
   }, [user]);
 
-
-console.log("Token from sessionStorage:", user);
 
   useEffect(() => {
     const fetchGroup = async () => {
       try {
         const response = await axios.get(`${VITE_APP_BACKEND_URL}/group/${id}`);
         setGroup(response.data);
-        console.log('ryhmätiedot:', response.data)
         setLoading(false);
       } catch (error) {
         console.error('Virhe ryhmän hakemisessa:', error);
@@ -111,7 +104,6 @@ console.log("Token from sessionStorage:", user);
           alert('Et voi poistua ryhmästä, koska olet ainoa pääkäyttäjä ja ryhmä jäisi ilman ylläpitäjää. Ylennä ensin toinen jäsen pääkäyttäjäksi.');
         } else {
       const memberResponse = await axios.get(`${VITE_APP_BACKEND_URL}/memberstatus/${profileId}/${id}`);
-      console.log(memberResponse); 
       if (memberResponse && memberResponse.data && memberResponse.data.memberlistid) {
         try {
           await axios.delete(`${VITE_APP_BACKEND_URL}/memberstatus/${memberResponse.data.memberlistid}`, {headers});
@@ -146,8 +138,6 @@ console.log("Token from sessionStorage:", user);
     setShowEvents(false);
     setShowMembers(false);
   }
-
-  console.log ('usertype:', user.usertype);
 
   return (
     <div className="content"> 
