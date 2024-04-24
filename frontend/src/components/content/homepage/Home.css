@@ -12,8 +12,6 @@
 .mid-container {
   width: 80%;
   position: relative;
-  /*display: flex;
-  flex-direction: column;*/
 }
 
 .uppercontent,
@@ -43,5 +41,3 @@
   z-index: 1;
   order: 2;
 }
-
-

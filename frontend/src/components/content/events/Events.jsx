@@ -24,16 +24,13 @@ const Events = () => {
             const year = startDateTime.getFullYear();
             const hours = startDateTime.getHours() < 10 ? `0${startDateTime.getHours()}` : startDateTime.getHours();
             const minutes = startDateTime.getMinutes() < 10 ? `0${startDateTime.getMinutes()}` : startDateTime.getMinutes();
-          
             const formattedStartTime = `${day}.${month}.${year} klo ${hours}:${minutes}`;
         
             return {
               ...show,
               start_time: formattedStartTime,
             };
-        
           });
-        
   
   // haetaan näytösajat valitulta alueelta ja päivältä
   const haeNaytokset = async () => {
@@ -41,9 +38,6 @@ const Events = () => {
       console.error('Valitse alue ja päivämäärä');
       return;
     }
-  
-    console.log('Valittu alue:', selectedArea);
-    console.log('Valittu päivämäärä:', selectedDate);
   
     setShowtimes([]);
     setEvents([]);
@@ -53,8 +47,6 @@ const Events = () => {
     const day = formattedDate.getDate() < 10 ? `0${formattedDate.getDate()}` : formattedDate.getDate();
     const month = (formattedDate.getMonth() + 1) < 10 ? `0${formattedDate.getMonth() + 1}` : formattedDate.getMonth() + 1;
     const formattedDateString = `${day}.${month}.${formattedDate.getFullYear()}`;
-    
-    console.log('Muotoiltu päivämäärä:', formattedDateString);
   
     try {
       const showsResponse = await fetch(`https://www.finnkino.fi/xml/Schedule/?area=${selectedArea}&dt=${formattedDateString}`);
@@ -84,8 +76,6 @@ const Events = () => {
     setEvents([]);
     setShowtimes([]);
 
-    console.log('Teattereissa nyt, alue:', selectedArea);
-
     fetch(`https://www.finnkino.fi/xml/Events/?listType=NowInTheatres&area=${selectedArea}`)
       .then(response => response.text())
       .then(data => {
@@ -110,8 +100,6 @@ const Events = () => {
   const tyhjennaHaku = () => {
     setEvents([]);
     setShowtimes([]);
-
-    console.log('Lista tyhjennetty manuaalisesti');
   };
           
   return (
@@ -142,7 +130,6 @@ const Events = () => {
           </div>
       ))}
     </div>
-
   );
 };
 

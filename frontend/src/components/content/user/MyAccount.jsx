@@ -7,7 +7,6 @@ const { VITE_APP_BACKEND_URL } = import.meta.env;
 
 export default function MyAccount({ user }) {
 
-    //console.log(user);
     if (user === null) {
         return <Navigate to="/" />
     }
@@ -49,7 +48,6 @@ export default function MyAccount({ user }) {
 
     const handleVisibility = async () => {
         try {
-            console.log(headers);
             const data = {
                 is_private: !visibility.is_private
             };
@@ -63,7 +61,6 @@ export default function MyAccount({ user }) {
 
     const handleK18 = async () => {
         try {
-            console.log(headers);
             const data = {
                 adult: !k18.adult
             };
@@ -121,11 +118,9 @@ export default function MyAccount({ user }) {
         }
     };
 
-
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
-
 
     const handleDelete = async () => {
         try {
@@ -163,11 +158,8 @@ export default function MyAccount({ user }) {
     return (
 
         <div className="content">
-
             <div id="accountinfo">
-
                 <div className="section2">
-
                     <h2>Olet kirjautunut käyttäjänä:</h2>
                     <h1>{user.user} </h1>
 
@@ -248,4 +240,3 @@ export default function MyAccount({ user }) {
 
     );
 };
-

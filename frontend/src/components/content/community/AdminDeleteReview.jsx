@@ -12,19 +12,15 @@ const AdminDeleteReview = ({ id, handleDelete }) => {
   const handleDeleteReview = async () => {
     try {
         const response = await axios.delete(`${VITE_APP_BACKEND_URL}/admin/deletereview/${id}`, { headers });
-        console.log(response.data);
         handleDelete(id);
     } catch (error) {
         console.error('Virhe poistaessa arvostelua:', error);
     }
   };
 
-
   const toggleConfirm = () => {
     setShowConfirm(!showConfirm); 
   };
-
-  
 
   return (
     <div>
@@ -35,7 +31,6 @@ const AdminDeleteReview = ({ id, handleDelete }) => {
           <button onClick={toggleConfirm}>Peruuta</button>
         </div>
       ) : (
-        /*<button onClick={toggleConfirm}>Poista arvostelu</button>*/
         <>
                 {confirmDeleteId === id.idreview ? (
                   <>

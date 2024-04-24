@@ -4,11 +4,9 @@ import { Link } from 'react-router-dom';
 import './movies.css'; // Sisällytä CSS-tiedosto suoraan komponenttiin
 const { VITE_APP_BACKEND_URL } = import.meta.env;
 
-
 const Reviews = ({ movieId, mediatype }) => {
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
-
 
   useEffect(() => {
     const fetchReviews = async () => {
@@ -26,7 +24,6 @@ const Reviews = ({ movieId, mediatype }) => {
               const tvResponse = await axios.get(`${import.meta.env.VITE_APP_BACKEND_URL}/series/${encodeURIComponent(review.revieweditem)}`);
               responseData = tvResponse.data;
             }
-            console.log("responssit:", review);
             
             let profileData = {}; 
 
@@ -37,8 +34,6 @@ const Reviews = ({ movieId, mediatype }) => {
               profileData.profilename = 'anonyymi';
               profileData.eilink = 'true';
             }
-        
-            console.log("profiilidata", profileData);
             
             return {
               ...review,
@@ -63,8 +58,6 @@ const Reviews = ({ movieId, mediatype }) => {
 
     fetchReviews();
   }, [movieId, mediatype]);
-
-
 
   return (
     <>
@@ -98,8 +91,6 @@ const Reviews = ({ movieId, mediatype }) => {
                 <b>Perustelut:</b> <br />
                 {review.review}<br /><br />
             </div>
-              
-            
           ))}
         </div>
       )}

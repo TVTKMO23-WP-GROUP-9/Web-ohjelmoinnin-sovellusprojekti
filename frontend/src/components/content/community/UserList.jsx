@@ -4,7 +4,6 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 const { VITE_APP_BACKEND_URL } = import.meta.env;
 
-
 const UserList = ({ searchTerm, setSearchTerm }) => {
     const [profiles, setProfiles] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
@@ -96,20 +95,17 @@ const UserList = ({ searchTerm, setSearchTerm }) => {
     <       div className="two-right">
                 <h2>Eläköön Elokuvayhteisö!</h2>
 
-                {/* Näytetään kaikille */}
                 <div className="communityBox">
                     Meillä on täällä <b>{profiles.length}</b><br />
                     rekisteröitynyttä käyttäjää. <span className="emoji uni03"></span> <br /><br />
                 </div>
 
-                {/* Näytetään vain, kun token on tyhjä */}
                 {token === '' && (
                     <div className="communityBox">
                         Liity mukaan jo tänään!
                     </div>
                 )}
                 
-                {/* Näytetään vain, kun token on tyhjä */}
                 {token === '' && (
                     <Link to={'/login'}><button className='basicbutton justMargin'>Rekisteröidy</button></Link>
                 )}
@@ -130,9 +126,6 @@ const UserList = ({ searchTerm, setSearchTerm }) => {
                     </div>
                 )}
             </div>
-
-
-
 
         </div>
     );

@@ -6,7 +6,6 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 const { VITE_APP_BACKEND_URL } = import.meta.env;
 
-
 const AllReviews = ({ searchTerm, setSearchTerm, user }) => {
 
   const [reviews, setReviews] = useState([]);
@@ -21,12 +20,8 @@ const AllReviews = ({ searchTerm, setSearchTerm, user }) => {
   const fetchReviews = async () => {
     try {
       const newReviewResponse = await axios.get(`${VITE_APP_BACKEND_URL}/reviews`);
-      //const anonReviewResponse = await axios.get(`${VITE_APP_BACKEND_URL}/reviews/anon`);
       
       const newReviews = newReviewResponse.data;
-      //const anonReviews = anonReviewResponse.data;
-      
-      //const reviewData = [...newReviews, ...anonReviews];
 
       const reviewData = newReviews;
 
@@ -45,7 +40,6 @@ const AllReviews = ({ searchTerm, setSearchTerm, user }) => {
           return review;
         }
       }));
-
 
       const reviewsWithMovies = await Promise.all(reviewsWithProfiles.map(async review => {
         try {

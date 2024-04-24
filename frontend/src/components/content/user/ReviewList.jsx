@@ -27,19 +27,9 @@ const ReviewList = ({ user, profile }) => {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
             };
-            console.log("Token from sessionStorage:", token);
-            console.log("Profilename from token:", user);
             const response = await axios.get(`${VITE_APP_BACKEND_URL}/profile/${user.user}`);
 
-            console.log("Token from sessionStorage:", token);
-            console.log("Profilename from token:", user);
-            console.log("Response from adult:", response.data.adult);
-
             setAdult(response.data.adult);
-            console.log("mitä haku luulee adult olevan: ",adult)
-
-            console.log("Response from status:", response.data);
-
 
         } catch (error) {
             console.error('Virhe haettaessa profiilitietoja:', error);
@@ -92,20 +82,9 @@ const ReviewList = ({ user, profile }) => {
     fetchReviews();
   }, [profile]);
 
-  {/*const handleDeleteReview = async (idreview) => {
-      try {
-        const response = await axios.delete(`${VITE_APP_BACKEND_URL}/review/${idreview}`);
-        console.log(response.data);
-        setReviews(reviews.filter(review => review.idreview !== idreview));
-      } catch (error) {
-        console.error('Poistovirhe:', error);
-      }
-    };*/}
-
   const handleConfirmDelete = async (idreview) => {
     try {
       const response = await axios.delete(`${VITE_APP_BACKEND_URL}/review/${idreview}`);
-      console.log(response.data);
       setReviews(reviews.filter(review => review.idreview !== idreview));
       setConfirmDeleteId(null);
     } catch (error) {
@@ -243,7 +222,6 @@ const ReviewList = ({ user, profile }) => {
           </li>
         ))}
       </ul>
-
     </>
   );
 }

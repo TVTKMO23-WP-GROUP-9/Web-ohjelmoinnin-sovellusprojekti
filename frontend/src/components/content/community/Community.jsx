@@ -9,7 +9,6 @@ const Community = ( user ) => {
   const [groupSearchTerm, setGroupSearchTerm] = useState('');
   const [reviewSearchTerm, seReviewSearchTerm] = useState('');
 
-console.log(user);
   return (
 
     <div className="content">
@@ -17,9 +16,7 @@ console.log(user);
       Löydä palvelumme käyttäjät, ryhmät ja arvostelut täältä.
       <UserList searchTerm={userSearchTerm} setSearchTerm={setUserSearchTerm} />
       <AllGroups user={user} searchTerm={groupSearchTerm} setSearchTerm={setGroupSearchTerm} />
-    
       <AllReviews searchTerm={reviewSearchTerm} setSearchTerm={seReviewSearchTerm} user={user} />
-
     </div>
   );
 };

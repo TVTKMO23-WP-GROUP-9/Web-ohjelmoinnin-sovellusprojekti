@@ -13,8 +13,6 @@ const ReviewForm = ({ movieId, user }) => {
 
   const headers = getHeaders();
 
-  console.log("user", user === null, user.user);
-
  if (user.user !== null) {
     useEffect(() => {
       const checkIfUserHasReview = async () => {
@@ -72,8 +70,6 @@ const ReviewForm = ({ movieId, user }) => {
     }
   }
 
-  console.log("profileHasReview", profileHasReview);
-  
   return (
     <div>
       {user.user !== null && !profileHasReview && ( 
