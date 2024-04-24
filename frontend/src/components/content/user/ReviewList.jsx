@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import './user.css';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { getHeaders } from '@auth/token';
 const { VITE_APP_BACKEND_URL } = import.meta.env;
-
 
 const ReviewList = ({ user, profile }) => {
 
@@ -18,7 +18,9 @@ const ReviewList = ({ user, profile }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [adult, setAdult] = useState(false);
   const isOwnProfile = profile && profile.isOwnProfile;
+  const headers = getHeaders();
 
+  
   useEffect(() => {
     const fetchProfile = async () => {
         try {
@@ -98,7 +100,7 @@ const ReviewList = ({ user, profile }) => {
 
   const handleUpdateReview = async (idreview) => {
     try {
-      const response = await axios.put(`${VITE_APP_BACKEND_URL}/reviews/update/${idreview}`, updatedReview);
+      const response = await axios.put(`${VITE_APP_BACKEND_URL}/reviews/update/${idreview}`, updatedReview, { headers });
       setEditReviewId(null);
       fetchReviews();
     } catch (error) {

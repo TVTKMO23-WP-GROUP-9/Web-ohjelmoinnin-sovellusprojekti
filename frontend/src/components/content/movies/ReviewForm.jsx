@@ -34,6 +34,7 @@ const ReviewForm = ({ movieId, user }) => {
       try {
         const response = await axios.get(`${VITE_APP_BACKEND_URL}/movie/${movieId}`);
         setMovieAdult(response.data.adult); // Asetetaan elokuvan adult-arvo
+        console.log("aikuisviihde?", response.data.adult);
       } catch (error) {
         console.error('Hakuvirhe:', error);
       }

@@ -43,6 +43,8 @@ const GroupDetails = ({ user }) => {
           if (groupResponse.data.hasOwnProperty('mainuser') && groupResponse.data.mainuser === 1) {
             setMainuser(true);
           }
+
+          setProfileid(user.profileid);
         } catch (error) {
           console.error('Virhe haettaessa profiilitietoja:', error);
         }

@@ -16,7 +16,7 @@ const MovieDetails = (user) => {
   const [profileId, setProfileId] = useState(false); 
   const { favoriteditem } = useParams();
   const headers = getHeaders();
-
+ 
   useEffect(() => {
     const fetchProfile = async () => {
       try {
@@ -44,7 +44,8 @@ const MovieDetails = (user) => {
           console.error('Virhe haettaessa profiilitietoja:', error);
       }
   };
-
+    
+    
   fetchProfile();
 
     const fetchMovie = async () => {
@@ -114,18 +115,22 @@ const MovieDetails = (user) => {
               {movie && (
 
                 <>
-                <div class="flex-container">
+                <div className="flex-container">
                   <h2>{movie.title}</h2> 
+                  {profileId &&
                   <button className="favorite-button" onClick={handleFavoriteAction}>{isFavorite ? <FaHeart className="favorite-icon" size={34} /> : <FaRegHeart size={34} />}</button>
+                  }
                 </div>
 
                 <p><b>Kuvaus:</b> {movie.overview}</p>
                 <p><b>Kesto:</b> {movie.runtime} min</p>
                 <p><b>Genre:</b> {movie.genres.map(genre => genre.name).join(', ')}</p>
-                <p><b>Julkaistu:</b> {movie.release_date}</p>
+                <p><b>Julkaistu:</b> {new Date(movie.release_date).toLocaleString('fi-FI', {
+                      day: 'numeric',
+                      month: 'numeric',
+                      year: 'numeric',
+                    })}</p>
                 <p><b>Tuotantoyhtiöt:</b> {movie.production_companies.map(company => company.name).join(', ')}</p>
-                <p><b>Kerännyt ääniä:</b> {movie.vote_count}</p>
-                <p><b>Äänten keskiarvo:</b> {movie.vote_average} / 10 </p>
 
                 {providers && providers.flatrate && providers.rent && (
                     <>
@@ -157,10 +162,11 @@ const MovieDetails = (user) => {
             </div>
 
             <div className="moviereviews">
-
+              {profileId &&
               <div><ReviewForm movieId={id} user={user} /></div>
-
+              }
               <br/>
+              
               <h2>Viimeisimmät arvostelut</h2>
 
               <div className="reviewslisted"><Reviews movieId={id} mediatype={0} adult={movie.adult}/></div>
