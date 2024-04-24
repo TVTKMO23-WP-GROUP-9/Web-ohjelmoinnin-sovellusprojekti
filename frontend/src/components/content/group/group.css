@@ -3,7 +3,6 @@
     border-radius: 10px;
     color: var(--profile);
     margin-top: 25px;
-
 }
 
 .ginner-view {
@@ -16,7 +15,6 @@
     margin-top: 25px;
     border: var(--solid);
     border-radius: 10px;
-    
 }
 
 .gform-view {
@@ -40,7 +38,6 @@
     padding-top: 8px;
     color: var(--profile);
 }
-
 
 .toggleLinks {
     display: flex;
@@ -96,7 +93,6 @@ ul {
     background-color: var(--grp-background);
     border-radius: 10px;
     color: var(--profile);
-
     padding: 1em;
     padding-left: 2%;
     padding-right: 2%;
@@ -129,7 +125,6 @@ ul {
 
 .gevents a:hover {
     color: var(--table-linkH);
-
 }
 
 .gevents h2 {
@@ -137,7 +132,6 @@ ul {
 }
 
 .singleEvent {
-
     border-radius: 1px;
     color: var(--darktext);
     display: block;
@@ -254,7 +248,6 @@ ul {
     padding-right: 5%;
     margin: 0 auto;
 }
-
 
 .reviewinfo {
     color: var(--profile);

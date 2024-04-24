@@ -63,12 +63,10 @@ const AllGroups = ({ user, searchTerm, setSearchTerm }) => {
     const handleCreateGroup = async () => {
         try {
             const response = await axios.post(`${VITE_APP_BACKEND_URL}/group`, { groupname: newGroupName }, { headers }) ;  
-            console.log('palauttaako mitään', response.data);
             const groupid = response.data[0].groupid;
             await axios.post(`${VITE_APP_BACKEND_URL}/memberstatus/${profileId}/1/${groupid}/0`, {}, { headers });
             setNewGroupName('');
             setCreatingGroup(false);
-            console.log('Uusi ryhmä luotu ja jäsen lisätty onnistuneesti');
             window.location.href = `/group/${groupid}`;
 
         } catch (error) {
@@ -117,9 +115,7 @@ const AllGroups = ({ user, searchTerm, setSearchTerm }) => {
 
             <div className="two-right">
                 <h2>Muut ryhmätoiminnot</h2>
-                
-                    <>
-                        <div className="communityBox">
+                    <><div className="communityBox">
                             Mikäs sen mukavampaa, kuin löytää samanhenkistä leffaporukkaa,<br />
                             jonka kanssa jakaa leffa-elämyksiä ja chattailla reaaliajassa. <br /><br />
                             Meillä on jo <b>{groups.length}</b> ryhmää, mistä valita <br />
@@ -136,12 +132,8 @@ const AllGroups = ({ user, searchTerm, setSearchTerm }) => {
                         <input id="robot03" className='justMargin' type="text" value={newGroupName} onChange={(e) => setNewGroupName(e.target.value)} placeholder="Syötä uuden ryhmän nimi" />
                         <button id="robot02" className='basicbutton justMargin' onClick={handleCreateGroup}>Luo</button> 
                         <button className='basicbutton' onClick={() => setCreatingGroup(false)}>Peruuta</button> <br/><br/>
-
-
-                        
                     </>
                 )}
-
                     <>
                         <div className="communityBox">
                             <GroupCarousel />

@@ -22,13 +22,11 @@ import AllGroups from '@content/community/AllGroups';
 import AllReviews from '@content/community/AllReviews';
 import Error from '@content/error/Error';
 import ProfileEdit from '@content/user/ProfileEdit';
-import ReviewForm from '@content/movies/ReviewForm';
 import AdminPage from '@content/admin/AdminPage';
 import Faq from '@content/faq/Faq';
 import { jwtToken, usertype } from './components/auth/authSignal';
 import Movies from '@content/movies/Movies';
 const { VITE_APP_BACKEND_URL } = import.meta.env;
-
 
 function App() {
   const { theme, toggleTheme } = useTheme();
@@ -49,7 +47,6 @@ function App() {
       }
 
     };
-
 
     document.body.addEventListener('click', handleClickOutside);
 
@@ -111,7 +108,6 @@ function App() {
               <Route path="/" exact element={<Home />} />
               <Route path="/search" element={<Movies user={user}/>} />
               <Route path="/movie/:id" element={<MovieDetails user={user}/>} />
-              {/*<Route path="/movie/:id/review" element={<ReviewForm user={user}/>} />*/}
               <Route path="/series/:id" element={<SeriesDetails user={user}/>} />
               <Route path="/login" element={<Login setUser={handleLogin} />} />
               <Route path="/myaccount" element={<MyAccount user={user} />} />

@@ -13,8 +13,6 @@ const ReviewFormSerie = ({ tvShowId, user }) => {
 
   const headers = getHeaders();
 
-  console.log("user", user === null, user.user);
-
   if (user.user !== null) {
     useEffect(() => {
       const checkIfUserHasReview = async () => {
@@ -68,7 +66,6 @@ const ReviewFormSerie = ({ tvShowId, user }) => {
         }, { headers }
       );
 
-
       window.location.reload();
       //setReview((reviews) => [...reviews, response.data]);
 
@@ -76,8 +73,6 @@ const ReviewFormSerie = ({ tvShowId, user }) => {
       console.error("Virhe arvostelun lisäämisessä:", error);
     }
   }
-
-  console.log("profileHasReview", profileHasReview);
 
   return (
     <div>

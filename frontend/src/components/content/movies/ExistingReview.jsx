@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import axios from "axios";
 import { getHeaders } from '@auth/token';
-
 export default class ExistingReview extends Component {
   constructor(props) {
     super(props);

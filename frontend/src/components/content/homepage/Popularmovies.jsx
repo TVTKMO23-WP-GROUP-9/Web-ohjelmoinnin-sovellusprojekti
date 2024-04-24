@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import './Homepage.css';
 const { VITE_APP_BACKEND_URL } = import.meta.env;
 
-
 const PopularMovies = () => {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);

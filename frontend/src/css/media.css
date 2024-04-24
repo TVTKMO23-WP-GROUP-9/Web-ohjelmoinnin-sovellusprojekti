@@ -63,7 +63,6 @@
   .lowercontent {
     margin: 0 auto;
     width: 100%;
-    
   }
 
   .right-container {
@@ -125,7 +124,6 @@
     max-height: 470px;
   }
 
-
 }
 
 @media (max-width: 1040px) {
@@ -155,7 +153,6 @@
 
   .content {
     width: 90%;
-
   }
 
   .login-menu {
@@ -313,27 +310,23 @@
     border-bottom-right-radius: 0px;
     color: var(--profile);
     margin-top: 25px;
+  }
 
-}
+  .ginner-view {    
+    border-bottom-left-radius: 0px !important;
+    border-bottom-right-radius: 0px !important;
+  }
 
-.ginner-view {    
+  .group-between {
+    display: block;
+    width: 100%;
 
+  }
 
-  border-bottom-left-radius: 0px !important;
-  border-bottom-right-radius: 0px !important;
-}
-
-.group-between {
-  display: block;
-  width: 100%;
-
-}
-
-.singleMember, 
-.singleEvent {
-  max-width: 250px;
-
-}
+  .singleMember, 
+  .singleEvent {
+    max-width: 250px;
+  }
 
 }
 
@@ -427,29 +420,28 @@
 
   .two-view h2 {
     padding-left: 10px !important;
- }
+  }
 
- .communityBox {
-   margin-left: 10px !important;
- }
+  .communityBox {
+    margin-left: 10px !important;
+  }
 
- .singleMember, 
+  .singleMember, 
   .singleEvent {
     padding-left: 0px !important;
-  max-width: 180px;
+    max-width: 180px;
+  }
 
-}
-
-.group-view {
-  width: 80% !important;
-}
+  .group-view {
+    width: 80% !important;
+  }
 
 }
 
 /*Lopullinen breakpoint, jolloin näyttö on liian pieni, kaikkeen display none ja screenerror tms*/
 @media (max-width: 340px) {
 
-.body > *:not(#screenError):not(h1):not(h2):not(h3) {
+  .body > *:not(#screenError):not(h1):not(h2):not(h3) {
     display: none;
   }
 

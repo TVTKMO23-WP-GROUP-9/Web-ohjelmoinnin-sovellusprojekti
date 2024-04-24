@@ -50,7 +50,6 @@ const FavoriteList = ({ profile }) => {
     fetchFavorites();
   }, [profile]);
   const handleEditClick = () => {
-    console.log("onko oma profiili", isOwnProfile)
     setEditMode(!editMode);
   };
 

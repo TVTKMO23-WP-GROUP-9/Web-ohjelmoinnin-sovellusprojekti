@@ -41,12 +41,10 @@ const GroupsAsList = ({ user, searchTerm, setSearchTerm }) => {
     const handleCreateGroup = async () => {
         try {
             const response = await axios.post(`${VITE_APP_BACKEND_URL}/group`, { groupname: newGroupName });  
-            console.log('palauttaako mitään', response.data);
             const groupid = response.data[0].groupid;
             await axios.post(`${VITE_APP_BACKEND_URL}/memberstatus/${profileId}/1/${groupid}/0`);
             setNewGroupName('');
             setCreatingGroup(false);
-            console.log('Uusi ryhmä luotu ja jäsen lisätty onnistuneesti');
             window.location.href = `/group/${groupid}`;
 
         } catch (error) {

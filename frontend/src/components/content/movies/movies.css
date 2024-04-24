@@ -41,7 +41,6 @@
     display: none;
     width: 100%;
     max-height: 90%;
-    
     transition: all 0.5s ease-in-out;
 }
 
@@ -61,7 +60,6 @@
     z-index: 1; 
     padding-bottom: 23px;
 }
-
 
 .flex-container {
     display: flex;
@@ -94,8 +92,6 @@
 .favorite-icon:hover {
     color: #ff3838;
 }
-
-
 
 .providers table {
     border-collapse: collapse;
@@ -201,9 +197,7 @@
 }
 
 #backdrop {
-
     min-height: 100vh;
-
 }
 
 .moviemain {
@@ -276,11 +270,11 @@
     font-size: 1em;
     background: none;
     border: none;
-  }
+}
   
 .pdd-right .bigArrow:hover {
     text-shadow: var(--tShadow1);
-  }
+}
 
 .tinyImg {
     height: 50px;
@@ -288,6 +282,7 @@
     margin: 6px;
     box-shadow: var(--shadow05);
 }
+
 @media (max-width: 640px) {
 .movie-mini-item  {
     visibility: visible;
