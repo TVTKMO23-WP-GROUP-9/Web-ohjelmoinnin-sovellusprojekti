@@ -14,7 +14,7 @@ body {
   position: relative;
   margin: 0;
   overflow-y: scroll;
-  padding-bottom: 235px; 
+  padding-bottom: 235px;
 }
 
 .body {
@@ -52,7 +52,7 @@ body {
   align-items: center;
 }
 
-.menu-items li{
+.menu-items li {
   list-style-type: none;
   padding-left: 40px;
 }
@@ -102,7 +102,7 @@ body {
 }
 
 #header-bar ul.sideLinks a:hover {
-  
+
   color: var(--sideLinksHover);
 }
 
@@ -137,30 +137,41 @@ h1 {
 .section2 h1 {
   color: var(--sideLinks) !important;
   font-size: 2.5em;
-  font-weight:  600;
+  font-weight: 600;
   text-shadow: none;
   animation: none;
 }
 
 
 @keyframes headerWave {
-  0% { color: rgb(241, 107, 152); }
-  40% { color: rgb(30, 44, 138); } 
-  70% { color: rgb(174, 140, 85); } 
-  100% { color: rgb(241, 107, 152); } 
+  0% {
+    color: rgb(241, 107, 152);
+  }
+
+  40% {
+    color: rgb(30, 44, 138);
+  }
+
+  70% {
+    color: rgb(174, 140, 85);
+  }
+
+  100% {
+    color: rgb(241, 107, 152);
+  }
 }
 
 /******* LOGIN NAPPI *******/
 .login-dropdown-container {
   display: flex;
-  justify-content: right; 
-  align-items: right; 
+  justify-content: right;
+  align-items: right;
   position: relative;
 }
 
 .login-window {
   position: absolute;
-  background-color: var(--lightCoffee); 
+  background-color: var(--lightCoffee);
   background-color: var(--toggleDivs);
   border: var(--solid);
   border-radius: 5px;
@@ -192,7 +203,7 @@ h1 {
 
 .full-page {
   display: block;
-  padding-left: 30px;
+  padding: 0 30px 30px 30px;
   height: auto;
 
 }
@@ -256,7 +267,10 @@ a:hover {
 
 /******* TITLES *******/
 
-h2 /* titles for @Content */ {
+h2
+
+/* titles for @Content */
+  {
   font-family: var(--roboto);
   font-weight: 400;
   font-style: normal;
@@ -264,7 +278,10 @@ h2 /* titles for @Content */ {
   color: var(--h2);
 }
 
-h3 /* hamburger */ {
+h3
+
+/* hamburger */
+  {
   font-family: var(--thasadith);
   font-weight: 400;
   font-style: normal;
@@ -306,10 +323,10 @@ h3 /* hamburger */ {
 }
 
 .basicbutton:disabled {
-  background-color: #cccccc; 
-  color: #888888; 
-  border: 1px solid #cccccc; 
-  cursor: not-allowed; 
+  background-color: #cccccc;
+  color: #888888;
+  border: 1px solid #cccccc;
+  cursor: not-allowed;
 }
 
 .basicbutton:hover {
@@ -404,12 +421,12 @@ button:focus-visible {
 }
 
 .burger-items.open {
-  display: block; 
+  display: block;
 }
 
 .burger-items {
   position: absolute;
-  top: 101px; 
+  top: 101px;
   left: 0;
   border-right: var(--solid3);
   background-color: var(--toggleDivs);
@@ -421,7 +438,7 @@ button:focus-visible {
 }
 
 .burger-items ul {
-  top: 101px; 
+  top: 101px;
   left: 0;
 }
 
@@ -449,7 +466,7 @@ label {
   padding: 0.2em 1em;
 }
 
-input  {
+input {
   padding: 1em;
   margin-right: 1em;
   margin-left: 1em;
@@ -494,7 +511,7 @@ input  {
 
 .logo {
   width: 140px;
-  height: 100px; 
+  height: 100px;
   display: inline-block;
   padding-right: 10px;
   background-image: var(--logo);
