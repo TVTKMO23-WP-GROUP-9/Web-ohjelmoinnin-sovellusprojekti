@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import './group.css';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { getHeaders } from '@auth/token';
+
 const { VITE_APP_BACKEND_URL } = import.meta.env;
-
-
 
 const Forum = ({ id, user }) => {
   const [messages, setMessages] = useState([]);
@@ -15,8 +15,9 @@ const Forum = ({ id, user }) => {
   const [editMode, setEditMode] = useState(false);
   const [isMember, setIsMember] = useState(false);
   const [isMainuser, setMainuser] = useState(false);
+  const headers = getHeaders();
 
-  useEffect(() => {
+  /*useEffect(() => {
     const fetchProfile = async () => {
         try {
             const token = sessionStorage.getItem('token');
@@ -51,7 +52,32 @@ const Forum = ({ id, user }) => {
     };
 
     fetchProfile();
-  }, [user]);
+  }, [user]);*/
+
+useEffect(() => {
+  if (user !== null && user !== undefined) { 
+    const fetchProfile = async () => {
+      try {
+
+        const groupResponse = await axios.get(`${VITE_APP_BACKEND_URL}/memberstatus/${user.profileid}/${id}`, { headers });
+
+        if (groupResponse.data.hasOwnProperty('pending') && groupResponse.data.pending === 0) {
+          setIsMember(true);
+        }
+        if (groupResponse.data.hasOwnProperty('mainuser') && groupResponse.data.mainuser === 1) {
+          setMainuser(true);
+        }
+
+        setProfileid(user.profileid);
+      }
+      catch (error) {
+        console.error('Virhe haettaessa profiilitietoja:', error);
+      }
+    };
+    fetchProfile();
+  }
+}, [user]);
+
   
 
   const fetchMessages = async () => {
@@ -118,7 +144,7 @@ const Forum = ({ id, user }) => {
 
   const handleRemoveMessage = async (messageId) => {
     try {
-      await axios.delete(`${VITE_APP_BACKEND_URL}/messages/${messageId}`);
+      await axios.delete(`${VITE_APP_BACKEND_URL}/messages/${messageId}`, { headers });
       fetchMessages();
     } catch (error) {
       console.error('Virhe viestin poistamisessa:', error);
