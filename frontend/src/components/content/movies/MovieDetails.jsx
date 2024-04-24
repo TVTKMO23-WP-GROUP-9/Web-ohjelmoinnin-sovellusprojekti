@@ -134,7 +134,7 @@ const MovieDetails = (user) => {
               {movie && (
 
                 <>
-                <div class="flex-container">
+                <div className="flex-container">
                   <h2>{movie.title}</h2> 
                   <button className="favorite-button" onClick={handleFavoriteAction}>{isFavorite ? <FaHeart className="favorite-icon" size={34} /> : <FaRegHeart size={34} />}</button>
                 </div>
