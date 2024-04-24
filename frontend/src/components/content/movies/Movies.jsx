@@ -6,7 +6,7 @@ import './movies.css';
 
 const { VITE_APP_BACKEND_URL } = import.meta.env;
 
-const Movies = ({ user }) => {
+const Movies = () => {
   const [query, setQuery] = useState('');
   const [genre, setGenre] = useState('');
   const [moviePage, setMoviePage] = useState(1); 
@@ -23,36 +23,6 @@ const Movies = ({ user }) => {
   const [showText, setShowText] = useState(true);
 
   useEffect(() => {
-    const fetchProfile = async () => {
-        try {
-            const token = sessionStorage.getItem('token');
-            const headers = {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json'
-            };
-            console.log("Token from sessionStorage:", token);
-            console.log("Profilename from token:", user);
-            const response = await axios.get(`${VITE_APP_BACKEND_URL}/profile/${user.user}`);
-
-            console.log("Token from sessionStorage:", token);
-            console.log("Profilename from token:", user);
-            console.log("Response from adult:", response.data.adult);
-
-            setAdult(response.data.adult);
-            console.log("mitä haku luulee adult olevan: ",adult)
-
-            console.log("Response from status:", response.data);
-
-
-        } catch (error) {
-            console.error('Virhe haettaessa profiilitietoja:', error);
-        }
-    };
-
-    fetchProfile();
-  }, [user]);
-
-  useEffect(() => {
     searchMovies();
     searchSeries();
   }, [moviePage, seriesPage]);
@@ -65,9 +35,7 @@ const Movies = ({ user }) => {
 
   const searchMovies = async () => {
     try {
-      console.log(genre);
       let response;
-      console.log("mitä haku luulee adult olevan: ",adult)
       if (query !== '') {
         response = await axios.get(`${VITE_APP_BACKEND_URL}/movie/search`, {
         params: { query, genre, page: moviePage, year, adult }
@@ -77,7 +45,6 @@ const Movies = ({ user }) => {
         params: { genre, sort_by: 'popularity.desc', page: moviePage, year, adult }
         });
       }
-      console.log(genre);
       setMovies(response.data);
     } catch (error) {
       console.error('Hakuvirhe elokuvissa:', error);
