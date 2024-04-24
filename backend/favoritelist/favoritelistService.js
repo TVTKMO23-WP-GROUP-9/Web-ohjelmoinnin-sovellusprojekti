@@ -23,11 +23,7 @@ async function getAllFavoritelist (req, res)  {
 
         };
         const result = await favoritelistModel.queryDatabase(query);
-        if (result.length > 0) {
-          res.json(result);
-        } else {
-          res.status(404).send('Tietuetta ei löytynyt');
-        }
+        res.json(result); 
       } catch (error) {
         console.error('Virhe haettaessa tietuetta:', error);
         res.status(500).send('Virhe haettaessa tietuetta');
