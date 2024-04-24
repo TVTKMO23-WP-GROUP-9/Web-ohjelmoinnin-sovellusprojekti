@@ -55,7 +55,7 @@ async function deleteProfileById(profileid) {
         throw error; 
     }
 } 
-  
+
 async function updateProfilenameAndEmail(profileid, profilename, email) {
     const now = new Date();
     const query = {
