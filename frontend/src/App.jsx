@@ -13,7 +13,6 @@ import Home from '@content/homepage/Home';
 import Login from '@components/header/Login';
 import MyAccount from '@content/user/MyAccount';
 import ProfileDetails from '@content/user/ProfileDetails';
-import Search from '@content/movies/Search';
 import MovieDetails from '@content/movies/MovieDetails';
 import GroupDetails from '@content/group/GroupDetails';
 import SeriesDetails from '@content/movies/SeriesDetails';
@@ -28,6 +27,7 @@ import AdminPage from '@content/admin/AdminPage';
 import Events from '@content/events/Events';
 import Faq from '@content/faq/Faq';
 import { jwtToken, usertype } from './components/auth/authSignal';
+import Movies from '@content/movies/Movies';
 const { VITE_APP_BACKEND_URL } = import.meta.env;
 
 
@@ -112,6 +112,7 @@ function App() {
               <Route path="/" exact element={<Home />} />
               <Route path="/search" element={<Search />} />
               <Route path="/events" element={<Events />} />
+              <Route path="/search" element={<Movies user={user}/>} />
               <Route path="/movie/:id" element={<MovieDetails user={user}/>} />
               {/*<Route path="/movie/:id/review" element={<ReviewForm user={user}/>} />*/}
               <Route path="/series/:id" element={<SeriesDetails user={user}/>} />

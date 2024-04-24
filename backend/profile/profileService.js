@@ -86,6 +86,17 @@ async function updateProfileVisibility(req, res) {
     }
 }
 
+async function updateProfileAdultcontent(req, res) {
+    const profileid = res.locals.profileid;
+    const { adult } = req.body;
+    try {
+        await profileModel.updateProfileAdultcontent(profileid, adult);
+        res.status(200).json({ message: `Tietue päivitetty onnistuneesti` });
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+}
+
 module.exports = {
     getAllProfiles,
     getProfileById,
@@ -95,4 +106,5 @@ module.exports = {
     updateProfileDetails,
     updateProfileVisibility,
     deleteProfileAsAdmin,
+    updateProfileAdultcontent
 };

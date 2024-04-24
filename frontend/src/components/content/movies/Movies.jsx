@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { animateScroll as scroll } from 'react-scroll';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import './movies.css';
+
 const { VITE_APP_BACKEND_URL } = import.meta.env;
 
 const Movies = () => {
@@ -9,59 +11,38 @@ const Movies = () => {
   const [genre, setGenre] = useState('');
   const [moviePage, setMoviePage] = useState(1); 
   const [seriesPage, setSeriesPage] = useState(1); 
-  const [page, setPage] = useState(1); 
   const [year, setYear] = useState('');
   const [movies, setMovies] = useState([]);
   const [series, setSeries] = useState([]);
   const [showTitles, setShowTitles] = useState(false);
+  const [pageSize, setPageSize] = useState([]); 
+  const totalPages = Math.ceil(movies.length / pageSize);
   const [showMovies, setShowMovies] = useState(true);
   const [showSeries, setShowSeries] = useState(false);
-
-  const [currentPage, setCurrentPage] = useState(0);
-  const [pageSize, setPageSize] = useState([]); 
-  const [pagePerSize, setPagePerSize] = useState([]); 
-  const totalPages = Math.ceil(movies.length / pageSize);
-
-  
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth >= 1981) {
-        setPageSize(10);
-        setPagePerSize(2);
-      } else if (window.innerWidth >= 1601) {
-        setPageSize(5);
-        setPagePerSize(4);
-      } else if (window.innerWidth >= 1001) {
-        setPageSize(4);
-        setPagePerSize(5);
-      } else {
-        setPageSize(1);
-        setPagePerSize(20);
-      }
-    };
-
-    window.addEventListener('resize', handleResize);
-
-    handleResize();
-
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
+  const [adult, setAdult] = useState(false);
+  const [showText, setShowText] = useState(true);
 
   useEffect(() => {
     searchMovies();
     searchSeries();
   }, [moviePage, seriesPage]);
 
+  useEffect(() => {
+    if (!showMovies && !showSeries) {
+      setShowText(true);
+    }
+  }, [showMovies, showSeries]);
+
   const searchMovies = async () => {
     try {
       let response;
       if (query !== '') {
         response = await axios.get(`${VITE_APP_BACKEND_URL}/movie/search`, {
-          params: { query, page: moviePage, year }
-        });
+        params: { query, genre, page: moviePage, year, adult }
+      });
       } else {
         response = await axios.get(`${VITE_APP_BACKEND_URL}/movie/discover`, {
-          params: { genre, sort_by: 'popularity.desc', page: moviePage, year }
+        params: { genre, sort_by: 'popularity.desc', page: moviePage, year, adult }
         });
       }
       setMovies(response.data);
@@ -69,17 +50,17 @@ const Movies = () => {
       console.error('Hakuvirhe elokuvissa:', error);
     }
   };
-
+  
   const searchSeries = async () => {
     try {
       let response;
       if (query !== '') {
         response = await axios.get(`${VITE_APP_BACKEND_URL}/series/search`, {
-          params: { query, page: seriesPage, year }
-        });
+        params: { query, genre, page: seriesPage, year, adult }
+      });
       } else {
         response = await axios.get(`${VITE_APP_BACKEND_URL}/series/discover`, {
-          params: { genre, sort_by: 'popularity.desc', page: seriesPage, year }
+        params: { genre, sort_by: 'popularity.desc', page: seriesPage, year, adult }
         });
       }
       setSeries(response.data);
@@ -90,22 +71,23 @@ const Movies = () => {
 
   const handleMoviePageChange = (action) => {
     if (action === 'prev') {
-      setMoviePage((page) => Math.max(page - 1, 1));
+      setMoviePage((page) => Math.max(parseInt(page, 10) - 1, 1));
     } else {
-      setMoviePage((page) => page + 1);
+      setMoviePage((page) => Math.max(parseInt(page, 10) + 1));
     }
-    window.scrollTo(0, 0);
   };
 
   const handleSeriesPageChange = (action) => {
     if (action === 'prev') {
-      setSeriesPage((page) => Math.max(page - 1, 1));
+      setSeriesPage((page) => Math.max(parseInt(page, 10) - 1, 1));
     } else {
-      setSeriesPage((page) => page + 1);
+      setSeriesPage((page) => Math.max(parseInt(page, 10) + 1));
     }
-    window.scrollTo(0, 0);
   };
 
+  // setGenre ja setQuery nollaus:
+  // laitoin nää siks, kun search ja discover kumoaa toisensa eli genreä ei huomioida jos on query annettu
+  // tämä hidastaa hakuja, jos pitää tyhjentää toinen osio erikseen 
   const handleInputChange = (event) => {
     setGenre('');
     setQuery(event.target.value);
@@ -113,6 +95,8 @@ const Movies = () => {
 
   const handleGenreChange = (event) => {
     setQuery('');
+    setMoviePage(1);
+    setSeriesPage(1);
     setGenre(event.target.value);
   };
 
@@ -129,20 +113,45 @@ const Movies = () => {
   };
 
   const toggleMovies = () => {
-    setShowMovies(!showMovies);
+    setShowMovies(true);
+    setSeriesPage(1);
+    setMoviePage(1);
     setShowSeries(false);
   };
 
   const toggleSeries = () => {
-    setShowSeries(!showSeries);
+    setShowSeries(true);
+    setMoviePage(1);
+    setSeriesPage(1);
     setShowMovies(false);
   };
 
+
+  const handleNullify = () => {
+    setQuery('');
+    setGenre('');
+    setYear('');
+    setMovies([]);
+    setSeries([]);
+    setShowTitles(false);
+    setMoviePage(1);
+    setSeriesPage(1);
+    setShowMovies(false);
+    setShowSeries(false);
+  };
+
+  const scrollToTop = () => {
+    scroll.scrollTo(600)({
+      duration: 1700,
+      smooth: 'easeInOutQuint', 
+    });
+  };
+  
   return (
     <>
+    <div className="content">
       <h2>Leffa- ja sarjahaku</h2>
 
-  
       <div className="group-view-long">
 
         <div className="flex">
@@ -172,7 +181,6 @@ const Movies = () => {
               <option value="drama">Draama</option>
               <option value="soap">Saippuasarjat</option>
               <option value="western">Länkkäri</option>
-
               <option value="thriller">Jännitys</option>
               <option value="science fiction">Scifi</option>
               <option value="fantasy">Fantasia</option>
@@ -180,7 +188,6 @@ const Movies = () => {
               <option value="animation">Animaatio</option>
               <option value="family">Perhe</option>
               <option value="kids">Lapsille</option>
-
               <option value="history">Historia</option>
               <option value="war">Sota ja politiikka</option>
               <option value="mystery">Mysteeri</option>
@@ -204,26 +211,55 @@ const Movies = () => {
               onChange={handleYearChange}
             />
           </div>
+        </div>
 
-        </div>
-        <div className='toggleLinks'>
-        <button className="basicbutton" onClick={handleSearch}>Hae</button></div>
-        <div className='toggleLinks'>
-        <h2 onClick={toggleMovies}><span className='emoji uni01'></span> Leffat </h2>&nbsp;&nbsp;&nbsp;
-        <h2 onClick={toggleSeries}><span className='emoji'>📺</span> Sarjat </h2>
-        </div>
-        </div>
-      
-      <p className="group-view">Löydä elokuvia ja sarjoja eri parametreillä tai etsi nimellä. <br /> Valitse yltä haluatko nähdä leffoja vai sarjoja.</p>
+        {showText && (
+             <div> 
+              <span className='userinfo'>Valitse tyyppi:</span>
+              {showMovies && (
+                <span className='userinfo'>elokuvat</span>
+              )}
+              {showSeries && (
+                <span className='userinfo'>sarjat</span>
+              )}
+             </div>
+            )} 
 
-        
-        {/* Näytetään sekä elokuvat että sarjat , allekain */}
-        {(showMovies && movies !== null && movies.length > 0) && (
+        <div className='toggleLinks'>
+          <h2 className='activeSearch' onClick={toggleMovies}><span className='emoji uni01'></span> Leffat </h2>&nbsp;&nbsp;&nbsp;
+          <h2 className='activeSearch' onClick={toggleSeries}><span className='emoji justMargin'>📺</span> Sarjat </h2>
+        </div>
+        <div>
+          <button className="basicbutton" onClick={handleSearch}>Hae !</button> &nbsp;
+          <button className="basicbutton" onClick={handleNullify}>Tyhjennä</button>
+        </div>
+
+      </div>
+
+      <div className="group-view">
+        <span className='movieinfo'>Löydä elokuvia ja sarjoja eri parametreillä tai etsi nimellä.</span><br/>
+        <span className='movieinfo'>Valitse yltä haluatko nähdä leffoja vai sarjoja.</span>
+      </div>
+
+    {/* Näytetään sekä elokuvat että sarjat , allekain */}
+    {(showMovies && movies !== null && movies.length > 0) && (
         <div>
         <div className="resultsTitle">
         <button onClick={() => handleMoviePageChange('prev')} className='bigArrow'>{'⯇'}</button>
             <h2>Elokuvat</h2>
             <button onClick={() => handleMoviePageChange('next')} className='bigArrow'>{'⯈'}</button>      
+          </div>
+          <div className="resultsTitle">
+            <input
+              id="moviesHideable"
+              className="field shortInput"
+              type="number"
+              placeholder="..."
+              value={moviePage}
+              onChange={(event) => {
+              setMoviePage(event.target.value);
+              }}
+            />
           </div>
         <div className="movie-container">
         {movies.map((result) => (
@@ -243,9 +279,9 @@ const Movies = () => {
 
         </div>
         <div className="resultsTitle">
-        <button onClick={() => handleMoviePageChange('prev')} className='bigArrow'>{'⯇'}</button>
+        <button onClick={() => { handleMoviePageChange('prev'); scrollToTop(); }}className='bigArrow'>{'⯇'}</button>
             <h2>Elokuvat</h2>
-            <button onClick={() => handleMoviePageChange('next')} className='bigArrow'>{'⯈'}</button>      
+            <button onClick={() =>{ handleMoviePageChange('next'); scrollToTop(); }} className='bigArrow'>{'⯈'}</button>      
           </div>
         </div>
         )}
@@ -255,6 +291,18 @@ const Movies = () => {
             <button onClick={() => handleSeriesPageChange('prev')} className='bigArrow'>{'⯇'}</button>
             <h2>Sarjat</h2>
             <button onClick={() => handleSeriesPageChange('next')} className='bigArrow'>{'⯈'}</button>
+          </div>
+          <div className="resultsTitle">
+            <input
+              id="seriesHideable"
+              className="field shortInput"
+              type="number"
+              placeholder="..."
+              value={seriesPage}
+              onChange={(event) => {
+              setSeriesPage(event.target.value);
+              }}
+            />
           </div>
         <div className="movie-container">  
         {series.map((result) => (
@@ -273,15 +321,15 @@ const Movies = () => {
         ))}
         </div>
         <div className="resultsTitle">
-            <button onClick={() => handleSeriesPageChange('prev')} className='bigArrow'>{'⯇'}</button>
+            <button onClick={() => { handleSeriesPageChange('prev'); scrollToTop(); }} className='bigArrow'>{'⯇'}</button>
             <h2>Sarjat</h2>
-            <button onClick={() => handleSeriesPageChange('next')} className='bigArrow'>{'⯈'}</button>
+            <button onClick={() => { handleSeriesPageChange('next'); scrollToTop(); }} className='bigArrow'>{'⯈'}</button>
           </div>
         </div>
       )}
-    
+      </div>
     </>
   );
-};
+}
 
 export default Movies;

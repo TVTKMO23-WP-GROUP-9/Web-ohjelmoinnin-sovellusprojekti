@@ -9,6 +9,8 @@ const ReviewFormSerie = ({ tvShowId, user }) => {
   const [profileHasReview, setProfileHasReview] = useState(true); 
   const [rating, setRating] = React.useState(0);
   const [review, setReview] = React.useState("");
+  const [serieAdult, setSerieAdult] = useState(true); // Asetetaan oletusarvoksi true
+
   const headers = getHeaders();
 
   console.log("user", user === null, user.user);
@@ -28,7 +30,19 @@ const ReviewFormSerie = ({ tvShowId, user }) => {
       }
       checkIfUserHasReview();
     }, [tvShowId]);
+
   }
+  useEffect(() => {
+    const fetchMovie = async () => {
+      try {
+        const response = await axios.get(`${VITE_APP_BACKEND_URL}/series/${tvShowId}`);
+        setSerieAdult(response.data.adult); // Asetetaan elokuvan adult-arvo
+      } catch (error) {
+        console.error('Hakuvirhe:', error);
+      }
+    };
+    fetchMovie();
+  }, [tvShowId]);
 
   const closeReviewForm = () => {
     setShowReviewForm(false);
@@ -50,6 +64,7 @@ const ReviewFormSerie = ({ tvShowId, user }) => {
           review,
           mediatype: '1',
           revieweditem: `${tvShowId}`,
+          adult: `${serieAdult}`,
         }, { headers }
       );
 

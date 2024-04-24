@@ -2,7 +2,7 @@
   .moviemain {
     display: flex;
   } 
-
+  
 }
 
 @media (max-width: 2140px) {
@@ -116,6 +116,10 @@
     display: block;
     min-width: 90%;
   }
+  .favorite-view {
+    display: block;
+    min-width: 90%;
+  }
   
   .posterimg {
     max-height: 470px;
@@ -170,6 +174,10 @@
 
   .posterimg {
     max-height: 450px;
+  }
+
+  .group-view {
+    width: 85% !important;
   }
 
 }
@@ -450,6 +458,10 @@
 
 .showContentCellRight {
   display: none;
+}
+
+.group-view {
+  width: 80% !important;
 }
 
 }

@@ -6,6 +6,9 @@ import { getHeaders } from '@auth/token';
 import GroupList from './GroupList';
 import ReviewList from './ReviewList';
 import ProfileEdit from './ProfileEdit';
+import FavoriteList from './FavoriteList';
+//Juurikansiossa npm install react-simple-timestamp-to-date
+//import SimpleDateTime from 'react-simple-timestamp-to-date';
 const { VITE_APP_BACKEND_URL } = import.meta.env;
 
 
@@ -28,6 +31,7 @@ const ProfileDetails = ({ user }) => {
                 setOwnProfile(response.data.isOwnProfile);
                 setPrivate(response.data.is_private);
                 setLoading(false);
+                setLastLoggedIn(response.data.timestamp);
 
             } catch (error) {
                 console.error('Virhe haettaessa profiilitietoja:', error);
@@ -46,13 +50,6 @@ const ProfileDetails = ({ user }) => {
         simulateLogin();
     }, [user]);
 
-    const formatDate = (timestamp) => {
-        const date = new Date(timestamp);
-        const day = date.getDate();
-        const month = date.getMonth() + 1;
-        const year = date.getFullYear();
-        return `${day}.${month}.${year}`;
-    };
 
     return (
         <div className="content">
@@ -69,7 +66,7 @@ const ProfileDetails = ({ user }) => {
                             alt="Käyttäjän kuva" 
                         />
 
-                    {(!isPrivate || isOwnProfile) && <span className='userinfo'>Viimeksi kirjautuneena: {formatDate(lastLoggedIn)}</span>}
+        
 
                     {(isOwnProfile && !editMode) && <button onClick={() => setEditMode(true)} className="basicbutton">Muokkaa profiilia</button>}
                 </div>
@@ -89,12 +86,10 @@ const ProfileDetails = ({ user }) => {
                 <>
                     <div className='profile-between'>
 
-                        <div className="profile-view">
+                    <div className="favorite-view">
                             <div className="profile-content">
                                 <h2>Suosikit &nbsp;<span className='emoji uni10'></span></h2>
-                                <ul>
-                                    <li><span className='userinfo'>Ei vielä suosikkeja</span></li>
-                                </ul>
+                                <FavoriteList profile={profile} />
                             </div>
                         </div>
 
@@ -111,7 +106,7 @@ const ProfileDetails = ({ user }) => {
 
                     <div className='reviews-view'>
                         <h2>Arvostelut  &nbsp;<span className='emoji uni08'></span></h2>
-                        <ReviewList profile={profile} />
+                        <ReviewList user={user} profile={profile} /> 
                     </div>
 
                 </>
@@ -122,7 +117,32 @@ const ProfileDetails = ({ user }) => {
             )}
             
         </div>
+        
     );
 };
+// viimeksi kirjautunu TURHA???
+ /*const DatabaseDateTime = () => {
+    const [dateTimeFromDatabase, setDateTimeFromDatabase] = useState('');
+    const { profilename } = useParams();
+    useEffect(() => {
+        const fetchDateTimeFromDatabase = async () => {
+            try {
+                const response = await axios.get(`http://localhost:3001/profile/${profilename}`);
+                const data = response.data;
+                console.log("Tietokannasta saatu timestamp:", data); 
+                setDateTimeFromDatabase(data.timestamp);
+            } catch (error) {
+                console.error('Virhe haettaessa päivämäärää ja aikaa tietokannasta:', error);
+            }
+        };
 
+        fetchDateTimeFromDatabase();
+    }, []);
+
+    return (
+        <SimpleDateTime dateSeparator="-" timeSeparator=":">
+            {dateTimeFromDatabase}
+        </SimpleDateTime>
+    );
+    }; */
 export default ProfileDetails;

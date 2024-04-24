@@ -62,6 +62,40 @@
     padding-bottom: 23px;
 }
 
+.flex-container {
+    display: flex;
+    align-items: center; 
+  }
+  
+.favorite-button {
+    position: relative;
+    border: none;
+    top: 0em;
+    left: 1em;
+    background-color: transparent;
+    cursor: pointer;
+    outline: none;
+}
+
+.favorite-button:focus {
+    outline: none; 
+}
+
+.favorite-button:hover {
+    transform: scale(1.2);
+}
+
+
+.favorite-icon {
+    color: #ff0000;
+}
+
+.favorite-icon:hover {
+    color: #ff3838;
+}
+
+
+
 .providers table {
     border-collapse: collapse;
     border-spacing: 0;
@@ -92,12 +126,12 @@
 .group-view-long {
     background-color: var(--table-bg);
     color: var(--grp-text);
-
-    border-radius: 10px;
+    border-top-left-radius: 10px;
     border-top-right-radius: 170px;
     border-bottom-right-radius: 30px;
     margin-top: 0px;
     margin-bottom: 0px;
+    padding: 20px;
     border: var(--solid);
     box-shadow: var(--shadow02);
 }

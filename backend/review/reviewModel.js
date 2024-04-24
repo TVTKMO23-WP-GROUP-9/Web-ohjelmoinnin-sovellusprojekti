@@ -25,12 +25,12 @@ async function reviewFromThisUser(profileid, revieweditem, mediatype) {
   }
 }
 
-async function movieReviewFromUser(profileid, mediatype, rating, review, revieweditem) {
+async function movieReviewFromUser(profileid, mediatype, rating, review, revieweditem, adult) {
 
   try {
     const query = {
-      text: 'INSERT INTO Review_ (rating, revieweditem, review, profileid, mediatype) VALUES ($1, $2, $3, $4, $5)',
-      values: [rating, revieweditem, review, profileid, mediatype],
+      text: 'INSERT INTO Review_ (rating, revieweditem, review, profileid, mediatype, adult) VALUES ($1, $2, $3, $4, $5, $6)',
+      values: [rating, revieweditem, review, profileid, mediatype, adult],
     };
     await pool.query(query);
     return true;
@@ -41,12 +41,12 @@ async function movieReviewFromUser(profileid, mediatype, rating, review, reviewe
   }
 }
 
-async function serieReviewFromUser(profileid, mediatype, rating, review, revieweditem) {
+async function serieReviewFromUser(profileid, mediatype, rating, review, revieweditem, adult) {
 
   try {
     const query = {
-      text: 'INSERT INTO Review_ (rating, revieweditem, review, profileid, mediatype) VALUES ($1, $2, $3, $4, $5)',
-      values: [rating, revieweditem, review, profileid, mediatype],
+      text: 'INSERT INTO Review_ (rating, revieweditem, review, profileid, mediatype, adult) VALUES ($1, $2, $3, $4, $5, $6)',
+      values: [rating, revieweditem, review, profileid, mediatype, adult],
     };
     await pool.query(query);
     return true;
@@ -64,11 +64,12 @@ async function getAllReviews() {
 
 async function getNewestReviews() {
   const query = `
-    SELECT review_.*, profile_.profilename 
-    FROM review_ 
-    LEFT JOIN profile_ ON review_.profileid = profile_.profileid
-    ORDER BY review_.timestamp DESC 
-    LIMIT 12;
+      SELECT review_.*, profile_.profilename 
+      FROM review_
+      INNER JOIN profile_ ON review_.profileid = profile_.profileid
+      WHERE review_.adult = false
+      ORDER BY review_.timestamp DESC 
+      LIMIT 12
   `;
   return await queryDatabase(query);
 }
