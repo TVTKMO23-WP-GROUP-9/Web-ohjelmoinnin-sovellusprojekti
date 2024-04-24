@@ -105,29 +105,5 @@ const ProfileDetails = ({ user }) => {
         
     );
 };
-// viimeksi kirjautunu TURHA???
- /*const DatabaseDateTime = () => {
-    const [dateTimeFromDatabase, setDateTimeFromDatabase] = useState('');
-    const { profilename } = useParams();
-    useEffect(() => {
-        const fetchDateTimeFromDatabase = async () => {
-            try {
-                const response = await axios.get(`http://localhost:3001/profile/${profilename}`);
-                const data = response.data;
-                console.log("Tietokannasta saatu timestamp:", data); 
-                setDateTimeFromDatabase(data.timestamp);
-            } catch (error) {
-                console.error('Virhe haettaessa päivämäärää ja aikaa tietokannasta:', error);
-            }
-        };
 
-        fetchDateTimeFromDatabase();
-    }, []);
-
-    return (
-        <SimpleDateTime dateSeparator="-" timeSeparator=":">
-            {dateTimeFromDatabase}
-        </SimpleDateTime>
-    );
-    }; */
 export default ProfileDetails;
