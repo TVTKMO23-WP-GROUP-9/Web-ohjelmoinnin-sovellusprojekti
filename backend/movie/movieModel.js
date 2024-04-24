@@ -24,7 +24,7 @@ class movieModel {
         return this.overview;
     }
 
-    getOverview() {
+    getAdult() {
         return this.adult;
     }
 }

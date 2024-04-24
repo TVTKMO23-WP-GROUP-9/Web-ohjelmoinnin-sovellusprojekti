@@ -116,6 +116,10 @@
     display: block;
     min-width: 90%;
   }
+  .favorite-view {
+    display: block;
+    min-width: 90%;
+  }
   
   .posterimg {
     max-height: 470px;
