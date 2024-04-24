@@ -38,7 +38,7 @@ export default function MyAccount({ user }) {
                 setVisibility({ is_private });
                 setK18({ adult });
                 setFormData({ profilename, email });
-                
+
             } catch (error) {
                 console.error('Hakuvirhe:', error);
             }
@@ -69,7 +69,7 @@ export default function MyAccount({ user }) {
             };
             await axios.put(`${VITE_APP_BACKEND_URL}/profile/k18`, data, { headers });
 
-            setK18({ adult: !k18.adult});
+            setK18({ adult: !k18.adult });
         } catch (error) {
             console.error('Virhe muutettaessa profiilin k18 sisältöä:', error);
         }
@@ -111,9 +111,9 @@ export default function MyAccount({ user }) {
                 await axios.put(VITE_APP_BACKEND_URL + `/profile/nameandemail`, formData, { headers });
                 setMessageDetails('Käyttäjätunnus päivitetty. Kirjaudu sisään uudestaan.')
                 setTimeout(() => {
-                localStorage.removeItem('user');
-                sessionStorage.removeItem('token');
-                window.location.href = '/';
+                    localStorage.removeItem('user');
+                    sessionStorage.removeItem('token');
+                    window.location.href = '/';
                 }, 3000);
             }
         } catch (error) {
@@ -132,9 +132,9 @@ export default function MyAccount({ user }) {
             await axios.delete(VITE_APP_BACKEND_URL + `/profile/`, { headers });
             setMessageDelete('Käyttäjätili poistettu, sinut ohjataan etusivulle.');
             setTimeout(() => {
-            localStorage.removeItem('user');
-            sessionStorage.removeItem('token');
-            window.location.href = '/';
+                localStorage.removeItem('user');
+                sessionStorage.removeItem('token');
+                window.location.href = '/';
             }, 3000);
 
         } catch (error) {
@@ -171,8 +171,8 @@ export default function MyAccount({ user }) {
                     <h2>Olet kirjautunut käyttäjänä:</h2>
                     <h1>{user.user} </h1>
 
-                    {user && user.usertype === 'admin' && 
-                    <h2>Olet {user.usertype}: siirry {user && user.usertype === 'admin' && <Link to={`/admin`}>ylläpitoon</Link>}</h2>
+                    {user && user.usertype === 'admin' &&
+                        <h2>Olet {user.usertype}: siirry {user && user.usertype === 'admin' && <Link to={`/admin`}>ylläpitoon</Link>}</h2>
                     }
 
                     <hr />
@@ -191,7 +191,7 @@ export default function MyAccount({ user }) {
                     <h2>Profiilin näkyvyys</h2>
                     <div className="form-view">
                         <b>Profiilisi on nyt: <span className='colored'>{visibility.is_private ? 'yksityinen' : 'julkinen'}</span></b> <br />
-                        <span className='communityinfo'>{visibility.is_private ? 'Sinä ja kaverisi näkevät tietosi. Muille näytetään vain profiilikuva ja -esittely.' : 'Kaikki voivat nähdä profiilisi tiedot.'}</span><br/>
+                        <span className='communityinfo'>{visibility.is_private ? 'Sinä ja kaverisi näkevät tietosi. Muille näytetään vain profiilikuva ja -esittely.' : 'Kaikki voivat nähdä profiilisi tiedot.'}</span><br />
 
                         <button className="basicbutton" onClick={handleVisibility}>Vaihda tilin näkyvyyttä</button>
                     </div>
@@ -199,7 +199,7 @@ export default function MyAccount({ user }) {
                     <h2>K-18 sisällön näkyvyys</h2>
                     <div className="form-view">
                         <b>K-18 sisältö: <span className='colored'>{k18.adult ? 'näkyy' : 'piilotettu'}</span></b> <br />
-                        <span className='communityinfo'>{k18.adult ? 'Näet hakutuloksissa myös K-18 sisältöä' : 'K-18 sisältö on piilotettu hakutuloksista.'}</span><br/>
+                        <span className='communityinfo'>{k18.adult ? 'Näet hakutuloksissa myös K-18 sisältöä' : 'K-18 sisältö on piilotettu hakutuloksista.'}</span><br />
 
                         <button className="basicbutton" onClick={handleK18}>Vaihda K-18 asetusta</button>
                     </div>
@@ -210,8 +210,8 @@ export default function MyAccount({ user }) {
                         <input className="input" type="password" name="password1" value={password1} onChange={handlePasswordChange} /><br />
                         <b>Salasana uudelleen</b> <br />
                         <input className="input" type="password" name="password2" value={password2} onChange={handlePasswordChange} /><br />
-                        <button className="basicbutton" onClick={handlePassword}>Vaihda salasana</button><br/>
-                        {messagePassword && <span className='communityinfo'>{messagePassword}</span>}<br/>
+                        <button className="basicbutton" onClick={handlePassword}>Vaihda salasana</button><br />
+                        {messagePassword && <span className='communityinfo'>{messagePassword}</span>}<br />
                     </div>
 
                     <h2>Muuta sähköpostia ja käyttäjänimeä</h2>
@@ -221,7 +221,7 @@ export default function MyAccount({ user }) {
                             <input className="input" type="text" name="profilename" value={formData.profilename || ''} onChange={handleChange} /><br />
                             <b>Sähköposti</b><br />
                             <input className="input" type='text' name="email" value={formData.email || ''} onChange={handleChange} /><br /><br />
-                            <button className="basicbutton" type="submit">Tallenna muutokset</button> <br/>
+                            <button className="basicbutton" type="submit">Tallenna muutokset</button> <br />
                             {messageDetails && <span className='communityinfo'>{messageDetails}</span>}
                         </form>
 
@@ -239,7 +239,7 @@ export default function MyAccount({ user }) {
                                 <button className="basicbutton" onClick={handleCancelDelete}>En, peruuta</button>
                             </div>
                         )}
-                        <br/>{messageDelete && <span className='communityinfo'>{messageDelete}</span>}
+                        <br />{messageDelete && <span className='communityinfo'>{messageDelete}</span>}
                         <p><span className='communityinfo'><i>Jos poistat tilin, niin kaikki tilisi tiedot poistetaan pysyvästi. Voit myös jättää tekemäsi arvostelut anonyymin nimimerkin alle.</i></span></p>
                     </div>
                 </div>
