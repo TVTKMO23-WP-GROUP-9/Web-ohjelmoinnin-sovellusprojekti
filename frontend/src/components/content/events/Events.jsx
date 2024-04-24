@@ -100,7 +100,7 @@ const Events = () => {
       setError('Näytösaikojen haku epäonnistui');
     }
   };
-
+  
   // manuaalinen haun tyhjennys
   const tyhjennaHaku = () => {
     setEvents([]);
@@ -145,7 +145,6 @@ const Events = () => {
                     <span className='eventTitle2'><a href={show.showUrl} target="_blank" rel="noreferrer">{show.title}</a></span>
                     <br/><span className='eventInfo2'><b>{show.date}</b> &nbsp;klo <b>{show.start_time}</b></span>
                     <br/><span className='eventInfo2'>{show.auditorium}, {show.theatre}</span>
-                    
                   </td>
 
                   <td className="showContentCellRight">                    
