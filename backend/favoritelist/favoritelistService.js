@@ -16,11 +16,10 @@ async function getAllFavoritelist (req, res)  {
   async function getFavoritelistByProfile(req, res) {
     
     const profileid = req.params.profileid;
-    const mediatype = req.params.mediatype;
     try {
         const query = {
-            text: `SELECT * FROM favoritelist_ WHERE profileid = $1 AND mediatype = $2`,
-            values: [profileid, mediatype],
+            text: `SELECT * FROM favoritelist_ WHERE profileid = $1`,
+            values: [profileid],
         };
         const result = await favoritelistModel.queryDatabase(query);
         if (result.length > 0) {
