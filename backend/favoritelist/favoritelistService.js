@@ -20,6 +20,7 @@ async function getAllFavoritelist (req, res)  {
         const query = {
             text: `SELECT * FROM favoritelist_ WHERE profileid = $1`,
             values: [profileid],
+
         };
         const result = await favoritelistModel.queryDatabase(query);
         if (result.length > 0) {
