@@ -136,18 +136,23 @@ const handleFavoriteAction = async () => {
               <div className="movieinfo">
                 <>
                 <div className="flex-container">
-                  <h2>{series.name}</h2> 
+                  <h2>{series.name}</h2>
+                  {profileId && 
                   <button className="favorite-button" onClick={handleFavoriteAction}>{isFavorite ? <FaHeart className="favorite-icon" size={34} /> : <FaRegHeart size={34} />}</button>
+                  }
                 </div>
 
 
                 <p><b>Kuvaus:</b> {series.overview}</p>
                 <p><b>Kesto:</b> {series.episode_run_time.map(time => `${time}`).join('-')} min / per jakso</p>
                 <p><b>Genre:</b> {series.genres.map(genre => genre.name).join(', ')}</p>
-                <p><b>Julkaistu:</b> {series.first_air_date}</p>
+                <p><b>Julkaistu:</b> {new Date(series.first_air_date).toLocaleString('fi-FI', {
+                      day: 'numeric',
+                      month: 'numeric',
+                      year: 'numeric',
+                    })}</p>
                 <p><b>Tuotantoyhtiöt:</b> {series.production_companies.map(company => company.name).join(', ')}</p>
-                <p><b>Kerännyt ääniä:</b> {series.vote_count}</p>
-                <p><b>Äänten keskiarvo:</b> {series.vote_average} / 10 </p>
+
                 {providers && providers.flatrate && providers.rent && (
                   <>
                   <p><b>Katsottavissa:</b> <br/>
@@ -178,9 +183,9 @@ const handleFavoriteAction = async () => {
             </div>
 
             <div className="moviereviews">
-
+            {profileId &&
             <div><ReviewFormSerie tvShowId={id} user={user} /></div>
-
+            }
             <br/>
             <h2>Viimeisimmät arvostelut</h2>
 
