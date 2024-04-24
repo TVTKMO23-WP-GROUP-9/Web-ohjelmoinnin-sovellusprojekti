@@ -7,7 +7,7 @@ const { VITE_APP_BACKEND_URL } = import.meta.env;
 const FavoriteList = ({ profile }) => {
   const isOwnProfile = profile && profile.isOwnProfile;
   const [currentPage, setCurrentPage] = useState(1);
-  const [favoritesPerPage, setfavoritesPerPage] = useState(6);
+  const [favoritesPerPage, setfavoritesPerPage] = useState(4);
   const [favorites, setFavorites] = useState([]);
 
   useEffect(() => {
