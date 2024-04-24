@@ -162,6 +162,10 @@
     max-height: 450px;
   }
 
+  .group-view {
+    width: 85% !important;
+  }
+
 }
 
 
@@ -408,6 +412,10 @@
     padding-left: 0px !important;
   max-width: 180px;
 
+}
+
+.group-view {
+  width: 80% !important;
 }
 
 }

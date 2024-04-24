@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
+import { animateScroll as scroll } from 'react-scroll';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import './movies.css';
@@ -107,7 +108,6 @@ const Movies = ({ user }) => {
     } else {
       setMoviePage((page) => Math.max(parseInt(page, 10) + 1));
     }
-    window.scrollTo(0, 600);
   };
 
   const handleSeriesPageChange = (action) => {
@@ -116,15 +116,18 @@ const Movies = ({ user }) => {
     } else {
       setSeriesPage((page) => Math.max(parseInt(page, 10) + 1));
     }
-
-    window.scrollTo(0, 600);
   };
 
+  // setGenre ja setQuery nollaus:
+  // laitoin nää siks, kun search ja discover kumoaa toisensa eli genreä ei huomioida jos on query annettu
+  // tämä hidastaa hakuja, jos pitää tyhjentää toinen osio erikseen 
   const handleInputChange = (event) => {
+    setGenre('');
     setQuery(event.target.value);
   };
 
   const handleGenreChange = (event) => {
+    setQuery('');
     setGenre(event.target.value);
   };
 
@@ -141,21 +144,40 @@ const Movies = ({ user }) => {
   };
 
   const toggleMovies = () => {
-    setShowMovies(!showMovies);
+    setShowMovies(true);
     setSeriesPage(1);
     setMoviePage(1);
     setShowSeries(false);
-    setShowText(false);
   };
 
   const toggleSeries = () => {
-    setShowSeries(!showSeries);
+    setShowSeries(true);
     setMoviePage(1);
     setSeriesPage(1);
     setShowMovies(false);
-    setShowText(false);
   };
 
+
+  const handleNullify = () => {
+    setQuery('');
+    setGenre('');
+    setYear('');
+    setMovies([]);
+    setSeries([]);
+    setShowTitles(false);
+    setMoviePage(1);
+    setSeriesPage(1);
+    setShowMovies(false);
+    setShowSeries(false);
+  };
+
+  const scrollToTop = () => {
+    scroll.scrollTo(600)({
+      duration: 1700,
+      smooth: 'easeInOutQuint', 
+    });
+  };
+  
   return (
     <>
     <div className="content">
@@ -222,13 +244,25 @@ const Movies = ({ user }) => {
           </div>
         </div>
 
-        <div className='toggleLinks'>
-        <h2 onClick={toggleMovies}><span className='emoji uni01'></span> Leffat </h2>&nbsp;&nbsp;&nbsp;
-        <h2 onClick={toggleSeries}><span className='emoji justMargin'>📺</span> Sarjat </h2>
-        </div>
+        {showText && (
+             <div> 
+              <span className='userinfo'>Valitse tyyppi:</span>
+              {showMovies && (
+                <span className='userinfo'>elokuvat</span>
+              )}
+              {showSeries && (
+                <span className='userinfo'>sarjat</span>
+              )}
+             </div>
+            )} 
 
+        <div className='toggleLinks'>
+          <h2 className='activeSearch' onClick={toggleMovies}><span className='emoji uni01'></span> Leffat </h2>&nbsp;&nbsp;&nbsp;
+          <h2 className='activeSearch' onClick={toggleSeries}><span className='emoji justMargin'>📺</span> Sarjat </h2>
+        </div>
         <div>
-          <button className="basicbutton" onClick={handleSearch}>Hae</button>
+          <button className="basicbutton" onClick={handleSearch}>Hae !</button> &nbsp;
+          <button className="basicbutton" onClick={handleNullify}>Tyhjennä</button>
         </div>
 
       </div>
@@ -256,11 +290,6 @@ const Movies = ({ user }) => {
               onChange={(event) => {
               setMoviePage(event.target.value);
               }}
-              onKeyDown={(event) => {
-              if (event.key === 'Enter') {
-                window.scrollTo(0, 600);
-                }
-              }}
             />
           </div>
         <div className="movie-container">
@@ -281,26 +310,9 @@ const Movies = ({ user }) => {
 
         </div>
         <div className="resultsTitle">
-        <button onClick={() => handleMoviePageChange('prev')} className='bigArrow'>{'⯇'}</button>
+        <button onClick={() => { handleMoviePageChange('prev'); scrollToTop(); }}className='bigArrow'>{'⯇'}</button>
             <h2>Elokuvat</h2>
-            <button onClick={() => handleMoviePageChange('next')} className='bigArrow'>{'⯈'}</button>      
-          </div>
-          <div className="resultsTitle">
-            <input
-              id="moviesHideable"
-              className="field shortInput"
-              type="number"
-              placeholder="..."
-              value={moviePage}
-              onChange={(event) => {
-              setMoviePage(event.target.value);
-              }}
-              onKeyDown={(event) => {
-              if (event.key === 'Enter') {
-                window.scrollTo(0, 600);
-                }
-              }}
-            />
+            <button onClick={() =>{ handleMoviePageChange('next'); scrollToTop(); }} className='bigArrow'>{'⯈'}</button>      
           </div>
         </div>
         )}
@@ -321,11 +333,6 @@ const Movies = ({ user }) => {
               onChange={(event) => {
               setSeriesPage(event.target.value);
               }}
-              onKeyDown={(event) => {
-              if (event.key === 'Enter') {
-                window.scrollTo(0, 600);
-                }
-              }}
             />
           </div>
         <div className="movie-container">  
@@ -345,28 +352,9 @@ const Movies = ({ user }) => {
         ))}
         </div>
         <div className="resultsTitle">
-            <button onClick={() => handleSeriesPageChange('prev')} className='bigArrow'>{'⯇'}</button>
+            <button onClick={() => { handleSeriesPageChange('prev'); scrollToTop(); }} className='bigArrow'>{'⯇'}</button>
             <h2>Sarjat</h2>
-            
-            <button onClick={() => handleSeriesPageChange('next')} className='bigArrow'>{'⯈'}</button>
-
-          </div>
-          <div className="resultsTitle">
-            <input
-              id="seriesHideable"
-              className="field shortInput"
-              type="number"
-              placeholder="..."
-              value={seriesPage}
-              onChange={(event) => {
-              setSeriesPage(event.target.value);
-              }}
-              onKeyDown={(event) => {
-              if (event.key === 'Enter') {
-                window.scrollTo(0, 600);
-                }
-              }}
-            />
+            <button onClick={() => { handleSeriesPageChange('next'); scrollToTop(); }} className='bigArrow'>{'⯈'}</button>
           </div>
         </div>
       )}
