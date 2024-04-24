@@ -69,21 +69,22 @@
   
 .favorite-button {
     position: relative;
-    top: 0px;
-    left: 50%;
     border: none;
+    top: 0em;
+    left: 1em;
     background-color: transparent;
     cursor: pointer;
     outline: none;
 }
+
 .favorite-button:focus {
     outline: none; 
 }
 
 .favorite-button:hover {
     transform: scale(1.2);
-   
 }
+
 
 .favorite-icon {
     color: #ff0000;

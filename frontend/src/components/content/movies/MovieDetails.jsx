@@ -130,8 +130,6 @@ const MovieDetails = (user) => {
             <div className="moviemain">
               <img className="posterimg" src={`https://image.tmdb.org/t/p/w342${movie.poster_path}`} alt={movie.title} />
 
-              
-
               <div className="movieinfo">
               {movie && (
 

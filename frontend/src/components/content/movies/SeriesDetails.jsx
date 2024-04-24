@@ -131,19 +131,16 @@ const handleFavoriteAction = async () => {
           <>
 
             <div className="moviemain">
-
-
-
               <img className="posterimg" src={`https://image.tmdb.org/t/p/w342${series.poster_path}`} alt={series.title} />
-              <div style={{ position: 'relative' }}>
-              <button className="favorite-button" onClick={handleFavoriteAction}>
-                {isFavorite ? <FaHeart className="favorite-icon" size={34} /> : <FaRegHeart size={34} />}
-              </button>
-              </div>
-              <div className="movieinfo">
 
+              <div className="movieinfo">
                 <>
-                <h2>{series.name}</h2>
+                <div class="flex-container">
+                  <h2>{series.name}</h2> 
+                  <button className="favorite-button" onClick={handleFavoriteAction}>{isFavorite ? <FaHeart className="favorite-icon" size={34} /> : <FaRegHeart size={34} />}</button>
+                </div>
+
+
                 <p><b>Kuvaus:</b> {series.overview}</p>
                 <p><b>Kesto:</b> {series.episode_run_time.map(time => `${time}`).join('-')} min / per jakso</p>
                 <p><b>Genre:</b> {series.genres.map(genre => genre.name).join(', ')}</p>
