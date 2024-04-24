@@ -64,7 +64,7 @@ async function getNewestReviews() {
   const query = `
       SELECT review_.*, profile_.profilename 
       FROM review_
-      INNER JOIN profile_ ON review_.profileid = profile_.profileid
+      LEFT JOIN profile_ ON review_.profileid = profile_.profileid
       WHERE review_.adult = false
       ORDER BY review_.timestamp DESC 
       LIMIT 12

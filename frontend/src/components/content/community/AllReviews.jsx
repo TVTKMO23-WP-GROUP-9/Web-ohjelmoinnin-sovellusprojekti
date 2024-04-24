@@ -1,51 +1,34 @@
 import React, { useState, useEffect } from 'react';
 import './community.css';
-//import AdminDeleteReview from './AdminDeleteReview'; 
 import AdminDeleteReview from '@content/admin/AdminDeleteReview';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { getHeaders } from '@auth/token';
 const { VITE_APP_BACKEND_URL } = import.meta.env;
 
 const AllReviews = ({ searchTerm, setSearchTerm, user }) => {
 
   const [reviews, setReviews] = useState([]);
-  const [reviewsPerPage, setReviewsPerPage] = useState(4);
+  const [reviewsPerPage, setReviewsPerPage] = useState(5);
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
   const [adult, setAdult] = useState(false);
+  const headers = getHeaders();
 
-  useEffect(() => {    const fetchProfile = async () => {
-    try {
-        const token = sessionStorage.getItem('token');
-        const headers = {
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json'
-        };
-        console.log("Token from sessionStorage:", token);
-        console.log("Profilename from token:", user);
-        const profresponse = await axios.get(`${VITE_APP_BACKEND_URL}/profile/${user.user.user}`);
+  useEffect(() => {
+  const fetchProfile = async () => {
 
-        console.log("Token from sessionStorage:", token);
-        console.log("Profilename from token:", user);
-        console.log("Response from adult:", profresponse.data.adult);
-
-        setAdult(profresponse.data.adult);
-        console.log("mitä haku luulee adult olevan: ",adult)
-
-        console.log("Response from status:", profresponse.data);
-
-
-    } catch (error) {
-        console.error('Virhe haettaessa profiilitietoja:', error);
-    }
+    const profresponse = await axios.get(`${VITE_APP_BACKEND_URL}/profile/${user.user.user}`, { headers });
+    setAdult(profresponse.data.adult);
   };
 
   fetchProfile();
-  fetchReviews();
   }, [user]);
 
-    
-  
+  useEffect(() => {
+    fetchReviews();
+  }, []);
+
   const fetchReviews = async () => {
     try {
       const newReviewResponse = await axios.get(`${VITE_APP_BACKEND_URL}/reviews`);
@@ -110,7 +93,6 @@ const AllReviews = ({ searchTerm, setSearchTerm, user }) => {
     const year = date.getFullYear();
     return `${day}.${month}.${year}`;
   };
-
   
   const handleDelete = async (idreview) => {
       setReviews(reviews.filter(review => review.idreview !== idreview));
