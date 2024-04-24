@@ -8,7 +8,7 @@ import ReviewList from './ReviewList';
 import ProfileEdit from './ProfileEdit';
 import FavoriteList from './FavoriteList';
 //Juurikansiossa npm install react-simple-timestamp-to-date
-//import SimpleDateTime from 'react-simple-timestamp-to-date';
+import SimpleDateTime from 'react-simple-timestamp-to-date';
 const { VITE_APP_BACKEND_URL } = import.meta.env;
 
 
@@ -121,7 +121,7 @@ const ProfileDetails = ({ user }) => {
     );
 };
 // viimeksi kirjautunu TURHA???
- /*const DatabaseDateTime = () => {
+ /* const DatabaseDateTime = () => {
     const [dateTimeFromDatabase, setDateTimeFromDatabase] = useState('');
     const { profilename } = useParams();
     useEffect(() => {
@@ -143,6 +143,6 @@ const ProfileDetails = ({ user }) => {
         <SimpleDateTime dateSeparator="-" timeSeparator=":">
             {dateTimeFromDatabase}
         </SimpleDateTime>
-    );
-    }; */
+    ); 
+    };  */
 export default ProfileDetails;

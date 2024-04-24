@@ -288,14 +288,14 @@ input {
     list-style-type: none;
     padding: 0;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /*Säädetään miten posterit menee ruudulle */
-    grid-gap: 50px;
-    flex-wrap: wrap;
+    grid-template-columns: repeat(2, 1fr); /*Säädetään miten posterit menee ruudulle */
+    
   }
   .favorite-list > li {
-    width: 50%; 
+    width: 100%; 
     box-sizing: border-box;
     padding: 0 10px; 
+    max-width: calc(50%);
   }
   .favorite-list > li:last-child {
     margin-right: 0;
@@ -310,9 +310,6 @@ input {
     font-weight: bold;
     padding: 7px;
     border-radius: 50%; 
-    cursor: pointer;
-    opacity: 0;
-    transition: opacity 0.3s ease;
   }
 .favoriteDButton:hover {
     background-color: #d32f2f;
@@ -327,6 +324,6 @@ input {
     width: 150px; 
     height: auto;
   }
-  .favorite-poster:hover .favoriteDButton {
-    opacity: 1;
+  .favorite-item:hover .favoriteDButton { 
+    visibility: visible;
   }
