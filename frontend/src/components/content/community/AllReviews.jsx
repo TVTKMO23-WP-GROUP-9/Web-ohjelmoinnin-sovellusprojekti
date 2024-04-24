@@ -13,16 +13,20 @@ const AllReviews = ({ searchTerm, setSearchTerm, user }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
   const [adult, setAdult] = useState(false);
-  const headers = getHeaders();
+  const headers = getHeaders()
+
 
   useEffect(() => {
-  const fetchProfile = async () => {
+    if (user.user !== null && user.user.usertype === 'admin') {
+    const fetchProfile = async () => {
 
-    const profresponse = await axios.get(`${VITE_APP_BACKEND_URL}/profile/${user.user.user}`, { headers });
-    setAdult(profresponse.data.adult);
-  };
+      const profresponse = await axios.get(`${VITE_APP_BACKEND_URL}/profile/${user.user.user}`, { headers });
+      setAdult(profresponse.data.adult);
 
-  fetchProfile();
+      fetchProfile();
+    };
+  }
+
   }, [user]);
 
   useEffect(() => {
