@@ -30,11 +30,14 @@ const Movies = ( {user}) => {
         const profresponse = await axios.get(`${VITE_APP_BACKEND_URL}/profile/${user.user}`, { headers });
       
         setAdult(profresponse.data.adult);
+
+        fetchProfile();
       }
-      fetchProfile();
+      
     };
     
   }, [user]);
+  
 
   useEffect(() => {
     searchMovies();
