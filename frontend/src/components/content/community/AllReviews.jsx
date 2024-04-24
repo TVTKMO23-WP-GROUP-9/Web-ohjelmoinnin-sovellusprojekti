@@ -17,7 +17,7 @@ const AllReviews = ({ searchTerm, setSearchTerm, user }) => {
 
 
   useEffect(() => {
-    if (user.user !== null && user.user.usertype === 'admin') {
+    if (user.user !== null || user.user !== undefined) {
     const fetchProfile = async () => {
 
       const profresponse = await axios.get(`${VITE_APP_BACKEND_URL}/profile/${user.user.user}`, { headers });

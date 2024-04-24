@@ -24,15 +24,16 @@ const Movies = ( {user}) => {
   const headers = getHeaders();
 
   useEffect(() => {
+
+    if ( user !== null || user !== undefined ) {
     const fetchProfile = async () => {
-      if ( user !== null || user !== undefined ) {
-  
         const profresponse = await axios.get(`${VITE_APP_BACKEND_URL}/profile/${user.user}`, { headers });
-        
+      
         setAdult(profresponse.data.adult);
       }
+      fetchProfile();
     };
-    fetchProfile();
+    
   }, [user]);
 
   useEffect(() => {
