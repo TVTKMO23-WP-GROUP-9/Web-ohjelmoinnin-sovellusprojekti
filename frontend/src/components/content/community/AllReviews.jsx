@@ -13,11 +13,40 @@ const AllReviews = ({ searchTerm, setSearchTerm, user }) => {
   const [reviewsPerPage, setReviewsPerPage] = useState(4);
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
+  const [adult, setAdult] = useState(false);
 
-  useEffect(() => {
-    fetchReviews();
-  }, []);
+  useEffect(() => {    const fetchProfile = async () => {
+    try {
+        const token = sessionStorage.getItem('token');
+        const headers = {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+        };
+        console.log("Token from sessionStorage:", token);
+        console.log("Profilename from token:", user);
+        const profresponse = await axios.get(`${VITE_APP_BACKEND_URL}/profile/${user.user.user}`);
 
+        console.log("Token from sessionStorage:", token);
+        console.log("Profilename from token:", user);
+        console.log("Response from adult:", profresponse.data.adult);
+
+        setAdult(profresponse.data.adult);
+        console.log("mitä haku luulee adult olevan: ",adult)
+
+        console.log("Response from status:", profresponse.data);
+
+
+    } catch (error) {
+        console.error('Virhe haettaessa profiilitietoja:', error);
+    }
+  };
+
+  fetchProfile();
+  fetchReviews();
+  }, [user]);
+
+    
+  
   const fetchReviews = async () => {
     try {
       const newReviewResponse = await axios.get(`${VITE_APP_BACKEND_URL}/reviews`);
@@ -130,7 +159,9 @@ const AllReviews = ({ searchTerm, setSearchTerm, user }) => {
   
             <hr />
   
-            {currentReviews.map((review, index) => (
+            {currentReviews
+            .filter(review => review.adult === false || adult === true)
+            .map((review, index) => (
               <li className='minheightrews' key={index}>
                 {review.mediatype === 0 ? (
                   <Link to={`/movie/${review.revieweditem}`}>
