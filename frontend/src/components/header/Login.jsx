@@ -15,11 +15,12 @@ export default function Login({ setUser, window, fullpage }) {
   const [email, setEmail] = useState('');
   const [messageLogin, setMessageLogin] = useState('');
   const [messageRegister, setMessageRegister] = useState('');
+  const [messagePassword, setMessagePassword] = useState('');
 
   const [formData, setFormData] = useState({
-    profilename: null,
-    email: null,
-    password: null
+    profilename: '',
+    email: '',
+    password: ''
   });
 
   const handleLogin = async (e) => {
@@ -29,19 +30,21 @@ export default function Login({ setUser, window, fullpage }) {
         username: username,
         password: password
       });
-      
+
       if (response.status === 200) {
         jwtToken.value = response.data.jwtToken;
         usertype.value = response.data.usertype;
         const profileid = response.data.profileid;
         console.log('userType:', usertype.value);
-        console.log('profileid:' , profileid);
-        setUser({ user: username, usertype: usertype.value, profileid: profileid});
+        console.log('profileid:', profileid);
+        setUser({ user: username, usertype: usertype.value, profileid: profileid });
         navigate('/myaccount');
+        setMessageLogin('');
         //setShowLogin(!showLogin);
       }
     } catch (error) {
       console.error('Kirjautumisvirhe:', error);
+      setMessageLogin('Tarkista käyttäjätunnus ja salasana');
     }
   };
 
@@ -109,12 +112,12 @@ export default function Login({ setUser, window, fullpage }) {
       const response = await axios.post(`${VITE_APP_BACKEND_URL}/auth/forgot-password`, { email });
 
       if (response.status === 200) {
-        alert('Uusi salasana on lähetetty sähköpostiisi.');
+        setMessagePassword('Uusi salasana on lähetetty sähköpostiisi.');
         setShowForgotPassword(false);
       }
     } catch (error) {
       console.error('Virhe unohtuneen salasanan käsittelyssä:', error);
-      alert('Sähköpostiosoitetta ei löytynyt. Tarkista antamasi sähköpostiosoite.');
+      setMessagePassword('Sähköpostiosoitetta ei löytynyt. Tarkista antamasi sähköpostiosoite.');
     }
   };
 
@@ -123,33 +126,34 @@ export default function Login({ setUser, window, fullpage }) {
       <div className="login-window">
         {showRegisterForm ? (
           <form onSubmit={handleRegister}>
-            <input className="field" type="text" name="profilename" value={formData.profilename || null} onChange={handleChange} placeholder="Käyttäjänimi" /><br />
-            <input className="field" type='email' name="email" value={formData.email || null} onChange={handleChange} placeholder="Sähköposti" /><br />
-            <input className="field" type='password' name="password" value={formData.password || null} onChange={handleChange} placeholder="Salasana" /><br />
+            <input className="field" type="text" name="profilename" value={formData.profilename || ''} onChange={handleChange} placeholder="Käyttäjänimi" /><br />
+            <input className="field" type='email' name="email" value={formData.email || ''} onChange={handleChange} placeholder="Sähköposti" /><br />
+            <input className="field" type='password' name="password" value={formData.password || ''} onChange={handleChange} placeholder="Salasana" /><br />
             <button className="formButton" type="submit">Rekisteröidy</button>
-            <button className="formButton" type="button" onClick={(e) => {handleToggleRegisterForm(); e.stopPropagation(); }}>Peruuta</button>
+            <button className="formButton" type="button" onClick={(e) => { handleToggleRegisterForm(); e.stopPropagation(); }}>Peruuta</button>
           </form>
         ) : showForgotPassword ? (
           <form onSubmit={handleForgotPassword}>
             <input className="field" type="email" name="email" value={email} onChange={handleEmailChange} placeholder="Sähköpostiosoite" required />
             <button className="formButton" type="submit">Palauta salasana</button>
             <button className="formButton" onClick={(e) => { handleToggleForgotPasswordForm(); e.stopPropagation(); }}>Peruuta</button>
+            {messagePassword && <span className='login-window-info'>{messagePassword}</span>}
           </form>
         ) : (
           <form onSubmit={handleLogin}>
             <input className="field" value={username} onChange={e => setUsername(e.target.value)} placeholder="Käyttäjänimi"></input>
             <input className="field" type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Salasana"></input>
-            <button className="formButton" type="submit">Kirjaudu sisään</button>
+            <button className="formButton" type="submit">Kirjaudu sisään</button> <br />
+            {messageLogin && <span className='login-window-info'>{messageLogin}</span>}
             <hr />
 
             <button className="formButton" onClick={(e) => { handleToggleRegisterForm(); e.stopPropagation(); }}>Rekisteröidy</button>
-            
+
             <button className="formButton" onClick={(e) => { handleToggleForgotPasswordForm(); e.stopPropagation(); }}>Unohtuiko salasana?</button>
 
           </form>
 
         )}
-        
         <div className='lilInfoBox'>{messageRegister && <span className='login-window-info'>{messageRegister}</span>}</div>
       </div>
     );
@@ -170,6 +174,7 @@ export default function Login({ setUser, window, fullpage }) {
               <input id="robot02" className="field" type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Salasana"></input> <br />
               <button id="robot03" className="basicbutton" type="submit">Kirjaudu sisään</button>
             </form>
+            {messageLogin && <p className='userinfo'>{messageLogin}</p>}
           </div>
         </div>
 
@@ -181,6 +186,7 @@ export default function Login({ setUser, window, fullpage }) {
               <input type="email" value={email} onChange={handleEmailChange} placeholder="Sähköpostiosoite" required /> <br />
               <button className="basicbutton" type="submit">Palauta salasana</button>
             </form>
+            {messagePassword && <p className='userinfo'>{messagePassword}</p>}
           </div>
         </div>
 
@@ -189,14 +195,14 @@ export default function Login({ setUser, window, fullpage }) {
           <div className="full-page">
             <div className='form-view'>
               <form onSubmit={handleRegister}>
-                <span className="userinfo">Kaikki kentät ovat pakollisia, sähköposti ei saa olla jo käytössä jollain käyttäjällä.</span> <br/><br/>
+                <span className="userinfo">Kaikki kentät ovat pakollisia, sähköposti ei saa olla jo käytössä jollain käyttäjällä.</span> <br /><br />
                 <b>Käyttäjänimi</b> <br />
-                <input id="robot04" className="field" type="text" name="profilename" value={formData.profilename || null} onChange={handleChange} /><br />
+                <input id="robot04" className="field" type="text" name="profilename" value={formData.profilename || ''} onChange={handleChange} /><br />
                 <b>Sähköposti</b><br />
-                <input id="robot05" className="field" type='text' name="email" value={formData.email || null} onChange={handleChange} /><br />
+                <input id="robot05" className="field" type='text' name="email" value={formData.email || ''} onChange={handleChange} /><br />
                 <b>Salasana</b><br />
-                <input id="robot06" className="field" type='password' name="password" value={formData.password || null} onChange={handleChange} /><br />
-                <button id="robot07" className="basicbutton" type="submit">Rekisteröidy</button> <br/>
+                <input id="robot06" className="field" type='password' name="password" value={formData.password || ''} onChange={handleChange} /><br />
+                <button id="robot07" className="basicbutton" type="submit">Rekisteröidy</button> <br />
                 {messageRegister && <span className='communityinfo'>{messageRegister}</span>}
               </form>
             </div>
