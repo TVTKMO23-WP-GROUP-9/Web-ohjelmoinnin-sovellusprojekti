@@ -212,12 +212,34 @@
     padding-bottom: 75px; 
   }
 
+  .movie-item .headoverview {
+    display: none;
+    width: 0px;
+    height: 0px;
+  }
+
+  .movie-item:hover .headoverview {
+    display: none;
+    width: 0px;
+    height: 0px;
+  }
+  .movie-item:hover img {
+    transform: none; 
+}
+
+  .headovertext {
+    display: none;
+    width: 0px;
+    height: 0px;
+  }
+
   .uppermiddlecontent h2, 
   .uppercontent h2,
   .nearbyEvents h2,
   .lowermiddlecontent h2 {
     font-size: larger;
   }
+
   #header-bar .header-container {
     margin-left: 35px;
   }

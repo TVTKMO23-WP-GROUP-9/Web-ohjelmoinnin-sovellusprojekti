@@ -15,6 +15,10 @@ const MovieDetails = (user) => {
   const [isFavorite, setIsFavorite] = useState(false); 
   const [profileId, setProfileId] = useState(false); 
   const { favoriteditem } = useParams();
+  const [groups, setGroups] = useState([]);
+  const [group, setGroup] = useState(false);
+  const [groupsPerPage, setGroupsPerPage] = useState(10);
+  const [currentPage, setCurrentPage] = useState(1);
   const headers = getHeaders();
 
   useEffect(() => {
@@ -38,6 +42,12 @@ const MovieDetails = (user) => {
             console.log("Käyttäjän id:", response.data.profileid);
             console.log("sivun listatuotteen id:", id);
 
+            const gresponse = await axios.get(`${VITE_APP_BACKEND_URL}/grouplist/profile/${user.user.user}/0`);
+  
+            setGroups(gresponse.data);
+
+            console.log('käyttäjän ryhmät:', gresponse.data);
+
             const FLresponse = await axios.get(`${VITE_APP_BACKEND_URL}/favoritelist/${response.data.profileid}/${id}/0`);
 
          /* console.log(FLresponse.data)
@@ -54,12 +64,11 @@ const MovieDetails = (user) => {
           } else {
             setIsFavorite(false);
           }
-                 
-          
+
           console.log("Response from profile:", response.data);
-      } catch (error) {
-          console.error('Virhe haettaessa profiilitietoja:', error);
-      }
+          } catch (error) {
+            console.error('Virhe haettaessa profiilitietoja:', error);
+          }
     
   };
 
@@ -94,6 +103,10 @@ const MovieDetails = (user) => {
     return () => clearTimeout(timeoutId);
   }, [id, user]);
 
+
+    
+  
+
   const handleFavoriteAction = async () => {
     try {
         if (profileId&& id) {
@@ -120,6 +133,13 @@ const MovieDetails = (user) => {
     }
   };
 
+  const toggleGroups = () => {
+    setGroup(!group);
+  };
+
+  const indexOfLastGroup = currentPage * groupsPerPage;
+  const indexOfFirstGroup = indexOfLastGroup - groupsPerPage;
+  const currentGroups = groups.slice(indexOfFirstGroup, indexOfLastGroup);
 
   return (
 
@@ -142,6 +162,7 @@ const MovieDetails = (user) => {
                   {profileId &&
                   <button className="favorite-button" onClick={handleFavoriteAction}>{isFavorite ? <FaHeart className="favorite-icon" size={34} /> : <FaRegHeart size={34} />}</button>
                   }
+                  <button className="favorite-button" onClick={toggleGroups}><div className="uni06"></div></button>
                 </div>
 
                 <p><b>Kuvaus:</b> {movie.overview}</p>
@@ -182,8 +203,40 @@ const MovieDetails = (user) => {
                 
               </div>
             </div>
+            <div className='group-between'>
+            <div className="group-view">
+              <div className='group-content'>
+                {group && (
+                
+                  <>  
 
-            
+                <ul className="pagination">
+                <li>
+                <button className="buttonnext" onClick={() => setCurrentPage(currentPage > 1 ? currentPage - 1 : 1)}>
+                ⯇
+                </button>
+                &nbsp; <span className="communityinfo">selaa</span> &nbsp;
+                <button className="buttonnext" onClick={() =>
+                setCurrentPage(currentPage < Math.ceil(groups.length / groupsPerPage) ?
+                currentPage + 1 : Math.ceil(groups.length / groupsPerPage))}>
+                ⯈
+                </button>
+                </li>
+              </ul>
+
+              <ul className="profileSections">
+              {currentGroups.map((group, index) => (
+                <li key={index}><Link to={`/group/${group.groupid}`}>{group.groupname}</Link>                  {profileId &&
+                  <button className="favorite-button" onClick={handleFavoriteAction}>{isFavorite ? <FaHeart className="favorite-icon" size={20} /> : <FaRegHeart size={20} />}</button>
+                  }</li>
+              ))}
+              </ul>
+                    </>
+              )}
+
+              </div>
+            </div>
+            </div>
             
             <div className="moviereviews">
               {profileId &&
