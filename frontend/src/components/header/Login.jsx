@@ -45,6 +45,9 @@ export default function Login({ setUser, window, fullpage }) {
     } catch (error) {
       console.error('Kirjautumisvirhe:', error);
       setMessageLogin('Tarkista käyttäjätunnus ja salasana');
+      setTimeout(() => {
+        setMessageLogin('');
+      }, 5000);
     }
   };
 
@@ -71,7 +74,7 @@ export default function Login({ setUser, window, fullpage }) {
         setMessageRegister('Rekisteröinti onnistui, voit nyt kirjautua sisään');
         setTimeout(() => {
           setMessageRegister('');
-        }, 3000);
+        }, 5000);
         setShowRegisterForm(false);
         setUsername(profilename);
         setPassword(password);
@@ -83,12 +86,12 @@ export default function Login({ setUser, window, fullpage }) {
         setMessageRegister('Tarkista antamasi tiedot ja yritä uudelleen');
         setTimeout(() => {
           setMessageRegister('');
-        }, 3000);
+        }, 5000);
       } else if (error.response.status === 500) {
         setMessageRegister('Rekisteröinti epäonnistui, yritä uudelleen');
         setTimeout(() => {
           setMessageRegister('');
-        }, 3000);
+        }, 5000);
       }
     }
   };
@@ -113,11 +116,17 @@ export default function Login({ setUser, window, fullpage }) {
 
       if (response.status === 200) {
         setMessagePassword('Uusi salasana on lähetetty sähköpostiisi.');
+        setTimeout(() => {
+          setMessagePassword('');
+        }, 5000);
         setShowForgotPassword(false);
       }
     } catch (error) {
       console.error('Virhe unohtuneen salasanan käsittelyssä:', error);
       setMessagePassword('Sähköpostiosoitetta ei löytynyt. Tarkista antamasi sähköpostiosoite.');
+      setTimeout(() => {
+        setMessagePassword('');
+      }, 5000);
     }
   };
 
@@ -164,29 +173,33 @@ export default function Login({ setUser, window, fullpage }) {
         <div className="login-view">
           <h2>Kirjautuminen</h2>
           <div className="full-page">
-            <span className="userinfo">Älä koskaan jaa käyttäjätunnustasi ja salasanaasi muille</span><br /><br />
+            <div className='form-view'>
+              <span className="userinfo">Älä koskaan jaa käyttäjätunnustasi ja salasanaasi muille</span><br /><br />
 
-            <form onSubmit={handleLogin}>
-              Käyttäjätunnus: <br />
-              <input id="robot01" className="field" value={username} onChange={e => setUsername(e.target.value)} placeholder="Käyttäjänimi"></input>
-              <br /><br />
-              Salasana: <br />
-              <input id="robot02" className="field" type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Salasana"></input> <br />
-              <button id="robot03" className="basicbutton" type="submit">Kirjaudu sisään</button>
-            </form>
-            {messageLogin && <p className='userinfo'>{messageLogin}</p>}
+              <form onSubmit={handleLogin}>
+                <b>Käyttäjätunnus:</b> <br />
+                <input id="robot01" className="field" value={username} onChange={e => setUsername(e.target.value)} placeholder="Käyttäjänimi"></input>
+                <br />
+                <b>Salasana:</b> <br />
+                <input id="robot02" className="field" type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Salasana"></input> <br />
+                <button id="robot03" className="basicbutton" type="submit">Kirjaudu sisään</button>
+              </form>
+              {messageLogin && <p className='userinfo'>{messageLogin}</p>}
+            </div>
           </div>
         </div>
 
         <div className="login-view">
           <h2>Unohtuiko salasana?</h2>
           <div className="full-page">
-            <span className="userinfo">Syötä sähköpostiosoitteesi, niin lähetämme sinulle uuden salasanan.</span>
-            <form onSubmit={handleForgotPassword}>
-              <input type="email" value={email} onChange={handleEmailChange} placeholder="Sähköpostiosoite" required /> <br />
-              <button className="basicbutton" type="submit">Palauta salasana</button>
-            </form>
-            {messagePassword && <p className='userinfo'>{messagePassword}</p>}
+            <div className='form-view'>
+              <span className="userinfo">Syötä sähköpostiosoitteesi, niin lähetämme sinulle uuden salasanan.</span>
+              <form onSubmit={handleForgotPassword}>
+                <input type="email" value={email} onChange={handleEmailChange} placeholder="Sähköpostiosoite" required /> <br />
+                <button className="basicbutton" type="submit">Palauta salasana</button>
+              </form>
+              {messagePassword && <p className='userinfo'>{messagePassword}</p>}
+            </div>
           </div>
         </div>
 
