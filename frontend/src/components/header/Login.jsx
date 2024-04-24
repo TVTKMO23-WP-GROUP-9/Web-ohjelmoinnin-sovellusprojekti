@@ -47,7 +47,7 @@ export default function Login({ setUser, window, fullpage }) {
       setMessageLogin('Tarkista käyttäjätunnus ja salasana');
       setTimeout(() => {
         setMessageLogin('');
-      }, 5000);
+      }, 3000);
     }
   };
 
@@ -74,7 +74,7 @@ export default function Login({ setUser, window, fullpage }) {
         setMessageRegister('Rekisteröinti onnistui, voit nyt kirjautua sisään');
         setTimeout(() => {
           setMessageRegister('');
-        }, 5000);
+        }, 3000);
         setShowRegisterForm(false);
         setUsername(profilename);
         setPassword(password);
@@ -86,12 +86,12 @@ export default function Login({ setUser, window, fullpage }) {
         setMessageRegister('Tarkista antamasi tiedot ja yritä uudelleen');
         setTimeout(() => {
           setMessageRegister('');
-        }, 5000);
+        }, 3000);
       } else if (error.response.status === 500) {
         setMessageRegister('Rekisteröinti epäonnistui, yritä uudelleen');
         setTimeout(() => {
           setMessageRegister('');
-        }, 5000);
+        }, 3000);
       }
     }
   };
@@ -118,7 +118,7 @@ export default function Login({ setUser, window, fullpage }) {
         setMessagePassword('Uusi salasana on lähetetty sähköpostiisi.');
         setTimeout(() => {
           setMessagePassword('');
-        }, 5000);
+        }, 3000);
         setShowForgotPassword(false);
       }
     } catch (error) {
@@ -126,7 +126,7 @@ export default function Login({ setUser, window, fullpage }) {
       setMessagePassword('Sähköpostiosoitetta ei löytynyt. Tarkista antamasi sähköpostiosoite.');
       setTimeout(() => {
         setMessagePassword('');
-      }, 5000);
+      }, 3000);
     }
   };
 
@@ -170,9 +170,8 @@ export default function Login({ setUser, window, fullpage }) {
     return (
       <div className='content'>
 
-        <div className="login-view">
+        <div className="section2">
           <h2>Kirjautuminen</h2>
-          <div className="full-page">
             <div className='form-view'>
               <span className="userinfo">Älä koskaan jaa käyttäjätunnustasi ja salasanaasi muille</span><br /><br />
 
@@ -186,12 +185,9 @@ export default function Login({ setUser, window, fullpage }) {
               </form>
               {messageLogin && <p className='userinfo'>{messageLogin}</p>}
             </div>
-          </div>
-        </div>
 
-        <div className="login-view">
+
           <h2>Unohtuiko salasana?</h2>
-          <div className="full-page">
             <div className='form-view'>
               <span className="userinfo">Syötä sähköpostiosoitteesi, niin lähetämme sinulle uuden salasanan.</span>
               <form onSubmit={handleForgotPassword}>
@@ -200,12 +196,8 @@ export default function Login({ setUser, window, fullpage }) {
               </form>
               {messagePassword && <p className='userinfo'>{messagePassword}</p>}
             </div>
-          </div>
-        </div>
 
-        <div className="login-view">
           <h2>Rekisteröidy käyttäjäksi</h2>
-          <div className="full-page">
             <div className='form-view'>
               <form onSubmit={handleRegister}>
                 <span className="userinfo">Kaikki kentät ovat pakollisia, sähköposti ei saa olla jo käytössä jollain käyttäjällä.</span> <br /><br />
@@ -218,7 +210,6 @@ export default function Login({ setUser, window, fullpage }) {
                 <button id="robot07" className="basicbutton" type="submit">Rekisteröidy</button> <br />
                 {messageRegister && <span className='communityinfo'>{messageRegister}</span>}
               </form>
-            </div>
           </div>
         </div>
       </div>
