@@ -310,18 +310,6 @@ INSERT INTO Memberlist_ (profileid, mainuser, groupid, pending) VALUES
 ('22', 0, '16', 0),
 ('23', 0, '16', 0);
 
-INSERT INTO Favoritelist_ (profileid, groupid, favoriteditem, showtime, "timestamp") VALUES
-('1', '1', 'favorited_item_here', NULL, CURRENT_TIMESTAMP),
-('2', '2', 'favorited_item_here', NULL, CURRENT_TIMESTAMP),
-('3', '3', 'favorited_item_here', NULL, CURRENT_TIMESTAMP),
-('4', '3', 'favorited_item_here', NULL, CURRENT_TIMESTAMP),
-('5', '4', 'favorited_item_here', NULL, CURRENT_TIMESTAMP),
-('6', '7', 'favorited_item_here', NULL, CURRENT_TIMESTAMP),
-('7', '10', 'favorited_item_here', NULL, CURRENT_TIMESTAMP),
-('8', '14', 'favorited_item_here', NULL, CURRENT_TIMESTAMP),
-('9', '4', 'favorited_item_here', NULL, CURRENT_TIMESTAMP),
-('10', '5', 'favorited_item_here', NULL, CURRENT_TIMESTAMP);
-
 INSERT INTO Message_ (groupid, profileid, message, "timestamp") VALUES
 ('1', '1', 'Test message here', CURRENT_TIMESTAMP),
 ('2', '2', 'Test message here', CURRENT_TIMESTAMP),
