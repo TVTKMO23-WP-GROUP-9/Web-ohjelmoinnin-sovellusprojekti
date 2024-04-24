@@ -65,16 +65,6 @@ const ReviewList = ({ user, profile }) => {
     fetchReviews();
   }, [profile]);
 
-  {/*const handleDeleteReview = async (idreview) => {
-      try {
-        const response = await axios.delete(`${VITE_APP_BACKEND_URL}/review/${idreview}`);
-        console.log(response.data);
-        setReviews(reviews.filter(review => review.idreview !== idreview));
-      } catch (error) {
-        console.error('Poistovirhe:', error);
-      }
-    };*/}
-
   const handleConfirmDelete = async (idreview) => {
     try {
       const response = await axios.delete(`${VITE_APP_BACKEND_URL}/review/${idreview}`);
