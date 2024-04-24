@@ -117,6 +117,7 @@ const MovieDetails = (user) => {
     }
   };
 
+
   return (
 
     <>
@@ -128,16 +129,16 @@ const MovieDetails = (user) => {
 
             <div className="moviemain">
               <img className="posterimg" src={`https://image.tmdb.org/t/p/w342${movie.poster_path}`} alt={movie.title} />
-              <div style={{ position: 'relative' }}>
-              <button className="favorite-button" onClick={handleFavoriteAction}>
-                {isFavorite ? <FaHeart className="favorite-icon" size={34} /> : <FaRegHeart size={34} />}
-              </button>
-              </div>
+
               <div className="movieinfo">
               {movie && (
 
                 <>
-                <h2>{movie.title}</h2>
+                <div class="flex-container">
+                  <h2>{movie.title}</h2> 
+                  <button className="favorite-button" onClick={handleFavoriteAction}>{isFavorite ? <FaHeart className="favorite-icon" size={34} /> : <FaRegHeart size={34} />}</button>
+                </div>
+
                 <p><b>Kuvaus:</b> {movie.overview}</p>
                 <p><b>Kesto:</b> {movie.runtime} min</p>
                 <p><b>Genre:</b> {movie.genres.map(genre => genre.name).join(', ')}</p>

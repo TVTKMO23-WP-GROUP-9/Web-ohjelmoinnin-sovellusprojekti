@@ -62,22 +62,40 @@
     padding-bottom: 23px;
 }
 
-/* Sydän nappi elokuvan/sarjan lisäämiseen ja poistamiseen suosikkilistalta*/
+
+.flex-container {
+    display: flex;
+    align-items: center; 
+  }
+  
 .favorite-button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
+    position: relative;
     border: none;
+    top: 0em;
+    left: 1em;
     background-color: transparent;
     cursor: pointer;
     outline: none;
-  }
-  .favorite-button:focus {
+}
+
+.favorite-button:focus {
     outline: none; 
-  }
-  .favorite-icon {
-    color: red;
-  }
+}
+
+.favorite-button:hover {
+    transform: scale(1.2);
+}
+
+
+.favorite-icon {
+    color: #ff0000;
+}
+
+.favorite-icon:hover {
+    color: #ff3838;
+}
+
+
 
 .providers table {
     border-collapse: collapse;
