@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import Area from './Area';
 import Dates from './Dates';
 import NowShowing from './NowShowing';
 import Group from './Group';
+import { getHeaders } from '@auth/token';
 import { animateScroll as scroll } from 'react-scroll';
+const { VITE_APP_BACKEND_URL } = import.meta.env;
 import './events.css';
 
 const Events = ({ user }) => {
@@ -15,6 +18,7 @@ const Events = ({ user }) => {
   const [showtimes, setShowtimes] = useState([]);
   const [error, setError] = useState('');
   const currentDate = new Date();
+  const headers = getHeaders();
 
   const profilename = user?.user;
   const profileid = user?.profileid;
@@ -55,26 +59,25 @@ const Events = ({ user }) => {
 
   // lisää valittu näytös ryhmään
   const handleAddToGroup = async () => {
-    console.log('Näytös lisätty ryhmään');
     try {
-
-      const response = await fetch(`${VITE_APP_BACKEND_URL}/${selectedGroup}/event/${selectedMovie}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
+      const data = {
+        groupid: 45,
+        event_info: {
+          title: "Kimmo",
+          start_time: "2024-04-26T15:30:00.000Z",
+          theatre: "Tennispalatsi, Helsinki",
+          auditorium: "sali 2",
+          showUrl: "urli2"
         },
-        body: JSON.stringify({
-          profileid: profileid,
-          eventid: selectedMovie,
-        }),
-      });
-      if (response.ok) {
+        exp_date: "2024-05-01T00:00:00.000Z"
+      }
+      const response = await axios.post(`${VITE_APP_BACKEND_URL}/event`, data, { headers });
+
+      if (response.status === 201) {
         console.log('Näytös lisätty ryhmään');
-      } else {
-        console.error('Näytöksen lisäys ryhmään epäonnistui');
       }
     } catch (error) {
-      console.error('Virhe näytöksen lisäyksessä ryhmään:', error);
+      console.error('Virhe lisättäessä näytöstä ryhmään', error);
     }
   };
 
