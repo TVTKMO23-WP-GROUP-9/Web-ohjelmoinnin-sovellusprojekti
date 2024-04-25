@@ -49,9 +49,6 @@ const MemberList = ({ id, user }) => {
         case 1:
           response = await axios.get(`${VITE_APP_BACKEND_URL}/memberlist/group/${id}/1`, { headers });
           break;
-        case 2:
-          response = await axios.get(`${VITE_APP_BACKEND_URL}/memberlist/group/${id}/2`, { headers });
-          break;
         default:
           break;
       }
@@ -193,7 +190,6 @@ const MemberList = ({ id, user }) => {
         <>
         <button className='basicbutton brownBtn justMargin' onClick={() => handleSetMemberType(0)}>Jäsenet</button>
         <button className='basicbutton brownBtn' onClick={() => handleSetMemberType(1)}>Pyynnöt</button>
-        <button className='basicbutton brownBtn' onClick={() => handleSetMemberType(2)}>Kutsut</button>
         </>
       )}
        {(isMainuser && editMode) && <button onClick={() => setEditMode(false)} className="basicbutton justMargin">Lopeta</button>}
