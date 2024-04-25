@@ -24,6 +24,7 @@ import Error from '@content/error/Error';
 import ProfileEdit from '@content/user/ProfileEdit';
 import AdminPage from '@content/admin/AdminPage';
 import Faq from '@content/faq/Faq';
+import Intro from '@content/faq/intro';
 import { jwtToken, usertype } from './components/auth/authSignal';
 import Movies from '@content/movies/Movies';
 const { VITE_APP_BACKEND_URL } = import.meta.env;
@@ -120,6 +121,7 @@ function App() {
               <Route path="/about" element={<Faq />} />
               <Route path="/group/:id" element={<GroupDetails user={user} />} />
               <Route path="/admin" element={<AdminPage user={user} usertype={usertype} />} />
+              <Route path="/intro" element={<Intro />} />
             </Routes>
 
           </div>

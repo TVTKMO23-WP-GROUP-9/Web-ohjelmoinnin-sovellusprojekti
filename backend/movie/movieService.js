@@ -290,6 +290,30 @@ async function getTvShowProvidersbyId(req, res) {
     }
 }
 
+async function getRandomBackdrop(req, res) {
+    const apiKey = process.env.TMDB_API_KEY;
+    const randomNumber = Math.floor(Math.random() * Object.keys(with_genres).length);
+    const genre = Object.keys(with_genres)[randomNumber];
+
+    const url = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=${with_genres[genre]}&sort_by=popularity.desc`;
+
+    try {
+        const response = await axios.get(url);
+        const data = response.data;
+        const randomMovie = data.results[Math.floor(Math.random() * data.results.length)];
+        const backdropPath = randomMovie.backdrop_path;
+        
+        if (backdropPath) {
+            const backdropUrl = `https://image.tmdb.org/t/p/original${backdropPath}`;
+            res.json({ backdropUrl });
+        } else {
+            res.status(404).json({ message: 'Ei taustakuvaa saatavilla' });
+        }
+    } catch (error) {
+        res.status(500).json({ message: 'Virhe palvelimella' });
+    }
+}
+
 module.exports = {
     searchMovies,
     discoverMovies,
@@ -298,7 +322,6 @@ module.exports = {
     searchTvShows,
     discoverTvShows,
     getTvShowById,
-    getTvShowProvidersbyId
+    getTvShowProvidersbyId,
+    getRandomBackdrop
 };
-
-
