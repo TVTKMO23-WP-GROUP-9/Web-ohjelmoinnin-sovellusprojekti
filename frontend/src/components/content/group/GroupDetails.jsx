@@ -9,8 +9,6 @@ import GroupEdit from './GroupEdit';
 import { getHeaders } from '@auth/token';
 const { VITE_APP_BACKEND_URL } = import.meta.env;
 
-
-
 const GroupDetails = ({ user }) => {
   const { id } = useParams();
   const [group, setGroup] = useState(null);
@@ -30,12 +28,11 @@ const GroupDetails = ({ user }) => {
 
   useEffect(() => {
     if (user !== null && user !== undefined) {
-      setProfileid(user.user);
       setAdmin(user.usertype === 'admin');
   
       const fetchPending = async () => {
         try {
-          const groupResponse = await axios.get(`${VITE_APP_BACKEND_URL}/memberstatus/${user.user}/${id}`, { headers });
+          const groupResponse = await axios.get(`${VITE_APP_BACKEND_URL}/memberstatus/${user.profileid}/${id}`, { headers });
   
           if (groupResponse.data.hasOwnProperty('pending') && groupResponse.data.pending === 0) {
             setIsMember(true);
@@ -46,6 +43,8 @@ const GroupDetails = ({ user }) => {
           if (groupResponse.data.hasOwnProperty('mainuser') && groupResponse.data.mainuser === 1) {
             setMainuser(true);
           }
+
+          setProfileid(user.profileid);
         } catch (error) {
           console.error('Virhe haettaessa profiilitietoja:', error);
         }

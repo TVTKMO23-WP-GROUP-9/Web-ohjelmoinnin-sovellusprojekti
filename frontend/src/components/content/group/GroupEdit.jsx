@@ -3,7 +3,6 @@ import axios from 'axios';
 import './GroupDetails';
 const { VITE_APP_BACKEND_URL } = import.meta.env;
 
-
 const GroupEdit = ({ id, user }) => {
 
     const [formData, setFormData] = useState({

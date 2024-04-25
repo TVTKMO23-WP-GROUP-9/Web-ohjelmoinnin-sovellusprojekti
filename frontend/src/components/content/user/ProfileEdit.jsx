@@ -4,7 +4,6 @@ import { getHeaders } from '@auth/token';
 import './ProfileDetails';
 const { VITE_APP_BACKEND_URL } = import.meta.env;
 
-
 const ProfileEdit = ({ profilename }) => {
 
     const [formData, setFormData] = useState({
@@ -37,7 +36,6 @@ const ProfileEdit = ({ profilename }) => {
         try {
             await axios.put(VITE_APP_BACKEND_URL + `/profile/`, formData, { headers });
 
-            console.log("Headers sent with request:", headers);
             window.location.reload();
         } catch (error) {
             console.error('Hakuvirhe:', error);
@@ -46,7 +44,6 @@ const ProfileEdit = ({ profilename }) => {
 
     return (
         <div className='form-view'>
-
             <h2>Muokkaa profiilia</h2>
 
             <form onSubmit={handleSubmit}>
@@ -57,7 +54,6 @@ const ProfileEdit = ({ profilename }) => {
                 <button className="basicbutton" type="submit">Tallenna muutokset</button>
                 <button className="basicbutton" onClick={() => setEditMode(false)}>Peruuta</button>
             </form>
-
         </div>
     );
 };

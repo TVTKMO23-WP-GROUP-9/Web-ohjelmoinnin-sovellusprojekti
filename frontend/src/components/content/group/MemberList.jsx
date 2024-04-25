@@ -17,28 +17,23 @@ const MemberList = ({ id, user }) => {
   const [loading, setLoading] = useState(true); 
   const headers = getHeaders();
   
-  
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-
-          
+        
           const response = await axios.get(`${VITE_APP_BACKEND_URL}/profile/${user.user}`, { headers });
-
           setProfileid(response.data.profileid);
           
           const groupResponse = await axios.get(`${VITE_APP_BACKEND_URL}/memberstatus/${response.data.profileid}/${id}`, { headers });
-          
-          console.log("Response from status:", groupResponse.data);
 
           if (groupResponse.data.hasOwnProperty('pending') && groupResponse.data.pending === 0) {
             setIsMember(true);
           }
-          console.log("Response from setMember:", groupResponse.pending);
+
           if (groupResponse.data.hasOwnProperty('mainuser') && groupResponse.data.mainuser === 1) {
             setMainuser(true);
           }
-          console.log("Response from profile:", groupResponse.data);
+
       } catch (error) {
           console.error('Virhe haettaessa profiilitietoja:', error);
       }
@@ -96,7 +91,7 @@ const MemberList = ({ id, user }) => {
   const handleRemoveUser= async (profileId, id) => {
     try {
       const memberResponse = await axios.get(`${VITE_APP_BACKEND_URL}/memberstatus/${profileId}/${id}`);
-      console.log(memberResponse); 
+
       if (memberResponse && memberResponse.data && memberResponse.data.memberlistid) {
         try {
           await axios.delete(`${VITE_APP_BACKEND_URL}/memberstatus/${memberResponse.data.memberlistid}`, { headers });
@@ -115,7 +110,7 @@ const MemberList = ({ id, user }) => {
   const handleAddUser= async (profileId, id) => {
     try {
       const memberResponse = await axios.get(`${VITE_APP_BACKEND_URL}/memberstatus/${profileId}/${id}`);
-      console.log(memberResponse); 
+
       if (memberResponse && memberResponse.data && memberResponse.data.memberlistid) {
         try {
           await axios.put(`${VITE_APP_BACKEND_URL}/memberstatus/${memberResponse.data.memberlistid}/0`, {}, { headers });
@@ -133,14 +128,8 @@ const MemberList = ({ id, user }) => {
 
   const updateMemberRank= async (profileId, id, rank) => {
     try {
-      console.log("Pid", profileId);
-      console.log("id", id);
-      console.log("Rank", rank);
-      
-      
       const memberResponse = await axios.get(`${VITE_APP_BACKEND_URL}/memberstatus/${profileId}/${id}`);
-      console.log("haettu memberstatus:", memberResponse);
-      console.log("haettu memberlist:", memberResponse.data.memberlistid);  
+
       if (memberResponse && memberResponse.data && memberResponse.data.memberlistid) {
         try {
           await axios.put(`${VITE_APP_BACKEND_URL}/memberrank/${memberResponse.data.memberlistid}/${rank}`, {}, {headers});
@@ -156,7 +145,6 @@ const MemberList = ({ id, user }) => {
     }
   };
   
-
   return (
     <>
       {loading ? (

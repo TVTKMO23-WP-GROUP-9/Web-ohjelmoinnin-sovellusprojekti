@@ -13,7 +13,6 @@ const AdminDeleteUsers = ({ id, handleDelete }) => {
   const handleDeleteAccount = async () => {
       try {
           const response = await axios.delete(`${VITE_APP_BACKEND_URL}/admin/deleteprofile/${id}`, { headers });
-          console.log(response.data);
           handleDelete(id);
           setConfirmDeleteAccountId(null);
       } catch (error) {

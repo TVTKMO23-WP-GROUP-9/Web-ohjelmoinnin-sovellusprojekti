@@ -35,16 +35,16 @@ export default function Login({ setUser, window, fullpage }) {
         jwtToken.value = response.data.jwtToken;
         usertype.value = response.data.usertype;
         const profileid = response.data.profileid;
-        console.log('userType:', usertype.value);
-        console.log('profileid:', profileid);
         setUser({ user: username, usertype: usertype.value, profileid: profileid });
         navigate('/myaccount');
         setMessageLogin('');
-        //setShowLogin(!showLogin);
       }
     } catch (error) {
       console.error('Kirjautumisvirhe:', error);
       setMessageLogin('Tarkista käyttäjätunnus ja salasana');
+      setTimeout(() => {
+        setMessageLogin('');
+      }, 3000);
     }
   };
 
@@ -113,11 +113,17 @@ export default function Login({ setUser, window, fullpage }) {
 
       if (response.status === 200) {
         setMessagePassword('Uusi salasana on lähetetty sähköpostiisi.');
+        setTimeout(() => {
+          setMessagePassword('');
+        }, 3000);
         setShowForgotPassword(false);
       }
     } catch (error) {
       console.error('Virhe unohtuneen salasanan käsittelyssä:', error);
       setMessagePassword('Sähköpostiosoitetta ei löytynyt. Tarkista antamasi sähköpostiosoite.');
+      setTimeout(() => {
+        setMessagePassword('');
+      }, 3000);
     }
   };
 
@@ -162,38 +168,34 @@ export default function Login({ setUser, window, fullpage }) {
     return (
       <div className='content'>
 
-        <div className="login-view">
+        <div className="section2">
           <h2>Kirjautuminen</h2>
-          <div className="full-page">
-            <span className="userinfo">Älä koskaan jaa käyttäjätunnustasi ja salasanaasi muille</span><br /><br />
+            <div className='form-view'>
+              <span className="userinfo">Älä koskaan jaa käyttäjätunnustasi ja salasanaasi muille</span><br /><br />
 
-            <form onSubmit={handleLogin}>
-              Käyttäjätunnus: <br />
-              <input id="robot01" className="field" value={username} onChange={e => setUsername(e.target.value)} placeholder="Käyttäjänimi"></input>
-              <br /><br />
-              Salasana: <br />
-              <input id="robot02" className="field" type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Salasana"></input> <br />
-              <button id="robot03" className="basicbutton" type="submit">Kirjaudu sisään</button>
-            </form>
-            {messageLogin && <p className='userinfo'>{messageLogin}</p>}
-          </div>
-        </div>
+              <form onSubmit={handleLogin}>
+                <b>Käyttäjätunnus:</b> <br />
+                <input id="robot01" className="field" value={username} onChange={e => setUsername(e.target.value)} placeholder="Käyttäjänimi"></input>
+                <br />
+                <b>Salasana:</b> <br />
+                <input id="robot02" className="field" type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Salasana"></input> <br />
+                <button id="robot03" className="basicbutton" type="submit">Kirjaudu sisään</button>
+              </form>
+              {messageLogin && <p className='userinfo'>{messageLogin}</p>}
+            </div>
 
-        <div className="login-view">
+
           <h2>Unohtuiko salasana?</h2>
-          <div className="full-page">
-            <span className="userinfo">Syötä sähköpostiosoitteesi, niin lähetämme sinulle uuden salasanan.</span>
-            <form onSubmit={handleForgotPassword}>
-              <input type="email" value={email} onChange={handleEmailChange} placeholder="Sähköpostiosoite" required /> <br />
-              <button className="basicbutton" type="submit">Palauta salasana</button>
-            </form>
-            {messagePassword && <p className='userinfo'>{messagePassword}</p>}
-          </div>
-        </div>
+            <div className='form-view'>
+              <span className="userinfo">Syötä sähköpostiosoitteesi, niin lähetämme sinulle uuden salasanan.</span>
+              <form onSubmit={handleForgotPassword}>
+                <input type="email" value={email} onChange={handleEmailChange} placeholder="Sähköpostiosoite" required /> <br />
+                <button className="basicbutton" type="submit">Palauta salasana</button>
+              </form>
+              {messagePassword && <p className='userinfo'>{messagePassword}</p>}
+            </div>
 
-        <div className="login-view">
           <h2>Rekisteröidy käyttäjäksi</h2>
-          <div className="full-page">
             <div className='form-view'>
               <form onSubmit={handleRegister}>
                 <span className="userinfo">Kaikki kentät ovat pakollisia, sähköposti ei saa olla jo käytössä jollain käyttäjällä.</span> <br /><br />
@@ -206,7 +208,6 @@ export default function Login({ setUser, window, fullpage }) {
                 <button id="robot07" className="basicbutton" type="submit">Rekisteröidy</button> <br />
                 {messageRegister && <span className='communityinfo'>{messageRegister}</span>}
               </form>
-            </div>
           </div>
         </div>
       </div>

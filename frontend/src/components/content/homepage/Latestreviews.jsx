@@ -4,11 +4,9 @@ import { Link } from 'react-router-dom';
 import './Homepage.css'; // Sisällytä CSS-tiedosto suoraan komponenttiin
 const { VITE_APP_BACKEND_URL } = import.meta.env;
 
-
 const Latestreviews = () => {
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
-
 
   useEffect(() => {
     const fetchReviews = async () => {
@@ -52,8 +50,6 @@ const Latestreviews = () => {
 
     fetchReviews();
   }, []);
-
-
 
   return (
     <>

@@ -32,7 +32,6 @@
   border: none;
 }
 
-
 /*popcorn*/
 .uni01::before { content: "\1F37F"; }
 /*suurennuslasi*/
@@ -65,4 +64,3 @@
 .uni15::before { content: "\1F3A5"; }
 /*noentry*/
 .uni16::before { content: "\26D4"; }
-

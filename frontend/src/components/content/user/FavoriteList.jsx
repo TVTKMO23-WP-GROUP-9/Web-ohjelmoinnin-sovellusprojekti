@@ -9,6 +9,7 @@ const FavoriteList = ({ profile }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [favoritesPerPage, setfavoritesPerPage] = useState(4);
   const [favorites, setFavorites] = useState([]);
+  const [editMode, setEditMode] = useState(false);
 
   useEffect(() => {
     const fetchFavorites = async () => {
@@ -48,6 +49,9 @@ const FavoriteList = ({ profile }) => {
 
     fetchFavorites();
   }, [profile]);
+  const handleEditClick = () => {
+    setEditMode(!editMode);
+  };
 
   // Poistetaan suosikeista suosikki
   const DeleteFavorite = async (favoriteditem) => {
@@ -69,6 +73,7 @@ const FavoriteList = ({ profile }) => {
 
   return (
     <>
+    
     <ul className="favorite-list">
       <span className="userinfo">
         Löytyi <b>{favorites.length}</b> Suosikkia.<br />
@@ -82,6 +87,7 @@ const FavoriteList = ({ profile }) => {
           <button className="buttonnext" onClick={() => setCurrentPage(currentPage < Math.ceil(favorites.length / favoritesPerPage) ? currentPage + 1 : Math.ceil(favorites.length / favoritesPerPage))}>
             ⯈
           </button>
+          
         </li>
       </ul>
 
@@ -90,16 +96,16 @@ const FavoriteList = ({ profile }) => {
             {favorite.mediatype === 0 ? (
            <div className="favorite-poster">
            <img className='favoriteimg' src={`https://image.tmdb.org/t/p/w342${favorite.movie.poster_path}`} alt={favorite.movie.title} />
-           {isOwnProfile && (
-             <button className="favoriteDButton" onClick={() => DeleteFavorite(favorite.favoriteditem)}>X</button> 
-           )}
+           {isOwnProfile && editMode && ( 
+                <button className="favoriteDButton" onClick={() => DeleteFavorite(favorite.favoriteditem)}>X</button> 
+              )}
          </div>
        ) : (
           <div className="favorite-poster">
           <img className='favoriteimg' src={`https://image.tmdb.org/t/p/w342${favorite.movie.poster_path}`} alt={favorite.movie.name} />
-            {isOwnProfile && (
-            <button className="favoriteDButton" onClick={() => DeleteFavorite(favorite.favoriteditem)}>X</button> 
-         )}
+          {isOwnProfile && editMode && (
+                <button className="favoriteDButton" onClick={() => DeleteFavorite(favorite.favoriteditem)}>X</button> 
+              )}
   </div>
 
           )}
@@ -107,10 +113,16 @@ const FavoriteList = ({ profile }) => {
               <Link className='favoritetitle' to={`/movie/${favorite.favoriteditem}`}>{favorite.movie.title}</Link>
             ) : (
               <Link className='favoritetitle' to={`/series/${favorite.favoriteditem}`}>{favorite.movie.name}</Link>
-            )}  
+            )} 
+             
           </li>
+          
         ))}
+
      </ul>
+     <button className="compactButton" onClick={handleEditClick}>
+        {editMode ? 'Lopeta muokkaus' : 'Muokkaa suosikkeja'}
+      </button>
     </>
   );
 }

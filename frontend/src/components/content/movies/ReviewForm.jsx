@@ -13,8 +13,6 @@ const ReviewForm = ({ movieId, user }) => {
 
   const headers = getHeaders();
 
-  console.log("user", user === null, user.user);
-
  if (user.user !== null) {
     useEffect(() => {
       const checkIfUserHasReview = async () => {
@@ -36,6 +34,7 @@ const ReviewForm = ({ movieId, user }) => {
       try {
         const response = await axios.get(`${VITE_APP_BACKEND_URL}/movie/${movieId}`);
         setMovieAdult(response.data.adult); // Asetetaan elokuvan adult-arvo
+        console.log("aikuisviihde?", response.data.adult);
       } catch (error) {
         console.error('Hakuvirhe:', error);
       }
@@ -72,8 +71,6 @@ const ReviewForm = ({ movieId, user }) => {
     }
   }
 
-  console.log("profileHasReview", profileHasReview);
-  
   return (
     <div>
       {user.user !== null && !profileHasReview && ( 

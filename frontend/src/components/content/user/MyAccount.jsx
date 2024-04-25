@@ -7,7 +7,6 @@ const { VITE_APP_BACKEND_URL } = import.meta.env;
 
 export default function MyAccount({ user }) {
 
-    //console.log(user);
     if (user === null) {
         return <Navigate to="/" />
     }
@@ -38,7 +37,7 @@ export default function MyAccount({ user }) {
                 setVisibility({ is_private });
                 setK18({ adult });
                 setFormData({ profilename, email });
-                
+
             } catch (error) {
                 console.error('Hakuvirhe:', error);
             }
@@ -49,7 +48,6 @@ export default function MyAccount({ user }) {
 
     const handleVisibility = async () => {
         try {
-            console.log(headers);
             const data = {
                 is_private: !visibility.is_private
             };
@@ -63,13 +61,12 @@ export default function MyAccount({ user }) {
 
     const handleK18 = async () => {
         try {
-            console.log(headers);
             const data = {
                 adult: !k18.adult
             };
             await axios.put(`${VITE_APP_BACKEND_URL}/profile/k18`, data, { headers });
 
-            setK18({ adult: !k18.adult});
+            setK18({ adult: !k18.adult });
         } catch (error) {
             console.error('Virhe muutettaessa profiilin k18 sisältöä:', error);
         }
@@ -121,11 +118,9 @@ export default function MyAccount({ user }) {
         }
     };
 
-
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
-
 
     const handleDelete = async () => {
         try {
@@ -163,16 +158,13 @@ export default function MyAccount({ user }) {
     return (
 
         <div className="content">
-
             <div id="accountinfo">
-
                 <div className="section2">
-
                     <h2>Olet kirjautunut käyttäjänä:</h2>
                     <h1>{user.user} </h1>
 
-                    {user && user.usertype === 'admin' && 
-                    <h2>Olet {user.usertype}: siirry {user && user.usertype === 'admin' && <Link to={`/admin`}>ylläpitoon</Link>}</h2>
+                    {user && user.usertype === 'admin' &&
+                        <h2>Olet {user.usertype}: siirry {user && user.usertype === 'admin' && <Link to={`/admin`}>ylläpitoon</Link>}</h2>
                     }
 
                     <hr />
@@ -199,7 +191,7 @@ export default function MyAccount({ user }) {
                     <h2>K-18 sisällön näkyvyys</h2>
                     <div className="form-view">
                         <b>K-18 sisältö: <span className='colored'>{k18.adult ? 'näkyy' : 'piilotettu'}</span></b> <br />
-                        <span className='communityinfo'>{k18.adult ? 'Näet hakutuloksissa myös K-18 sisältöä' : 'K-18 sisältö on piilotettu hakutuloksista.'}</span><br/>
+                        <span className='communityinfo'>{k18.adult ? 'Näet hakutuloksissa myös K-18 sisältöä' : 'K-18 sisältö on piilotettu hakutuloksista.'}</span><br />
 
                         <button className="basicbutton" onClick={handleK18}>Vaihda K-18 asetusta</button>
                     </div>
@@ -248,4 +240,3 @@ export default function MyAccount({ user }) {
 
     );
 };
-
