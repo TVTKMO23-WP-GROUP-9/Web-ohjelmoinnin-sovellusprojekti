@@ -139,9 +139,9 @@
 
 }
 
+  
+@media (max-width: 1085px) {
 
-
-@media (max-width: 1040px) {
   .menu-items-left {
     display: none;
   }
@@ -149,6 +149,11 @@
   .head {
     visibility: hidden;
   }
+  
+}
+
+
+@media (max-width: 1040px) {
 
   .menu-items-right {
     margin-right: -60px;
