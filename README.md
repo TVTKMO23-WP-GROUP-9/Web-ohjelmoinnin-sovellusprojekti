@@ -34,13 +34,13 @@ Sovelluksen käyttämät tiedot elokuvista ja sarjoista haetaan The Movie Databa
 	Tietoturva: CORS, JWT, Middleware, Bcrypt
 	Testaus: yksikkötestit Mocha Chai, end-2-end Robot Framework
     Konttiteknologia: Docker
-    Arkkitehtuuri: Separation into components
+    Arkkitehtuuri: modulaarinen, separation into components
 
 #### Ohjelmistoarkkitehtuuri
 
 Sovelluksen ohjelmistoarkkitehtuuri noudattaa jäsenneltyä mallia, jossa sisältö on organisoitu mahdollisimman selkeästi asioiden mukaan. Palvelinpuolen toteutuksessa kunkin toiminnallisen kokonaisuuden vastuut on jaettu omiin ryhmiin. Ryhmien osat on jaettu pääasiassa ```Routes-, Service- ja Model-``` tiedostoihin. Näistä Routes vastaa reitityksestä ja ohjaa pyynnöt Service-luokkiin. Service puolestaan vastaa bisneslogiikasta ja keskustelee Modelin kanssa. Model-kerros hoitaa tietojen hallinnan ja käsittelyn. 
 
-Käyttöliittymäkomponenttien osalta pyrimme myös jakamaan sisällön loogisiin kokonaisuuksiin, jotta niitä on helppo käyttää ja ylläpitää. 
+Käyttöliittymäkomponenttien osalta sisältö on jaettu loogisiin, modulaarisiin kokonaisuuksiin, jotta niitä on helppo käyttää ja ylläpitää. 
 
 
 #### Tietokanta
