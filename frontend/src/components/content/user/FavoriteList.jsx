@@ -3,14 +3,16 @@ import './user.css';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 const { VITE_APP_BACKEND_URL } = import.meta.env;
+import { getHeaders } from '@auth/token';
 
-const FavoriteList = ({ profile }) => {
+const FavoriteList = ({ profile, user }) => {
   const isOwnProfile = profile && profile.isOwnProfile;
   const [currentPage, setCurrentPage] = useState(1);
   const [favoritesPerPage, setfavoritesPerPage] = useState(4);
   const [favorites, setFavorites] = useState([]);
   const [editMode, setEditMode] = useState(false);
   const [adult, setAdult] = useState(false);
+  const headers = getHeaders();
 
   useEffect(() => {
     const fetchFavorites = async () => {
@@ -18,6 +20,10 @@ const FavoriteList = ({ profile }) => {
         if (profile && profile.profileid) {
           const response = await axios.get(`${VITE_APP_BACKEND_URL}/favoritelist/profile/${profile.profileid}`);
           console.log(profile);
+          console.log('käyttäjä:', user);
+          const aresponse = await axios.get(`${VITE_APP_BACKEND_URL}/profile/${user.user}`, { headers });
+            
+          setAdult(aresponse.data.adult);
           
           
           const favoriteData = response.data;
@@ -50,10 +56,9 @@ const FavoriteList = ({ profile }) => {
         console.error('Hakuvirhe:', error);
       }
     };
-    setAdult(profile.adult);
-    console.log(profile.adult);
+
     fetchFavorites();
-  }, [profile]);
+  }, [profile, user]);
   const handleEditClick = () => {
     console.log("onko oma profiili", isOwnProfile)
     setEditMode(!editMode);
