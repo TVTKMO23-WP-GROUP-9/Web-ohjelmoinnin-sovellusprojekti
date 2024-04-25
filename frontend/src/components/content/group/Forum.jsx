@@ -164,11 +164,11 @@ useEffect(() => {
       <ul className="pagination">
         <li>
           <button className="buttonnext" onClick={() => setCurrentPage(currentPage > 1 ? currentPage - 1 : 1)}>
-            ⯇
+            &#9664;
           </button>
           &nbsp; <span>selaa</span> &nbsp;
           <button className="buttonnext" onClick={() => setCurrentPage(currentPage < Math.ceil(filteredMessages.length / messagesPerPage) ? currentPage + 1 : Math.ceil(filteredMessages.length / messagesPerPage))}>
-            ⯈
+            &#9654;
           </button>
 
           {(isMainuser && !editMode) && <button onClick={() => setEditMode(true)} className="basicbutton someMargin">Moderoi</button>}
