@@ -13,6 +13,8 @@ const ReviewFormSerie = ({ tvShowId, user }) => {
 
   const headers = getHeaders();
 
+  console.log("user", user === null, user.user);
+
   if (user.user !== null) {
     useEffect(() => {
       const checkIfUserHasReview = async () => {
@@ -35,6 +37,7 @@ const ReviewFormSerie = ({ tvShowId, user }) => {
       try {
         const response = await axios.get(`${VITE_APP_BACKEND_URL}/series/${tvShowId}`);
         setSerieAdult(response.data.adult); // Asetetaan elokuvan adult-arvo
+        console.log("aikuisviihde?", response.data.adult);
       } catch (error) {
         console.error('Hakuvirhe:', error);
       }
@@ -66,6 +69,7 @@ const ReviewFormSerie = ({ tvShowId, user }) => {
         }, { headers }
       );
 
+
       window.location.reload();
       //setReview((reviews) => [...reviews, response.data]);
 
@@ -73,6 +77,8 @@ const ReviewFormSerie = ({ tvShowId, user }) => {
       console.error("Virhe arvostelun lisäämisessä:", error);
     }
   }
+
+  console.log("profileHasReview", profileHasReview);
 
   return (
     <div>

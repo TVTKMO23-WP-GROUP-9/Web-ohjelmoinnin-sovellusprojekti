@@ -258,41 +258,42 @@ const Movies = ({ user }) => {
           <span className='movieinfo'>Valitse yltä haluatko nähdä leffoja vai sarjoja.</span>
         </div>
 
-        {/* Näytetään sekä elokuvat että sarjat , allekain */}
-        {(showMovies && movies !== null && movies.length > 0) && (
-          <div>
-            <div className="resultsTitle">
-              <button onClick={() => handleMoviePageChange('prev')} className='bigArrow'>{'⯇'}</button>
-              <h2>Elokuvat</h2>
-              <button onClick={() => handleMoviePageChange('next')} className='bigArrow'>{'⯈'}</button>
-            </div>
-            <div className="resultsTitle">
-              <input
-                id="moviesHideable"
-                className="field shortInput"
-                type="number"
-                placeholder="..."
-                value={moviePage}
-                onChange={(event) => {
-                  setMoviePage(event.target.value);
-                }}
-              />
-            </div>
-            <div className="movie-container">
-              {movies.map((result) => (
-                <div key={result.id} className="movie-item">
-                  <Link to={`/movie/${result.id}`}>
-                    <img src={result.poster_path} alt={result.title} />
-                    <div className="headoverview">
-                      <div><h3>{result.title}</h3></div>
-                      <div>{result.overview.length > 200 ? `${result.overview.substring(0, 200)}...` : result.overview}</div>
-                    </div>
-                  </Link>
-
-                  <div className='movie-mini-item'><Link to={`/movie/${result.id}`}>{result.title}</Link></div>
-
-                </div>
-              ))}
+    {/* Näytetään sekä elokuvat että sarjat , allekain */}
+    {(showMovies && movies !== null && movies.length > 0) && (
+        <div>
+        <div className="resultsTitle">
+        <button onClick={() => handleMoviePageChange('prev')} className='bigArrow'>{'⯇'}</button>
+            <h2>Elokuvat</h2>
+            <button onClick={() => handleMoviePageChange('next')} className='bigArrow'>{'⯈'}</button>      
+          </div>
+          <div className="resultsTitle">
+            <input
+              id="moviesHideable"
+              className="field shortInput"
+              type="number"
+              placeholder="..."
+              value={moviePage}
+              onChange={(event) => {
+              setMoviePage(event.target.value);
+              }}
+            />
+          </div>
+        <div className="movie-container">
+        {movies.map((result) => (
+          <div key={result.id} className="movie-item">
+            <Link to={`/movie/${result.id}`}>
+              <img src={result.poster_path} alt={result.title} />
+              {window.innerWidth > 640 && 
+              <div className="headoverview">
+                <div><h3>{result.title}</h3></div>
+                <div className='headovertext'>{result.overview.length > 200 ? `${result.overview.substring(0, 200)}...` : result.overview}</div>
+              </div>}
+            </Link>
+            
+              <div className='movie-mini-item'><Link to={`/movie/${result.id}`}>{result.title}</Link></div>
+            
+          </div>
+        ))}
 
             </div>
             <div className="resultsTitle">
