@@ -24,7 +24,7 @@ const Faq = () => {
 
         getRandomBackdrop(); 
 
-        const intervalId = setInterval(getRandomBackdrop, 5200); 
+        const intervalId = setInterval(getRandomBackdrop, 7000); 
 
         return () => clearInterval(intervalId); 
     }, []);
