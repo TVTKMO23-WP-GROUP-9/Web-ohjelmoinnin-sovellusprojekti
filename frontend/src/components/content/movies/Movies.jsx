@@ -283,10 +283,11 @@ const Movies = ( {user}) => {
           <div key={result.id} className="movie-item">
             <Link to={`/movie/${result.id}`}>
               <img src={result.poster_path} alt={result.title} />
+              {window.innerWidth > 640 && 
               <div className="headoverview">
                 <div><h3>{result.title}</h3></div>
-                <div>{result.overview.length > 200 ? `${result.overview.substring(0, 200)}...` : result.overview}</div>
-              </div>
+                <div className='headovertext'>{result.overview.length > 200 ? `${result.overview.substring(0, 200)}...` : result.overview}</div>
+              </div>}
             </Link>
             
               <div className='movie-mini-item'><Link to={`/movie/${result.id}`}>{result.title}</Link></div>
