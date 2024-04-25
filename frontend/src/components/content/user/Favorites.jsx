@@ -1,29 +1,26 @@
 import React, { useState, useEffect } from 'react';
-import './group.css';
+import './user.css';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 const { VITE_APP_BACKEND_URL } = import.meta.env;
 import { getHeaders } from '@auth/token';
 
-const FavoriteList = ({ id, user }) => {
+const FavoriteList = ({ user }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [favoritesPerPage, setfavoritesPerPage] = useState(4);
   const [favorites, setFavorites] = useState([]);
   const [adult, setAdult] = useState(false);
   const headers = getHeaders();
-  
+
   useEffect(() => {
     const fetchFavorites = async () => {
       try {
-        console.log('käyttäjä:', user);
         const aresponse = await axios.get(`${VITE_APP_BACKEND_URL}/profile/${user.user}`, { headers });
           
-        setAdult(aresponse.data.adult);
-          const response = await axios.get(`${VITE_APP_BACKEND_URL}/favoritelist/group/${id}/ANY`);
- 
+          setAdult(aresponse.data.adult);
+          const response = await axios.get(`${VITE_APP_BACKEND_URL}/favoritelist/profile/${aresponse.data.profileid}`);   
+          
           const favoriteData = response.data;
-          console.log(favoriteData);
-
           const favoritesWithMovies = await Promise.all(favoriteData.map(async favorite => {
             try {
               let responseData;
@@ -55,8 +52,7 @@ const FavoriteList = ({ id, user }) => {
     };
 
     fetchFavorites();
-  }, [id, user]); 
-
+  }, [user]);
 
 
   const indexOfLastFavorite = currentPage * favoritesPerPage;
@@ -65,8 +61,9 @@ const FavoriteList = ({ id, user }) => {
 
   return (
     <>
-    
+     <h1>{user.user} suosikkilista!</h1>
     <ul className="favorite-list">
+       
       <span className="userinfo">
         Löytyi <b>{favorites.length}</b> Suosikkia.<br />
       </span>
@@ -83,7 +80,7 @@ const FavoriteList = ({ id, user }) => {
         </li>
       </ul>
 
-      {currentFavorites        
+        {currentFavorites        
         .filter(favorite => favorite.adult === false || adult === true)
         .map((favorite, index) =>  (
           <li key={index}>
@@ -96,7 +93,7 @@ const FavoriteList = ({ id, user }) => {
           <div className="favorite-poster">
           <img className='favoriteimg' src={`https://image.tmdb.org/t/p/w342${favorite.movie.poster_path}`} alt={favorite.movie.name} />
 
-  </div>
+        </div>
 
           )}
             {favorite.mediatype === 0 ? (

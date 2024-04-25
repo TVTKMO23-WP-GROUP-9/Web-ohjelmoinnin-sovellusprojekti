@@ -28,6 +28,7 @@ import Faq from '@content/faq/Faq';
 import Intro from '@content/faq/intro';
 import { jwtToken, usertype } from './components/auth/authSignal';
 import Movies from '@content/movies/Movies';
+import Favorites from '@content/user/Favorites';
 const { VITE_APP_BACKEND_URL } = import.meta.env;
 
 function App() {
@@ -124,6 +125,7 @@ function App() {
               <Route path="/group/:id" element={<GroupDetails user={user} />} />
               <Route path="/admin" element={<AdminPage user={user} usertype={usertype} />} />
               <Route path="/intro" element={<Intro />} />
+              <Route path="/favorites/:profilename" element={<Favorites user={user} />} />
             </Routes>
 
           </div>
