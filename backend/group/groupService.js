@@ -3,23 +3,23 @@ const groupModel = require('./groupModel');
 
 const getNewestGroup = async (req, res) => {
     try {
-      const newestGroup = await groupModel.getNewestGroup();
-      res.json(newestGroup);
+        const newestGroup = await groupModel.getNewestGroup();
+        res.json(newestGroup);
     } catch (error) {
-      console.error('Error fetching newest group:', error);
-      res.status(500).send('Error fetching newest group');
+        console.error('Error fetching newest group:', error);
+        res.status(500).send('Error fetching newest group');
     }
-  };
-  
-  const getPopularGroup = async (req, res) => {
+};
+
+const getPopularGroup = async (req, res) => {
     try {
-      const popularGroup = await groupModel.getPopularGroup();
-      res.json(popularGroup);
+        const popularGroup = await groupModel.getPopularGroup();
+        res.json(popularGroup);
     } catch (error) {
-      console.error('Error fetching popular group:', error);
-      res.status(500).send('Error fetching popular group');
+        console.error('Error fetching popular group:', error);
+        res.status(500).send('Error fetching popular group');
     }
-  };
+};
 
 async function getAllGroups(req, res) {
     try {
@@ -90,7 +90,7 @@ async function updateGroupById(req, res) {
 async function createGroup(req, res) {
     const groupname = req.body.groupname;
     try {
-        const groupid = await groupModel.createGroup(groupname); 
+        const groupid = await groupModel.createGroup(groupname);
         res.send(groupid);
     } catch (error) {
         console.error('Virhe luotaessa ryhmää:', error);
@@ -239,15 +239,15 @@ async function createMemberList(req, res) {
 }
 
 async function getMessagesById(req, res) {
-  const groupid = req.params.groupid;
+    const groupid = req.params.groupid;
 
-  try {
-      const messages = await groupModel.getMessagesById(groupid);
-      res.json(messages);
-  } catch (error) {
-      console.error('Virhe haettaessa viestejä:', error);
-      res.status(500).send('Virhe haettaessa viestejä');
-  }
+    try {
+        const messages = await groupModel.getMessagesById(groupid);
+        res.json(messages);
+    } catch (error) {
+        console.error('Virhe haettaessa viestejä:', error);
+        res.status(500).send('Virhe haettaessa viestejä');
+    }
 }
 
 

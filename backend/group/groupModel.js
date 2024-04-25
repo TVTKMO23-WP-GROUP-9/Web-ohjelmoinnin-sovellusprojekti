@@ -14,7 +14,7 @@ const getNewestGroup = async () => {
     const { rows } = await pool.query(query);
     return rows;
 };
-  
+
 const getPopularGroup = async () => {
     const query = `
       SELECT G.*, COUNT(M.profileid) AS member_count
@@ -132,7 +132,7 @@ async function getUserGroups(profileid) {
         text: `
             SELECT g.groupname FROM Group_ g
             INNER JOIN Memberlist_ m ON g.groupid = m.groupid
-            WHERE m.profileid = $1;
+            WHERE m.profileid = $1 AND m.pending = 0;
         `,
         values: [profileid],
     };
@@ -193,11 +193,11 @@ async function deleteMemberlist(groupid) {
 }
 
 async function getMessagesById(groupid) {
-  const query = {
-      text: 'SELECT * FROM message_ WHERE groupid = $1',
-      values: [groupid],
-  };
-  return queryDatabase(query);
+    const query = {
+        text: 'SELECT * FROM message_ WHERE groupid = $1',
+        values: [groupid],
+    };
+    return queryDatabase(query);
 }
 
 module.exports = {

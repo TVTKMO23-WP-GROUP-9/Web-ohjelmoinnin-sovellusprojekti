@@ -2,17 +2,22 @@ import React, { useEffect, useState } from 'react';
 import Area from './Area';
 import Dates from './Dates';
 import NowShowing from './NowShowing';
+import Group from './Group';
 import { animateScroll as scroll } from 'react-scroll';
 import './events.css';
 
-const Events = () => {
+const Events = ({ user }) => {
   const [selectedArea, setSelectedArea] = useState('1018');
   const [selectedMovie, setSelectedMovie] = useState('');
   const [selectedDate, setSelectedDate] = useState(new Date());
+  const [selectedGroup, setSelectedGroup] = useState('');
   const [events, setEvents] = useState([]);
   const [showtimes, setShowtimes] = useState([]);
   const [error, setError] = useState('');
   const currentDate = new Date();
+
+  const profilename = user?.user;
+  const profileid = user?.profileid;
 
   const handleDateSelection = (date) => {
     setSelectedDate(date);
@@ -20,6 +25,10 @@ const Events = () => {
 
   const handleMovieSelection = (movie) => {
     setSelectedMovie(movie);
+  };
+
+  const handleGroupSelection = (group) => {
+    setSelectedGroup(group);
   };
 
   // jäsennelty näytösaika näytöshakuihin
@@ -43,6 +52,11 @@ const Events = () => {
     };
 
   });
+
+  // lisää valittu näytös ryhmään
+  const handleAddToGroup = () => {
+    console.log('Näytös lisätty ryhmään');
+  };
 
   // haetaan näytösajat valitulta alueelta ja päivältä
   const haeNaytokset = async () => {
@@ -126,6 +140,8 @@ const Events = () => {
           <NowShowing setSelectedMovie={handleMovieSelection} />
           <Area setSelectedArea={setSelectedArea} />
           <Dates onSelectDate={handleDateSelection} />
+
+          {profilename && <Group setSelectedGroup={handleGroupSelection} />}
           <button className='basicbutton' onClick={haeNaytokset}>Hae</button>
           <button className='basicbutton' onClick={tyhjennaHaku}>Tyhjennä</button>
         </div>
@@ -145,6 +161,10 @@ const Events = () => {
                 <tbody>
                   <tr>
                     <td className='portraitTd'>
+                      <button onClick={() => { handleAddToGroup(); }}>+</button>
+                    </td>
+
+                    <td className='portraitTd'>
                       <div className='showPortrait'>
                         <img className='reviewimg' src={show.eventPortrait} alt={show.title} />
                       </div>
@@ -163,6 +183,8 @@ const Events = () => {
                         <span className='userinfo'>{show.spokenLanguage}</span><img className='ratingImg' src={show.ratingImageUrl} alt={show.title} />
                       </div>
                     </td>
+
+
 
                   </tr>
 

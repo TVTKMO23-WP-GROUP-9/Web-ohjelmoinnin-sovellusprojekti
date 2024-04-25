@@ -16,7 +16,7 @@ async function getProfileById(profileId) {
 }
 
 async function getProfileByName(profilename) {
-    
+
     const query = {
         text: 'SELECT * FROM Profile_ WHERE profilename = $1',
         values: [profilename],
@@ -52,9 +52,9 @@ async function deleteProfileById(profileid) {
     }
     catch (error) {
         await pool.query('ROLLBACK');
-        throw error; 
+        throw error;
     }
-} 
+}
 
 async function updateProfilenameAndEmail(profileid, profilename, email) {
     const now = new Date();
