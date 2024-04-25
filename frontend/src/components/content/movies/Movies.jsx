@@ -283,11 +283,11 @@ const Movies = ({ user }) => {
 
                       <div className="headoverview">
                         <div><h3 className="hideWhenTiny">{result.title.length > 45 ? `${result.overview.substring(0, 45)}...` : result.title}</h3></div>
-                        <div className='headovertext'><span className="hideWhenTiny">{result.overview.length > 200 ? `${result.overview.substring(0, 200)}...` : result.overview}</span></div>
+                        <div><span className="hideWhenTiny">{result.overview.length > 200 ? `${result.overview.substring(0, 200)}...` : result.overview}</span></div>
                       </div>
                   </Link>
 
-                  <div className='movie-mini-item'><Link to={`/movie/${result.id}`}>{result.title}</Link></div>
+                  <div className='movie-mini-item'><Link to={`/movie/${result.id}`}>{result.title.length > 35 ? `${result.overview.substring(0, 35)}...` : result.title}</Link></div>
 
                 </div>
               ))}
@@ -330,7 +330,7 @@ const Movies = ({ user }) => {
                     </div>
                   </Link>
 
-                  <div className='movie-mini-item'><Link to={`/series/${result.id}`}>{result.title}</Link></div>
+                  <div className='movie-mini-item'><Link to={`/movie/${result.id}`}>{result.title.length > 35 ? `${result.overview.substring(0, 35)}...` : result.title}</Link></div>
 
                 </div>
               ))}
