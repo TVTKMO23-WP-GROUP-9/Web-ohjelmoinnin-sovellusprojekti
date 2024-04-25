@@ -73,15 +73,20 @@ const FavoriteList = ({ profile }) => {
     }
   };
 
+
+
+
   const indexOfLastFavorite = currentPage * favoritesPerPage;
   const indexOfFirstFavorite = indexOfLastFavorite - favoritesPerPage;
   const currentFavorites = favorites.slice(indexOfFirstFavorite, indexOfLastFavorite);
 
   return (
     <>
+    {(profile && profile.isOwnProfile) &&
         <span className="userinfo">
         jaa linkki <Link className="link-style" to={`/favorites/${profile.profilename}`}>http://localhost:5173/favorites/{profile.profilename}</Link>
       </span>
+    }
     <ul className="favorite-list">
       <span className="userinfo">
         Löytyi <b>{favorites.length}</b> Suosikkia.<br />
