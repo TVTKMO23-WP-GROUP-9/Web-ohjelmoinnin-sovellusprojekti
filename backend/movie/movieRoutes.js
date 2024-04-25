@@ -12,6 +12,7 @@ router.get('/tv/provider/:id', movieService.getTvShowProvidersbyId);
 router.get('/series/search', movieService.searchTvShows);
 router.get('/series/discover', movieService.discoverTvShows);
 router.get('/series/:id', movieService.getTvShowById);
+router.get('/movierandom', movieService.getRandomBackdrop);
 
 // tämä ei ilmeisesti ole käytössä !!
 router.get('/media', mediaService.searchMedia);
