@@ -34,10 +34,11 @@ async function getAllFavoritelist (req, res)  {
 //hakee kaikki suosikkilistat groupid:llä
 async function getFavoritelistByGroup(req, res) {
   const groupid = req.params.groupid;
+  const mediatype = req.params.mediatype;
   try {
       const query = {
-          text: `SELECT * FROM favoritelist_ WHERE groupid = $1`,
-          values: [groupid],
+          text: `SELECT * FROM favoritelist_ WHERE groupid = $1 AND mediatype = $2`,
+          values: [groupid,mediatype],
       };
       const result = await favoritelistModel.queryDatabase(query);
       if (result.length > 0) {
@@ -84,11 +85,12 @@ async function getFavoritelistByGroup(req, res) {
   async function deleteFavorite(req, res) {
     const profileid = req.params.profileid;
     const favoriteditem = req.params.favoriteditem
+    const mediatype = req.params.mediatype
 
     try {
         const query = {
-            text: 'DELETE FROM favoritelist_ WHERE profileid = $1 AND favoriteditem = $2',
-            values: [profileid, favoriteditem],
+            text: 'DELETE FROM favoritelist_ WHERE profileid = $1 AND favoriteditem = $2 AND mediatype = $3',
+            values: [profileid, favoriteditem, mediatype],
         };
             console.log("Profile ID:", req.params.profileid);
             console.log("Favorited Item:", req.params.favoriteditem);
@@ -101,6 +103,26 @@ async function getFavoritelistByGroup(req, res) {
     }
 }
 
+async function deleteFavoriteFromGroup(req, res) {
+  const groupid = req.params.groupid;
+  const favoriteditem = req.params.favoriteditem
+  const mediatype = req.params.mediatype
+
+  try {
+      const query = {
+          text: 'DELETE FROM favoritelist_ WHERE groupid = $1 AND favoriteditem = $2 AND mediatype = $3',
+          values: [groupid, favoriteditem, mediatype],
+      };
+          console.log("group ID:", req.params.groupid);
+          console.log("Favorited Item:", req.params.favoriteditem);
+
+      await favoritelistModel.queryDatabase(query);
+      res.send(`Lista poistettu onnistuneesti deletefavorite`);
+  } catch (error) {
+      console.error('Virhe poistettaessa listaa:', error);
+      res.status(500).send('Virhe poistettaessa listaa');
+  }
+}
 
     async function deleteFavoritelist(req, res) {
       const groupid = req.params.groupid;
@@ -141,6 +163,7 @@ async function getFavoritelistByGroup(req, res) {
     getAllFavoritelist,
     createFavoritelist,
     deleteFavorite,
+    deleteFavoriteFromGroup,
     deleteFavoritelist,
     getFavoritelistByProfile,
     getFavoritelistByGroup,

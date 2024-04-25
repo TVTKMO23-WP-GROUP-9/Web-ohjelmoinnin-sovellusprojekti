@@ -14,6 +14,20 @@
     margin-right: 15px; 
     margin-bottom: 10px;
 }
+.moviegroup-view {
+    display: flex-table;
+    flex-wrap: wrap;
+    width: 92%;
+    margin-top: 0px;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    border-bottom-left-radius: 50px;
+    border-bottom-right-radius: 50px;
+    background-color: var(--moviedetails-group);
+    color: var(--profile);
+    padding: 1em;
+    border: none;
+}
 
 .movie-mini-item {
     visibility: hidden;

@@ -36,6 +36,7 @@
     /*colors*/
     --toggleDivs: rgba(134, 106, 68, 0.9);
     --moviedetails: rgba(134, 106, 68, 0.85);
+    --moviedetails-group: rgba(136, 118, 94, 0.85);
     --background-color: #faf0e4;
     --text-color: #000000;
     --grp-background: #c5c5c5;
@@ -79,6 +80,7 @@
     /*colors*/
     --toggleDivs: rgba(40, 33, 23, 0.94);
     --moviedetails: rgba(40, 33, 23, 0.85);
+    --moviedetails-group: rgba(71, 64, 55, 0.85);
     --background-color: #1d1d1d;
     --text-color: #ffffff;
     --grp-background: #c5c5c5;

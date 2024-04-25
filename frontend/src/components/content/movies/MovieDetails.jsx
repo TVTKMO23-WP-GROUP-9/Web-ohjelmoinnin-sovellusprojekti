@@ -13,6 +13,7 @@ const MovieDetails = (user) => {
   const [movie, setMovie] = useState(null);
   const [providers, setProviders] = useState(null);
   const [isFavorite, setIsFavorite] = useState(false); 
+  const [isGFavorite, setIsGFavorite] = useState(false); 
   const [profileId, setProfileId] = useState(false); 
   const { favoriteditem } = useParams();
   const [groups, setGroups] = useState([]);
@@ -36,12 +37,37 @@ const MovieDetails = (user) => {
 
             console.log("Käyttäjän id:", response.data.profileid);
             console.log("sivun listatuotteen id:", id);
-
+            
             const gresponse = await axios.get(`${VITE_APP_BACKEND_URL}/grouplist/profile/${user.user.user}/0`);
-  
-            setGroups(gresponse.data);
+            const groupData = [];
 
-            console.log('käyttäjän ryhmät:', gresponse.data);
+            for (const group of gresponse.data) {
+              
+             
+              try {
+                console.log('Loopshoo:');
+                const FLGresponse = await axios.get(`${VITE_APP_BACKEND_URL}/favoritelist/group/${group.groupid}/0`);
+                console.log('käyttäjän FLG:', FLGresponse);
+                const isGFavoriteItem = FLGresponse.data.find(item => item.favoriteditem === id);
+                const isGFavorite = isGFavoriteItem ? true : false;
+                console.log('käyttäjän favoriitti-itemi:', isGFavorite);
+                groupData.push({
+                  ...group,
+                  isGFavorite
+                });
+              } catch (error) {
+                console.error('Virhe haettaessa ryhmätietoja:', error);
+                // Jos suosikkeja ei löydy, aseta isGFavorite arvoksi false
+                groupData.push({
+                  ...group,
+                  isGFavorite: false
+                });
+              }
+            }
+      
+            setGroups(groupData);
+
+            console.log('käyttäjän ryhmät favoriittitiedolla:', groupData);
 
           const FLresponse = await axios.get(`${VITE_APP_BACKEND_URL}/favoritelist/${response.data.profileid}/${id}/0`);
 
@@ -99,7 +125,7 @@ const MovieDetails = (user) => {
     try {
         if (profileId&& id) {
             if (isFavorite) {
-                await axios.delete(`${VITE_APP_BACKEND_URL}/favorite/${profileId}/${id}`, { headers });
+                await axios.delete(`${VITE_APP_BACKEND_URL}/favorite/${profileId}/${id}/0`, { headers });
                 setIsFavorite(false);
             } else {
                 const data = {
@@ -116,6 +142,51 @@ const MovieDetails = (user) => {
         }
     } catch (error) {
         console.error('Virhe suosikin käsittelyssä:', error);
+    }
+  };
+
+  const handleFavoriteGroupAction = async (groupId, isGFavorite) => {
+    try {
+      let updatedGroups = [];
+      if (groupId && id) {
+        console.log("onko favoriitti", isGFavorite);
+        
+        if (isGFavorite) {
+          console.log("onko favoriitti id yhä oikein", id);
+          console.log("onko ryhmän id yhä oikein", groupId);
+          await axios.delete(`${VITE_APP_BACKEND_URL}/favoritefromgroup/${groupId}/${id}/0`);
+          
+          // Päivitä isGFavorite arvo ryhmätiedossa
+          updatedGroups = groups.map(groupItem => {
+            if (groupItem.groupid === groupId) {
+              return { ...groupItem, isGFavorite: false };
+            }
+            return groupItem;
+          });
+          setGroups(updatedGroups);
+        } else {
+          const data = {
+            favoriteditem: id,
+            groupid: groupId,
+            profileid: null,
+            mediatype: 0
+          };
+          await axios.post(`${VITE_APP_BACKEND_URL}/favoritelist`, data, { headers });
+          updatedGroups = groups.map(groupItem => {
+            if (groupItem.groupid === groupId) {
+              return { ...groupItem, isGFavorite: true };
+            }
+            return groupItem;
+          });
+          
+          setGroups(updatedGroups);
+        }
+        
+      } else {
+        console.error('group-id tai sarjan id puuttuu');
+      }
+    } catch (error) {
+      console.error('Virhe suosikin käsittelyssä:', error);
     }
   };
 
@@ -147,7 +218,9 @@ const MovieDetails = (user) => {
                   {profileId &&
                   <button className="favorite-button" onClick={handleFavoriteAction}>{isFavorite ? <FaHeart className="favorite-icon" size={34} /> : <FaRegHeart size={34} />}</button>
                   }
+                  {profileId &&
                   <button className="favorite-button" onClick={toggleGroups}><div className="uni06"></div></button>
+                  }
                 </div>
 
                 <p><b>Kuvaus:</b> {movie.overview}</p>
@@ -189,8 +262,9 @@ const MovieDetails = (user) => {
               </div>
             </div>
             <div className='group-between'>
-            <div className="group-view">
-              <div className='group-content'>
+            {profileId &&
+            <div className="moviegroup-view">
+              <div className="profile-content">
                 {group && (
                 
                   <>  
@@ -208,12 +282,14 @@ const MovieDetails = (user) => {
                 </button>
                 </li>
               </ul>
-
+              
               <ul className="profileSections">
               {currentGroups.map((group, index) => (
-                <li key={index}><Link to={`/group/${group.groupid}`}>{group.groupname}</Link>                  {profileId &&
-                  <button className="favorite-button" onClick={handleFavoriteAction}>{isFavorite ? <FaHeart className="favorite-icon" size={20} /> : <FaRegHeart size={20} />}</button>
-                  }</li>
+                <li key={index}><Link to={`/group/${group.groupid}`}>{group.groupname}</Link>          
+                {profileId &&
+                       <button className="favorite-button" onClick={() => handleFavoriteGroupAction(group.groupid, group.isGFavorite)}>
+                       {group.isGFavorite ? <FaHeart className="favorite-icon" size={20} /> : <FaRegHeart size={20} />}
+                     </button> }</li>
               ))}
               </ul>
                     </>
@@ -221,6 +297,7 @@ const MovieDetails = (user) => {
 
               </div>
             </div>
+            }
             </div>
             
             <div className="moviereviews">
