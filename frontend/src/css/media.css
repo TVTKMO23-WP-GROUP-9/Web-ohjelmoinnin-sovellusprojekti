@@ -138,7 +138,6 @@
   }
 
 }
-
   
 @media (max-width: 1085px) {
 
@@ -151,7 +150,6 @@
   }
   
 }
-
 
 @media (max-width: 1040px) {
 
@@ -288,12 +286,6 @@
     transform: none; 
 }
 
-  .headovertext {
-    display: none;
-    width: 0px;
-    height: 0px;
-  }
-
   .uppermiddlecontent h2,
   .uppercontent h2,
   .nearbyEvents h2,
@@ -389,6 +381,10 @@
   .singleMember,
   .singleEvent {
     max-width: 250px;
+  }
+
+  .hideWhenTiny {
+    display: none;
   }
 
 }
