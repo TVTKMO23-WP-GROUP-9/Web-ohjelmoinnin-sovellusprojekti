@@ -29,7 +29,8 @@ const UserList = ({ searchTerm, setSearchTerm }) => {
     }, []);
 
     const filteredProfiles = profiles.filter(profile =>
-        profile.profilename.toLowerCase().includes(searchTerm.toLowerCase())
+        profile.profilename.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        (profile.profileid && profile.profileid.toString().toLowerCase().includes(searchTerm.toLowerCase()))
     );
 
     const indexOfLastProfile = currentPage * profilesPerPage;
@@ -50,27 +51,20 @@ const UserList = ({ searchTerm, setSearchTerm }) => {
                 ) : (
                     <>
                         {profiles.length > profilesPerPage && (
-                            <ul className="pagination">
-                                <li>
-                                    <button className="buttonnext" onClick={() => setCurrentPage(currentPage > 1 ? currentPage - 1 : 1)}>
-                                        ⯇
-                                    </button>
-                                    &nbsp; <span className="communityBox">selaa</span> &nbsp;
-                                    <button className="buttonnext" onClick={() => setCurrentPage(currentPage < Math.ceil(filteredProfiles.length / profilesPerPage) ? currentPage + 1 : Math.ceil(filteredProfiles.length / profilesPerPage))}>
-                                        ⯈
-                                    </button>
-                                </li>
-                                <li>
-                                    <input className='justMargin longInput'
-                                        type="text"
-                                        placeholder="Etsi käyttäjää..."
-                                        value={searchTerm}
-                                        onChange={(e) => setSearchTerm(e.target.value)}
-                                    />
-                                </li>
-                            </ul>
-                        )}
+                        <ul className="pagination">
 
+                            <li>
+                                <input className='longInput' type="text" placeholder="Etsi ..." value={searchTerm} onChange={(e) => { setSearchTerm(e.target.value); setCurrentPage(1); }} />
+
+                                <button className="buttonnext justMargin" onClick={() => setCurrentPage(currentPage > 1 ? currentPage - 1 : 1)}>
+                                ⯇ </button>
+                                &nbsp; <span className="userinfo">sivu {currentPage} / {Math.ceil(filteredProfiles.length / profilesPerPage)}</span> &nbsp;
+                                <button className="buttonnext" onClick={() => setCurrentPage(currentPage < Math.ceil(filteredProfiles.length / profilesPerPage) ? currentPage + 1 : Math.ceil(filteredProfiles.length / profilesPerPage))}>
+                                ⯈ </button>
+
+                            </li>
+                        </ul>
+                        )}
 
                         <div className="communityDiv">
                             {currentProfiles.map(profile => (
