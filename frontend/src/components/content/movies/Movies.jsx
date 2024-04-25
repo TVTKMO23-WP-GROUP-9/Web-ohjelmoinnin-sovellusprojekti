@@ -259,9 +259,9 @@ const Movies = ({ user }) => {
         {(showMovies && movies !== null && movies.length > 0) && (
           <div>
             <div className="resultsTitle">
-              <button onClick={() => handleMoviePageChange('prev')} className='bigArrow'>{'&#9664;'}</button>
+              <button onClick={() => handleMoviePageChange('prev')} className='bigArrow'>&#9664;</button>
               <h2>Elokuvat</h2>
-              <button onClick={() => handleMoviePageChange('next')} className='bigArrow'>{'&#9654;'}</button>
+              <button onClick={() => handleMoviePageChange('next')} className='bigArrow'>&#9654;</button>
             </div>
             <div className="resultsTitle">
               <input
@@ -294,18 +294,18 @@ const Movies = ({ user }) => {
 
             </div>
             <div className="resultsTitle">
-              <button onClick={() => { handleMoviePageChange('prev'); scrollToTop(); }} className='bigArrow'>{'&#9664;'}</button>
+              <button onClick={() => { handleMoviePageChange('prev'); scrollToTop(); }} className='bigArrow'>&#9664;</button>
               <h2>Elokuvat</h2>
-              <button onClick={() => { handleMoviePageChange('next'); scrollToTop(); }} className='bigArrow'>{'&#9654;'}</button>
+              <button onClick={() => { handleMoviePageChange('next'); scrollToTop(); }} className='bigArrow'>&#9654;</button>
             </div>
           </div>
         )}
         {(showSeries && series !== null && movies.length > 0) && (
           <div>
             <div className="resultsTitle">
-              <button onClick={() => handleSeriesPageChange('prev')} className='bigArrow'>{'&#9664;'}</button>
+              <button onClick={() => handleSeriesPageChange('prev')} className='bigArrow'>&#9664;</button>
               <h2>Sarjat</h2>
-              <button onClick={() => handleSeriesPageChange('next')} className='bigArrow'>{'&#9654;'}</button>
+              <button onClick={() => handleSeriesPageChange('next')} className='bigArrow'>&#9654;</button>
             </div>
             <div className="resultsTitle">
               <input
@@ -336,9 +336,9 @@ const Movies = ({ user }) => {
               ))}
             </div>
             <div className="resultsTitle">
-              <button onClick={() => { handleSeriesPageChange('prev'); scrollToTop(); }} className='bigArrow'>{'&#9664;'}</button>
+              <button onClick={() => { handleSeriesPageChange('prev'); scrollToTop(); }} className='bigArrow'>&#9664;</button>
               <h2>Sarjat</h2>
-              <button onClick={() => { handleSeriesPageChange('next'); scrollToTop(); }} className='bigArrow'>{'&#9654;'}</button>
+              <button onClick={() => { handleSeriesPageChange('next'); scrollToTop(); }} className='bigArrow'>&#9654;</button>
             </div>
           </div>
         )}
