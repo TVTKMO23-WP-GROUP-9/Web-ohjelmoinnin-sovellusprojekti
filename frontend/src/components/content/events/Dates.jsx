@@ -4,8 +4,7 @@ const Dates = ({ onSelectDate }) => {
 
   return (
     <div>
-      <label htmlFor="date"></label>
-      <input type="date" id="date" onChange={(e) => onSelectDate(e.target.value)} /> <br/>
+      <input className='eventItem' type="date" id="date" onChange={(e) => onSelectDate(e.target.value)} /> <br/>
     </div>
   );
 };

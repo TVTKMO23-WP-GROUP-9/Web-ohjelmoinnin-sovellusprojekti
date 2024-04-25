@@ -20,8 +20,7 @@ const NowShowing = ({ setSelectedMovie }) => {
 
     return (
         <div>
-            <label htmlFor="movie"></label>
-            <select className="selectMaxWidth" id="movie" onChange={(e) => setSelectedMovie(e.target.value)}>
+            <select className="selectMaxWidth eventItem dropdown" id="movie" onChange={(e) => setSelectedMovie(e.target.value)}>
                 <option value="">Kaikki elokuvat</option>
                 {inMovies.map(movie => (
                     <option key={movie.id} value={movie.id}>{movie.name}</option>

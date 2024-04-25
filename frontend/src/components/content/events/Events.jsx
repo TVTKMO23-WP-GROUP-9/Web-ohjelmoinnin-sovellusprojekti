@@ -119,17 +119,18 @@ const Events = () => {
   return (
     <div className="content">
       <div className="form-view">
-        <h2>Näytösajat</h2>
-
-        <p>Finnkinon näytösajat ja tapahtumat haettavissa teattereittain ympäri Suomea.</p>
-        <NowShowing setSelectedMovie={handleMovieSelection} /> <br />
-        <Area setSelectedArea={setSelectedArea} /> <br />
-        <Dates onSelectDate={handleDateSelection} /> <br />
-
-        <label htmlFor="date"> Valitse metodi:</label>
-        <button className='basicbutton' onClick={haeNaytokset}>Hae näytösajat</button>
-        <button className='basicbutton' onClick={tyhjennaHaku}>Tyhjennä lista</button>
+        <div className="flex-container">
+          <h2 className='showtimeH2'>Finnkinon näytösajat</h2>
+        </div>
+        <div className="eventItems">
+          <NowShowing setSelectedMovie={handleMovieSelection} />
+          <Area setSelectedArea={setSelectedArea} />
+          <Dates onSelectDate={handleDateSelection} />
+          <button className='basicbutton' onClick={haeNaytokset}>Hae</button>
+          <button className='basicbutton' onClick={tyhjennaHaku}>Tyhjennä</button>
+        </div>
       </div>
+
       <div className="form-view">
 
         <div className="showtimes">
