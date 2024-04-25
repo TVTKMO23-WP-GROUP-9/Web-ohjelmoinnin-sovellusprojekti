@@ -54,8 +54,28 @@ const Events = ({ user }) => {
   });
 
   // lisää valittu näytös ryhmään
-  const handleAddToGroup = () => {
+  const handleAddToGroup = async () => {
     console.log('Näytös lisätty ryhmään');
+    try {
+
+      const response = await fetch(`${VITE_APP_BACKEND_URL}/${selectedGroup}/event/${selectedMovie}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          profileid: profileid,
+          eventid: selectedMovie,
+        }),
+      });
+      if (response.ok) {
+        console.log('Näytös lisätty ryhmään');
+      } else {
+        console.error('Näytöksen lisäys ryhmään epäonnistui');
+      }
+    } catch (error) {
+      console.error('Virhe näytöksen lisäyksessä ryhmään:', error);
+    }
   };
 
   // haetaan näytösajat valitulta alueelta ja päivältä
