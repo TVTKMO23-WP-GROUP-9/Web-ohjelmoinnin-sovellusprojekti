@@ -31,8 +31,9 @@ const Movies = ({ user }) => {
 
         setAdult(profresponse.data.adult);
 
-        fetchProfile();
       }
+      
+      fetchProfile();
 
     };
 
