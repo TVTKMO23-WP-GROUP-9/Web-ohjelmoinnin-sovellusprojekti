@@ -91,10 +91,10 @@ const AllGroups = ({ user, searchTerm, setSearchTerm }) => {
                                 <input className='longInput' type="text" placeholder="Etsi ..." value={searchTerm} onChange={(e) => { setSearchTerm(e.target.value); setCurrentPage(1); }} />
 
                                 <button className="buttonnext justMargin" onClick={() => setCurrentPage(currentPage > 1 ? currentPage - 1 : 1)}>
-                                ⯇ </button>
+                                &#9664; </button>
                                 &nbsp; <span className="userinfo">sivu {currentPage} / {Math.ceil(filteredGroups.length / groupsPerPage)}</span> &nbsp;
                                 <button className="buttonnext" onClick={() => setCurrentPage(currentPage < Math.ceil(filteredGroups.length / groupsPerPage) ? currentPage + 1 : Math.ceil(filteredGroups.length / groupsPerPage))}>
-                                ⯈ </button>
+                                &#9654; </button>
 
                             </li>
                         </ul>

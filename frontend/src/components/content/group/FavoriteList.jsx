@@ -73,11 +73,11 @@ const FavoriteList = ({ id, user }) => {
       <ul className="pagination">
         <li>
           <button className="buttonnext" onClick={() => setCurrentPage(currentPage > 1 ? currentPage - 1 : 1)}>
-            ⯇
+            &#9664;
           </button>
           &nbsp; <span className="communityinfo">selaa</span> &nbsp;
           <button className="buttonnext" onClick={() => setCurrentPage(currentPage < Math.ceil(favorites.length / favoritesPerPage) ? currentPage + 1 : Math.ceil(favorites.length / favoritesPerPage))}>
-            ⯈
+            &#9654;
           </button>
           
         </li>

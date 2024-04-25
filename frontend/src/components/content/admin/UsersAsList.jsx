@@ -58,11 +58,11 @@ const UsersAsList = ({ searchTerm, setSearchTerm, user }) => {
                             <ul className="pagination">
                                 <li>
                                     <button className="buttonnext" onClick={() => setCurrentPage(currentPage > 1 ? currentPage - 1 : 1)}>
-                                        ⯇
+                                        &#9664;
                                     </button>
                                     &nbsp; <span className="communityBox">selaa</span> &nbsp;
                                     <button className="buttonnext" onClick={() => setCurrentPage(currentPage < Math.ceil(filteredProfiles.length / profilesPerPage) ? currentPage + 1 : Math.ceil(filteredProfiles.length / profilesPerPage))}>
-                                        ⯈
+                                        &#9654;
                                     </button>
                                 </li>
                                 <li>
