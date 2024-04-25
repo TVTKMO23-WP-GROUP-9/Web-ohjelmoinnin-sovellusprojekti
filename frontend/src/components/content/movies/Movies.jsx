@@ -143,7 +143,6 @@ const Movies = ( {user}) => {
     setShowMovies(false);
   };
 
-
   const handleNullify = () => {
     setQuery('');
     setGenre('');
@@ -158,8 +157,8 @@ const Movies = ( {user}) => {
   };
 
   const scrollToTop = () => {
-    scroll.scrollTo(600)({
-      duration: 1700,
+    scroll.scrollToTop({
+      duration: 900,
       smooth: 'easeInOutQuint', 
     });
   };
@@ -253,7 +252,7 @@ const Movies = ( {user}) => {
 
       </div>
 
-      <div className="group-view">
+      <div id="scrollHere" className="group-view">
         <span className='movieinfo'>Löydä elokuvia ja sarjoja eri parametreillä tai etsi nimellä.</span><br/>
         <span className='movieinfo'>Valitse yltä haluatko nähdä leffoja vai sarjoja.</span>
       </div>
