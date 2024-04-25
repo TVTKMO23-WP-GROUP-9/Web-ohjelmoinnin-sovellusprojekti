@@ -159,7 +159,7 @@ async function deleteMessage(req, res) {
 }
 
 async function getUserGroups(req, res) {
-    const profileid = req.params.profileid;
+    const profileid = res.locals.profileid;
     try {
         const groups = await groupModel.getUserGroups(profileid);
         res.json(groups);
