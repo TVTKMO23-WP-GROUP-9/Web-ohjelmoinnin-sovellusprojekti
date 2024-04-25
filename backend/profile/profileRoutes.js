@@ -3,7 +3,6 @@ const router = express.Router();
 const profileService = require('./profileService');
 const { auth, optionalAuth } = require('../middleware/auth');
 
-
 // kaikki nämä ovat käytössä
 router.get('/profile', profileService.getAllProfiles);
 router.get('/profile/id/:profileid', profileService.getProfileById);

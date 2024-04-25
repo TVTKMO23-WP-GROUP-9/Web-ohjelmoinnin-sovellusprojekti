@@ -23,6 +23,7 @@ import AllReviews from '@content/community/AllReviews';
 import Error from '@content/error/Error';
 import ProfileEdit from '@content/user/ProfileEdit';
 import AdminPage from '@content/admin/AdminPage';
+import Events from '@content/events/Events';
 import Faq from '@content/faq/Faq';
 import Intro from '@content/faq/intro';
 import { jwtToken, usertype } from './components/auth/authSignal';
@@ -107,6 +108,7 @@ function App() {
             <Header user={user} setUser={handleLogin} handleLogout={handleLogout} toggleTheme={toggleTheme} theme={theme} showLogin={showLogin} setShowLogin={setShowLogin} isburgerOpen={isburgerOpen} setIsburgerOpen={setIsburgerOpen} />
             <Routes>
               <Route path="/" exact element={<Home />} />
+              <Route path="/events" element={<Events />} />
               <Route path="/search" element={<Movies user={user}/>} />
               <Route path="/movie/:id" element={<MovieDetails user={user}/>} />
               <Route path="/series/:id" element={<SeriesDetails user={user}/>} />

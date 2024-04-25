@@ -160,6 +160,7 @@ export default function Login({ setUser, window, fullpage }) {
           </form>
 
         )}
+
         <div className='lilInfoBox'>{messageRegister && <span className='login-window-info'>{messageRegister}</span>}</div>
       </div>
     );

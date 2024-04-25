@@ -23,7 +23,7 @@ const Header = ({ user, setUser, handleLogout, toggleTheme, showLogin, setShowLo
             <ul className="sideLinks">
               <li><Link to="/">Etusivu</Link></li>
               <li><Link to="/search">Leffahaku</Link></li>
-              <li><Link to="/search">Näytösajat</Link></li>
+              <li><Link to="/events">Näytösajat</Link></li>
               <li><Link to="/community">Yhteisö</Link></li>
               <li><Link to="/about">FAQ</Link></li>
               
