@@ -17,16 +17,19 @@ const AllReviews = ({ searchTerm, setSearchTerm, user }) => {
 
 
   useEffect(() => {
-    if (user.user !== null || user.user !== undefined) {
+    
     const fetchProfile = async () => {
+      if (user.user !== null || user.user !== undefined) {
 
       const profresponse = await axios.get(`${VITE_APP_BACKEND_URL}/profile/${user.user.user}`, { headers });
       setAdult(profresponse.data.adult);
 
+      }
+
       fetchProfile();
     };
-  }
-
+  
+  
   }, [user]);
 
   useEffect(() => {
@@ -103,7 +106,10 @@ const AllReviews = ({ searchTerm, setSearchTerm, user }) => {
   };
 
   const filteredReviews = reviews.filter(review =>
-    review.review.toLowerCase().includes(searchTerm.toLowerCase())
+    review.review.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    (review.userProfile && review.userProfile.profilename && review.userProfile.profilename.toLowerCase().includes(searchTerm.toLowerCase())) ||
+    (review.movie && review.movie.title && review.movie.title.toLowerCase().includes(searchTerm.toLowerCase())) ||
+    (review.movie && review.movie.name && review.movie.name.toLowerCase().includes(searchTerm.toLowerCase())) 
   );
 
   const indexOfLastReview = currentPage * reviewsPerPage;
@@ -124,18 +130,22 @@ const AllReviews = ({ searchTerm, setSearchTerm, user }) => {
               on <b>{reviews.length > 0 && (reviews.reduce((sum, review) => sum + review.rating, 0) / reviews.length).toFixed(1)}</b>.<br />
               Voit luoda uusia arvosteluja elokuvien ja sarjojen sivuilta. <br />
             </li>
-  
-            <ul className="pagination">
-              <li>
-                <button className="buttonnext" onClick={() => setCurrentPage(currentPage > 1 ? currentPage - 1 : 1)}>
-                  ⯇
-                </button>
-                &nbsp; <span className="communityinfo">selaa</span> &nbsp;
-                <button className="buttonnext" onClick={() => setCurrentPage(currentPage < Math.ceil(filteredReviews.length / reviewsPerPage) ? currentPage + 1 : Math.ceil(filteredReviews.length / reviewsPerPage))}>
-                  ⯈
-                </button>
-              </li>
-            </ul>
+
+            {reviews.length > reviewsPerPage && (
+              <ul className="pagination">
+
+                  <li>
+                      <input className='longInput' type="text" placeholder="Etsi ..." value={searchTerm} onChange={(e) => { setSearchTerm(e.target.value); setCurrentPage(1); }} />
+
+                      <button className="buttonnext justMargin" onClick={() => setCurrentPage(currentPage > 1 ? currentPage - 1 : 1)}>
+                    ⯇ </button>
+                    &nbsp; <span className="communityinfo">sivu {currentPage} / {Math.ceil(filteredReviews.length / reviewsPerPage)}</span> &nbsp;
+                    <button className="buttonnext" onClick={() => setCurrentPage(currentPage < Math.ceil(filteredReviews.length / reviewsPerPage) ? currentPage + 1 : Math.ceil(filteredReviews.length / reviewsPerPage))}>
+                      ⯈ </button>
+
+                  </li>
+              </ul>
+            )}
   
             <hr />
   

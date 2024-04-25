@@ -53,9 +53,11 @@ const AllGroups = ({ user, searchTerm, setSearchTerm }) => {
     }, []);
 
     const filteredGroups = groups.filter(group =>
-        group.groupname.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-
+        group.groupname.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        (group.groupexplanation && group.groupexplanation.toLowerCase().includes(searchTerm.toLowerCase())) ||
+        (group.groupid && group.groupid.toString().toLowerCase().includes(searchTerm.toLowerCase()))
+    );    
+    
     const indexOfLastGroup = currentPage * groupsPerPage;
     const indexOfFirstGroup = indexOfLastGroup - groupsPerPage;
     const currentGroups = filteredGroups.slice(indexOfFirstGroup, indexOfLastGroup);
@@ -82,17 +84,20 @@ const AllGroups = ({ user, searchTerm, setSearchTerm }) => {
                     <div className="loading-text">Ladataan Ryhmiä...</div>
                 ) : (
                     <>
-                        {groups.length > groupsPerPage && (
-                            <ul className="pagination">
-                                <li>
-                                    <button className="buttonnext" onClick={() => setCurrentPage(currentPage > 1 ? currentPage - 1 : 1)}>⯇</button>
-                                    &nbsp; <span className="communityBox">selaa</span> &nbsp;
-                                    <button className="buttonnext" onClick={() => setCurrentPage(currentPage < Math.ceil(filteredGroups.length / groupsPerPage) ? currentPage + 1 : Math.ceil(filteredGroups.length / groupsPerPage))}>⯈</button>
-                                </li>
-                                <li>
-                                    <input className='justMargin longInput' type="text" placeholder="Etsi ryhmiä..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
-                                </li>
-                            </ul>
+                    {groups.length > groupsPerPage && (
+                        <ul className="pagination">
+
+                            <li>
+                                <input className='longInput' type="text" placeholder="Etsi ..." value={searchTerm} onChange={(e) => { setSearchTerm(e.target.value); setCurrentPage(1); }} />
+
+                                <button className="buttonnext justMargin" onClick={() => setCurrentPage(currentPage > 1 ? currentPage - 1 : 1)}>
+                                ⯇ </button>
+                                &nbsp; <span className="userinfo">sivu {currentPage} / {Math.ceil(filteredGroups.length / groupsPerPage)}</span> &nbsp;
+                                <button className="buttonnext" onClick={() => setCurrentPage(currentPage < Math.ceil(filteredGroups.length / groupsPerPage) ? currentPage + 1 : Math.ceil(filteredGroups.length / groupsPerPage))}>
+                                ⯈ </button>
+
+                            </li>
+                        </ul>
                         )}
 
                         <div className="communityDiv">
