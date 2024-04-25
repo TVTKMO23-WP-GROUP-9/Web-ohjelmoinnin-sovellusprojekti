@@ -5,7 +5,7 @@ const app = express();
 
 app.use(express.json());
 
-app.use(cors({ origin: 'http://localhost:5173', credentials: true })); 
+app.use(cors({ origin: 'http://localhost:5173', credentials: true }));
 //const profile = require(origin: './routes/profileRoutes', credentials: true); // Tuo 'profile' reitityksen
 const group = require('./group/groupRoutes'); // Tuo 'group' reitityksen
 const favoritelist = require('./favoritelist/favoritelistRoutes'); // tuo 'favoritelist' reitityksen

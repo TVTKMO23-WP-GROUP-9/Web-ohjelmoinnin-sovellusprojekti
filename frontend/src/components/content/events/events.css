@@ -1,0 +1,113 @@
+/** Yläpalkki **/
+
+.eventItems {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.eventItem {
+    margin-right: 1em;
+    min-height: 20px;
+}
+
+/*** Taulukko ja sen osat ***/
+
+.showTable {
+    width: 100%;
+}
+
+.show {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 0 1em 0 1em;
+    min-height: 180px;
+    margin-left: 20px;
+}
+
+.showContentCellLeft {
+    margin: 0 auto;
+    padding: 0 2em 0 2em;
+    width: 50%;
+    text-align: center;
+    color: var(--darktext);
+
+}
+
+.showContentCellRight {
+    margin: 0 auto;
+    padding: 0 2em 0 0;
+    width: 30%;
+    text-align: center;
+    color: var(--darktext);
+}
+
+
+.showPortrait {
+    margin: 0 auto;
+    width: 20%;
+    text-align: center;
+}
+
+.showRight-inside {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/*** Tekstit, otsikot, linkit ***/
+
+.eventInfo {
+    font-size: 0.8em;
+    line-height: 2.6em;
+}
+
+.eventInfo2 {
+    font-size: 1.1em;
+}
+
+.eventTitle {
+    font-size: 1.2em;
+    line-height: 1.2em;
+}
+
+.eventTitle2 {
+    font-family: var(--roboto);
+    font-size: 1.8em;
+    line-height: 1.9em;
+}
+
+.showContentCellLeft a {
+    color: var(--darktext);
+}
+
+.showContentCellLeft a:hover {
+    color: var(--profile-link);
+}
+
+.showtimes h2,
+.showtimeH2 {
+    color: var(--profile);
+    padding: 0 1em 0 0;
+}
+
+.ratingImg {
+    width: 50px;
+    height: 50px;
+    padding-left: 0.5em;
+}
+
+.backToTop {
+    display: flex;
+    justify-content: center;
+}
+
+/*** viivat ***/
+
+.showtimes hr {
+    border-top: var(--dashedGr);
+}

@@ -20,8 +20,7 @@ const Area = ({ setSelectedArea }) => {
 
   return (
     <div>
-      <label htmlFor="area">Valitse elokuvateatteri tai alue:</label>
-      <select id="area" onChange={(e) => setSelectedArea(e.target.value)}>
+      <select className='eventItem' id="area" onChange={(e) => setSelectedArea(e.target.value)}>
         {theatreAreas.map(area => (
           <option key={area.id} value={area.id}>{area.name}</option>
         ))}

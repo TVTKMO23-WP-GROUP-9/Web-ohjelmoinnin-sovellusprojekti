@@ -1,8 +1,8 @@
 @media (min-width: 1200px) {
   .moviemain {
     display: flex;
-  } 
-  
+  }
+
 }
 
 @media (max-width: 2140px) {
@@ -34,15 +34,15 @@
 }
 
 @media (max-width: 1470px) {
-  .menu-items li{
+  .menu-items li {
     list-style-type: none;
     padding-left: 25px;
   }
 
   .posterimg {
-      max-height: 500px;
+    max-height: 500px;
   }
-  
+
 }
 
 @media (max-width: 1250px) {
@@ -115,36 +115,51 @@
     display: block;
     min-width: 90%;
   }
+
   .favorite-view {
     display: block;
     min-width: 90%;
   }
-  
+
   .posterimg {
     max-height: 470px;
   }
 
+  .showPortrait {
+    margin-left: 1em !important;
+  }
+
+  .eventTitle2 {
+    font-size: 1.5em !important;
+  }
+
+  .eventTitle {
+    font-size: 1em !important;
+  }
+
 }
 
+  
 @media (max-width: 1085px) {
 
   .menu-items-left {
-    display: none; 
+    display: none;
   }
 
-  .head{
+  .head {
     visibility: hidden;
   }
   
 }
+
 
 @media (max-width: 1040px) {
 
   .menu-items-right {
     margin-right: -60px;
   }
-  
-  .menu-items li{
+
+  .menu-items li {
     list-style-type: none;
     padding-left: 25px;
   }
@@ -172,23 +187,67 @@
     width: 85% !important;
   }
 
+  .eventTitle2 {
+    font-size: 1.5em !important;
+  }
+
+  .eventInfo2 {
+    font-size: 1.0em !important;
+  }
+
 }
 
 
 @media (max-width: 850px) {
-  
+
   .two-view {
     flex-direction: column;
   }
 
   .two-left {
-    min-width: 100%; /* Leveys täyteen ruutuun */
+    min-width: 100%;
+    /* Leveys täyteen ruutuun */
   }
 
   .two-right {
-    min-width: 100%; /* Leveys täyteen ruutuun */
+    min-width: 100%;
+    /* Leveys täyteen ruutuun */
     border-left-width: 0;
     border-left: none !important;
+  }
+
+  .showPortrait {
+    display: none;
+  }
+
+  .portraitTd {
+    display: none;
+
+  }
+
+  .selectMaxWidth {
+    max-width: 270px;
+  }
+
+  .showPortrait {
+    margin-left: 0.9em !important;
+  }
+
+  .eventTitle2 {
+    font-size: 1.2em !important;
+  }
+
+  .eventTitle {
+    font-size: 0.9em !important;
+  }
+
+  .eventInfo2 {
+    font-size: 0.9em !important;
+  }
+
+  .ratingImg {
+    width: 35px !important;
+    height: 35px !important;
   }
 
 }
@@ -201,17 +260,17 @@
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   }
 
-  .movie-mini-item  {
+  .movie-mini-item {
     visibility: visible;
-    width: 150px; 
+    width: 150px;
     height: 200px;
-    padding-bottom: 50px; 
+    padding-bottom: 50px;
   }
 
   .movie-item {
-    width: 150px; 
+    width: 150px;
     height: 200px;
-    padding-bottom: 75px; 
+    padding-bottom: 75px;
   }
 
   .movie-item .headoverview {
@@ -235,7 +294,7 @@
     height: 0px;
   }
 
-  .uppermiddlecontent h2, 
+  .uppermiddlecontent h2,
   .uppercontent h2,
   .nearbyEvents h2,
   .lowermiddlecontent h2 {
@@ -247,23 +306,23 @@
   }
 
   #header-bar ul.whiteLinks {
-    display: none; 
+    display: none;
   }
 
   .menu-items-right {
-    display: none; 
+    display: none;
   }
 
   ul .whitelinks {
-    display: none; 
+    display: none;
   }
 
   #header-bar ul.username {
-    display: none; 
+    display: none;
   }
 
   .menu-items-left {
-    display: none; 
+    display: none;
   }
 
   #header-bar ul {
@@ -284,7 +343,7 @@
   .posterimg {
     max-height: 350px;
   }
-  
+
   .review-item h2 {
     font-size: 1.4em;
   }
@@ -317,7 +376,7 @@
     margin-top: 25px;
   }
 
-  .ginner-view {    
+  .ginner-view {
     border-bottom-left-radius: 0px !important;
     border-bottom-right-radius: 0px !important;
   }
@@ -327,7 +386,7 @@
     width: 100%;
   }
 
-  .singleMember, 
+  .singleMember,
   .singleEvent {
     max-width: 250px;
   }
@@ -345,23 +404,23 @@
   }
 
   #header-bar ul.whiteLinks {
-    display: none; 
+    display: none;
   }
 
   .menu-items-right {
-    display: none; 
+    display: none;
   }
 
   ul .whitelinks {
-    display: none; 
+    display: none;
   }
 
   #header-bar ul.username {
-    display: none; 
+    display: none;
   }
 
   .menu-items-left {
-    display: none; 
+    display: none;
   }
 
   .reviewslisted {
@@ -411,7 +470,7 @@
     width: 270px;
     height: 160px;
   }
-  
+
   .updateReview {
     max-width: 260px;
     min-width: 250px;
@@ -430,10 +489,14 @@
     margin-left: 10px !important;
   }
 
-  .singleMember, 
+  .singleMember,
   .singleEvent {
     padding-left: 0px !important;
     max-width: 180px;
+  }
+
+  .showContentCellRight {
+    display: none;
   }
 
   .group-view {
@@ -445,7 +508,7 @@
 /*Lopullinen breakpoint, jolloin näyttö on liian pieni, kaikkeen display none ja screenerror tms*/
 @media (max-width: 340px) {
 
-  .body > *:not(#screenError):not(h1):not(h2):not(h3) {
+  .body>*:not(#screenError):not(h1):not(h2):not(h3) {
     display: none;
   }
 
@@ -468,7 +531,8 @@
     color: #123d80;
   }
 
-  h2, h3 {
+  h2,
+  h3 {
     color: #000000;
   }
 
