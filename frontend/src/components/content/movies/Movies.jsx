@@ -3,10 +3,10 @@ import { animateScroll as scroll } from 'react-scroll';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import './movies.css';
-
+import { getHeaders } from '@auth/token';
 const { VITE_APP_BACKEND_URL } = import.meta.env;
 
-const Movies = () => {
+const Movies = ( {user}) => {
   const [query, setQuery] = useState('');
   const [genre, setGenre] = useState('');
   const [moviePage, setMoviePage] = useState(1); 
@@ -21,6 +21,23 @@ const Movies = () => {
   const [showSeries, setShowSeries] = useState(false);
   const [adult, setAdult] = useState(false);
   const [showText, setShowText] = useState(true);
+  const headers = getHeaders();
+
+  useEffect(() => {
+
+    if ( user !== null || user !== undefined ) {
+    const fetchProfile = async () => {
+        const profresponse = await axios.get(`${VITE_APP_BACKEND_URL}/profile/${user.user}`, { headers });
+      
+        setAdult(profresponse.data.adult);
+
+        fetchProfile();
+      }
+      
+    };
+    
+  }, [user]);
+  
 
   useEffect(() => {
     searchMovies();

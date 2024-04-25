@@ -1,55 +1,62 @@
-#groupinfo {
-    background-color: var(--moviedetails);
-    border-radius: 10px;
-    margin-top: 50px;
-    display: flex; 
-    flex-direction: column; 
-    border: 1px solid #000000;
-    box-shadow: var(--shadow06);
-}
-
-.gsection1,
-.gsection2,
-.gsection3 {
-    margin-top: 50px;
-    padding: 40px;
-    border-radius: 10px;
-}
-
-.gsection1 {
-    background-color: var(--greyblue);
-}
-
-.gsection2,
-.gsection3 {
-    background-color: var(--table-bg);
-    border: var(--solid);
-    box-shadow: var(--shadow02);
-}
-
-#groupinfo h2 {
-    color: var(--h2);
-}
-
-
 .faq-heading {
     cursor: pointer;
     margin-bottom: 5px;
 }
 
-.faq-content {
+.faq {
+    max-width: 90%;
+    margin-bottom: 40px;
+    font-size: 1.2em;
+}
+
+.faq h2 {
+    font-size: 1.7rem;
+    margin-bottom: 20px;
+}
+
+.faq h3 {
+    color: var(--dark);
+}
+
+.faq h4 {
+    font-size: 6em;
+    color: var(--section1);
+    font-family: var(--thasadith);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 1); 
+}
+
+.introHeading {
+    cursor: pointer;
+    margin-bottom: 5px;
+}
+
+.introContent {
     overflow: hidden;
     max-height: 0;
+    padding-left: 30px;
     transition: max-height 0.3s ease-out;
 }
 
-.faq-heading.open + .faq-content {
+.introHeading.open + .introContent {
     max-height: 1000px; 
+    padding-left: 30px;
 }
 
-.faq {
-    margin-top: 20px;
-    margin-bottom: 200px;
-    margin-left: 200px;
-    margin-right: 200px;
+.resize {
+    width: 100px;
+}
+
+.resize200 {
+    width: 250px;
+}
+
+.introRoll {
+    display: flex;
+}
+
+.intromain {
+    background-color: rgba(134, 106, 68, 0.90);
+    border-radius: 10px;
+    margin-top: 25px;
+    padding: 40px;
 }

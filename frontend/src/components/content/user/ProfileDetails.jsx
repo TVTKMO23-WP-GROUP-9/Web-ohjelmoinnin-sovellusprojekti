@@ -29,10 +29,10 @@ const ProfileDetails = ({ user }) => {
                 } catch (error) {
                     console.error('Virhe haettaessa profiilitietoja:', error);
                 }
+                setLoading(false);
             };
             
             fetchProfile();
-            setLoading(false);
         
     }, [profilename]);
 
@@ -76,7 +76,6 @@ const ProfileDetails = ({ user }) => {
                                 <FavoriteList profile={profile} />
                             </div>
                         </div>
-
 
                         <div className="profile-view">
                             <div className="profile-content">
