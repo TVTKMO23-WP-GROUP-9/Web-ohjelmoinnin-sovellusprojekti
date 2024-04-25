@@ -39,8 +39,8 @@ const GroupCarousel = () => {
     totalSlides={3}
     isIntrinsicHeight={true}
   >
-      <ButtonBack>⯇</ButtonBack>
-      <ButtonNext>⯈</ButtonNext>
+      <ButtonBack>&#9664;</ButtonBack>
+      <ButtonNext>&#9654;</ButtonNext>
       <Slider>
       
         <Slide index={0}>

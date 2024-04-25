@@ -186,9 +186,9 @@ const Rightsidebar = () => {
                 </div>
               ))}
 
-              <button onClick={showLess} className='show-more-button'>{'⯇'}</button>
+              <button onClick={showLess} className='show-more-button'>{'&#9664;'}</button>
               &nbsp; Selaa &nbsp;
-              <button onClick={showMore} className='show-more-button'>{'⯈'}</button>
+              <button onClick={showMore} className='show-more-button'>{'&#9654;'}</button>
 
             </div>
           )}
