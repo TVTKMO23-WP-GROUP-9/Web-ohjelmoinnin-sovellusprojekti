@@ -1,80 +1,91 @@
-# Web-ohjelmoinnin-sovellusprojekti
-Ryhmä 9:
 
-- Hannu Karjalainen (HannuKarjalainen)
-- Tapio Kylmämaa (xolooh)
-- Jimi Jakola (jimijakola)
-- Matti Nieminen (Majuniemi)
-- Rebecca Soisenniemi (suklaanen)
+## Elokuvaharrastajien sivusto: Leffaysi
+---------------------------------
+
+#### Tekijät
+
+- Hannu Karjalainen ([HannuKarjalainen](https://github.com/HannuKarjalainen))
+- Tapio Kylmämaa ([xolooh](https://github.com/xolooh))
+- Jimi Jakola ([jimijakola](https://github.com/jimijakola))
+- Matti Nieminen ([Majuniemi](https://github.com/Majuniemi))
+- Rebecca Soisenniemi ([suklaanen](https://github.com/suklaanen))
+
+---------------------------------
+
+Tämä repositio esittelee Oulun ammattikorkeakoulun 2. vuoden tieto- ja viestintätekniikan opiskelijoiden tekemää elokuvasivustoa, joka kuuluu toteutukseen **Web-ohjelmoinnin sovellusprojekti** (15 op). 
+
+Hankkeen tarkoituksena on oppia kokonaisvaltaista ohjelmistokehitystä ketteriä menetelmiä sekä versionhallintajärjestelmää käyttäen. 
+
+Hankkeesta vastanneet tekijät ovat yllämainitut Matti Nieminen, Jimi Jakola, Hannu Karjalainen, Rebecca Soisenniemi ja Tapio Kylmämaa. Ryhmästä kaikki ovat osallistuneet jokaisen osa-alueen toteuttamiseen.
+
+## Sivuston kuvaus
+
+Elokuvasivusto on kokonaisvaltainen palvelu käyttäjälle, joka haluaa saada kattavaa tietoa elokuvista ja sarjoista yhdestä paikasta. Sovellus yhdistää React-projektina toteutetun käyttöliittymän ja Node.js -palvelimen, joka on yhteydessä tietokantaan.
+
+Yhteisöllisyys on sivustolla merkittävässä roolissa. Sivustolla voi luoda ryhmiä, joissa käyttäjät voivat jakaa ja lukea arvosteluja elokuvista ja sarjoista. Jäsenet voivat kirjoittaa ryhmäsivulle viestejä ja jakaa näytösaikoja muille jäsenille. 
+
+Sovelluksen käyttämät tiedot elokuvista ja sarjoista haetaan The Movie Databasen tietokannasta rajapinta-avaimella. Finnkinon tarjonta saadaan sen antamasta datasta. 
+
+## Teknologiat
+
+  	Tietokanta: PostgreSql
+	Käyttöliittymä: React, Vite
+	Palvelin: Node.js
+	Tietoturva: CORS, JWT, Middleware, Bcrypt
+	Testaus: yksikkötestit Mocha Chai, end-2-end Robot Framework
+    Konttiteknologia: Docker
+    Arkkitehtuuri: Separation into components
+
+#### Ohjelmistoarkkitehtuuri
+
+Sovelluksen ohjelmistoarkkitehtuuri noudattaa jäsenneltyä mallia, jossa sisältö on organisoitu mahdollisimman selkeästi asioiden mukaan. Palvelinpuolen toteutuksessa kunkin toiminnallisen kokonaisuuden vastuut on jaettu omiin ryhmiin. Ryhmien osat on jaettu pääasiassa ```Routes-, Service- ja Model-``` tiedostoihin. Näistä Routes vastaa reitityksestä ja ohjaa pyynnöt Service-luokkiin. Service puolestaan vastaa bisneslogiikasta ja keskustelee Modelin kanssa. Model-kerros hoitaa tietojen hallinnan ja käsittelyn. 
+
+Käyttöliittymäkomponenttien osalta pyrimme myös jakamaan sisällön loogisiin kokonaisuuksiin, jotta niitä on helppo käyttää ja ylläpitää. 
 
 
-# Getting Started with Create React App
+#### Tietokanta
+Sovelluksessa on käytössä PostgreSQL-tietokanta, johon tallennetaan käyttäjän tiedot, oikeudet, arvostelut, suosikit ja ryhmät. Tietokanta on viety Render-pilvipalveluntarjoajalle. 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Alla olevassa kuvassa on esitetty tietokannan ER-kaavio, joka kuvaa tietokannan rakennetta. 
 
-## Available Scripts
+![Database ERD](image-3.png)
+<sup>KUVA 1. Tietokannan ER-kaavio</sup>
 
-In the project directory, you can run:
+Tietokannassa on vältetty monen suhde moneen -yhteyksiä luomalla aputauluja. Näihin tauluihin tulee automaattisesti luotu pääavain ja vierasavaimet tauluista, joiden välille tarvitaan useita yhteyksiä. Esimerkiksi samassa ryhmässä voi olla lukuisia jäseniä, mutta sama henkilö voi olla myös useammassa ryhmässä.
 
-### `npm start`
+#### Käyttöliittymä
+Palvelun käyttöliittymä on toteutettu käyttäen nykyaikaisia web-tekniikoita, kuten React-kirjastoa sekä Vite-kehitystyökalua. Reactin avulla saadaan luotua tehokas ja dynaaminen käyttöliittymä. Vite puolestaan tarjoaa kehittäjille nopean kehitysympäristön ja paketinhallintajärjestelmän. Nämä helpottavat käyttöliittymäkoodin kirjoittamista, testaamista ja optimointia. 
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Sivusto ja sen osat on tehty mukautuviksi, joten esimerkiksi sivuston asettelut ja tyylit mukautuvat näytön koon muuttuessa. Samalla se on toteutettu saavutettavaksi ja käyttäjäystävälliseksi. Käyttäjän on esimerkiksi mahdollista valita sivustolle teema (kuva 2), joka asettaa sivuston värimaailman tummaksi tai vaaleaksi riittävillä kontrastieroilla. Kuvat ja sivulinkit on toteutettu siten, että ne voi muuttaa puheeksi helppokäyttötoiminnoilla. 
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+![alt text](image.png)
+<sup>KUVA 2. Käyttöliittymä tummalla teemalla</sup>
 
-### `npm test`
+Käyttöliittymän arkkitehtuuri noudattaa modulaarista lähestymistapaa, jossa eri osat on ryhmitelty kokonaisuuksien mukaisesti. Runkotiedosto toimii keskeisenä osana reititystä, jonka avulla käyttäjä voi selata sivustoa. Eri näkymiin on sisällytetty uudelleenkäytettäviä komponentteja.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+#### Palvelin
+Sovelluksen palvelin mahdollistaa tietokannan käytön sivustolla sekä ohjaa tietokantakyselyt ja sieltä palautuvat vastaukset oikeille paikoilleen. Se myös vastaa tietoturvasta ja säilyttää arkaluontoiset tiedot, kuten rajapinta-avaimet ja salasanat käyttäjän ulottumattomissa. 
 
-### `npm run build`
+Palvelin tarjoaa REST-rajapinnan käyttöliittymälle, jolla se voi hakea dataa tietokannasta. Rajapinta itsessään sisältää lukuisia päätepisteitä eri toiminnallisuuksiin. Esimerkiksi yllä olevassa kuvassa on esitelty päätepiste arvostelujen lisäämiseksi tietokantaan.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Tietoturvan takaamiseksi on käytetty Cross-origin Resource Sharing (CORS)-, JSON Web Token (JWT)-, Middleware- sekä Bcrypt-menetelmiä. Näillä teknologioilla voidaan varmentaa käyttäjän istuntojen oikeellisuutta (JWT) ja salata tietokantaan tallennettavat salasanat (Bcrypt). Middlewaren avulla suojataan haluttuja päätepisteitä, millä voidaan estää luvattomat tietokannan toiminnot. CORS puolestaan mahdollistaa tiettyjen verkkosivujen sallimisen ja estämisen tarpeen mukaan. 
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Sovelluksen käyttöönottaminen
+Sivustolle pääsee Render-pilvipalvelun ylläpitämänä verkko-osoitteessa https..... 
+Sovelluksen voi myös halutessaan ladata itselleen paikallisesti käytettäväksi seuraavilla ohjeilla. 
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+1.	Kloonaa tämä repositio omalle koneellesi
+2.	Hanki oma rajapinta-avain The Movie Database -sivustolta
+3.	Luo arkiston juureen **.env-tiedosto** ja lisää sinne rajapinta-avain sekä muut tarvittavat ympäristömuuttujat. Lue ohjeet tämän tekemiseen arkiston tiedostosta
+```env-example```
+4.	Suorita poluissa backend ja frontend komento
+```npm install```
+5.	Avaa Docker Desktop -työpöytäsovellus ja suorita arkiston juuresta komento
+```docker compose up –d```
+6.	Käynnistä palvelin polusta backend komennolla
+```npm start```
+7.	Käynnistä käyttöliittymä polusta frontend komennolla
+```npm run dev```
+8.	Avaa selain ja siirry osoitteeseen 
+```http://localhost:5173/```
+9.	Nauti! 😀 
