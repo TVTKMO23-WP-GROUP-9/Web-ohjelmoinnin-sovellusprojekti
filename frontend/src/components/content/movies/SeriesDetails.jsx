@@ -16,6 +16,10 @@ const SeriesDetails = (user) => {
   const [isFavorite, setIsFavorite] = useState(false); 
   const [profileId, setProfileId] = useState(false); 
   const { favoriteditem } = useParams();
+  const [groups, setGroups] = useState([]);
+  const [group, setGroup] = useState(false);
+  const [groupsPerPage, setGroupsPerPage] = useState(10);
+  const [currentPage, setCurrentPage] = useState(1);
   const headers = getHeaders();
  
   useEffect(() => {
@@ -26,10 +30,44 @@ const SeriesDetails = (user) => {
               'Authorization': `Bearer ${token}`,
               'Content-Type': 'application/json'
           };
+
           const response = await axios.get(`${VITE_APP_BACKEND_URL}/profile/${user.user.user}`);
           
           setProfileId(response.data.profileid);
 
+          console.log("Käyttäjän id:", response.data.profileid);
+          console.log("sivun listatuotteen id:", id);
+          
+          const gresponse = await axios.get(`${VITE_APP_BACKEND_URL}/grouplist/profile/${user.user.user}/1`);
+          const groupData = [];
+
+          for (const group of gresponse.data) {
+            
+           
+            try {
+              console.log('Loopshoo:');
+              const FLGresponse = await axios.get(`${VITE_APP_BACKEND_URL}/favoritelist/group/${group.groupid}/1`);
+              console.log('käyttäjän FLG:', FLGresponse);
+              const isGFavoriteItem = FLGresponse.data.find(item => item.favoriteditem === id);
+              const isGFavorite = isGFavoriteItem ? true : false;
+              console.log('käyttäjän favoriitti-itemi:', isGFavorite);
+              groupData.push({
+                ...group,
+                isGFavorite
+              });
+            } catch (error) {
+              console.error('Virhe haettaessa ryhmätietoja:', error);
+              // Jos suosikkeja ei löydy, aseta isGFavorite arvoksi false
+              groupData.push({
+                ...group,
+                isGFavorite: false
+              });
+            }
+          }
+    
+          setGroups(groupData);
+
+          console.log('käyttäjän ryhmät favoriittitiedolla:', groupData);
           const FLresponse = await axios.get(`${VITE_APP_BACKEND_URL}/favoritelist/${response.data.profileid}/${id}/1`);
 
           const isitFavorite = FLresponse.data.favorites.find(item => item.favoriteditem === id);
@@ -80,14 +118,15 @@ const handleFavoriteAction = async () => {
   try {
       if (profileId&& id) {
           if (isFavorite) {
-              await axios.delete(`${VITE_APP_BACKEND_URL}/favorite/${profileId}/${id}`, { headers });
+              await axios.delete(`${VITE_APP_BACKEND_URL}/favorite/${profileId}/${id}/1`, { headers });
               setIsFavorite(false);
           } else {
               const data = {
                   favoriteditem: id,
                   groupid: null,
                   profileid: profileId,
-                  mediatype: 1
+                  mediatype: 1,
+                  adult: series.adult
               };
               await axios.post(`${VITE_APP_BACKEND_URL}/favoritelist`, data, { headers });
               setIsFavorite(true);
@@ -99,7 +138,61 @@ const handleFavoriteAction = async () => {
       console.error('Virhe suosikin käsittelyssä:', error);
   }
 };
-  
+
+const handleFavoriteGroupAction = async (groupId, isGFavorite) => {
+  try {
+    let updatedGroups = [];
+    if (groupId && id) {
+      console.log("onko favoriitti", isGFavorite);
+      
+      if (isGFavorite) {
+        console.log("onko favoriitti id yhä oikein", id);
+        console.log("onko ryhmän id yhä oikein", groupId);
+        await axios.delete(`${VITE_APP_BACKEND_URL}/favoritefromgroup/${groupId}/${id}/1`);
+        
+        // Päivitä isGFavorite arvo ryhmätiedossa
+        updatedGroups = groups.map(groupItem => {
+          if (groupItem.groupid === groupId) {
+            return { ...groupItem, isGFavorite: false };
+          }
+          return groupItem;
+        });
+        setGroups(updatedGroups);
+      } else {
+        const data = {
+          favoriteditem: id,
+          groupid: groupId,
+          profileid: null,
+          mediatype: 1,
+          adult: series.adult
+        };
+        await axios.post(`${VITE_APP_BACKEND_URL}/favoritelist`, data, { headers });
+        updatedGroups = groups.map(groupItem => {
+          if (groupItem.groupid === groupId) {
+            return { ...groupItem, isGFavorite: true };
+          }
+          return groupItem;
+        });
+        
+        setGroups(updatedGroups);
+      }
+      
+    } else {
+      console.error('group-id tai sarjan id puuttuu');
+    }
+  } catch (error) {
+    console.error('Virhe suosikin käsittelyssä:', error);
+  }
+};
+
+const toggleGroups = () => {
+  setGroup(!group);
+};
+
+const indexOfLastGroup = currentPage * groupsPerPage;
+const indexOfFirstGroup = indexOfLastGroup - groupsPerPage;
+const currentGroups = groups.slice(indexOfFirstGroup, indexOfLastGroup);
+
   return (
     <>
     <div id="backdrop" style={series && { backgroundImage: `url(https://image.tmdb.org/t/p/original${series.backdrop_path})`, backgroundSize: 'cover' }}>
@@ -117,6 +210,9 @@ const handleFavoriteAction = async () => {
                   <h2>{series.name}</h2>
                   {profileId && 
                   <button className="favorite-button" onClick={handleFavoriteAction}>{isFavorite ? <FaHeart className="favorite-icon" size={34} /> : <FaRegHeart size={34} />}</button>
+                  }
+                  {profileId &&
+                  <button className="favorite-button" onClick={toggleGroups}><div className="uni06"></div></button>
                   }
                 </div>
 
@@ -157,7 +253,45 @@ const handleFavoriteAction = async () => {
 
               </div>
             </div>
+            <div className='group-between'>
+            {profileId &&
+            <div className="moviegroup-view">
+              <div className="profile-content">
+                {group && (
+                
+                  <>  
 
+                <ul className="pagination">
+                <li>
+                <button className="buttonnext" onClick={() => setCurrentPage(currentPage > 1 ? currentPage - 1 : 1)}>
+                ⯇
+                </button>
+                &nbsp; <span className="communityinfo">selaa</span> &nbsp;
+                <button className="buttonnext" onClick={() =>
+                setCurrentPage(currentPage < Math.ceil(groups.length / groupsPerPage) ?
+                currentPage + 1 : Math.ceil(groups.length / groupsPerPage))}>
+                ⯈
+                </button>
+                </li>
+              </ul>
+              
+              <ul className="profileSections">
+              {currentGroups.map((group, index) => (
+                <li key={index}><Link to={`/group/${group.groupid}`}>{group.groupname}</Link>          
+                {profileId &&
+                       <button className="favorite-button" onClick={() => handleFavoriteGroupAction(group.groupid, group.isGFavorite)}>
+                       {group.isGFavorite ? <FaHeart className="favorite-icon" size={20} /> : <FaRegHeart size={20} />}
+                     </button> }</li>
+              ))}
+              </ul>
+                    </>
+              )}
+
+              </div>
+            </div>
+            }
+            </div>
+            
             <div className="moviereviews">
             {profileId &&
             <div><ReviewFormSerie tvShowId={id} user={user} /></div>

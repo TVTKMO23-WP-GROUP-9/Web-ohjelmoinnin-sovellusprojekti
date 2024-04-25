@@ -79,7 +79,6 @@ const MovieDetails = (user) => {
             setIsFavorite(false);
           }
 
-          console.log("Response from profile:", response.data);
           } catch (error) {
             console.error('Virhe haettaessa profiilitietoja:', error);
           }
@@ -132,7 +131,8 @@ const MovieDetails = (user) => {
                     favoriteditem: id,
                     groupid: null,
                     profileid: profileId,
-                    mediatype: 0
+                    mediatype: 0,
+                    adult: movie.adult
                 };
                 await axios.post(`${VITE_APP_BACKEND_URL}/favoritelist`, data, { headers });
                 setIsFavorite(true);
@@ -169,7 +169,8 @@ const MovieDetails = (user) => {
             favoriteditem: id,
             groupid: groupId,
             profileid: null,
-            mediatype: 0
+            mediatype: 0,
+            adult: movie.adult
           };
           await axios.post(`${VITE_APP_BACKEND_URL}/favoritelist`, data, { headers });
           updatedGroups = groups.map(groupItem => {
