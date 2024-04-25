@@ -10,12 +10,16 @@ const FavoriteList = ({ profile }) => {
   const [favoritesPerPage, setfavoritesPerPage] = useState(4);
   const [favorites, setFavorites] = useState([]);
   const [editMode, setEditMode] = useState(false);
+  const [adult, setAdult] = useState(false);
 
   useEffect(() => {
     const fetchFavorites = async () => {
       try {
         if (profile && profile.profileid) {
           const response = await axios.get(`${VITE_APP_BACKEND_URL}/favoritelist/profile/${profile.profileid}`);
+          console.log(profile);
+          
+          
           const favoriteData = response.data;
           const favoritesWithMovies = await Promise.all(favoriteData.map(async favorite => {
             try {
@@ -46,10 +50,12 @@ const FavoriteList = ({ profile }) => {
         console.error('Hakuvirhe:', error);
       }
     };
-
+    setAdult(profile.adult);
+    console.log(profile.adult);
     fetchFavorites();
   }, [profile]);
   const handleEditClick = () => {
+    console.log("onko oma profiili", isOwnProfile)
     setEditMode(!editMode);
   };
 
@@ -67,17 +73,25 @@ const FavoriteList = ({ profile }) => {
     }
   };
 
+
+
+
   const indexOfLastFavorite = currentPage * favoritesPerPage;
   const indexOfFirstFavorite = indexOfLastFavorite - favoritesPerPage;
   const currentFavorites = favorites.slice(indexOfFirstFavorite, indexOfLastFavorite);
 
   return (
     <>
-    
+    {(profile && profile.isOwnProfile) &&
+        <span className="userinfo">
+        jaa linkki <Link className="link-style" to={`/favorites/${profile.profilename}`}>http://localhost:5173/favorites/{profile.profilename}</Link>
+      </span>
+    }
     <ul className="favorite-list">
       <span className="userinfo">
         Löytyi <b>{favorites.length}</b> Suosikkia.<br />
       </span>
+
       <ul className="pagination">
         <li>
           <button className="buttonnext" onClick={() => setCurrentPage(currentPage > 1 ? currentPage - 1 : 1)}>
@@ -91,7 +105,9 @@ const FavoriteList = ({ profile }) => {
         </li>
       </ul>
 
-        {currentFavorites.map((favorite, index) => (
+        {currentFavorites        
+        .filter(favorite => favorite.adult === false || adult === true)
+        .map((favorite, index) =>  (
           <li key={index}>
             {favorite.mediatype === 0 ? (
            <div className="favorite-poster">
