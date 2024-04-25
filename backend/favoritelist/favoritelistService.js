@@ -63,7 +63,7 @@ async function getFavoritelistByGroup(req, res) {
 
   //lisää uuden suosikkilistan profiiliin tai grouppiin
   async function createFavoritelist(req, res) {
-    const { favoriteditem, groupid, profileid, mediatype} = req.body;
+    const { favoriteditem, groupid, profileid, mediatype, adult} = req.body;
     try {
         const now = new Date();
         let favoritelistQuery;
@@ -71,13 +71,13 @@ async function getFavoritelistByGroup(req, res) {
         if (groupid || profileid) {
             if (groupid) {
                 favoritelistQuery = {
-                    text: 'INSERT INTO favoritelist_ (groupid, favoriteditem, timestamp, mediatype) VALUES ($1, $2, $3, $4)',
-                    values: [groupid, favoriteditem, now, mediatype],
+                    text: 'INSERT INTO favoritelist_ (groupid, favoriteditem, timestamp, mediatype, adult) VALUES ($1, $2, $3, $4, $5)',
+                    values: [groupid, favoriteditem, now, mediatype, adult],
                 };
             } else {
                 favoritelistQuery = {
-                    text: 'INSERT INTO favoritelist_ (profileid, favoriteditem, timestamp, mediatype) VALUES ($1, $2, $3, $4)',
-                    values: [profileid, favoriteditem, now, mediatype],
+                    text: 'INSERT INTO favoritelist_ (profileid, favoriteditem, timestamp, mediatype, adult) VALUES ($1, $2, $3, $4, $5)',
+                    values: [profileid, favoriteditem, now, mediatype, adult],
                 };
             }
             await favoritelistModel.queryDatabase(favoritelistQuery);

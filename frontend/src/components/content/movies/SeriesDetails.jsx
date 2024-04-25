@@ -20,6 +20,8 @@ const SeriesDetails = (user) => {
   const [group, setGroup] = useState(false);
   const [groupsPerPage, setGroupsPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
+  const [adult, setAdult] = useState(false);
+  
   const headers = getHeaders();
  
   useEffect(() => {
@@ -114,6 +116,14 @@ const SeriesDetails = (user) => {
 
   }, [id, user]);
 
+  useEffect(() => {
+    if (series) {
+      setAdult(series.adult);
+      console.log('adultköntsä: ', adult);
+    }
+  }, [series]);
+    
+  
 const handleFavoriteAction = async () => {
   try {
       if (profileId&& id) {

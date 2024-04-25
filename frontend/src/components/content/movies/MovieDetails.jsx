@@ -20,6 +20,8 @@ const MovieDetails = (user) => {
   const [group, setGroup] = useState(false);
   const [groupsPerPage, setGroupsPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
+  const [adult, setAdult] = useState(false);
+  
   const headers = getHeaders();
  
   useEffect(() => {
@@ -92,6 +94,8 @@ const MovieDetails = (user) => {
       try {
         const response = await axios.get(`${VITE_APP_BACKEND_URL}/movie/${id}`);
         setMovie(response.data);
+        console.log('fetchmovie', response.data);
+        
       } catch (error) {
         console.error('Hakuvirhe:', error);
       }
@@ -108,7 +112,6 @@ const MovieDetails = (user) => {
     };
 
     fetchMovie();
-
     // Asetetaan timeout fetchProviders-funktiolle 5 sekunniksi
     const timeoutId = setTimeout(fetchProviders, 100);
 
@@ -116,12 +119,18 @@ const MovieDetails = (user) => {
     return () => clearTimeout(timeoutId);
   }, [id, user]);
 
-
+  useEffect(() => {
+    if (movie) {
+      setAdult(movie.adult);
+      console.log('adultköntsä: ', adult);
+    }
+  }, [movie]);
     
   
 
   const handleFavoriteAction = async () => {
     try {
+          
         if (profileId&& id) {
             if (isFavorite) {
                 await axios.delete(`${VITE_APP_BACKEND_URL}/favorite/${profileId}/${id}/0`, { headers });
@@ -132,8 +141,9 @@ const MovieDetails = (user) => {
                     groupid: null,
                     profileid: profileId,
                     mediatype: 0,
-                    adult: movie.adult
+                    adult: adult
                 };
+                console.log('endpointtiin lähtevä data', data);
                 await axios.post(`${VITE_APP_BACKEND_URL}/favoritelist`, data, { headers });
                 setIsFavorite(true);
             }
@@ -150,6 +160,7 @@ const MovieDetails = (user) => {
       let updatedGroups = [];
       if (groupId && id) {
         console.log("onko favoriitti", isGFavorite);
+        console.log("adult", adult);
         
         if (isGFavorite) {
           console.log("onko favoriitti id yhä oikein", id);
@@ -170,8 +181,9 @@ const MovieDetails = (user) => {
             groupid: groupId,
             profileid: null,
             mediatype: 0,
-            adult: movie.adult
+            adult: adult
           };
+          console.log('endpointtiin lähtevä data', data);
           await axios.post(`${VITE_APP_BACKEND_URL}/favoritelist`, data, { headers });
           updatedGroups = groups.map(groupItem => {
             if (groupItem.groupid === groupId) {
@@ -193,6 +205,7 @@ const MovieDetails = (user) => {
 
   const toggleGroups = () => {
     setGroup(!group);
+    
   };
 
   const indexOfLastGroup = currentPage * groupsPerPage;
@@ -201,6 +214,7 @@ const MovieDetails = (user) => {
 
   return (
     <>
+    
     <div id="backdrop" style={movie && { backgroundImage: `url(https://image.tmdb.org/t/p/original${movie.backdrop_path})`, backgroundSize: 'cover' }}>
       <div className="content">
 

@@ -189,7 +189,7 @@ const GroupDetails = ({ user }) => {
             <div className="group-view">
               <div className='group-content'>
                 {showMembers && <MemberList id={id} user={user} />}
-                {showFavorites && <FavoriteList id={id} />}
+                {showFavorites && <FavoriteList id={id} user={user} />}
 
                 {showEvents && (
                 

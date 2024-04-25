@@ -3,18 +3,22 @@ import './group.css';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 const { VITE_APP_BACKEND_URL } = import.meta.env;
+import { getHeaders } from '@auth/token';
 
-const FavoriteList = ({ id }) => {
+const FavoriteList = ({ id, user }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [favoritesPerPage, setfavoritesPerPage] = useState(4);
   const [favorites, setFavorites] = useState([]);
-  const [editMode, setEditMode] = useState(false);
+  const [adult, setAdult] = useState(false);
+  const headers = getHeaders();
   
   useEffect(() => {
     const fetchFavorites = async () => {
       try {
-        
-        
+        console.log('käyttäjä:', user);
+        const aresponse = await axios.get(`${VITE_APP_BACKEND_URL}/profile/${user.user}`, { headers });
+          
+        setAdult(aresponse.data.adult);
           const response = await axios.get(`${VITE_APP_BACKEND_URL}/favoritelist/group/${id}/ANY`);
  
           const favoriteData = response.data;
@@ -51,12 +55,9 @@ const FavoriteList = ({ id }) => {
     };
 
     fetchFavorites();
-  }, [id]); 
-  const handleEditClick = () => {
-    setEditMode(!editMode);
-  }; 
+  }, [id, user]); 
 
-  // Poistetaan suosikeista suosikki
+
 
   const indexOfLastFavorite = currentPage * favoritesPerPage;
   const indexOfFirstFavorite = indexOfLastFavorite - favoritesPerPage;
@@ -82,7 +83,9 @@ const FavoriteList = ({ id }) => {
         </li>
       </ul>
 
-        {currentFavorites.map((favorite, index) => (
+      {currentFavorites        
+        .filter(favorite => favorite.adult === false || adult === true)
+        .map((favorite, index) =>  (
           <li key={index}>
             {favorite.mediatype === 0 ? (
            <div className="favorite-poster">

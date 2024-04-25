@@ -10,12 +10,16 @@ const FavoriteList = ({ profile }) => {
   const [favoritesPerPage, setfavoritesPerPage] = useState(4);
   const [favorites, setFavorites] = useState([]);
   const [editMode, setEditMode] = useState(false);
+  const [adult, setAdult] = useState(false);
 
   useEffect(() => {
     const fetchFavorites = async () => {
       try {
         if (profile && profile.profileid) {
           const response = await axios.get(`${VITE_APP_BACKEND_URL}/favoritelist/profile/${profile.profileid}`);
+          console.log(profile);
+          
+          
           const favoriteData = response.data;
           const favoritesWithMovies = await Promise.all(favoriteData.map(async favorite => {
             try {
@@ -46,10 +50,12 @@ const FavoriteList = ({ profile }) => {
         console.error('Hakuvirhe:', error);
       }
     };
-
+    setAdult(profile.adult);
+    console.log(profile.adult);
     fetchFavorites();
   }, [profile]);
   const handleEditClick = () => {
+    console.log("onko oma profiili", isOwnProfile)
     setEditMode(!editMode);
   };
 
@@ -91,7 +97,9 @@ const FavoriteList = ({ profile }) => {
         </li>
       </ul>
 
-        {currentFavorites.map((favorite, index) => (
+        {currentFavorites        
+        .filter(favorite => favorite.adult === false || adult === true)
+        .map((favorite, index) =>  (
           <li key={index}>
             {favorite.mediatype === 0 ? (
            <div className="favorite-poster">
