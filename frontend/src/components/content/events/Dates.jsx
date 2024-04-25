@@ -4,7 +4,7 @@ const Dates = ({ onSelectDate }) => {
 
   return (
     <div>
-      <label htmlFor="date"> Valitse päivämäärä:</label>
+      <label htmlFor="date"></label>
       <input type="date" id="date" onChange={(e) => onSelectDate(e.target.value)} /> <br/>
     </div>
   );

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Area from './Area';
 import Dates from './Dates';
 import NowShowing from './NowShowing';
+import { animateScroll as scroll } from 'react-scroll';
 import './events.css';
 
 const Events = () => {
@@ -100,12 +101,19 @@ const Events = () => {
       setError('Näytösaikojen haku epäonnistui');
     }
   };
-  
+
   // manuaalinen haun tyhjennys
   const tyhjennaHaku = () => {
     setEvents([]);
     setShowtimes([]);
     console.log('Lista tyhjennetty manuaalisesti');
+  };
+
+  const scrollToTop = () => {
+    scroll.scrollToTop({
+      duration: 1700,
+      smooth: 'easeInOutQuint',
+    });
   };
 
   return (
@@ -124,46 +132,49 @@ const Events = () => {
       </div>
       <div className="form-view">
 
-          <div className="showtimes">
+        <div className="showtimes">
           <h2>Hakutulokset:</h2>
           <hr />
 
           {error && <p className="error">{error}</p>}
           {formattedShowtimes.map(show => (
             <div key={show.id}>
-              
+
               <table className="showTable">
-              <tbody>
-                <tr>
-                  <td className='portraitTd'>
-                    <div className='showPortrait'>
-                      <img className='reviewimg' src={show.eventPortrait} alt={show.title} />
-                    </div>
-                  </td>
+                <tbody>
+                  <tr>
+                    <td className='portraitTd'>
+                      <div className='showPortrait'>
+                        <img className='reviewimg' src={show.eventPortrait} alt={show.title} />
+                      </div>
+                    </td>
 
-                  <td className="showContentCellLeft">
-                    <span className='eventTitle2'><a href={show.showUrl} target="_blank" rel="noreferrer">{show.title}</a></span>
-                    <br/><span className='eventInfo2'><b>{show.date}</b> &nbsp;klo <b>{show.start_time}</b></span>
-                    <br/><span className='eventInfo2'>{show.auditorium}, {show.theatre}</span>
-                  </td>
+                    <td className="showContentCellLeft">
+                      <span className='eventTitle2'><a href={show.showUrl} target="_blank" rel="noreferrer">{show.title}</a></span>
+                      <br /><span className='eventInfo2'><b>{show.date}</b> &nbsp;klo <b>{show.start_time}</b></span>
+                      <br /><span className='eventInfo2'>{show.auditorium}, {show.theatre}</span>
+                    </td>
 
-                  <td className="showContentCellRight">                    
-                    <span className='eventInfo'>Näytös alkaa ja päättyy</span> <br/>
-                    <span className='eventInfo'>{show.start_time} - {show.end_time}</span> <br/>
-                    <div className='showRight-inside'>
-                      <img src={show.ratingImageUrl} alt={show.title} />&nbsp;&nbsp;<span className='userinfo'>{show.spokenLanguage}</span>
-                    </div>
-                  </td>
+                    <td className="showContentCellRight">
+                      <span className='eventInfo'>Näytös alkaa ja päättyy</span> <br />
+                      <span className='eventInfo'>{show.start_time} - {show.end_time}</span> <br />
+                      <div className='showRight-inside'>
+                        <span className='userinfo'>{show.spokenLanguage}</span><img className='ratingImg' src={show.ratingImageUrl} alt={show.title} />
+                      </div>
+                    </td>
 
-                </tr>
+                  </tr>
 
-              </tbody>
-            </table>
+                </tbody>
+              </table>
 
-            <hr/>
-              
+              <hr />
             </div>
+
           ))}
+        </div>
+        <div className='backToTop'>
+          <button onClick={() => { scrollToTop(); }} className='basicbutton' >{'Palaa ylös'}</button>
         </div>
       </div>
     </div>

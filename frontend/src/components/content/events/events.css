@@ -1,8 +1,7 @@
-
 /*** Taulukko ja sen osat ***/
 
 .showTable {
-    width: 90%;
+    width: 100%;
 }
 
 .show {
@@ -16,10 +15,19 @@
     margin-left: 20px;
 }
 
-.showContentCellLeft,
+.showContentCellLeft {
+    margin: 0 auto;
+    padding: 0 2em 0 2em;
+    width: 50%;
+    text-align: center;
+    color: var(--darktext);
+
+}
+
 .showContentCellRight {
     margin: 0 auto;
-    width: 40%;
+    padding: 0 2em 0 0;
+    width: 30%;
     text-align: center;
     color: var(--darktext);
 }
@@ -32,9 +40,9 @@
 }
 
 .showRight-inside {
-    display: flex; 
-    justify-content: center; 
-    align-items: center; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /*** Tekstit, otsikot, linkit ***/
@@ -69,6 +77,17 @@
 
 .showtimes h2 {
     color: var(--profile);
+}
+
+.ratingImg {
+    width: 50px;
+    height: 50px;
+    padding-left: 0.5em;
+}
+
+.backToTop {
+    display: flex;
+    justify-content: center;
 }
 
 /*** viivat ***/
