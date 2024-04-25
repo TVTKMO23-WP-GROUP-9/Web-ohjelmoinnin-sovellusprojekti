@@ -130,7 +130,7 @@ async function deleteMessage(messageid) {
 async function getUserGroups(profileid) {
     const query = {
         text: `
-            SELECT g.groupname FROM Group_ g
+            SELECT g.groupname, g.groupid FROM Group_ g
             INNER JOIN Memberlist_ m ON g.groupid = m.groupid
             WHERE m.profileid = $1 AND m.pending = 0;
         `,

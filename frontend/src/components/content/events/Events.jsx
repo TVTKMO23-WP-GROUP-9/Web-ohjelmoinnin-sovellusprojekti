@@ -13,7 +13,7 @@ const Events = ({ user }) => {
   const [selectedArea, setSelectedArea] = useState('1018');
   const [selectedMovie, setSelectedMovie] = useState('');
   const [selectedDate, setSelectedDate] = useState(new Date());
-  const [selectedGroup, setSelectedGroup] = useState('');
+  const [selectedGroup, setSelectedGroup] = useState(0);
   const [events, setEvents] = useState([]);
   const [showtimes, setShowtimes] = useState([]);
   const [error, setError] = useState('');
@@ -31,9 +31,11 @@ const Events = ({ user }) => {
     setSelectedMovie(movie);
   };
 
-  const handleGroupSelection = (group) => {
-    setSelectedGroup(group);
+  const handleGroupSelection = (groupid) => {
+    setSelectedGroup(groupid);
   };
+
+  console.log('selectedGroup', selectedGroup);
 
   // jäsennelty näytösaika näytöshakuihin
   const formattedShowtimes = showtimes.map(show => {

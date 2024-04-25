@@ -23,10 +23,14 @@ const Group = ({ setSelectedGroup }) => {
 
     return (
         <div>
-            <select className="selectMaxWidth eventItem" id="group" onChange={(e) => setSelectedGroup(e.target.value)}>
-                <option value="">Kaikki ryhmäsi</option>
+            <select className="selectMaxWidth eventItem" id="group" onChange={(e) => {
+                const selectedGroupName = e.target.value;
+                const selectedGroupId = selectedGroupName === '' ? 0 : groups.find(group => group.groupname === selectedGroupName).groupid;
+                setSelectedGroup(selectedGroupId);
+            }}>
+                <option value=''>Kaikki ryhmäsi</option>
                 {groups.map((group, index) => (
-                    <option key={index} value={group.groupid}>{group.groupname}</option>
+                    <option key={index} value={group.groupname}>{group.groupname}</option>
                 ))}
             </select>
         </div>
