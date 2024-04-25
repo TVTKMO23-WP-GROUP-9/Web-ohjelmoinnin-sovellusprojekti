@@ -167,10 +167,9 @@ async function getMovieProvidersbyId(req, res) {
             // Jos koodi on saatavilla, palautetaan sen tiedot
             const countryData = movieData.results[countryCode];
             res.json(countryData);
-        } else {
-            // Jos koodia ei ole saatavilla, annetaan virheilmoitus
-            res.status(404).json({ message: `Ei tietoja saatavilla maasta ${countryCode}` });
         }
+            
+
  
     } catch (error) {
         console.error('Virhe elokuvan hakemisessa:', error);
@@ -280,10 +279,8 @@ async function getTvShowProvidersbyId(req, res) {
             // Jos koodi on saatavilla, palautetaan sen tiedot
             const countryData = seriesData.results[countryCode];
             res.json(countryData);
-        } else {
-            // Jos koodia ei ole saatavilla, annetaan virheilmoitus
-            res.status(404).json({ message: `Ei tietoja saatavilla maasta ${countryCode}` });
-        }
+        } 
+        
     } catch (error) {
         console.error('Virhe tv-sarjan hakemisessa:', error);
         res.status(500).json({ message: 'Virhe palvelimella' });

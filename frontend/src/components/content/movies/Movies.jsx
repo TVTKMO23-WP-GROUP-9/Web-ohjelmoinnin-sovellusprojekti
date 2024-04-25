@@ -25,8 +25,8 @@ const Movies = ({ user }) => {
 
   useEffect(() => {
 
-    if (user !== null || user !== undefined) {
-      const fetchProfile = async () => {
+    if ( user !== null || user !== undefined ) {
+    const fetchProfile = async () => {
         const profresponse = await axios.get(`${VITE_APP_BACKEND_URL}/profile/${user.user}`, { headers });
 
         setAdult(profresponse.data.adult);
@@ -37,7 +37,6 @@ const Movies = ({ user }) => {
     };
 
   }, [user]);
-
 
   useEffect(() => {
     searchMovies();
