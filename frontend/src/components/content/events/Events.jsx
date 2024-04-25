@@ -63,9 +63,9 @@ const Events = ({ user }) => {
   const handleAddToGroup = async () => {
     try {
       const data = {
-        groupid: 45,
+        groupid: selectedGroup,
         event_info: {
-          title: "Kimmo",
+          title: "Terminaattori 3",
           start_time: "2024-04-26T15:30:00.000Z",
           theatre: "Tennispalatsi, Helsinki",
           auditorium: "sali 2",
@@ -77,6 +77,9 @@ const Events = ({ user }) => {
 
       if (response.status === 201) {
         console.log('Näytös lisätty ryhmään');
+      }
+      if (response.status === 400) {
+        console.log('Valitse ryhmä');
       }
     } catch (error) {
       console.error('Virhe lisättäessä näytöstä ryhmään', error);
