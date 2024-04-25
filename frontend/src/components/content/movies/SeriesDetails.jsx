@@ -38,7 +38,7 @@ const SeriesDetails = (user) => {
           console.log("Käyttäjän id:", response.data.profileid);
           console.log("sivun listatuotteen id:", id);
           
-          const gresponse = await axios.get(`${VITE_APP_BACKEND_URL}/grouplist/profile/${user.user.user}/1`);
+          const gresponse = await axios.get(`${VITE_APP_BACKEND_URL}/grouplist/profile/${user.user.user}/0`);
           const groupData = [];
 
           for (const group of gresponse.data) {

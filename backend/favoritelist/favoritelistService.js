@@ -35,20 +35,31 @@ async function getAllFavoritelist (req, res)  {
 async function getFavoritelistByGroup(req, res) {
   const groupid = req.params.groupid;
   const mediatype = req.params.mediatype;
-  try {
-      const query = {
-          text: `SELECT * FROM favoritelist_ WHERE groupid = $1 AND mediatype = $2`,
-          values: [groupid,mediatype],
-      };
-      const result = await favoritelistModel.queryDatabase(query);
+  let queryText = `SELECT * FROM favoritelist_ WHERE groupid = $1`;
 
-        res.json(result);
-
-    } catch (error) {
-      console.error('Virhe haettaessa tietuetta:', error);
-      res.status(500).send('Virhe haettaessa tietuetta');
-    }
+  // Jos mediatype on ANY, muuta kyselyä vastaavasti
+  const queryValues = [groupid];
+  if (mediatype === 'ANY') {
+    queryText = `SELECT * FROM favoritelist_ WHERE groupid = $1`;
+  } else {
+    queryText += ` AND mediatype = $2`;
+    queryValues.push(mediatype);
   }
+
+  try {
+    const query = {
+      text: queryText,
+      values: queryValues,
+    };
+    const result = await favoritelistModel.queryDatabase(query);
+
+    res.json(result);
+
+  } catch (error) {
+    console.error('Virhe haettaessa tietuetta:', error);
+    res.status(500).send('Virhe haettaessa tietuetta');
+  }
+}
 
   //lisää uuden suosikkilistan profiiliin tai grouppiin
   async function createFavoritelist(req, res) {

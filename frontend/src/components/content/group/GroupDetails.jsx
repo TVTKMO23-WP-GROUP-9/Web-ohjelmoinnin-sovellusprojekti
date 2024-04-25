@@ -6,6 +6,7 @@ import MemberList from './MemberList';
 import ReviewList from './ReviewList';
 import Forum from './Forum';
 import GroupEdit from './GroupEdit';
+import FavoriteList from './FavoriteList';
 import { getHeaders } from '@auth/token';
 const { VITE_APP_BACKEND_URL } = import.meta.env;
 
@@ -188,7 +189,7 @@ const GroupDetails = ({ user }) => {
             <div className="group-view">
               <div className='group-content'>
                 {showMembers && <MemberList id={id} user={user} />}
-                {showFavorites && ( <span>Listaus tähän?</span>)}
+                {showFavorites && <FavoriteList id={id} />}
 
                 {showEvents && (
                 
