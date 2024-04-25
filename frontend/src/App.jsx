@@ -107,7 +107,6 @@ function App() {
             <Header user={user} setUser={handleLogin} handleLogout={handleLogout} toggleTheme={toggleTheme} theme={theme} showLogin={showLogin} setShowLogin={setShowLogin} isburgerOpen={isburgerOpen} setIsburgerOpen={setIsburgerOpen} />
             <Routes>
               <Route path="/" exact element={<Home />} />
-              <Route path="/search" element={<Search />} />
               <Route path="/events" element={<Events />} />
               <Route path="/search" element={<Movies user={user}/>} />
               <Route path="/movie/:id" element={<MovieDetails user={user}/>} />
