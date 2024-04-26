@@ -18,15 +18,11 @@ const FavoriteList = ({ profile, user }) => {
   useEffect(() => {
     const fetchFavorites = async () => {
       try {
-        if (profile && profile.profileid) {
+  
           const response = await axios.get(`${VITE_APP_BACKEND_URL}/favoritelist/profile/${profile.profileid}`);
-          console.log(profile);
-          console.log('käyttäjä:', user);
-          const aresponse = await axios.get(`${VITE_APP_BACKEND_URL}/profile/${user.user}`, { headers });
-            
-          setAdult(aresponse.data.adult);
-          console.log('frontti: ', VITE_APP_FRONTEND_URL);
-          
+          //const aresponse = await axios.get(`${VITE_APP_BACKEND_URL}/profile/${user.user}`, { headers });
+          //setAdult(aresponse.data.adult);
+
           const favoriteData = response.data;
           const favoritesWithMovies = await Promise.all(favoriteData.map(async favorite => {
             try {
@@ -52,7 +48,7 @@ const FavoriteList = ({ profile, user }) => {
             }
           }));
           setFavorites(favoritesWithMovies);
-        }
+
       } catch (error) {
         console.error('Hakuvirhe:', error);
       }
@@ -78,9 +74,6 @@ const FavoriteList = ({ profile, user }) => {
       console.error('Ei pystytty poistamaan', error);
     }
   };
-
-
-
 
   const indexOfLastFavorite = currentPage * favoritesPerPage;
   const indexOfFirstFavorite = indexOfLastFavorite - favoritesPerPage;
@@ -128,7 +121,7 @@ const FavoriteList = ({ profile, user }) => {
           {isOwnProfile && editMode && (
                 <button className="favoriteDButton" onClick={() => DeleteFavorite(favorite.favoriteditem)}>X</button> 
               )}
-  </div>
+         </div>
 
           )}
             {favorite.mediatype === 0 ? (
@@ -136,9 +129,7 @@ const FavoriteList = ({ profile, user }) => {
             ) : (
               <Link className='favoritetitle' to={`/series/${favorite.favoriteditem}`}>{favorite.movie.name}</Link>
             )} 
-             
           </li>
-          
         ))}
 
      </ul>
