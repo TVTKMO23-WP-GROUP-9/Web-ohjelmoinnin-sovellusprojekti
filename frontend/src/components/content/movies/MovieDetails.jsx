@@ -25,76 +25,58 @@ const MovieDetails = (user) => {
   const headers = getHeaders();
  
   useEffect(() => {
-    const fetchProfile = async () => {
-      try {
-          const token = sessionStorage.getItem('token');
-          const headers = {
-              'Authorization': `Bearer ${token}`,
-              'Content-Type': 'application/json'
-          };
-
-          const response = await axios.get(`${VITE_APP_BACKEND_URL}/profile/${user.user.user}`);
+    if (user.user) {
+      const fetchProfile = async () => {
+        try {
+          const response = await axios.get(`${VITE_APP_BACKEND_URL}/profile/${user.user.user}`, { headers });
+          setProfileId(response.data.profileid);
           
-            setProfileId(response.data.profileid);
-
-            console.log("Käyttäjän id:", response.data.profileid);
-            console.log("sivun listatuotteen id:", id);
-            
-            const gresponse = await axios.get(`${VITE_APP_BACKEND_URL}/grouplist/profile/${user.user.user}/0`);
-            const groupData = [];
-
-            for (const group of gresponse.data) {
-              
-             
-              try {
-                console.log('Loopshoo:');
-                const FLGresponse = await axios.get(`${VITE_APP_BACKEND_URL}/favoritelist/group/${group.groupid}/0`);
-                console.log('käyttäjän FLG:', FLGresponse);
-                const isGFavoriteItem = FLGresponse.data.find(item => item.favoriteditem === id);
-                const isGFavorite = isGFavoriteItem ? true : false;
-                console.log('käyttäjän favoriitti-itemi:', isGFavorite);
-                groupData.push({
-                  ...group,
-                  isGFavorite
-                });
-              } catch (error) {
-                console.error('Virhe haettaessa ryhmätietoja:', error);
-                // Jos suosikkeja ei löydy, aseta isGFavorite arvoksi false
-                groupData.push({
-                  ...group,
-                  isGFavorite: false
-                });
-              }
+          const gresponse = await axios.get(`${VITE_APP_BACKEND_URL}/grouplist/profile/${user.user.user}/0`, { headers });
+          const groupData = [];
+  
+          for (const group of gresponse.data) {
+            try {
+              const FLGresponse = await axios.get(`${VITE_APP_BACKEND_URL}/favoritelist/group/${group.groupid}/0`, { headers });
+              const isGFavoriteItem = FLGresponse.data.find(item => item.favoriteditem === id);
+              const isGFavorite = isGFavoriteItem ? true : false;
+  
+              groupData.push({
+                ...group,
+                isGFavorite
+              });
+            } catch (error) {
+              console.error('Virhe haettaessa ryhmätietoja:', error);
+              // Jos suosikkeja ei löydy, aseta isGFavorite arvoksi false
+              groupData.push({
+                ...group,
+                isGFavorite: false
+              });
             }
-      
-            setGroups(groupData);
-
-            console.log('käyttäjän ryhmät favoriittitiedolla:', groupData);
-
-          const FLresponse = await axios.get(`${VITE_APP_BACKEND_URL}/favoritelist/${response.data.profileid}/${id}/0`);
-
+          }
+  
+          setGroups(groupData);
+  
+          const FLresponse = await axios.get(`${VITE_APP_BACKEND_URL}/favoritelist/${response.data.profileid}/${id}/0`, { headers });
           const isitFavorite = FLresponse.data.favorites.find(item => item.favoriteditem === id);
-
+  
           if (isitFavorite) {
             setIsFavorite(true);
           } else {
             setIsFavorite(false);
           }
+        } catch (error) {
+          console.error('Virhe haettaessa profiilitietoja:', error);
+        }
+      };
+  
+      fetchProfile();
 
-          } catch (error) {
-            console.error('Virhe haettaessa profiilitietoja:', error);
-          }
-    
-  };
-    
-    
-  fetchProfile();
+    }
 
     const fetchMovie = async () => {
       try {
         const response = await axios.get(`${VITE_APP_BACKEND_URL}/movie/${id}`);
         setMovie(response.data);
-        console.log('fetchmovie', response.data);
         
       } catch (error) {
         console.error('Hakuvirhe:', error);
@@ -122,11 +104,9 @@ const MovieDetails = (user) => {
   useEffect(() => {
     if (movie) {
       setAdult(movie.adult);
-      console.log('adultköntsä: ', adult);
     }
   }, [movie]);
     
-  
 
   const handleFavoriteAction = async () => {
     try {
@@ -143,7 +123,7 @@ const MovieDetails = (user) => {
                     mediatype: 0,
                     adult: adult
                 };
-                console.log('endpointtiin lähtevä data', data);
+
                 await axios.post(`${VITE_APP_BACKEND_URL}/favoritelist`, data, { headers });
                 setIsFavorite(true);
             }
@@ -159,12 +139,10 @@ const MovieDetails = (user) => {
     try {
       let updatedGroups = [];
       if (groupId && id) {
-        console.log("onko favoriitti", isGFavorite);
-        console.log("adult", adult);
+
         
         if (isGFavorite) {
-          console.log("onko favoriitti id yhä oikein", id);
-          console.log("onko ryhmän id yhä oikein", groupId);
+
           await axios.delete(`${VITE_APP_BACKEND_URL}/favoritefromgroup/${groupId}/${id}/0`);
           
           // Päivitä isGFavorite arvo ryhmätiedossa
@@ -183,7 +161,7 @@ const MovieDetails = (user) => {
             mediatype: 0,
             adult: adult
           };
-          console.log('endpointtiin lähtevä data', data);
+
           await axios.post(`${VITE_APP_BACKEND_URL}/favoritelist`, data, { headers });
           updatedGroups = groups.map(groupItem => {
             if (groupItem.groupid === groupId) {
