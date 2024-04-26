@@ -18,7 +18,7 @@ const GroupDetails = ({ user }) => {
   const [isMember, setIsMember] = useState(false);
   const [isAdmin, setAdmin] = useState(false);
   const [isPending, setIsPending] = useState(false);
-  const [isMainuser, setMainuser] = useState(null);
+  const [isMainuser, setMainuser] = useState(false);
   const [profileId, setProfileid] = useState(null);
   const [groupMembers, setGroupMembers] = useState([]);
   const [showMembers, setShowMembers] = useState(false);
@@ -27,12 +27,11 @@ const GroupDetails = ({ user }) => {
   const [loading, setLoading] = useState(true);
   const headers = getHeaders();
 
-
   useEffect(() => {
     if (user !== null && user !== undefined && user.usertype === 'admin') {
       setAdmin(true);
     }
-  
+    if (user !== null && user !== undefined && user.usertype === 'user') {
       const fetchPending = async () => {
         try {
           const groupResponse = await axios.get(`${VITE_APP_BACKEND_URL}/memberstatus/${user.profileid}/${id}`, { headers });
@@ -54,9 +53,8 @@ const GroupDetails = ({ user }) => {
       };
   
       fetchPending();
-    
+    }
   }, [user]);
-
 
   useEffect(() => {
     const fetchGroup = async () => {
@@ -109,8 +107,6 @@ const GroupDetails = ({ user }) => {
     }
 };
 
-
-
   const handleRemoveApplication = async (profileId, id) => {
     try {
       
@@ -148,7 +144,6 @@ const GroupDetails = ({ user }) => {
       console.error('Virhe jäsennumeron hakemisessa:', error);
     }
   };
-
 
   const toggleMembers = () => {
     setShowMembers(!showMembers);
