@@ -9,6 +9,7 @@ DROP TABLE IF EXISTS Memberlist_ CASCADE;
 DROP TABLE IF EXISTS Message_ CASCADE;
 DROP TABLE IF EXISTS Profile_ CASCADE;
 DROP TABLE IF EXISTS Review_ CASCADE;
+DROP TABLE IF EXISTS Event_ CASCADE;
 
 -- Käyttäjät
 CREATE TABLE IF NOT EXISTS Profile_
@@ -93,9 +94,19 @@ CREATE TABLE IF NOT EXISTS Review_ (
     CONSTRAINT check_rating_range CHECK (rating >= 1 AND rating <= 5)
 );
 
+CREATE TABLE IF NOT EXISTS Event_
+(
+    eventid SERIAL PRIMARY KEY,
+    groupid INTEGER NOT NULL,
+    event_info JSON NOT NULL,
+    exp_date TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+    FOREIGN KEY (groupid) REFERENCES Group_(groupid) ON DELETE CASCADE
+);
+
 ALTER SEQUENCE public.profile__profileid_seq RESTART WITH 1;
 ALTER SEQUENCE public.group__groupid_seq RESTART WITH 1;
 ALTER SEQUENCE public.review__idreview_seq RESTART WITH 1;
 ALTER SEQUENCE public.favoritelist__idfavoritelist_seq RESTART WITH 1;
 ALTER SEQUENCE public.memberlist__memberlistid_seq RESTART WITH 1;
 ALTER SEQUENCE public.message__messageid_seq RESTART WITH 1;
+ALTER SEQUENCE public.event__eventid_seq RESTART WITH 1;
