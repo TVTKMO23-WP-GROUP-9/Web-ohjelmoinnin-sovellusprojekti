@@ -176,7 +176,7 @@ const MemberList = ({ id, user }) => {
                 </>
               ) : (
                 <button className='remove' onClick={() => setConfirmRemove(member.name.profileid)}>
-                  &nbsp;<span className='emoji'>&times;</span>
+                  &nbsp;<span className='updateState uni12'></span>
                 </button>
               )
             )}

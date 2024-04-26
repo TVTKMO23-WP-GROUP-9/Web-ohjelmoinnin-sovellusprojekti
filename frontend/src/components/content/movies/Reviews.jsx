@@ -6,6 +6,8 @@ const { VITE_APP_BACKEND_URL } = import.meta.env;
 
 const Reviews = ({ movieId, mediatype }) => {
   const [reviews, setReviews] = useState([]);
+  const [reviewsPerPage, setReviewsPerPage] = useState(5);
+  const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -47,7 +49,6 @@ const Reviews = ({ movieId, mediatype }) => {
           }
         }));
 
-        // Suodata pois tyhjät arvostelut ja aseta arvostelut
         setReviews(reviewsWithMovies.filter(review => Object.keys(review).length !== 0));
         setLoading(false);
       } catch (error) {
@@ -59,13 +60,29 @@ const Reviews = ({ movieId, mediatype }) => {
     fetchReviews();
   }, [movieId, mediatype]);
 
+  const indexOfLastReview = currentPage * reviewsPerPage;
+  const indexOfFirstReview = indexOfLastReview - reviewsPerPage;
+  const currentReviews = reviews.slice(indexOfFirstReview, indexOfLastReview); 
+
   return (
     <>
       {loading ? (
         <p>Ladataan arvosteluja...</p>
       ) : (
         <div>
-          {reviews.map((review, index) => (
+            {reviews.length > reviewsPerPage && (
+              <ul className="pagination">
+                  <li>
+                      <button className="buttonnext" onClick={() => setCurrentPage(currentPage > 1 ? currentPage - 1 : 1)}>
+                    &#9664; </button>
+                    &nbsp; <span className="movieinfo">sivu {currentPage} / {Math.ceil(reviews.length / reviewsPerPage)}</span> &nbsp;
+                    <button className="buttonnext" onClick={() => setCurrentPage(currentPage < Math.ceil(reviews.length / reviewsPerPage) ? currentPage + 1 : Math.ceil(reviews.length / reviewsPerPage))}>
+                      &#9654; </button>
+                  </li>
+              </ul>
+            )}
+
+          {currentReviews.map((review, index) => (
   
             <div key={index}>
                 <b>Lähetetty:</b> {new Date(review.timestamp).toLocaleString('fi-FI', {

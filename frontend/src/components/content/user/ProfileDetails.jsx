@@ -16,10 +16,15 @@ const ProfileDetails = ({ user }) => {
     const [isOwnProfile, setOwnProfile] = useState(false);
     const [isPrivate, setPrivate] = useState(false);
     const [loading, setLoading] = useState(true);
+    const [isAdmin, setAdmin] = useState(false);
     const headers = getHeaders();
 
     useEffect(() => {
-        
+
+        if (user !== null && user.usertype === 'admin') {
+            setAdmin(true);
+        }
+
             const fetchProfile = async () => {
                 try {
                     const response = await axios.get(`${VITE_APP_BACKEND_URL}/profile/${profilename}`, { headers });
@@ -58,7 +63,7 @@ const ProfileDetails = ({ user }) => {
                 <div className="inner-right">
                     <h2>{profile && profile.profilename}</h2>
                     <ul>
-                        {(!isPrivate || isOwnProfile) && <p className="info">{profile?.description || ''} </p>}
+                        {(isAdmin || !isPrivate || isOwnProfile) && <p className="info">{profile?.description || ''} </p>}
                         {isPrivate && !isOwnProfile && <span className="userinfo">Tämä profiili on yksityinen.</span>}
                     </ul>
                 </div>
@@ -66,7 +71,7 @@ const ProfileDetails = ({ user }) => {
 
             {editMode && <ProfileEdit profilename={profilename} />}
 
-            {(!isPrivate || isOwnProfile) && (
+            {(isAdmin || !isPrivate || isOwnProfile) && (
                 <>
                     <div className='profile-between'>
 

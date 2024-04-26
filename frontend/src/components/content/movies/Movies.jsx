@@ -25,7 +25,7 @@ const Movies = ({ user }) => {
 
   useEffect(() => {
 
-    if ( user !== null || user !== undefined ) {
+    if ( user ) {
     const fetchProfile = async () => {
         const profresponse = await axios.get(`${VITE_APP_BACKEND_URL}/profile/${user.user}`, { headers });
 
@@ -35,7 +35,12 @@ const Movies = ({ user }) => {
       
       fetchProfile();
 
-    };
+    }
+    
+    else {
+      setAdult(false);
+      
+    }
 
   }, [user]);
 
@@ -162,6 +167,7 @@ const Movies = ({ user }) => {
   };
 
   return (
+    
     <>
       <div className="content">
         <h2>Leffa- ja sarjahaku</h2>
