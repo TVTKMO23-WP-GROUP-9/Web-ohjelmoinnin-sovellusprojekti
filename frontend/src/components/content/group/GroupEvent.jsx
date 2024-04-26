@@ -3,14 +3,16 @@ import axios from 'axios';
 const { VITE_APP_BACKEND_URL } = import.meta.env;
 import { getHeaders } from '@auth/token';
 
-const GroupEvent = ({ }) => {
+const GroupEvent = ({ id }) => {
     const [groupEvents, setGroupEvents] = useState([]);
     const headers = getHeaders();
+    const groupid = id;
+    console.log('groupid', groupid);
 
     useEffect(() => {
         const fetchGroupEvents = async () => {
             try {
-                const response = await axios.get(`${VITE_APP_BACKEND_URL}/event`, { headers });
+                const response = await axios.get(`${VITE_APP_BACKEND_URL}/event/${groupid}`, { headers });
                 console.log('response.data', response.data);
                 setGroupEvents(response.data);
             } catch (error) {
@@ -28,8 +30,8 @@ const GroupEvent = ({ }) => {
                 <span key={index} className='singleEvent'>
                     {event.event_info.start_time} &nbsp;&nbsp;
                     {event.event_info.theatre}, {event.event_info.auditorium} &nbsp;&nbsp;
-                    {event.event_info.title} &nbsp;&nbsp;
                     klo {event.time} &nbsp;&nbsp;
+                    {event.event_info.title} &nbsp;&nbsp;
                     <a href={event.event_info.showUrl} target="_blank" rel="noreferrer">Osta liput</a>
                 </span>
             ))}

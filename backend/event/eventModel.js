@@ -1,7 +1,10 @@
 const pool = require('../database/db_connection');
 
-async function getAllEvents() {
-    const query = 'SELECT eventid, groupid, event_info, exp_date FROM Event_';
+async function getGroupEvents(groupid) {
+    const query = {
+        text: 'SELECT eventid, event_info, exp_date FROM Event_ WHERE groupid = $1',
+        values: [groupid],
+    };
     const result = await pool.query(query);
     return result.rows;
 }
@@ -25,7 +28,7 @@ async function deleteEvent(eventid) {
 }
 
 module.exports = {
-    getAllEvents,
+    getGroupEvents,
     addEvent,
     deleteEvent,
 };

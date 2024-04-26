@@ -63,13 +63,13 @@ const Events = ({ user }) => {
   const handleAddToGroup = async () => {
     try {
       const data = {
-        groupid: selectedGroup,
+        groupid: 16,
         event_info: {
-          title: "Terminaattori 3",
+          title: "Ryhmä 16",
           start_time: "2024-04-26T15:30:00.000Z",
           theatre: "Tennispalatsi, Helsinki",
           auditorium: "sali 2",
-          showUrl: "urli2"
+          showUrl: "https://www.finnkino.fi"
         },
         exp_date: "2024-05-01T00:00:00.000Z"
       }

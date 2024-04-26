@@ -1,8 +1,9 @@
 const eventModel = require('./eventModel');
 
-async function getAllEvents(req, res) {
+async function getGroupEvents(req, res) {
+    const groupid = req.params.groupid;
     try {
-        const events = await eventModel.getAllEvents();
+        const events = await eventModel.getGroupEvents(groupid);
         res.status(200).json(events);
     } catch (error) {
         res.status(400).json({ message: error.message });
@@ -30,7 +31,7 @@ async function deleteEvent(req, res) {
 }
 
 module.exports = {
-    getAllEvents,
+    getGroupEvents,
     addEvent,
     deleteEvent,
 };
