@@ -2,8 +2,13 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './GroupDetails';
 const { VITE_APP_BACKEND_URL } = import.meta.env;
+import { getHeaders } from '@auth/token';
+
 
 const GroupEdit = ({ id, user }) => {
+
+    const headers = getHeaders();
+
 
     const [formData, setFormData] = useState({
         grouppicurl: '',
@@ -34,7 +39,7 @@ const GroupEdit = ({ id, user }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.put(VITE_APP_BACKEND_URL + `/group/${id}`, formData, );
+            await axios.put(`${VITE_APP_BACKEND_URL}/group/${id}`, formData, );
 
             window.location.reload();
         } catch (error) {
@@ -44,9 +49,9 @@ const GroupEdit = ({ id, user }) => {
 
     const handleDelete = async () => {
         try {
-            await axios.delete(VITE_APP_BACKEND_URL + `/memberlist/${id}`);
-            await axios.delete(VITE_APP_BACKEND_URL + `/favoritelist/${id}`);
-            await axios.delete(VITE_APP_BACKEND_URL + `/group/${id}`);
+            await axios.delete(`${VITE_APP_BACKEND_URL}/memberlist/${id}`, { headers });
+            await axios.delete(`${VITE_APP_BACKEND_URL}/favoritelist/${id}` , { headers });
+            await axios.delete(`${VITE_APP_BACKEND_URL}/group/${id}`, { headers });
             alert('Ryhmä poistettu, sinut ohjataan etusivulle.');
             window.location.href = '/';
 
