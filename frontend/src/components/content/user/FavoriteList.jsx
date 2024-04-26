@@ -3,6 +3,7 @@ import './user.css';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 const { VITE_APP_BACKEND_URL } = import.meta.env;
+const { VITE_APP_FRONTEND_URL } = import.meta.env;
 import { getHeaders } from '@auth/token';
 
 const FavoriteList = ({ profile, user }) => {
@@ -24,7 +25,7 @@ const FavoriteList = ({ profile, user }) => {
           const aresponse = await axios.get(`${VITE_APP_BACKEND_URL}/profile/${user.user}`, { headers });
             
           setAdult(aresponse.data.adult);
-          
+          console.log('frontti: ', VITE_APP_FRONTEND_URL);
           
           const favoriteData = response.data;
           const favoritesWithMovies = await Promise.all(favoriteData.map(async favorite => {
@@ -89,7 +90,7 @@ const FavoriteList = ({ profile, user }) => {
     <>
     {(profile && profile.isOwnProfile) &&
         <span className="userinfo">
-        jaa linkki <Link className="link-style" to={`/favorites/${profile.profilename}`}>http://localhost:5173/favorites/{profile.profilename}</Link>
+        jaa linkki <Link className="link-style" to={`/favorites/${profile.profilename}`}>{import.meta.env.VITE_APP_FRONTEND_URL}/favorites/{profile.profilename}</Link>
       </span>
     }
     <ul className="favorite-list">
