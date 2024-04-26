@@ -16,28 +16,6 @@ const MemberList = ({ id, user }) => {
   const [memberType, setMemberType] = useState(0); 
   const [loading, setLoading] = useState(true); 
   const headers = getHeaders();
-  
-  useEffect(() => {
-    const fetchProfile = async () => {
-      try {
-        
-          const response = await axios.get(`${VITE_APP_BACKEND_URL}/profile/${user.user}`, { headers });
-          setProfileid(response.data.profileid);
-          
-          const groupResponse = await axios.get(`${VITE_APP_BACKEND_URL}/memberstatus/${response.data.profileid}/${id}`, { headers });
-
-          if (groupResponse.data.hasOwnProperty('pending') && groupResponse.data.pending === 0) {
-            setIsMember(true);
-          }
-
-          if (groupResponse.data.hasOwnProperty('mainuser') && groupResponse.data.mainuser === 1) {
-            setMainuser(true);
-          }
-
-      } catch (error) {
-          console.error('Virhe haettaessa profiilitietoja:', error);
-      }
-  };
 
   const fetchMembers = async () => {
     try {
@@ -75,6 +53,30 @@ const MemberList = ({ id, user }) => {
         console.error('Error fetching members:', error);
       }
     };
+  
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        
+          const response = await axios.get(`${VITE_APP_BACKEND_URL}/profile/${user.user}`, { headers });
+          setProfileid(response.data.profileid);
+          
+          const groupResponse = await axios.get(`${VITE_APP_BACKEND_URL}/memberstatus/${response.data.profileid}/${id}`, { headers });
+
+          if (groupResponse.data.hasOwnProperty('pending') && groupResponse.data.pending === 0) {
+            setIsMember(true);
+          }
+
+          if (groupResponse.data.hasOwnProperty('mainuser') && groupResponse.data.mainuser === 1) {
+            setMainuser(true);
+          }
+
+      } catch (error) {
+          console.error('Virhe haettaessa profiilitietoja:', error);
+      }
+  };
+
+
 
     fetchProfile();
     fetchMembers();
@@ -92,7 +94,7 @@ const MemberList = ({ id, user }) => {
       if (memberResponse && memberResponse.data && memberResponse.data.memberlistid) {
         try {
           await axios.delete(`${VITE_APP_BACKEND_URL}/memberstatus/${memberResponse.data.memberlistid}`, { headers });
-          window.location.reload(); 
+          
         } catch (error) {
           console.error('Virhe pyynnön poistamisessa:', error);
         }
@@ -102,6 +104,7 @@ const MemberList = ({ id, user }) => {
     } catch (error) {
       console.error('Virhe jäsennumeron hakemisessa:', error);
     }
+    fetchMembers();
   };
 
   const handleAddUser= async (profileId, id) => {
@@ -111,7 +114,7 @@ const MemberList = ({ id, user }) => {
       if (memberResponse && memberResponse.data && memberResponse.data.memberlistid) {
         try {
           await axios.put(`${VITE_APP_BACKEND_URL}/memberstatus/${memberResponse.data.memberlistid}/0`, {}, { headers });
-          window.location.reload();
+          
         } catch (error) {
           console.error('Virhe pyynnön poistamisessa:', error);
         }
@@ -121,26 +124,24 @@ const MemberList = ({ id, user }) => {
     } catch (error) {
       console.error('Virhe jäsennumeron hakemisessa:', error);
     }
+    fetchMembers();
   };
 
-  const updateMemberRank= async (profileId, id, rank) => {
+  const updateMemberRank = async (profileId, memberId, rank) => {
     try {
-      const memberResponse = await axios.get(`${VITE_APP_BACKEND_URL}/memberstatus/${profileId}/${id}`);
-
+      const memberResponse = await axios.get(`${VITE_APP_BACKEND_URL}/memberstatus/${profileId}/${memberId}`);
       if (memberResponse && memberResponse.data && memberResponse.data.memberlistid) {
-        try {
-          await axios.put(`${VITE_APP_BACKEND_URL}/memberrank/${memberResponse.data.memberlistid}/${rank}`, {}, {headers});
-          window.location.reload(); 
-        } catch (error) {
-          console.error('Virhe aseman muutoksessa:', error);
-        }
+        await axios.put(`${VITE_APP_BACKEND_URL}/memberrank/${memberResponse.data.memberlistid}/${rank}`, {}, { headers });
+        
       } else {
         console.error('Jäsennumeron hakeminen epäonnistui tai memberlistid puuttuu vastauksesta.');
       }
     } catch (error) {
-      console.error('Virhe jäsennumeron hakemisessa:', error);
+      console.error('Virhe aseman muutoksessa:', error);
     }
+    fetchMembers();
   };
+  
   
   return (
     <>
