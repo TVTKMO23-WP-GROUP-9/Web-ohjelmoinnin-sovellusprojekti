@@ -27,9 +27,11 @@ const GroupDetails = ({ user }) => {
   const [loading, setLoading] = useState(true);
   const headers = getHeaders();
 
+
   useEffect(() => {
-    if (user !== null && user !== undefined) {
-      setAdmin(user.usertype === 'admin');
+    if (user !== null && user !== undefined && user.usertype === 'admin') {
+      setAdmin(true);
+    }
   
       const fetchPending = async () => {
         try {
@@ -52,7 +54,7 @@ const GroupDetails = ({ user }) => {
       };
   
       fetchPending();
-    }
+    
   }, [user]);
 
 
@@ -93,32 +95,60 @@ const GroupDetails = ({ user }) => {
     }
   };
 
+  const handleDeleteGrp = async () => {
+    try {
+        await axios.delete(`${VITE_APP_BACKEND_URL}/group/${id}`, {headers});
+        await axios.delete(`${VITE_APP_BACKEND_URL}/memberlist/${id}`, {headers});
+        await axios.delete(`${VITE_APP_BACKEND_URL}/favoritelist/${id}`, {headers});
+        
+        alert('Ryhmä poistettu, sinut ohjataan etusivulle.');
+        window.location.href = '/';
+
+    } catch (error) {
+        console.error('Virhe poistettaessa ryhmää:', error);
+    }
+};
+
+
 
   const handleRemoveApplication = async (profileId, id) => {
     try {
-      if (groupMembers.length === 1) { 
-        alert('Et voi poistua ryhmästä, koska olet ainoa jäsen. Voit poistaa koko ryhmän.');
-      } else {
-        if (isMainuser && groupMembers.filter(member => member.mainuser === 1).length === 1) { 
-          alert('Et voi poistua ryhmästä, koska olet ainoa pääkäyttäjä ja ryhmä jäisi ilman ylläpitäjää. Ylennä ensin toinen jäsen pääkäyttäjäksi.');
-        } else {
-      const memberResponse = await axios.get(`${VITE_APP_BACKEND_URL}/memberstatus/${profileId}/${id}`);
-      if (memberResponse && memberResponse.data && memberResponse.data.memberlistid) {
-        try {
-          await axios.delete(`${VITE_APP_BACKEND_URL}/memberstatus/${memberResponse.data.memberlistid}`, {headers});
-          window.location.reload(); 
-        } catch (error) {
-          console.error('Virhe pyynnön poistamisessa:', error);
+      
+        const memberResponse = await axios.get(`${VITE_APP_BACKEND_URL}/memberstatus/${profileId}/${id}`);
+
+        if (groupMembers.length === 1) {
+          handleDeleteGrp();
         }
-      } else {
-        console.error('Jäsennumeron hakeminen epäonnistui tai memberlistid puuttuu vastauksesta.');
-      }
-    }
-    }
+
+        else if (groupMembers.length > 1) {
+          // Tarkistetaan, onko käyttäjä pääkäyttäjä (mainuser)
+          const isMainUser = memberResponse.data.mainuser === 1;
+  
+          if (isMainUser) {
+              // Tarkistetaan, onko muita pääkäyttäjiä ryhmässä
+              const otherMainUsers = groupMembers.filter(member => member.mainuser === 1 && member.profileid !== profileId);
+              
+              if (otherMainUsers.length > 0) {
+                // Jos muita pääkäyttäjiä on, poistetaan käyttäjä ryhmästä
+                await axios.delete(`${VITE_APP_BACKEND_URL}/memberstatus/${memberResponse.data.memberlistid}`, {headers});
+                window.location.reload();
+              } else {
+                // Jos muita pääkäyttäjiä ei ole, ei voida poistaa käyttäjää ryhmästä
+                alert('Et voi poistua ryhmästä, koska olet ainoa pääkäyttäjä.');
+              }
+          } else {
+            // Jos käyttäjä ei ole pääkäyttäjä, poistetaan käyttäjä ryhmästä
+            await axios.delete(`${VITE_APP_BACKEND_URL}/memberstatus/${memberResponse.data.memberlistid}`, {headers});
+            window.location.reload();
+          }
+        } else {
+          console.error('Virhe jäsennumeron hakemisessa tai jäsenlistan jäsenet puuttuvat vastauksesta.');
+        }
     } catch (error) {
       console.error('Virhe jäsennumeron hakemisessa:', error);
     }
   };
+
 
   const toggleMembers = () => {
     setShowMembers(!showMembers);
@@ -253,14 +283,18 @@ const GroupDetails = ({ user }) => {
       <>
         {confirmDeleteId === profileId ? (
           <>
-          <button className="confirm" onClick={() => handleRemoveApplication(profileId, id)}>
-            &nbsp;<span className='emoji'>&times;</span> Vahvista
+          <button className="confirm compactButton" onClick={() => handleRemoveApplication(profileId, id)}>
+            &nbsp;<span className='updateState uni12'></span> Vahvista
           </button>
           <button className="compactButton" onClick={() => setConfirmDeleteId(null)}>Peruuta</button>
-          </>
+          {groupMembers.length === 1 && (
+          <span className='userinfo'><br/> Jos olet ainoa jäsen, ryhmä poistetaan samalla </span>
+          )}
+          
+          </> 
           ) : (
           <button className="compactButton" onClick={() => setConfirmDeleteId(profileId)}>
-            &nbsp;<span className='emoji'>&times;</span> Poistu ryhmästä
+            &nbsp;<span className='updateState uni12'></span> Poistu ryhmästä
           </button>
         )}
       </>
