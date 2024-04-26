@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import './Faq.css';
 import l9 from './leffasovellus-r9.png';
@@ -9,7 +10,7 @@ import tmdb from './tmdb.svg';
 const { VITE_APP_BACKEND_URL } = import.meta.env;
 
 const Intro = () => {
-    const [selectedQuestion, setSelectedQuestion] = useState(null);
+    const [selectedQuestion, setSelectedQuestion] = useState(1);
     const [randomBackdrop, setRandomBackdrop] = useState('');
 
     const toggleContent = (index) => {
@@ -40,7 +41,7 @@ const Intro = () => {
             <div className='moviemain intromain'>
             <div className="faq">
 
-                <h4>Leffaysi </h4>
+                <h4><Link to="/">Leffaysi</Link></h4>
                 
             <div className="introRoll">
                 <img src={l9} alt="L9" /> 
