@@ -142,9 +142,11 @@ const FavoriteList = ({ profile, user }) => {
         ))}
 
      </ul>
+     {(profile && profile.isOwnProfile) &&
      <button className="compactButton" onClick={handleEditClick}>
         {editMode ? 'Lopeta muokkaus' : 'Muokkaa suosikkeja'}
       </button>
+    }
     </>
   );
 }
