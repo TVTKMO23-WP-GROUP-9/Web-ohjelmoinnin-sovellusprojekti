@@ -34,7 +34,6 @@ useEffect(() => {
           setMainuser(true);
         }
         
-
         setProfileid(user.profileid);
       }
       catch (error) {

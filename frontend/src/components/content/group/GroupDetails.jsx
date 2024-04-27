@@ -27,6 +27,7 @@ const GroupDetails = ({ user }) => {
   const [loading, setLoading] = useState(true);
   const [messagePromoteUser, setMessagePromoteUser] = useState('');
   const [messageGroupDelete, setMessageGroupDelete] = useState('');
+  const [confirmRequest, setConfirmRequest] = useState('');
   const headers = getHeaders();
 
   useEffect(() => {
@@ -91,7 +92,7 @@ const GroupDetails = ({ user }) => {
   const handleApplicationToJoin = async (profileId, id) => {
     try {
       await axios.post(`${VITE_APP_BACKEND_URL}/memberstatus/${profileId}/0/${id}/1`, {}, {headers});
-      window.location.reload(); 
+        setIsPending(true);
     } catch (error) {
       console.error('Virhe pyynnön lähettämisessä:', error);
     }
@@ -139,7 +140,12 @@ const GroupDetails = ({ user }) => {
                 // Jos muita pääkäyttäjiä ei ole, ei voida poistaa käyttäjää ryhmästä
                 setMessagePromoteUser('Et voi poistua ryhmästä, koska olet ainoa pääkäyttäjä');
               }
-          } else {
+          } else if (isPending) {
+            // Jos käyttäjä on liittymispyynnön tilassa, poistetaan liittymispyyntö
+            await axios.delete(`${VITE_APP_BACKEND_URL}/memberstatus/${memberResponse.data.memberlistid}`, {headers});
+            setIsPending(false);  
+          }
+          else {
             // Jos käyttäjä ei ole pääkäyttäjä, poistetaan käyttäjä ryhmästä
             await axios.delete(`${VITE_APP_BACKEND_URL}/memberstatus/${memberResponse.data.memberlistid}`, {headers});
             window.location.reload();
