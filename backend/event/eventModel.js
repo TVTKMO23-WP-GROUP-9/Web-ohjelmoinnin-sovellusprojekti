@@ -9,10 +9,10 @@ async function getGroupEvents(groupid) {
     return result.rows;
 }
 
-async function addEvent(groupid, event_info, exp_date) {
+async function addEvent(eventid, groupid, event_info, exp_date) {
     const query = {
-        text: 'INSERT INTO Event_ ( groupid, event_info, exp_date) VALUES ($1, $2, $3)',
-        values: [groupid, event_info, exp_date],
+        text: 'INSERT INTO Event_ ( eventid, groupid, event_info, exp_date) VALUES ($1, $2, $3, $4)',
+        values: [eventid, groupid, event_info, exp_date],
     };
     const result = await pool.query(query);
     return result.rows[0];

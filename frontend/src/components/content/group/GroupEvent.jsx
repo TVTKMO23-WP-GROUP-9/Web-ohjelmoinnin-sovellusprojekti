@@ -28,11 +28,12 @@ const GroupEvent = ({ id }) => {
             <span className='singleEvent'><b> Selaa / Hallinnoi / yms </b></span>
             {groupEvents.map((event, index) => (
                 <span key={index} className='singleEvent'>
-                    {event.event_info.start_time} &nbsp;&nbsp;
+                    {event.event_info.date} &nbsp;&nbsp;
                     {event.event_info.theatre}, {event.event_info.auditorium} &nbsp;&nbsp;
-                    klo {event.time} &nbsp;&nbsp;
+                    klo {event.event_info.start_time} &nbsp;&nbsp;
                     {event.event_info.title} &nbsp;&nbsp;
-                    <a href={event.event_info.showUrl} target="_blank" rel="noreferrer">Osta liput</a>
+                    <a href={event.event_info.showUrl} target="_blank" rel="noreferrer">Osta liput</a> &nbsp;&nbsp;
+                    Lisännyt: {event.event_info.profilename}
                 </span>
             ))}
         </div>
@@ -40,37 +41,3 @@ const GroupEvent = ({ id }) => {
 };
 
 export default GroupEvent;
-
-
-
-
-<>
-    <span className='singleEvent'><b> Selaa / Hallinnoi / yms </b></span>
-
-    <span className='singleEvent'>
-        00.00.2024 &nbsp;&nbsp;
-        Paikkakunta &nbsp;&nbsp;
-        Teatteri, sali X &nbsp;&nbsp;
-        klo 00:00 &nbsp;&nbsp;
-        <a href="#"><b>Titanikki</b></a> &nbsp;&nbsp;
-        Lisätietoja
-    </span>
-
-    <span className='singleEvent'>
-        00.00.2024 &nbsp;&nbsp;
-        Paikkakunta &nbsp;&nbsp;
-        Teatteri, sali X &nbsp;&nbsp;
-        klo 00:00 &nbsp;&nbsp;
-        <a href="#"><b>Terminaattori</b></a> &nbsp;&nbsp;
-        Lisätietoja
-    </span>
-
-    <span className='singleEvent'>
-        00.00.2024 &nbsp;&nbsp;
-        Paikkakunta &nbsp;&nbsp;
-        Teatteri, sali X &nbsp;&nbsp;
-        klo 00:00 &nbsp;&nbsp;
-        <a href="#"><b>Elokuvan nimi</b></a> &nbsp;&nbsp;
-        Lisätietoja
-    </span>
-</>

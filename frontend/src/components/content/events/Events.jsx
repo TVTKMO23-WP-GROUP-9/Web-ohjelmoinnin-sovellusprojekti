@@ -16,12 +16,33 @@ const Events = ({ user }) => {
   const [selectedGroup, setSelectedGroup] = useState(0);
   const [events, setEvents] = useState([]);
   const [showtimes, setShowtimes] = useState([]);
+  const [groupShowtimes, setGroupShowtimes] = useState([]);
   const [error, setError] = useState('');
   const currentDate = new Date();
   const headers = getHeaders();
+  const [message, setMessage] = useState('');
+  const [showMessage, setShowMessage] = useState(false);
 
   const profilename = user?.user;
   const profileid = user?.profileid;
+
+  // hae näytökset ryhmälle
+  useEffect(() => {
+    const fetchGroupEvents = async () => {
+      try {
+        const response = await axios.get(`${VITE_APP_BACKEND_URL}/event/${selectedGroup}`, { headers });
+        const showIds = response.data.map(event => event.eventid);
+        setGroupShowtimes(showIds);
+        console.log('Ryhmän näytökset:', showIds);
+      } catch (error) {
+        console.error('Virhe haettaessa ryhmän näytöksiä:', error);
+      }
+    };
+
+    fetchGroupEvents();
+  }, [selectedGroup]);
+
+  console.log('groupShowtimes', groupShowtimes);
 
   const handleDateSelection = (date) => {
     setSelectedDate(date);
@@ -34,8 +55,6 @@ const Events = ({ user }) => {
   const handleGroupSelection = (groupid) => {
     setSelectedGroup(groupid);
   };
-
-  console.log('selectedGroup', selectedGroup);
 
   // jäsennelty näytösaika näytöshakuihin
   const formattedShowtimes = showtimes.map(show => {
@@ -58,33 +77,6 @@ const Events = ({ user }) => {
     };
 
   });
-
-  // lisää valittu näytös ryhmään
-  const handleAddToGroup = async () => {
-    try {
-      const data = {
-        groupid: 16,
-        event_info: {
-          title: "Ryhmä 16",
-          start_time: "2024-04-26T15:30:00.000Z",
-          theatre: "Tennispalatsi, Helsinki",
-          auditorium: "sali 2",
-          showUrl: "https://www.finnkino.fi"
-        },
-        exp_date: "2024-05-01T00:00:00.000Z"
-      }
-      const response = await axios.post(`${VITE_APP_BACKEND_URL}/event`, data, { headers });
-
-      if (response.status === 201) {
-        console.log('Näytös lisätty ryhmään');
-      }
-      if (response.status === 400) {
-        console.log('Valitse ryhmä');
-      }
-    } catch (error) {
-      console.error('Virhe lisättäessä näytöstä ryhmään', error);
-    }
-  };
 
   // haetaan näytösajat valitulta alueelta ja päivältä
   const haeNaytokset = async () => {
@@ -122,8 +114,9 @@ const Events = ({ user }) => {
         const spokenLanguage = show.querySelector('Name')?.textContent || '';
         const showUrl = show.querySelector('ShowURL')?.textContent || '';
         const eventPortrait = show.querySelector('EventSmallImagePortrait')?.textContent || '';
+        profilename;
 
-        return { id, title, start_time, end_time, theatre, auditorium, ratingImageUrl, genres, spokenLanguage, showUrl, eventPortrait };
+        return { id, title, start_time, end_time, theatre, auditorium, ratingImageUrl, genres, spokenLanguage, showUrl, eventPortrait, profilename };
       });
       const filteredShows = shows.filter(show => {
         const showDate = new Date(show.start_time);
@@ -152,6 +145,60 @@ const Events = ({ user }) => {
       duration: 1700,
       smooth: 'easeInOutQuint',
     });
+  };
+
+  // lisää valittu näytös ryhmään
+  const handleAddToGroup = async (eventInfo) => {
+    const idAsInteger = parseInt(eventInfo.id, 10);
+    try {
+      const data = {
+        eventid: idAsInteger,
+        groupid: selectedGroup,
+        event_info: eventInfo,
+        exp_date: "2024-05-01T00:00:00.000Z"
+      }
+      const response = await axios.post(`${VITE_APP_BACKEND_URL}/event`, data, { headers });
+
+      if (response.status === 201) {
+        setMessage('Lisätty');
+        displayMessage();
+        console.log('Näytös lisätty ryhmään');
+        setGroupShowtimes([...groupShowtimes, idAsInteger]);
+      }
+      if (response.status === 400) {
+        console.log('Näytös on jo ryhmässä');
+        setMessage('Näytös on jo ryhmässä');
+        displayMessage();
+      }
+    } catch (error) {
+      console.error('Virhe lisättäessä näytöstä ryhmään', error);
+    }
+  };
+
+  // poista näytös ryhmästä
+  const handleRemoveFromGroup = async (eventInfo) => {
+    const idAsInteger = parseInt(eventInfo.id, 10);
+    console.log('Poistetaan näytös ryhmästä', idAsInteger);
+
+    try {
+      const response = await axios.delete(`${VITE_APP_BACKEND_URL}/event/${idAsInteger}`, { headers });
+      if (response.status === 200) {
+        setMessage('Poistettu');
+        displayMessage();
+        console.log('Näytös poistettu ryhmästä');
+        setGroupShowtimes(groupShowtimes.filter(show => show !== idAsInteger));
+      }
+    } catch (error) {
+      console.error('Virhe poistettaessa näytöstä ryhmästä', error);
+    }
+  };
+
+  const displayMessage = () => {
+    setShowMessage(true);
+    setTimeout(() => {
+      setMessage('');
+      setShowMessage(false);
+    }, 2000);
   };
 
   return (
@@ -185,7 +232,14 @@ const Events = ({ user }) => {
                 <tbody>
                   <tr>
                     <td className='portraitTd'>
-                      <button onClick={() => { handleAddToGroup(); }}>+</button>
+                      <button onClick={() => { handleAddToGroup(show); }}>+</button>
+                      {showMessage && <span>{message}</span>}
+                      {groupShowtimes.find(groupShowtime => groupShowtime === show.id) && (
+                        <>
+                          <button onClick={() => { handleRemoveFromGroup(show); }}>x</button>
+                          <span>{message}</span>
+                        </>
+                      )}
                     </td>
 
                     <td className='portraitTd'>

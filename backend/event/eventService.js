@@ -11,9 +11,9 @@ async function getGroupEvents(req, res) {
 }
 
 async function addEvent(req, res) {
-    const { groupid, event_info, exp_date } = req.body;
+    const { eventid, groupid, event_info, exp_date } = req.body;
     try {
-        const event = await eventModel.addEvent(groupid, event_info, exp_date);
+        const event = await eventModel.addEvent(eventid, groupid, event_info, exp_date);
         res.status(201).json(event);
     } catch (error) {
         res.status(400).json({ message: error.message });
