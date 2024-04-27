@@ -15,7 +15,7 @@ const FavoriteList = ({ user }) => {
   useEffect(() => {
     const fetchFavorites = async () => {
       try {
-        const aresponse = await axios.get(`${VITE_APP_BACKEND_URL}/profile/${user.user}`, { headers });
+        const aresponse = await axios.get(`${VITE_APP_BACKEND_URL}/profile/${user.user}`);
           
           setAdult(aresponse.data.adult);
           const response = await axios.get(`${VITE_APP_BACKEND_URL}/favoritelist/profile/${aresponse.data.profileid}`);   

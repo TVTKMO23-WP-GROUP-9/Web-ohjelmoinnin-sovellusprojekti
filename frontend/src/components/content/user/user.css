@@ -257,7 +257,7 @@ input {
 
 .favoritetitle {
     color: #333;
-    font-size: 20px;
+    font-size: 0.85em;
     display: block;
     margin-bottom: 10px; 
 }
@@ -265,7 +265,11 @@ input {
 .favoriteimg {
     max-width: 100%;
     height: auto;
+    margin-top: 4px;
     margin-right: 10px;
+    border: 4px solid #eee6dc;
+    border-radius: 6px;
+    box-shadow: var(--shadow02);
 }
 
 .favoritetitle:hover {
@@ -283,7 +287,7 @@ input {
 .favorite-list > li {
     width: 100%; 
     box-sizing: border-box;
-    padding: 0 10px; 
+    padding: 0 0px; 
     max-width: calc(50%);
 }
 
@@ -317,6 +321,8 @@ input {
     position: relative;
     width: 150px; 
     height: auto;
+    margin-bottom: 2px;
+
 }
 
 .favorite-item:hover .favoriteDButton { 
