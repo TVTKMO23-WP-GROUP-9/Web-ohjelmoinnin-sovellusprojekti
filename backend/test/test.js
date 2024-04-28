@@ -31,6 +31,29 @@ describe('Authentication API', () => {
       expect(res).to.have.status(400);
       expect(res.body).to.have.property('message').equal('Käyttäjätunnus varattu');
     });
+
+      it('should have all info when one registers a new user', async () => {
+        const res = await chai
+          .request(server)
+          .post('/auth/register')
+          .send({ username: null, password: 'password', email: 'test23@example.com' })
+          .timeout(10000); 
+      
+        expect(res).to.have.status(500);
+        expect(res.body).to.have.property('message').equal('Rekisteröinti epäonnistui');
+      });      
+      
+      it('should have unique email', async () => {
+        const res = await chai
+          .request(server)
+          .post('/auth/register')
+          .send({ username: 'testuser54', password: 'testpassword', email: 'test@example.com' })
+          .timeout(10000); 
+      
+        expect(res).to.have.status(500);
+        expect(res.body).to.have.property('message').equal('Rekisteröinti epäonnistui');
+      });
+  
   });
 
   describe('User Login', () => {
