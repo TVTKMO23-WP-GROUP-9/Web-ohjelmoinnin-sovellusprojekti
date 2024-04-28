@@ -40,45 +40,43 @@ const GroupEvent = ({ id }) => {
     };
 
     return (
-        <div>
-            <table className='showTable'>
-                <tbody>
-                    <tr>
-                        {groupEvents.map((event, index) => (
-                            <span key={index} className='singleEvent'>
-                                <div className='eventinfoLeft'>
-                                    <td>
-                                        <b>{event.event_info.date}</b>
-                                    </td>
-                                    <td>
-                                        <b>klo {event.event_info.start_time}</b>
-                                    </td>
-                                </div>
-                                <div className='eventinfoCenter'>
-                                    <td>
-                                        <p>{event.event_info.theatre}, {event.event_info.auditorium}</p>
-                                    </td>
-                                    <td>
-                                        <b>{event.event_info.title}</b>
-                                    </td>
-                                </div>
-                                <div className='eventinfoRight'>
-                                    <td>
-                                        <a href={event.event_info.showUrl} target="_blank" rel="noreferrer"><p>Osta liput</p></a>
-                                    </td>
-                                    <td>
-                                        <p>Lisännyt: {event.event_info.profilename}</p>
-                                    </td>
-                                    <td>
-                                        <button className='removefromgroupbutton' onClick={() => { handleRemoveFromGroup(event); }}>x</button>
-                                    </td>
-                                </div>
-                            </span>
-                        ))}
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+        <table className='showTable'>
+            <tbody>
+                <tr>
+                    {groupEvents.map((event, index) => (
+                        <div key={index} className='singleEvent'>
+                            <div className='eventinfoLeft'>
+                                <td>
+                                    <b>{event.event_info.date}</b>
+                                </td>
+                                <td>
+                                    <b>klo {event.event_info.start_time}</b>
+                                </td>
+                            </div>
+                            <div className='eventinfoCenter'>
+                                <td>
+                                    <p>{event.event_info.theatre}, {event.event_info.auditorium}</p>
+                                </td>
+                                <td>
+                                    <b>{event.event_info.title}</b>
+                                </td>
+                            </div>
+                            <div className='eventinfoRight'>
+                                <td>
+                                    <a href={event.event_info.showUrl} target="_blank" rel="noreferrer"><p>Osta liput</p></a>
+                                </td>
+                                <td>
+                                    <p>Lisännyt: {event.event_info.profilename}</p>
+                                </td>
+                                <td>
+                                    <button className='removefromgroupbutton' onClick={() => { handleRemoveFromGroup(event); }}>x</button>
+                                </td>
+                            </div>
+                        </div>
+                    ))}
+                </tr>
+            </tbody>
+        </table>
     );
 };
 
