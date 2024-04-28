@@ -6,14 +6,23 @@ const { VITE_APP_BACKEND_URL } = import.meta.env;
 const ReviewFormSerie = ({ tvShowId, user }) => {
   const [showReviewForm, setShowReviewForm] = useState(false);
   const [newReviewButton, setNewReviewButton] = useState(true);
+  const [actionForm, setShowActionForm] = useState(false);
+  const [editButton, setEditButton] = useState(true);
   const [profileHasReview, setProfileHasReview] = useState(true); 
   const [rating, setRating] = React.useState(0);
   const [review, setReview] = React.useState("");
   const [serieAdult, setSerieAdult] = useState(true); // Asetetaan oletusarvoksi true
+  const [confirmDeleteId, setConfirmDeleteId] = useState(null);
+  const [editReviewId, setEditReviewId] = useState(null); 
+  const [ReviewId, setReviewId] = useState(null);  
+  const [updatedReview, setUpdatedReview] = useState({
+    review: '', rating: 0
+  });
 
   const headers = getHeaders();
 
   console.log("user", user === null, user.user);
+  
 
   if (user.user !== null) {
     useEffect(() => {
@@ -23,7 +32,15 @@ const ReviewFormSerie = ({ tvShowId, user }) => {
             `${VITE_APP_BACKEND_URL}/seriereviews/thisuser/${tvShowId}`,
             { headers }
           );
+          
+          const reviewResponse = await axios.get(
+              `${VITE_APP_BACKEND_URL}/review/${user.user.profileid}/${tvShowId}/1`
+          );    
+          console.log("oisko tässä: ", reviewResponse.data);
+          console.log("userid tässä: ", user.user.profileid);
+          setReviewId(reviewResponse.data);
           setProfileHasReview(response.data);
+          console.log("oisko tässä: ", response.data);
         } catch (error) {
           console.error("Virhe arvostelun tarkistuksessa:", error);
         }
@@ -55,6 +72,20 @@ const ReviewFormSerie = ({ tvShowId, user }) => {
     setNewReviewButton(false);
   }
 
+  const closeEditForm = () => {
+    setShowActionForm(false);
+    setEditButton(true);
+  }
+
+  const openEditForm = () => {
+    setShowActionForm(true);
+    setEditButton(false);
+  }
+
+  const handleReviewEdit = (idreview) => {
+    setEditReviewId(idreview);
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
@@ -78,7 +109,45 @@ const ReviewFormSerie = ({ tvShowId, user }) => {
     }
   }
 
-  console.log("profileHasReview", profileHasReview);
+
+  console.log("profileHasReview", profileHasReview); ///KESKEN !!!
+
+  const handleUpdateReview = async () => {
+    try {
+      const response = await axios.put(`${VITE_APP_BACKEND_URL}/reviews/update/${ReviewId}`, updatedReview, { headers });
+      setEditReviewId(null);
+      
+      window.location.reload();
+    } catch (error) {
+      console.error('Muokkausvirhe:', error);
+    }
+  };
+
+  const handleConfirmDelete = async () => {
+    try {
+      const deleteresponse = await axios.delete(`${VITE_APP_BACKEND_URL}/review/${ReviewId}`);
+      setConfirmDeleteId(null);
+      window.location.reload();
+    } catch (error) {
+      console.error('Poistovirhe:', error);
+    }
+  };
+
+  const setUpdateRating = (e) => {
+    const newRating = e.target.value;
+    setUpdatedReview(prevState => ({
+      ...prevState,
+      rating: newRating
+    }));
+  };
+
+  const setUpdateReview = (e) => {
+    const newReview = e.target.value;
+    setUpdatedReview(prevState => ({
+      ...prevState,
+      review: newReview
+    }));
+  };
 
   return (
     <div>
@@ -122,7 +191,36 @@ const ReviewFormSerie = ({ tvShowId, user }) => {
       )}
       {user.user !== null && !profileHasReview && ( newReviewButton && (
         <button onClick={openReviewForm} className="basicbutton">Luo uusi arvostelu</button>
+      ))}     
+      {user.user !== null && profileHasReview && ( editButton && (
+        <button onClick={openEditForm} className="basicbutton">Muokkaa arvostelua</button>
       ))}
+      {user.user !== null && profileHasReview && ( actionForm  && (
+        <button className="compactButton" onClick={() => handleReviewEdit(review.idreview)}><span className='review uni11'></span> Muokkaa arvostelua</button>
+      ))}
+               {editReviewId === review.idreview && (
+              <div className="edit-review">
+                <b>Tähdet välillä 1-5</b> <br />
+                <input className='updateRating' type="number" min="1" max="5" value={updatedReview.rating} onChange={setUpdateRating} /> <br />
+                <b>Kommentti</b> <br />
+                <textarea className="updateReview" value={updatedReview.review} onChange={setUpdateReview} /> <br />
+                <button className="compactButton" onClick={() => handleUpdateReview(review.idreview)}><span className='review uni13'></span> Tallenna muutokset</button>
+                <button className="compactButton" onClick={() => setEditReviewId(null)}>Peruuta muutokset</button>
+              </div>
+            )}
+
+            {!editReviewId && profileHasReview && actionForm && (
+              <>
+                {confirmDeleteId === review.idreview ? (
+                  <>
+                    <button className="confirm" onClick={() => handleConfirmDelete()}><span className='review uni12'></span> Vahvista</button>
+                    <button className="compactButton" onClick={() => setConfirmDeleteId(null)}>Peruuta</button>
+                  </>
+                ) : (
+                  <button className="compactButton" onClick={() => setConfirmDeleteId()}><span className='review uni12'></span> Poista arvostelu</button>
+                )}
+              </>
+            )}
     </div>
   );
 };

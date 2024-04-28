@@ -144,6 +144,22 @@ async function getAnonReviews () {
     throw error;
   }
 }
+async function getReviewId(profileid, id, mediatype) {
+  try {
+    const query = {
+      text: 'SELECT idreview FROM Review_ WHERE profileid = $1 AND revieweditem = $2 AND mediatype = $3 ORDER BY timestamp DESC LIMIT 1',
+      values: [profileid, id, mediatype],
+    };
+    const result = await pool.query(query);
+    if (result.rows.length > 0) {
+      return result.rows[0].idreview; // Palauta vain idreview
+    } else {
+      return null; // Jos ei löydy arvostelua, palauta null
+    }
+  } catch (error) {
+    throw error;
+  }
+}
 
 
 module.exports = {
@@ -159,4 +175,5 @@ module.exports = {
   updateReviewToAnon, 
   getAnonReviews,
   reviewFromThisUser,
+  getReviewId
 };
