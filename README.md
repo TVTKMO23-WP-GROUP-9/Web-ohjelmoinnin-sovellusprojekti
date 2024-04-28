@@ -12,7 +12,7 @@
 
 ---------------------------------
 
-Tämä repositio esittelee Oulun ammattikorkeakoulun 2. vuoden tieto- ja viestintätekniikan opiskelijoiden tekemää elokuvasivustoa, joka kuuluu toteutukseen **Web-ohjelmoinnin sovellusprojekti** (15 op). 
+Tämä arkisto esittelee Oulun ammattikorkeakoulun 2. vuoden tieto- ja viestintätekniikan opiskelijoiden tekemää elokuvasivustoa, joka kuuluu toteutukseen **Web-ohjelmoinnin sovellusprojekti** (15 op). 
 
 Hankkeen tarkoituksena on oppia kokonaisvaltaista ohjelmistokehitystä ketteriä menetelmiä sekä versionhallintajärjestelmää käyttäen. 
 
@@ -78,7 +78,7 @@ Hankkeessa on toteutettu käyttäjätilin luomiseen, sisäänkirjautumiseen ja p
 Sivustolle pääsee Render-pilvipalvelun ylläpitämänä verkko-osoitteessa https..... 
 Sovelluksen voi myös halutessaan ladata itselleen paikallisesti käytettäväksi seuraavilla ohjeilla. 
 
-1.	Kloonaa tämä repositio omalle koneellesi
+1.	Kloonaa tämä arkisto omalle koneellesi
 2.	Hanki oma rajapinta-avain The Movie Database -sivustolta
 3.	Luo arkiston juureen **.env-tiedosto** ja lisää sinne rajapinta-avain sekä muut tarvittavat ympäristömuuttujat. Lue ohjeet tämän tekemiseen arkiston tiedostosta
 ```env-example```
