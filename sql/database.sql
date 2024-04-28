@@ -96,11 +96,13 @@ CREATE TABLE IF NOT EXISTS Review_ (
 
 CREATE TABLE IF NOT EXISTS Event_
 (
-    eventid SERIAL PRIMARY KEY,
+    idevent SERIAL PRIMARY KEY,
+    eventid INTEGER NOT NULL,
     groupid INTEGER NOT NULL,
     event_info JSON NOT NULL,
     exp_date TIMESTAMP WITHOUT TIME ZONE NOT NULL,
-    FOREIGN KEY (groupid) REFERENCES Group_(groupid) ON DELETE CASCADE
+    FOREIGN KEY (groupid) REFERENCES Group_(groupid) ON DELETE CASCADE,
+    CONSTRAINT unique_event_group UNIQUE (eventid, groupid)
 );
 
 ALTER SEQUENCE public.profile__profileid_seq RESTART WITH 1;
