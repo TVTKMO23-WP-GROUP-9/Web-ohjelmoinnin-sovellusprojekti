@@ -196,7 +196,7 @@ const GroupDetails = ({ user }) => {
                 />
 
                 {(isAdmin || isMainuser && !editMode) && <button onClick={() => setEditMode(true)} className="basicbutton">Muokkaa ryhmää</button>}
-                {(!isMember && !isPending && user && user.user !== null && user.user !== undefined) && (
+                {(!loading && !isMember && !isPending && user && user.user !== null && user.user !== undefined) && (
                   <button className="basicbutton" onClick={() => handleApplicationToJoin(profileId, id)}>Liittymispyyntö</button>
                 )}
                 {isPending && (
