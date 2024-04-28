@@ -20,8 +20,6 @@ const Events = ({ user }) => {
   const [error, setError] = useState('');
   const currentDate = new Date();
   const headers = getHeaders();
-  const [showMessages, setShowMessages] = useState({});
-  const [showMessage, setShowMessage] = useState(false);
 
   const profilename = user?.user;
   const profileid = user?.profileid;
@@ -161,8 +159,6 @@ const Events = ({ user }) => {
       const response = await axios.post(`${VITE_APP_BACKEND_URL}/event`, data, { headers });
 
       if (response.status === 201) {
-        setShowMessages({ ...showMessages, [eventInfo.id]: 'Lisätty' });
-        displayMessage();
         console.log('Näytös lisätty ryhmään');
         setGroupShowtimes([...groupShowtimes, idAsInteger]);
       }
@@ -179,8 +175,6 @@ const Events = ({ user }) => {
     try {
       const response = await axios.delete(`${VITE_APP_BACKEND_URL}/event/${idAsInteger}`, { headers });
       if (response.status === 200) {
-        setShowMessages({ ...showMessages, [eventInfo.id]: 'Poistettu' });
-        displayMessage();
         console.log('Näytös poistettu ryhmästä');
         setGroupShowtimes(groupShowtimes.filter(show => show !== idAsInteger));
       }
@@ -189,20 +183,14 @@ const Events = ({ user }) => {
     }
   };
 
-  const displayMessage = () => {
-    setShowMessage(true);
-    setTimeout(() => {
-      setShowMessages({});
-      setShowMessage(false);
-    }, 2000);
-  };
-
   return (
     <div className="content">
       <div className="form-view">
         <div className="flex-container">
           <h2 className='showtimeH2'>Finnkinon näytösajat</h2>
         </div>
+        <p className='userinfo'>Hae Finnkinon näytösajat valitsemalla alue, elokuva, päivämäärä ja ryhmä.</p>
+        <p className='userinfo'>Kirjautuneet käyttäjät voivat lisätä näytöksiä ryhmiin, joissa ovat jäsenenä</p>
         <div className="eventItems">
           <NowShowing setSelectedMovie={handleMovieSelection} />
           <Area setSelectedArea={setSelectedArea} />
@@ -266,7 +254,7 @@ const Events = ({ user }) => {
           <button onClick={() => { scrollToTop(); }} className='basicbutton' >{'Palaa ylös'}</button>
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 
