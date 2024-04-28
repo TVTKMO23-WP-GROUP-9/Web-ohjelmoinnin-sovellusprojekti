@@ -248,6 +248,22 @@
     height: 35px !important;
   }
 
+  .showContentCellLeft {
+    padding: 0 1em 0 1em !important;
+    width: 60% !important;
+  }
+
+  .showContentCellRight {
+    padding: 0 1em 0 1em !important;
+    width: 35% !important;
+  }
+
+  .addButtonTd {
+    margin-right: 1em !important;
+    position: relative;
+  }
+  
+
 }
 
 
@@ -412,6 +428,23 @@
     display: none;
   }
 
+  .showContentCellLeft {
+    padding: 0 1em 0 1em !important;
+    width: 60% !important;
+    text-align: left !important;
+  }
+
+  .showContentCellRight {
+    padding: 0 1em 0 1em !important;
+    width: 35% !important;
+    text-align: right !important;
+  }
+
+  .favorite-poster {
+    padding-right: 20px;
+    width: 120px !important; 
+  }
+
 }
 
 @media (max-width: 570px) {
@@ -557,6 +590,16 @@
 
   .group-view {
     width: 80% !important;
+  }
+
+  .showContentCellLeft {
+    padding: 0 1em 0 1em !important;
+    width: 95% !important;
+    text-align: left !important;
+  }
+
+  .favorite-poster {
+    width: 100px !important; 
   }
 
 }
