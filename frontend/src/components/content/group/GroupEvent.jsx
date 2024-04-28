@@ -40,36 +40,30 @@ const GroupEvent = ({ id }) => {
     };
 
     return (
-        <div>
-            <table className='showTable'>
-                <tbody>
-                    {groupEvents.map((event, index) => (
-                        <tr key={index} className='singleEvent'>
-                            <td className='geventinfoLeft'>
-                                <b>{event.event_info.date}</b><br/>
-                                <b> klo {event.event_info.start_time}</b>
-                            </td>
+        <>
+        {groupEvents.map((event, index) => (
+            <div key={index} className='singleEvent'>
+                <div className='geventinfoLeft'>
+                    <b>{event.event_info.date}</b><br/>
+                    <b>klo {event.event_info.start_time}</b>
+                </div>
 
-                            <td className='geventinfoCenter'>
-                                <b>{event.event_info.title}</b>
-                                <p>{event.event_info.theatre}, {event.event_info.auditorium}</p>
-                                
-                                
-                            </td>
-                            <td className='geventinfoRight'>
-                                <p>Lisännyt: {event.event_info.profilename}</p>
-                                
-                                
-                            </td>
-                            <td>
-                                <a href={event.event_info.showUrl} target="_blank" rel="noreferrer">Osta liput</a>
-                                <button className='removefromgroupbutton' onClick={() => { handleRemoveFromGroup(event); }}>X</button>
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-        </div>
+                <div className='geventinfoCenter'>
+                    <b>{event.event_info.title}</b>
+                    <p>{event.event_info.theatre}, {event.event_info.auditorium}</p>
+                </div>
+                <div className='geventRightHideable'>
+                    <p>Lisännyt: {event.event_info.profilename}thematti</p>
+                    <a href={event.event_info.showUrl} target="_blank" rel="noreferrer">Osta liput</a>
+                </div>
+                
+                <div className='geventRightHideable'>
+                    <button className='removefromgroupbutton' onClick={() => { handleRemoveFromGroup(event); }}>X</button> 
+                </div>
+            </div>
+        ))}
+
+        </>
     );
 };
 

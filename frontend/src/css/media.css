@@ -139,6 +139,16 @@
 
 }
   
+
+@media (max-width: 1150px) {
+
+  .geventRightHideable {
+    display: none;
+  }
+  
+}
+
+
 @media (max-width: 1085px) {
 
   .menu-items-left {
