@@ -17,34 +17,6 @@ const Forum = ({ id, user }) => {
   const [isMainuser, setMainuser] = useState(false);
   const headers = getHeaders();
 
-  /*useEffect(() => {
-    const fetchProfile = async () => {
-        try {
-            const token = sessionStorage.getItem('token');
-            const headers = {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json'
-            };
-            
-            const response = await axios.get(`${VITE_APP_BACKEND_URL}/profile/${user.user}`);
-            setProfileid(response.data.profileid);
-            
-            const groupResponse = await axios.get(`${VITE_APP_BACKEND_URL}/memberstatus/${response.data.profileid}/${id}`);
-
-            if (groupResponse.data.hasOwnProperty('pending') && groupResponse.data.pending === 0) {
-              setIsMember(true);
-            }
-            if (groupResponse.data.hasOwnProperty('mainuser') && groupResponse.data.mainuser === 1) {
-              setMainuser(true);
-            }
-        } catch (error) {
-            console.error('Virhe haettaessa profiilitietoja:', error);
-        }
-    };
-
-    fetchProfile();
-  }, [user]);*/
-
 useEffect(() => {
   if (user !== null && user !== undefined) { 
     const fetchProfile = async () => {
@@ -58,7 +30,10 @@ useEffect(() => {
         if (groupResponse.data.hasOwnProperty('mainuser') && groupResponse.data.mainuser === 1) {
           setMainuser(true);
         }
-
+        if (user.usertype === 'admin') {
+          setMainuser(true);
+        }
+        
         setProfileid(user.profileid);
       }
       catch (error) {
@@ -68,8 +43,6 @@ useEffect(() => {
     fetchProfile();
   }
 }, [user]);
-
-  
 
   const fetchMessages = async () => {
     try {
@@ -111,12 +84,7 @@ useEffect(() => {
     event.preventDefault();
   
     try {
-      const token = sessionStorage.getItem('token');
-      const headers = {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json'
-      };
-      
+
       const response = await axios.post(`${VITE_APP_BACKEND_URL}/messages`, {
         profileid: profileId,
         groupid: id,

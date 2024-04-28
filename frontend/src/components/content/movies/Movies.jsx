@@ -25,7 +25,7 @@ const Movies = ({ user }) => {
 
   useEffect(() => {
 
-    if ( user !== null || user !== undefined ) {
+    if ( user ) {
     const fetchProfile = async () => {
         const profresponse = await axios.get(`${VITE_APP_BACKEND_URL}/profile/${user.user}`, { headers });
 
@@ -35,7 +35,12 @@ const Movies = ({ user }) => {
       
       fetchProfile();
 
-    };
+    }
+    
+    else {
+      setAdult(false);
+      
+    }
 
   }, [user]);
 
@@ -102,9 +107,6 @@ const Movies = ({ user }) => {
     }
   };
 
-  // setGenre ja setQuery nollaus:
-  // laitoin nää siks, kun search ja discover kumoaa toisensa eli genreä ei huomioida jos on query annettu
-  // tämä hidastaa hakuja, jos pitää tyhjentää toinen osio erikseen 
   const handleInputChange = (event) => {
     setGenre('');
     setQuery(event.target.value);
@@ -143,7 +145,6 @@ const Movies = ({ user }) => {
     setShowMovies(false);
   };
 
-
   const handleNullify = () => {
     setQuery('');
     setGenre('');
@@ -162,6 +163,7 @@ const Movies = ({ user }) => {
   };
 
   return (
+    
     <>
       <div className="content">
         <h2>Leffa- ja sarjahaku</h2>
@@ -300,7 +302,7 @@ const Movies = ({ user }) => {
             </div>
           </div>
         )}
-        {(showSeries && series !== null && movies.length > 0) && (
+        {(showSeries && series !== null && series.length > 0) && (
           <div>
             <div className="resultsTitle">
               <button onClick={() => handleSeriesPageChange('prev')} className='bigArrow'>&#9664;</button>

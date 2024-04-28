@@ -7,7 +7,7 @@ import { getHeaders } from '@auth/token';
 
 const FavoriteList = ({ user }) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [favoritesPerPage, setfavoritesPerPage] = useState(4);
+  const [favoritesPerPage, setfavoritesPerPage] = useState(10);
   const [favorites, setFavorites] = useState([]);
   const [adult, setAdult] = useState(false);
   const headers = getHeaders();
@@ -15,7 +15,7 @@ const FavoriteList = ({ user }) => {
   useEffect(() => {
     const fetchFavorites = async () => {
       try {
-        const aresponse = await axios.get(`${VITE_APP_BACKEND_URL}/profile/${user.user}`, { headers });
+        const aresponse = await axios.get(`${VITE_APP_BACKEND_URL}/profile/${user.user}`);
           
           setAdult(aresponse.data.adult);
           const response = await axios.get(`${VITE_APP_BACKEND_URL}/favoritelist/profile/${aresponse.data.profileid}`);   
@@ -61,10 +61,11 @@ const FavoriteList = ({ user }) => {
 
   return (
     <>
-     <h1>{user.user} suosikkilista!</h1>
-    <ul className="favorite-list">
+    <div className="content">
+    <h1>{user.user} suosikkilista!</h1>
+    <ul className="group-view">
        
-      <span className="userinfo">
+      <span className="review-info">
         Löytyi <b>{favorites.length}</b> Suosikkia.<br />
       </span>
       <ul className="pagination">
@@ -79,6 +80,7 @@ const FavoriteList = ({ user }) => {
           
         </li>
       </ul>
+      <div className="reviewmain">
 
         {currentFavorites        
         .filter(favorite => favorite.adult === false || adult === true)
@@ -96,18 +98,20 @@ const FavoriteList = ({ user }) => {
         </div>
 
           )}
+          <div className="review-info">
             {favorite.mediatype === 0 ? (
               <Link className='favoritetitle' to={`/movie/${favorite.favoriteditem}`}>{favorite.movie.title}</Link>
             ) : (
               <Link className='favoritetitle' to={`/series/${favorite.favoriteditem}`}>{favorite.movie.name}</Link>
             )} 
-             
+        </div>
           </li>
           
         ))}
-
+ 
+    </div>
      </ul>
-
+     </div>
     </>
   );
 }

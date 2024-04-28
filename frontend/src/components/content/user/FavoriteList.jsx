@@ -3,6 +3,7 @@ import './user.css';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 const { VITE_APP_BACKEND_URL } = import.meta.env;
+const { VITE_APP_FRONTEND_URL } = import.meta.env;
 import { getHeaders } from '@auth/token';
 
 const FavoriteList = ({ profile, user }) => {
@@ -17,15 +18,11 @@ const FavoriteList = ({ profile, user }) => {
   useEffect(() => {
     const fetchFavorites = async () => {
       try {
-        if (profile && profile.profileid) {
+  
           const response = await axios.get(`${VITE_APP_BACKEND_URL}/favoritelist/profile/${profile.profileid}`);
-          console.log(profile);
-          console.log('käyttäjä:', user);
-          const aresponse = await axios.get(`${VITE_APP_BACKEND_URL}/profile/${user.user}`, { headers });
-            
-          setAdult(aresponse.data.adult);
-          
-          
+          //const aresponse = await axios.get(`${VITE_APP_BACKEND_URL}/profile/${user.user}`, { headers });
+          //setAdult(aresponse.data.adult);
+
           const favoriteData = response.data;
           const favoritesWithMovies = await Promise.all(favoriteData.map(async favorite => {
             try {
@@ -51,7 +48,7 @@ const FavoriteList = ({ profile, user }) => {
             }
           }));
           setFavorites(favoritesWithMovies);
-        }
+
       } catch (error) {
         console.error('Hakuvirhe:', error);
       }
@@ -60,7 +57,6 @@ const FavoriteList = ({ profile, user }) => {
     fetchFavorites();
   }, [profile, user]);
   const handleEditClick = () => {
-    console.log("onko oma profiili", isOwnProfile)
     setEditMode(!editMode);
   };
 
@@ -78,9 +74,6 @@ const FavoriteList = ({ profile, user }) => {
     }
   };
 
-
-
-
   const indexOfLastFavorite = currentPage * favoritesPerPage;
   const indexOfFirstFavorite = indexOfLastFavorite - favoritesPerPage;
   const currentFavorites = favorites.slice(indexOfFirstFavorite, indexOfLastFavorite);
@@ -89,7 +82,7 @@ const FavoriteList = ({ profile, user }) => {
     <>
     {(profile && profile.isOwnProfile) &&
         <span className="userinfo">
-        jaa linkki <Link className="link-style" to={`/favorites/${profile.profilename}`}>http://localhost:5173/favorites/{profile.profilename}</Link>
+        jaa linkki <Link className="link-style" to={`/favorites/${profile.profilename}`}>{import.meta.env.VITE_APP_FRONTEND_URL}/favorites/{profile.profilename}</Link>
       </span>
     }
     <ul className="favorite-list">
@@ -127,7 +120,7 @@ const FavoriteList = ({ profile, user }) => {
           {isOwnProfile && editMode && (
                 <button className="favoriteDButton" onClick={() => DeleteFavorite(favorite.favoriteditem)}>X</button> 
               )}
-  </div>
+         </div>
 
           )}
             {favorite.mediatype === 0 ? (
@@ -135,15 +128,15 @@ const FavoriteList = ({ profile, user }) => {
             ) : (
               <Link className='favoritetitle' to={`/series/${favorite.favoriteditem}`}>{favorite.movie.name}</Link>
             )} 
-             
           </li>
-          
         ))}
 
      </ul>
+     {(profile && profile.isOwnProfile) &&
      <button className="compactButton" onClick={handleEditClick}>
         {editMode ? 'Lopeta muokkaus' : 'Muokkaa suosikkeja'}
       </button>
+    }
     </>
   );
 }

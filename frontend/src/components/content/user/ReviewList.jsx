@@ -23,13 +23,9 @@ const ReviewList = ({ user, profile }) => {
   
   useEffect(() => {
     const fetchProfile = async () => {
+      if (user !== null && user.user !== null)
         try {
-            const token = sessionStorage.getItem('token');
-            const headers = {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json'
-            };
-            const response = await axios.get(`${VITE_APP_BACKEND_URL}/profile/${user.user}`);
+            const response = await axios.get(`${VITE_APP_BACKEND_URL}/profile/${user.user}`, { headers });
 
             setAdult(response.data.adult);
 
@@ -39,11 +35,12 @@ const ReviewList = ({ user, profile }) => {
     };
 
     fetchProfile();
-  }, [user]);
+    }, 
+  [user]);
+
 
   const fetchReviews = async () => {
     try {
-      if (profile && profile.profileid) {
 
         const response = await axios.get(`${VITE_APP_BACKEND_URL}/reviews/profile/${profile.profileid}`);
         const reviewData = response.data;
@@ -74,7 +71,7 @@ const ReviewList = ({ user, profile }) => {
 
         const sortedReviews = reviewsWithMovies.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
         setReviews(reviewsWithMovies, sortedReviews);
-      }
+      
     } catch (error) {
       console.error('Hakuvirhe:', error);
     }

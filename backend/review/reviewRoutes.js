@@ -14,6 +14,7 @@ router.get('/series/:id/review', auth, reviewService.serieReviewExists);
 router.get('/reviews', reviewService.getAllReviews);
 router.get('/reviews/profile/:id', reviewService.getReviewsByProfile);
 router.get('/reviews/:id/:mediatype', reviewService.getReviewsByItem);
+router.get('/review/:profileid/:id/:mediatype', reviewService.getReviewId);
 router.get('/review/new', reviewService.getNewestReviews);
 router.put('/reviews/update/:id', auth, reviewService.updateReview);
 router.put('/reviews/toanon', auth, reviewService.updateReviewToAnon);

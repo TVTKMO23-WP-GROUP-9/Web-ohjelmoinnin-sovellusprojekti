@@ -125,7 +125,7 @@ function App() {
               <Route path="/group/:id" element={<GroupDetails user={user} />} />
               <Route path="/admin" element={<AdminPage user={user} usertype={usertype} />} />
               <Route path="/intro" element={<Intro />} />
-              <Route path="/favorites/:profilename" element={<Favorites user={user} />} />
+              <Route path="/favorites/:profilename" element={<Favorites user={user}/>} />
             </Routes>
 
           </div>

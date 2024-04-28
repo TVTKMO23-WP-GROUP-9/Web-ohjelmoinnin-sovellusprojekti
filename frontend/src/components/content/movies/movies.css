@@ -298,6 +298,20 @@
     box-shadow: var(--shadow05);
 }
 
+.favlist {
+    padding-left: 20px;
+}
+
+.favlist li {
+    list-style-type: none;
+    margin-top: 0.5em;
+}
+
+.pagistyle {
+    color: var(--text-color);
+    font-size: 0.8em;
+}
+
 @media (max-width: 640px) {
 .movie-mini-item  {
     visibility: visible;

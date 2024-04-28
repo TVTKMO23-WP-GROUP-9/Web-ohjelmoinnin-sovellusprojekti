@@ -182,6 +182,19 @@ async function getAnonReviews(req, res) {
   }
 }
 
+async function getReviewId(req, res) {
+  const profileid = req.params.profileid;
+  const id = req.params.id;
+  const mediatype = req.params.mediatype;
+  try {
+    const review = await reviewModel.getReviewId(profileid, id, mediatype);
+    res.json(review);
+  } catch (error) {
+    console.error('Virhe haettaessa arvosteluja:', error);
+    res.status(500).send('Virhe haettaessa arvosteluja');
+  }
+}
+
 module.exports = {
   getAllReviews,
   getNewestReviews,
@@ -197,4 +210,5 @@ module.exports = {
   movieReviewFromThisUser,
   serieReviewFromThisUser,
   adminDeleteReview,
+  getReviewId
 };

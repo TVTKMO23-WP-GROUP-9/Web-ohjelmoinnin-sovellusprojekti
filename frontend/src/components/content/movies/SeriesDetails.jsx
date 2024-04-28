@@ -8,7 +8,6 @@ import './movies.css';
 import Reviews from './Reviews';
 import { getHeaders } from '@auth/token';
 
-
 const SeriesDetails = (user) => {
   const { id } = useParams();
   const [series, setSeries] = useState(null);
@@ -21,38 +20,24 @@ const SeriesDetails = (user) => {
   const [groupsPerPage, setGroupsPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
   const [adult, setAdult] = useState(false);
-  
   const headers = getHeaders();
  
   useEffect(() => {
-    const fetchProfile = async () => {
-      try {
-          const token = sessionStorage.getItem('token');
-          const headers = {
-              'Authorization': `Bearer ${token}`,
-              'Content-Type': 'application/json'
-          };
-
-          const response = await axios.get(`${VITE_APP_BACKEND_URL}/profile/${user.user.user}`);
-          
+    if (user.user) {
+      const fetchProfile = async () => {
+        try {
+          const response = await axios.get(`${VITE_APP_BACKEND_URL}/profile/${user.user.user}`, { headers });
           setProfileId(response.data.profileid);
-
-          console.log("Käyttäjän id:", response.data.profileid);
-          console.log("sivun listatuotteen id:", id);
           
-          const gresponse = await axios.get(`${VITE_APP_BACKEND_URL}/grouplist/profile/${user.user.user}/0`);
+          const gresponse = await axios.get(`${VITE_APP_BACKEND_URL}/grouplist/profile/${user.user.user}/0`, { headers });
           const groupData = [];
-
+  
           for (const group of gresponse.data) {
-            
-           
             try {
-              console.log('Loopshoo:');
-              const FLGresponse = await axios.get(`${VITE_APP_BACKEND_URL}/favoritelist/group/${group.groupid}/1`);
-              console.log('käyttäjän FLG:', FLGresponse);
+              const FLGresponse = await axios.get(`${VITE_APP_BACKEND_URL}/favoritelist/group/${group.groupid}/1`, { headers });
               const isGFavoriteItem = FLGresponse.data.find(item => item.favoriteditem === id);
               const isGFavorite = isGFavoriteItem ? true : false;
-              console.log('käyttäjän favoriitti-itemi:', isGFavorite);
+  
               groupData.push({
                 ...group,
                 isGFavorite
@@ -66,62 +51,62 @@ const SeriesDetails = (user) => {
               });
             }
           }
-    
+  
           setGroups(groupData);
-
-          console.log('käyttäjän ryhmät favoriittitiedolla:', groupData);
-          const FLresponse = await axios.get(`${VITE_APP_BACKEND_URL}/favoritelist/${response.data.profileid}/${id}/1`);
-
+  
+          const FLresponse = await axios.get(`${VITE_APP_BACKEND_URL}/favoritelist/${response.data.profileid}/${id}/1`, { headers });
           const isitFavorite = FLresponse.data.favorites.find(item => item.favoriteditem === id);
-
+  
           if (isitFavorite) {
             setIsFavorite(true);
           } else {
             setIsFavorite(false);
           }
-          
-      } catch (error) {
+        } catch (error) {
           console.error('Virhe haettaessa profiilitietoja:', error);
-      }
-  };
-
-  fetchProfile();
+        }
+      };
   
-    const fetchSeries = async () => {
-      try {
-        const response = await axios.get(`${VITE_APP_BACKEND_URL}/series/${id}`);
-        setSeries(response.data);
-      } catch (error) {
-        console.error('Hakuvirhe', error);
-      }
-    };
+      fetchProfile();
 
-    const fetchProviders = async () => {
-      try {
-        const response = await axios.get(`${VITE_APP_BACKEND_URL}/tv/provider/${id}`);
-        setProviders(response.data);
-      } catch (error) {
-        // asetetaan providers-tila tyhjään JSON-objektiin
-        setProviders({});
-      }
-    };
-
-    fetchSeries();
-
-    // Asetetaan timeout fetchProviders-funktiolle 5 sekunniksi
-    const timeoutId = setTimeout(fetchProviders, 100);
-
-    // Palautetaan poisto-funktio, joka suoritetaan komponentin purkamisen yhteydessä
-    return () => clearTimeout(timeoutId);
-
+    }
+  
+      const fetchSeries = async () => {
+        try {
+          const response = await axios.get(`${VITE_APP_BACKEND_URL}/series/${id}`);
+          setSeries(response.data);
+        } catch (error) {
+          console.error('Hakuvirhe', error);
+        }
+      };
+  
+      const fetchProviders = async () => {
+        try {
+          const response = await axios.get(`${VITE_APP_BACKEND_URL}/tv/provider/${id}`);
+          setProviders(response.data);
+        } catch (error) {
+          // asetetaan providers-tila tyhjään JSON-objektiin
+          setProviders({});
+        }
+      };
+  
+      fetchSeries();
+  
+      // Asetetaan timeout fetchProviders-funktiolle 5 sekunniksi
+      const timeoutId = setTimeout(fetchProviders, 100);
+  
+      // Palautetaan poisto-funktio, joka suoritetaan komponentin purkamisen yhteydessä
+      return () => clearTimeout(timeoutId);
+    
   }, [id, user]);
+  
 
   useEffect(() => {
     if (series) {
       setAdult(series.adult);
-      console.log('adultköntsä: ', adult);
     }
   }, [series]);
+  
     
   
 const handleFavoriteAction = async () => {
@@ -153,11 +138,8 @@ const handleFavoriteGroupAction = async (groupId, isGFavorite) => {
   try {
     let updatedGroups = [];
     if (groupId && id) {
-      console.log("onko favoriitti", isGFavorite);
       
       if (isGFavorite) {
-        console.log("onko favoriitti id yhä oikein", id);
-        console.log("onko ryhmän id yhä oikein", groupId);
         await axios.delete(`${VITE_APP_BACKEND_URL}/favoritefromgroup/${groupId}/${id}/1`);
         
         // Päivitä isGFavorite arvo ryhmätiedossa
@@ -222,7 +204,7 @@ const currentGroups = groups.slice(indexOfFirstGroup, indexOfLastGroup);
                   <button className="favorite-button" onClick={handleFavoriteAction}>{isFavorite ? <FaHeart className="favorite-icon" size={34} /> : <FaRegHeart size={34} />}</button>
                   }
                   {profileId &&
-                  <button className="favorite-button" onClick={toggleGroups}><div className="uni06"></div></button>
+                  <button className="favorite-button" onClick={toggleGroups}><div className="emoji26 uni17"></div></button>
                   }
                 </div>
 
@@ -308,6 +290,7 @@ const currentGroups = groups.slice(indexOfFirstGroup, indexOfLastGroup);
             }
             <br/>
             <h2>Viimeisimmät arvostelut</h2>
+            
 
             <div className="reviewslisted"><Reviews movieId={id} mediatype={1} adult={series.adult}/></div>
             </div>

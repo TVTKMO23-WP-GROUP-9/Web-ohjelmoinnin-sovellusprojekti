@@ -16,7 +16,7 @@ const AllGroups = ({ user, searchTerm, setSearchTerm }) => {
     const [creatingGroup, setCreatingGroup] = useState(false);
     const headers = getHeaders();
 
-    if (user.user !== null) {
+    /*if (user.user !== null) {
     useEffect(() => {
         const fetchProfile = async () => {
             try {
@@ -34,7 +34,8 @@ const AllGroups = ({ user, searchTerm, setSearchTerm }) => {
     
         fetchProfile();
       }, [user]);
-    }
+    }*/
+
 
     useEffect(() => {
         const fetchGroups = async () => {
@@ -66,7 +67,7 @@ const AllGroups = ({ user, searchTerm, setSearchTerm }) => {
         try {
             const response = await axios.post(`${VITE_APP_BACKEND_URL}/group`, { groupname: newGroupName }, { headers }) ;  
             const groupid = response.data[0].groupid;
-            await axios.post(`${VITE_APP_BACKEND_URL}/memberstatus/${profileId}/1/${groupid}/0`, {}, { headers });
+            await axios.post(`${VITE_APP_BACKEND_URL}/memberstatus/${user.user.profileid}/1/${groupid}/0`, {}, { headers });
             setNewGroupName('');
             setCreatingGroup(false);
             window.location.href = `/group/${groupid}`;
@@ -127,7 +128,7 @@ const AllGroups = ({ user, searchTerm, setSearchTerm }) => {
                             Tai saitko uuden ryhmä-idean? Voit luoda sellaisen itsellesi ja kavereillesi <br />
                             tai koko maailman parhaalle leffakansalle! <span className='emoji uni01'></span>
                         </div> <br />
-                        {(!creatingGroup && profileId !== null ) && (
+                        {(!creatingGroup && user !== null && user.user !== null ) && (
                         <button id="robot01" className='basicbutton justMargin' onClick={() => setCreatingGroup(true)}>Luo uusi ryhmä</button> 
                         )}
                     </>
