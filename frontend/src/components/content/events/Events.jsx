@@ -147,17 +147,10 @@ const Events = ({ user }) => {
   // lisää valittu näytös ryhmään
   const handleAddToGroup = async (eventInfo) => {
     const idAsInteger = parseInt(eventInfo.id, 10);
-    console.log('Näytöksen alku', eventInfo.date, eventInfo.start_time);
     const [day, month, year] = eventInfo.date.split('.');
-
     const startDate = new Date(`${year}-${month}-${day}T${eventInfo.start_time}`);
-
     startDate.setDate(startDate.getDate() + 1);
-
     const formattedDate = startDate.toISOString();
-
-    console.log('Näytöksen uusi päivämäärä', formattedDate);
-
     try {
       const data = {
         eventid: idAsInteger,
