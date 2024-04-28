@@ -32,11 +32,8 @@ const ReviewForm = ({ movieId, user }) => {
           const reviewResponse = await axios.get(
             `${VITE_APP_BACKEND_URL}/review/${user.user.profileid}/${movieId}/0`
           );    
-          console.log("oisko tässä: ", reviewResponse.data);
-          console.log("userid tässä: ", user.user.profileid);
           setReviewId(reviewResponse.data);
           setProfileHasReview(response.data);
-          console.log("oisko tässä: ", response.data);
         } catch (error) {
           console.error("Virhe arvostelun tarkistuksessa:", error);
         }
@@ -49,7 +46,6 @@ const ReviewForm = ({ movieId, user }) => {
       try {
         const response = await axios.get(`${VITE_APP_BACKEND_URL}/movie/${movieId}`);
         setMovieAdult(response.data.adult); // Asetetaan elokuvan adult-arvo
-        console.log("aikuisviihde?", response.data.adult);
       } catch (error) {
         console.error('Hakuvirhe:', error);
       }
@@ -99,8 +95,6 @@ const ReviewForm = ({ movieId, user }) => {
       console.error("Virhe arvostelun lisäämisessä:", error);
     }
   }
-
-  console.log("profileHasReview", profileHasReview); 
 
   const handleUpdateReview = async () => {
     try {
