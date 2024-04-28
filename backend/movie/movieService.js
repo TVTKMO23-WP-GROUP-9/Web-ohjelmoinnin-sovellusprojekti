@@ -36,13 +36,13 @@ const with_genres_Series = {
     "drama": 18,
     "family": 10751,
     "kids": 10762,
-    "fantasy": 14,
+    "fantasy": 10765,
     "history": 36,
     "horror": 27,
     "music": 10402,
     "mystery": 9648,
     "romance": 10749,
-    "science fiction": 878,
+    "science fiction": 10765,
     "tv": 10770,
     "thriller": 53,
     "war": 10768,
@@ -50,7 +50,7 @@ const with_genres_Series = {
     "news": 10763,
     "reality": 10764,
     "soap": 10766,
-    "talk": 10767,
+    "talk": 10767
 };
 
 function setUndefinedToEmptyStrings(param) {

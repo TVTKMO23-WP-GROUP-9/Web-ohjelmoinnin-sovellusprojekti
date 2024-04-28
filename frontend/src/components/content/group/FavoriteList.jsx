@@ -15,14 +15,12 @@ const FavoriteList = ({ id, user }) => {
   useEffect(() => {
     const fetchFavorites = async () => {
       try {
-        console.log('käyttäjä:', user);
         const aresponse = await axios.get(`${VITE_APP_BACKEND_URL}/profile/${user.user}`, { headers });
           
         setAdult(aresponse.data.adult);
           const response = await axios.get(`${VITE_APP_BACKEND_URL}/favoritelist/group/${id}/ANY`);
  
           const favoriteData = response.data;
-          console.log(favoriteData);
 
           const favoritesWithMovies = await Promise.all(favoriteData.map(async favorite => {
             try {

@@ -25,9 +25,14 @@
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 1); 
 }
 
+.faq a {
+    color: var(--section2);
+}
+
 .introHeading {
     cursor: pointer;
     margin-bottom: 5px;
+    color: var(--profile);
 }
 
 .introContent {
@@ -35,6 +40,7 @@
     max-height: 0;
     padding-left: 30px;
     transition: max-height 0.3s ease-out;
+    color: #000000;
 }
 
 .introHeading.open + .introContent {

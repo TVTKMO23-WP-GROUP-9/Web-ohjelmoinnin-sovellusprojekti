@@ -58,7 +58,6 @@ const Events = () => {
     const day = formattedDate.getDate() < 10 ? `0${formattedDate.getDate()}` : formattedDate.getDate();
     const month = (formattedDate.getMonth() + 1) < 10 ? `0${formattedDate.getMonth() + 1}` : formattedDate.getMonth() + 1;
     const formattedDateString = `${day}.${month}.${formattedDate.getFullYear()}`;
-    console.log('Jäsennelty päivämäärä:', formattedDateString);
 
     try {
       if (selectedMovie === '') {
@@ -67,7 +66,6 @@ const Events = () => {
 
       const showsResponse = await fetch(`https://www.finnkino.fi/xml/Schedule/?area=${selectedArea}&dt=${formattedDateString}&eventID=${selectedMovie}`);
       const showsData = await showsResponse.text();
-      console.log('Näytösajat:', showsData);
       const showsParser = new DOMParser();
       const showsXmlDoc = showsParser.parseFromString(showsData, 'text/xml');
       const shows = Array.from(showsXmlDoc.getElementsByTagName('Show')).map(show => {
@@ -94,7 +92,6 @@ const Events = () => {
       } else {
         setError('');
       }
-      console.log('Näytösajat:', filteredShows);
       setShowtimes(filteredShows);
     } catch (error) {
       console.error('Virhe haettaessa näytösaikoja:', error);
@@ -106,7 +103,6 @@ const Events = () => {
   const tyhjennaHaku = () => {
     setEvents([]);
     setShowtimes([]);
-    console.log('Lista tyhjennetty manuaalisesti');
   };
 
   const scrollToTop = () => {

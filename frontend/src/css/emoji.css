@@ -64,3 +64,5 @@
 .uni15::before { content: "\1F3A5"; }
 /*noentry*/
 .uni16::before { content: "\26D4"; }
+/*plus*/
+.uni17::before { content: "\2795"; }

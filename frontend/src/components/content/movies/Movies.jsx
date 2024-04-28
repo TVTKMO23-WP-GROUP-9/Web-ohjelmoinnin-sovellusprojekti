@@ -107,9 +107,6 @@ const Movies = ({ user }) => {
     }
   };
 
-  // setGenre ja setQuery nollaus:
-  // laitoin nää siks, kun search ja discover kumoaa toisensa eli genreä ei huomioida jos on query annettu
-  // tämä hidastaa hakuja, jos pitää tyhjentää toinen osio erikseen 
   const handleInputChange = (event) => {
     setGenre('');
     setQuery(event.target.value);
@@ -147,7 +144,6 @@ const Movies = ({ user }) => {
     setSeriesPage(1);
     setShowMovies(false);
   };
-
 
   const handleNullify = () => {
     setQuery('');
@@ -306,7 +302,7 @@ const Movies = ({ user }) => {
             </div>
           </div>
         )}
-        {(showSeries && series !== null && movies.length > 0) && (
+        {(showSeries && series !== null && series.length > 0) && (
           <div>
             <div className="resultsTitle">
               <button onClick={() => handleSeriesPageChange('prev')} className='bigArrow'>&#9664;</button>
