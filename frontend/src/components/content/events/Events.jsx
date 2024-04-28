@@ -20,7 +20,7 @@ const Events = ({ user }) => {
   const [error, setError] = useState('');
   const currentDate = new Date();
   const headers = getHeaders();
-  const [message, setMessage] = useState('');
+  const [showMessages, setShowMessages] = useState({});
   const [showMessage, setShowMessage] = useState(false);
 
   const profilename = user?.user;
@@ -160,15 +160,14 @@ const Events = ({ user }) => {
       const response = await axios.post(`${VITE_APP_BACKEND_URL}/event`, data, { headers });
 
       if (response.status === 201) {
-        setMessage('Lisätty');
+        setShowMessages({ ...showMessages, [eventInfo.id]: 'Lisätty' });
         displayMessage();
         console.log('Näytös lisätty ryhmään');
         setGroupShowtimes([...groupShowtimes, idAsInteger]);
-      }
-      if (response.status === 400) {
-        console.log('Näytös on jo ryhmässä');
-        setMessage('Näytös on jo ryhmässä');
+      } else if (response.status === 400) {
+        setShowMessages({ ...showMessages, [eventInfo.id]: 'Näytös on jo ryhmässä' });
         displayMessage();
+        console.log('Näytös on jo ryhmässä');
       }
     } catch (error) {
       console.error('Virhe lisättäessä näytöstä ryhmään', error);
@@ -183,10 +182,14 @@ const Events = ({ user }) => {
     try {
       const response = await axios.delete(`${VITE_APP_BACKEND_URL}/event/${idAsInteger}`, { headers });
       if (response.status === 200) {
-        setMessage('Poistettu');
+        setShowMessages({ ...showMessages, [eventInfo.id]: 'Poistettu' });
         displayMessage();
         console.log('Näytös poistettu ryhmästä');
         setGroupShowtimes(groupShowtimes.filter(show => show !== idAsInteger));
+      } else if (response.status === 400) {
+        setShowMessages({ ...showMessages, [eventInfo.id]: 'Näytöstä ei löytynyt ryhmästä' });
+        displayMessage();
+        console.log('Näytöstä ei löytynyt ryhmästä');
       }
     } catch (error) {
       console.error('Virhe poistettaessa näytöstä ryhmästä', error);
@@ -196,7 +199,7 @@ const Events = ({ user }) => {
   const displayMessage = () => {
     setShowMessage(true);
     setTimeout(() => {
-      setMessage('');
+      setShowMessages({});
       setShowMessage(false);
     }, 2000);
   };
@@ -231,29 +234,16 @@ const Events = ({ user }) => {
               <table className="showTable">
                 <tbody>
                   <tr>
-                    <td className='addButtonTd'>
-                      <button onClick={() => { handleAddToGroup(show); }}>+</button>
-                      {showMessage && <span>{message}</span>}
-                      {groupShowtimes.find(groupShowtime => groupShowtime === show.id) && (
-                        <>
-                          <button onClick={() => { handleRemoveFromGroup(show); }}>x</button>
-                          <span>{message}</span>
-                        </>
-                      )}
-                    </td>
-
                     <td className='portraitTd'>
                       <div className='showPortrait'>
                         <img className='reviewimg' src={show.eventPortrait} alt={show.title} />
                       </div>
                     </td>
-
                     <td className="showContentCellLeft">
                       <span className='eventTitle2'><a href={show.showUrl} target="_blank" rel="noreferrer">{show.title}</a></span>
                       <br /><span className='eventInfo2'><b>{show.date}</b> &nbsp;klo <b>{show.start_time}</b></span>
                       <br /><span className='eventInfo2'>{show.auditorium}, {show.theatre}</span>
                     </td>
-
                     <td className="showContentCellRight">
                       <span className='eventInfo'>Näytös alkaa ja päättyy</span> <br />
                       <span className='eventInfo'>{show.start_time} - {show.end_time}</span> <br />
@@ -261,9 +251,16 @@ const Events = ({ user }) => {
                         <span className='userinfo'>{show.spokenLanguage}</span><img className='ratingImg' src={show.ratingImageUrl} alt={show.title} />
                       </div>
                     </td>
-
-
-
+                    {profilename &&
+                      <td className='addButtonTd'>
+                        <button className='addtogroupbutton' onClick={() => { handleAddToGroup(show); }}>+</button>
+                        <button className='removefromgroupbutton' onClick={() => { handleRemoveFromGroup(show); }}>x</button>
+                      </td>}
+                    {showMessages[show.id] && (
+                      <td className='messageTd'>
+                        <span>{showMessages[show.id]}</span>
+                      </td>
+                    )}
                   </tr>
 
                 </tbody>

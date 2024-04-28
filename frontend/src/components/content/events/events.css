@@ -46,6 +46,51 @@
     color: var(--darktext);
 }
 
+.addButtonTd {
+    padding: 0 1em 0 1em;
+}
+
+.addtogroupbutton {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-right: 8px;
+    border-radius: 8px;
+    border: var(--solid);
+    padding: 0.3em 0.6em;
+    font-size: 1em;
+    font-weight: 500;
+    font-family: inherit;
+    background-color: var(--button-bg);
+    color: greenyellow;
+    cursor: pointer;
+    transition: border-color 0.25s;
+}
+
+.addtogroupbutton:hover {
+    border: var(--solid);
+    box-shadow: var(--shadow05);
+}
+
+.removefromgroupbutton {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-right: 8px;
+    border-radius: 8px;
+    border: var(--solid);
+    padding: 0.3em 0.6em;
+    font-size: 1em;
+    font-weight: 500;
+    font-family: inherit;
+    background-color: var(--button-bg);
+    color: red;
+    cursor: pointer;
+    transition: border-color 0.25s;
+}
+
+.removefromgroupbutton:hover {
+    border: var(--solid);
+    box-shadow: var(--shadow05);
+}
 
 .showPortrait {
     margin: 0 auto;
@@ -65,6 +110,29 @@
     justify-content: space-around;
     align-items: center;
     flex-wrap: wrap;
+}
+
+.eventinfoLeft {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 20%;
+}
+
+.eventinfoCenter {
+    justify-content: center;
+    width: 60%;
+}
+
+.eventinfoRight {
+    justify-content: flex-end;
+    width: 20%;
+}
+
+.singleEvent b,
+.singleEvent p {
+    margin: 0 0.5em 0 0.5em;
 }
 
 /*** Tekstit, otsikot, linkit ***/
