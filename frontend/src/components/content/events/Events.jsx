@@ -225,7 +225,7 @@ const Events = ({ user }) => {
                       <br /><span className='eventInfo2'>{show.auditorium}, {show.theatre}</span>
                     </td>
                     <td className="showContentCellRight">
-                      <span className='eventInfo'>Näytös alkaa ja päättyy</span> <br />
+                      <span className='eventInfo'>Alkaa ja päättyy</span> <br />
                       <span className='eventInfo'>{show.start_time} - {show.end_time}</span> <br />
                       <div className='showRight-inside'>
                         <span className='userinfo'>{show.spokenLanguage}</span><img className='ratingImg' src={show.ratingImageUrl} alt={show.title} />
