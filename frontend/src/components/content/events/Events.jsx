@@ -189,8 +189,6 @@ const Events = ({ user }) => {
         <div className="flex-container">
           <h2 className='showtimeH2'>Finnkinon näytösajat</h2>
         </div>
-        <p className='userinfo'>Hae Finnkinon näytösajat valitsemalla alue, elokuva, päivämäärä ja ryhmä.</p>
-        <p className='userinfo'>Kirjautuneet käyttäjät voivat lisätä näytöksiä ryhmiin, joissa ovat jäsenenä</p>
         <div className="eventItems">
           <NowShowing setSelectedMovie={handleMovieSelection} />
           <Area setSelectedArea={setSelectedArea} />
