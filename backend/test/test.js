@@ -1,5 +1,5 @@
 // test/authRoutes.test.js
-require('dotenv').config({ path: '../.env.test' });
+require('dotenv').config({ path: '../../.env' });
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const server = require('../server');

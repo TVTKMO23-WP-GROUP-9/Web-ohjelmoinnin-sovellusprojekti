@@ -16,6 +16,7 @@ node_modules
 .env.development.local
 .env.test.local
 /backend/.env.test
+.env.test
 .env.production.local
 
 package-lock.json
