@@ -464,6 +464,41 @@
   .menu-items-right {
     display: none;
   }
+  .favorite-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .favorite-poster,
+  .favoritetitle {
+    width: 100%; 
+    text-align: center;
+    margin-bottom: 10px; 
+  }
+  .favorite-list li {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .pagination {
+    width: 100%;
+    margin-top: 10px; 
+    
+  }
+
+  .pagination li {
+    display: inline;
+    margin: 0 5px; 
+  }
+
+
+  .favoriteimg {
+    height: 90px;
+    width: 90px;
+    margin: 0;
+    padding: 0;
+  }
 
   ul .whitelinks {
     display: none;
@@ -570,7 +605,7 @@
 }
 
 /*Lopullinen breakpoint, jolloin näyttö on liian pieni, kaikkeen display none ja screenerror tms*/
-@media (max-width: 340px) {
+@media (max-width: 350px) {
 
   .body>*:not(#screenError):not(h1):not(h2):not(h3) {
     display: none;

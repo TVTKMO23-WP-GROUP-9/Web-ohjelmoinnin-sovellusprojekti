@@ -109,24 +109,26 @@ const FavoriteList = ({ profile, user }) => {
           <li key={index}>
             {favorite.mediatype === 0 ? (
            <div className="favorite-poster">
-           <img className='favoriteimg' src={`https://image.tmdb.org/t/p/w342${favorite.movie.poster_path}`} alt={favorite.movie.title} />
+           <Link className='favoritetitle' to={`/movie/${favorite.favoriteditem}`}><img className='favoriteimg' src={`https://image.tmdb.org/t/p/w342${favorite.movie.poster_path}`} alt={favorite.movie.title} />
+           </Link>
            {isOwnProfile && editMode && ( 
                 <button className="favoriteDButton" onClick={() => DeleteFavorite(favorite.favoriteditem)}>X</button> 
               )}
          </div>
        ) : (
           <div className="favorite-poster">
-          <img className='favoriteimg' src={`https://image.tmdb.org/t/p/w342${favorite.movie.poster_path}`} alt={favorite.movie.name} />
-          {isOwnProfile && editMode && (
+           <Link className='favoritetitle' to={`/series/${favorite.favoriteditem}`}><img className='favoriteimg' src={`https://image.tmdb.org/t/p/w342${favorite.movie.poster_path}`} alt={favorite.movie.title} />
+           </Link>
+           {isOwnProfile && editMode && (
                 <button className="favoriteDButton" onClick={() => DeleteFavorite(favorite.favoriteditem)}>X</button> 
               )}
          </div>
 
           )}
             {favorite.mediatype === 0 ? (
-              <Link className='favoritetitle' to={`/movie/${favorite.favoriteditem}`}>{favorite.movie.title}</Link>
+              <Link className='favoritetitle' to={`/movie/${favorite.favoriteditem}`}><span>{favorite.movie.title.length > 20 ? `${favorite.movie.title.substring(0, 20)}...` : favorite.movie.title}</span></Link>       
             ) : (
-              <Link className='favoritetitle' to={`/series/${favorite.favoriteditem}`}>{favorite.movie.name}</Link>
+              <Link className='favoritetitle' to={`/series/${favorite.favoriteditem}`}><span>{favorite.movie.name.length  > 20 ? `${favorite.movie.name.substring(0, 20)}...` : favorite.movie.name}</span></Link>
             )} 
           </li>
         ))}
