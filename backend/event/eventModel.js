@@ -2,7 +2,7 @@ const pool = require('../database/db_connection');
 
 async function getGroupEvents(groupid) {
     const query = {
-        text: 'SELECT eventid, event_info, exp_date FROM Event_ WHERE groupid = $1',
+        text: 'SELECT eventid, event_info, exp_date FROM Event_ WHERE groupid = $1 ORDER BY exp_date ASC;',
         values: [groupid],
     };
     const result = await pool.query(query);

@@ -41,7 +41,6 @@ const GroupEvent = ({ id }) => {
 
     return (
         <div>
-            <span className='singleEvent'><b> Selaa / Hallinnoi / yms </b></span>
             <table className='showTable'>
                 <tbody>
                     <tr>
@@ -71,7 +70,7 @@ const GroupEvent = ({ id }) => {
                                         <p>Lisännyt: {event.event_info.profilename}</p>
                                     </td>
                                     <td>
-                                        <button onClick={() => { handleRemoveFromGroup(event); }}>x</button>
+                                        <button className='removefromgroupbutton' onClick={() => { handleRemoveFromGroup(event); }}>x</button>
                                     </td>
                                 </div>
                             </span>

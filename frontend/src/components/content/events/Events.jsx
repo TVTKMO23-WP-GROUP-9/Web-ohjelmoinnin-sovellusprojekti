@@ -10,7 +10,7 @@ const { VITE_APP_BACKEND_URL } = import.meta.env;
 import './events.css';
 
 const Events = ({ user }) => {
-  const [selectedArea, setSelectedArea] = useState('1018');
+  const [selectedArea, setSelectedArea] = useState('');
   const [selectedMovie, setSelectedMovie] = useState('');
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [selectedGroup, setSelectedGroup] = useState(0);
