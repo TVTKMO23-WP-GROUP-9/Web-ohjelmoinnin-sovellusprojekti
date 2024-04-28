@@ -33,7 +33,6 @@ const Events = ({ user }) => {
         const response = await axios.get(`${VITE_APP_BACKEND_URL}/event/${selectedGroup}`, { headers });
         const showIds = response.data.map(event => event.eventid);
         setGroupShowtimes(showIds);
-        console.log('Ryhmän näytökset:', showIds);
       } catch (error) {
         console.error('Virhe haettaessa ryhmän näytöksiä:', error);
       }
@@ -41,8 +40,6 @@ const Events = ({ user }) => {
 
     fetchGroupEvents();
   }, [selectedGroup]);
-
-  console.log('groupShowtimes', groupShowtimes);
 
   const handleDateSelection = (date) => {
     setSelectedDate(date);
@@ -150,12 +147,23 @@ const Events = ({ user }) => {
   // lisää valittu näytös ryhmään
   const handleAddToGroup = async (eventInfo) => {
     const idAsInteger = parseInt(eventInfo.id, 10);
+    console.log('Näytöksen alku', eventInfo.date, eventInfo.start_time);
+    const [day, month, year] = eventInfo.date.split('.');
+
+    const startDate = new Date(`${year}-${month}-${day}T${eventInfo.start_time}`);
+
+    startDate.setDate(startDate.getDate() + 1);
+
+    const formattedDate = startDate.toISOString();
+
+    console.log('Näytöksen uusi päivämäärä', formattedDate);
+
     try {
       const data = {
         eventid: idAsInteger,
         groupid: selectedGroup,
         event_info: eventInfo,
-        exp_date: "2024-05-01T00:00:00.000Z"
+        exp_date: formattedDate
       }
       const response = await axios.post(`${VITE_APP_BACKEND_URL}/event`, data, { headers });
 
@@ -164,10 +172,6 @@ const Events = ({ user }) => {
         displayMessage();
         console.log('Näytös lisätty ryhmään');
         setGroupShowtimes([...groupShowtimes, idAsInteger]);
-      } else if (response.status === 400) {
-        setShowMessages({ ...showMessages, [eventInfo.id]: 'Näytös on jo ryhmässä' });
-        displayMessage();
-        console.log('Näytös on jo ryhmässä');
       }
     } catch (error) {
       console.error('Virhe lisättäessä näytöstä ryhmään', error);
@@ -186,10 +190,6 @@ const Events = ({ user }) => {
         displayMessage();
         console.log('Näytös poistettu ryhmästä');
         setGroupShowtimes(groupShowtimes.filter(show => show !== idAsInteger));
-      } else if (response.status === 400) {
-        setShowMessages({ ...showMessages, [eventInfo.id]: 'Näytöstä ei löytynyt ryhmästä' });
-        displayMessage();
-        console.log('Näytöstä ei löytynyt ryhmästä');
       }
     } catch (error) {
       console.error('Virhe poistettaessa näytöstä ryhmästä', error);
@@ -251,16 +251,14 @@ const Events = ({ user }) => {
                         <span className='userinfo'>{show.spokenLanguage}</span><img className='ratingImg' src={show.ratingImageUrl} alt={show.title} />
                       </div>
                     </td>
-                    {profilename &&
+                    {profilename && selectedGroup !== 0 &&
                       <td className='addButtonTd'>
-                        <button className='addtogroupbutton' onClick={() => { handleAddToGroup(show); }}>+</button>
-                        <button className='removefromgroupbutton' onClick={() => { handleRemoveFromGroup(show); }}>x</button>
+                        {groupShowtimes.map(id => id.toString()).includes(show.id) ? (
+                          <button className='removefromgroupbutton' onClick={() => { handleRemoveFromGroup(show); }}>x</button>
+                        ) : (
+                          <button className='addtogroupbutton' onClick={() => { handleAddToGroup(show); }}>+</button>
+                        )}
                       </td>}
-                    {showMessages[show.id] && (
-                      <td className='messageTd'>
-                        <span>{showMessages[show.id]}</span>
-                      </td>
-                    )}
                   </tr>
 
                 </tbody>
