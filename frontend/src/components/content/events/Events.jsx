@@ -110,8 +110,9 @@ const Events = ({ user }) => {
         const showUrl = show.querySelector('ShowURL')?.textContent || '';
         const eventPortrait = show.querySelector('EventSmallImagePortrait')?.textContent || '';
         profilename;
+        const formattedSpokenLanguage = spokenLanguage.includes('/') ? 'useita kieliä' : spokenLanguage;
 
-        return { id, title, start_time, end_time, theatre, auditorium, ratingImageUrl, genres, spokenLanguage, showUrl, eventPortrait, profilename };
+        return { id, title, start_time, end_time, theatre, auditorium, ratingImageUrl, genres, spokenLanguage: formattedSpokenLanguage, showUrl, eventPortrait, profilename };
       });
       const filteredShows = shows.filter(show => {
         const showDate = new Date(show.start_time);
