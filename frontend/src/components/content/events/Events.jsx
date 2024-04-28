@@ -231,7 +231,7 @@ const Events = ({ user }) => {
               <table className="showTable">
                 <tbody>
                   <tr>
-                    <td className='portraitTd'>
+                    <td className='addButtonTd'>
                       <button onClick={() => { handleAddToGroup(show); }}>+</button>
                       {showMessage && <span>{message}</span>}
                       {groupShowtimes.find(groupShowtime => groupShowtime === show.id) && (

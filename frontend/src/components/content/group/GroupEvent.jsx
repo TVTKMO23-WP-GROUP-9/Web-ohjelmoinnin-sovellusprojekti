@@ -23,19 +23,57 @@ const GroupEvent = ({ id }) => {
         fetchGroupEvents();
     }, []);
 
+    const handleRemoveFromGroup = async (eventInfo) => {
+        console.log('eventInfo', eventInfo);
+        const idAsInteger = parseInt(eventInfo.eventid, 10);
+        console.log('Poistetaan näytös ryhmästä', idAsInteger);
+
+        try {
+            const response = await axios.delete(`${VITE_APP_BACKEND_URL}/event/${idAsInteger}`, { headers });
+            if (response.status === 200) {
+                console.log('Näytös poistettu ryhmästä');
+                setGroupEvents(prevEvents => prevEvents.filter(event => event.eventid !== idAsInteger));
+            }
+        } catch (error) {
+            console.error('Virhe poistettaessa näytöstä ryhmästä', error);
+        }
+    };
+
     return (
         <div>
             <span className='singleEvent'><b> Selaa / Hallinnoi / yms </b></span>
-            {groupEvents.map((event, index) => (
-                <span key={index} className='singleEvent'>
-                    {event.event_info.date} &nbsp;&nbsp;
-                    {event.event_info.theatre}, {event.event_info.auditorium} &nbsp;&nbsp;
-                    klo {event.event_info.start_time} &nbsp;&nbsp;
-                    {event.event_info.title} &nbsp;&nbsp;
-                    <a href={event.event_info.showUrl} target="_blank" rel="noreferrer">Osta liput</a> &nbsp;&nbsp;
-                    Lisännyt: {event.event_info.profilename}
-                </span>
-            ))}
+            <table className='showTable'>
+                <tbody>
+                    <tr>
+                        {groupEvents.map((event, index) => (
+                            <span key={index} className='singleEvent'>
+                                <td>
+                                    <b>{event.event_info.date}</b>
+                                </td>
+                                <td>
+                                    <b>klo {event.event_info.start_time}</b>
+                                </td>
+                                <td>
+                                    <p>{event.event_info.theatre}, {event.event_info.auditorium}</p>
+                                </td>
+
+                                <td>
+                                    <b>{event.event_info.title}</b>
+                                </td>
+                                <td>
+                                    <a href={event.event_info.showUrl} target="_blank" rel="noreferrer"><p>Osta liput</p></a>
+                                </td>
+                                <td>
+                                    <p>Lisännyt: {event.event_info.profilename}</p>
+                                </td>
+                                <td>
+                                    <button onClick={() => { handleRemoveFromGroup(event); }}>x</button>
+                                </td>
+                            </span>
+                        ))}
+                    </tr>
+                </tbody>
+            </table>
         </div>
     );
 };
