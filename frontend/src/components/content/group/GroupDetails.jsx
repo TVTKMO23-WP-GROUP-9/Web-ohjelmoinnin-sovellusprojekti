@@ -25,13 +25,14 @@ const GroupDetails = ({ user }) => {
   const [showEvents, setShowEvents] = useState(false);
   const [showFavorites, setShowFavorites] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [messagePromoteUser, setMessagePromoteUser] = useState('');
+  const [messageGroupDelete, setMessageGroupDelete] = useState('');
+  const [confirmRequest, setConfirmRequest] = useState('');
   const headers = getHeaders();
 
   useEffect(() => {
-    if (user !== null && user !== undefined && user.usertype === 'admin') {
-      setAdmin(true);
-    }
-    if (user !== null && user !== undefined && user.usertype === 'user') {
+
+    if (user !== null && user !== undefined) {
       const fetchPending = async () => {
         try {
           const groupResponse = await axios.get(`${VITE_APP_BACKEND_URL}/memberstatus/${user.profileid}/${id}`, { headers });
@@ -44,6 +45,10 @@ const GroupDetails = ({ user }) => {
           }
           if (groupResponse.data.hasOwnProperty('mainuser') && groupResponse.data.mainuser === 1) {
             setMainuser(true);
+          }
+
+          if (user.usertype === 'admin') {
+            setAdmin(true);
           }
 
           setProfileid(user.profileid);
@@ -87,7 +92,7 @@ const GroupDetails = ({ user }) => {
   const handleApplicationToJoin = async (profileId, id) => {
     try {
       await axios.post(`${VITE_APP_BACKEND_URL}/memberstatus/${profileId}/0/${id}/1`, {}, {headers});
-      window.location.reload(); 
+        setIsPending(true);
     } catch (error) {
       console.error('Virhe pyynnön lähettämisessä:', error);
     }
@@ -99,8 +104,11 @@ const GroupDetails = ({ user }) => {
         await axios.delete(`${VITE_APP_BACKEND_URL}/memberlist/${id}`, {headers});
         await axios.delete(`${VITE_APP_BACKEND_URL}/favoritelist/${id}`, {headers});
         
-        alert('Ryhmä poistettu, sinut ohjataan etusivulle.');
-        window.location.href = '/';
+        setMessageGroupDelete('Ryhmä poistettu, sinut ohjataan etusivulle.');
+        setTimeout(() => {
+                 window.location.href = '/';
+             }, 3000);
+
 
     } catch (error) {
         console.error('Virhe poistettaessa ryhmää:', error);
@@ -130,9 +138,14 @@ const GroupDetails = ({ user }) => {
                 window.location.reload();
               } else {
                 // Jos muita pääkäyttäjiä ei ole, ei voida poistaa käyttäjää ryhmästä
-                alert('Et voi poistua ryhmästä, koska olet ainoa pääkäyttäjä.');
+                setMessagePromoteUser('Et voi poistua ryhmästä, koska olet ainoa pääkäyttäjä');
               }
-          } else {
+          } else if (isPending) {
+            // Jos käyttäjä on liittymispyynnön tilassa, poistetaan liittymispyyntö
+            await axios.delete(`${VITE_APP_BACKEND_URL}/memberstatus/${memberResponse.data.memberlistid}`, {headers});
+            setIsPending(false);  
+          }
+          else {
             // Jos käyttäjä ei ole pääkäyttäjä, poistetaan käyttäjä ryhmästä
             await axios.delete(`${VITE_APP_BACKEND_URL}/memberstatus/${memberResponse.data.memberlistid}`, {headers});
             window.location.reload();
@@ -274,7 +287,7 @@ const GroupDetails = ({ user }) => {
       </div>
       )}
 
-      {(isMember) && (
+      {(isMember || isMainuser) && (
       <>
         {confirmDeleteId === profileId ? (
           <>
@@ -294,6 +307,10 @@ const GroupDetails = ({ user }) => {
         )}
       </>
       )}
+      <br/>
+      {messagePromoteUser && <span className='userinfo'>{messagePromoteUser}</span>}
+      {messageGroupDelete && <span className='userinfo'>{messageGroupDelete}</span>}
+
       </>
     )}
     </div>

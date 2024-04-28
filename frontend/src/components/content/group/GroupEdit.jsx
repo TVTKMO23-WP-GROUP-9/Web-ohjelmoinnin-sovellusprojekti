@@ -5,8 +5,9 @@ const { VITE_APP_BACKEND_URL } = import.meta.env;
 import { getHeaders } from '@auth/token';
 
 
-const GroupEdit = ({ id, user }) => {
+const GroupEdit = ({ id }) => {
 
+    const [messageGroupDelete, setMessageGroupDelete] = useState('');
     const headers = getHeaders();
 
 
@@ -52,8 +53,10 @@ const GroupEdit = ({ id, user }) => {
             await axios.delete(`${VITE_APP_BACKEND_URL}/memberlist/${id}`, { headers });
             await axios.delete(`${VITE_APP_BACKEND_URL}/favoritelist/${id}` , { headers });
             await axios.delete(`${VITE_APP_BACKEND_URL}/group/${id}`, { headers });
-            alert('Ryhmä poistettu, sinut ohjataan etusivulle.');
-            window.location.href = '/';
+            setMessageGroupDelete('Ryhmä poistettu, sinut ohjataan etusivulle.');
+            setTimeout(() => {
+                     window.location.href = '/';
+                 }, 3000);
 
         } catch (error) {
             console.error('Virhe poistettaessa ryhmää:', error);
@@ -93,6 +96,7 @@ const GroupEdit = ({ id, user }) => {
                             </div>
                         )}
                         <p>Jos poistat ryhmän, niin kaikki ryhmän tiedot poistetaan pysyvästi.</p>
+                        {messageGroupDelete && <span className='userinfo'>{messageGroupDelete}</span>}
                     </div>
         </div>
     );
