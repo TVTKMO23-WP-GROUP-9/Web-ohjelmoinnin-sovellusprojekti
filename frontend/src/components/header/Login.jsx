@@ -63,9 +63,7 @@ export default function Login({ setUser, window, fullpage }) {
     // salasanan tulee olla vähintään 4 merkkiä pitkä
     if (password.length < 4) {
       setMessageRegister('Salasanan tulee olla vähintään 4 merkkiä pitkä');
-      setTimeout(() => {
-        setMessageRegister('');
-      }, 3000);
+      registerTimeout();
     }
     try {
       const response = await axios.post(`${VITE_APP_BACKEND_URL}/auth/register`, {
@@ -76,9 +74,7 @@ export default function Login({ setUser, window, fullpage }) {
 
       if (response.status === 201) {
         setMessageRegister('Rekisteröinti onnistui, voit nyt kirjautua sisään');
-        setTimeout(() => {
-          setMessageRegister('');
-        }, 3000);
+        registerTimeout();
         setShowRegisterForm(false);
         setUsername(profilename);
         setPassword(password);
@@ -88,16 +84,18 @@ export default function Login({ setUser, window, fullpage }) {
       console.error('Virhe käyttäjän luomisessa:', error);
       if (error.response && error.response.status === 400) {
         setMessageRegister('Tarkista antamasi tiedot ja yritä uudelleen');
-        setTimeout(() => {
-          setMessageRegister('');
-        }, 3000);
+        registerTimeout();
       } else if (error.response && error.response.status === 500) {
         setMessageRegister('Rekisteröinti epäonnistui, yritä uudelleen');
-        setTimeout(() => {
-          setMessageRegister('');
-        }, 3000);
+        registerTimeout();
       }
     }
+  };
+
+  const registerTimeout = () => {
+    setTimeout(() => {
+      setMessageRegister('');
+    }, 3000);
   };
 
   const handleToggleRegisterForm = () => {
