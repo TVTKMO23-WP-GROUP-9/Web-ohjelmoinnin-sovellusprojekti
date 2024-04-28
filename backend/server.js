@@ -2,10 +2,12 @@ require('dotenv').config({ path: '../.env' });
 const express = require('express');
 const cors = require('cors');
 const app = express();
+const cronTasks = require('./cronTasks');
+
 
 app.use(express.json());
-
 app.use(cors({ origin: 'http://localhost:5173', credentials: true }));
+
 //const profile = require(origin: './routes/profileRoutes', credentials: true); // Tuo 'profile' reitityksen
 const group = require('./group/groupRoutes'); // Tuo 'group' reitityksen
 const favoritelist = require('./favoritelist/favoritelistRoutes'); // tuo 'favoritelist' reitityksen
@@ -17,8 +19,9 @@ const discover = require('./movie/movieRoutes'); // Tuo 'discover' reitityksen
 const find = require('./movie/movieRoutes'); // Tuo 'find' reitityksen
 const movie = require('./movie/movieRoutes'); // Tuo 'movie' reitityksen
 const review = require('./review/reviewRoutes'); // Tuo 'review' reitityksen
+const event = require('./event/eventRoutes'); // Tuo 'event' reitityksen
 
-app.use(cors({ origin: 'http://localhost:5173' })); // sallii CORS-pyynnöt alkuperästä localhost:5173 (react)
+//app.use(cors({ origin: 'http://localhost:5173' })); // sallii CORS-pyynnöt alkuperästä localhost:5173 (react)
 app.use('/', profile);  // Käytä 'profile' reititystä juuressa
 app.use('/', group);  // Käytä 'group' reititystä juuressa
 app.use('/', register); // Käytä 'register' reititystä juuressa
@@ -30,6 +33,7 @@ app.use('/', discover); // Käytä 'discover' reititystä juuressa
 app.use('/', find); // Käytä 'find' reititystä juuressa
 app.use('/', movie); // Käytä 'movie' reititystä juuressa
 app.use('/', review); // Käytä 'review' reititystä juuressa
+app.use('/', event); // Käytä 'event' reititystä juuressa
 
 const PORT = process.env.PORT || 3001; // Määritä portti
 

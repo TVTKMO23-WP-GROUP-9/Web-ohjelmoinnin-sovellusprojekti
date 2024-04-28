@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const groupService = require('./groupService')
-const { auth } = require('../middleware/auth');
+const { auth, optionalAuth } = require('../middleware/auth');
 
 //router.use(express.json());
 
@@ -27,6 +27,6 @@ router.get('/groups/getnewest', groupService.getNewestGroup);
 router.get('/groups/getpopular', groupService.getPopularGroup);
 router.get('/group/groupname/:groupid', groupService.getGroupNameById);
 router.post('/memberlist', auth, groupService.createMemberList);
-router.get('/grouplist/:profileid', groupService.getUserGroups);
+router.get('/grouplist', auth, groupService.getUserGroups);
 
 module.exports = router;

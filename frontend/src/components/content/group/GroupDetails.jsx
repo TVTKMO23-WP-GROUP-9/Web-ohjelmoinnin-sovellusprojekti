@@ -7,6 +7,7 @@ import ReviewList from './ReviewList';
 import Forum from './Forum';
 import GroupEdit from './GroupEdit';
 import FavoriteList from './FavoriteList';
+import GroupEvent from './GroupEvent';
 import { getHeaders } from '@auth/token';
 const { VITE_APP_BACKEND_URL } = import.meta.env;
 
@@ -36,11 +37,11 @@ const GroupDetails = ({ user }) => {
       const fetchPending = async () => {
         try {
           const groupResponse = await axios.get(`${VITE_APP_BACKEND_URL}/memberstatus/${user.profileid}/${id}`, { headers });
-  
+
           if (groupResponse.data.hasOwnProperty('pending') && groupResponse.data.pending === 0) {
             setIsMember(true);
           }
-          if (groupResponse.data.hasOwnProperty('pending') && (groupResponse.data.pending === 1 || groupResponse.data.pending === 2 )) {
+          if (groupResponse.data.hasOwnProperty('pending') && (groupResponse.data.pending === 1 || groupResponse.data.pending === 2)) {
             setIsPending(true);
           }
           if (groupResponse.data.hasOwnProperty('mainuser') && groupResponse.data.mainuser === 1) {
@@ -56,7 +57,7 @@ const GroupDetails = ({ user }) => {
           console.error('Virhe haettaessa profiilitietoja:', error);
         }
       };
-  
+
       fetchPending();
     }
   }, [user]);
@@ -177,115 +178,83 @@ const GroupDetails = ({ user }) => {
   }
 
   return (
-    <div className="content"> 
-    {loading ? (
-      <div>Ladataan sisältöä</div>
-    ) : (
-      <>
+    <div className="content">
+      {loading ? (
+        <div>Ladataan sisältöä</div>
+      ) : (
+        <>
 
-      {editMode && <GroupEdit id={id} />}
-        <div className="groupProfileMain">
-          <div className="ginner-view">
+          {editMode && <GroupEdit id={id} />}
+          <div className="groupProfileMain">
+            <div className="ginner-view">
 
-            <div className="ginner-left">
-              <img 
-                  src={group?.grouppicurl ? group.grouppicurl : '/pic.png'} 
-                  className="profilepic" 
-                  alt="Käyttäjän kuva" 
+              <div className="ginner-left">
+                <img
+                  src={group?.grouppicurl ? group.grouppicurl : '/pic.png'}
+                  className="profilepic"
+                  alt="Käyttäjän kuva"
                 />
 
-              {(isAdmin || isMainuser && !editMode) && <button onClick={() => setEditMode(true)} className="basicbutton">Muokkaa ryhmää</button>}
-              {(!isMember && !isPending && user && user.user !== null && user.user !== undefined) && (
-              <button className="basicbutton" onClick={() => handleApplicationToJoin(profileId, id)}>Liittymispyyntö</button>
-              )}
-              {isPending && (
-              <button className="basicbutton" onClick={() => handleRemoveApplication(profileId, id)}>Peru Pyyntö</button>
-              )}
-              <br />
-
-            </div>
-              
-            <div className="ginner-right">
-              <h2 id="groupname">{group?.groupname}</h2>
-              <ul>
-                <p className="info">{group?.groupexplanation || ''} </p>
-              </ul>
-
-              {(isAdmin || isMember) && (
-              <><h2>Näytä lisää</h2>
-              <div className="toggleLinks">
-                <h3 onClick={toggleMembers}><span className='emoji uni07'></span>&nbsp; Jäsenlista </h3>
-                <h3 onClick={toggleFavorites}><span className='emoji uni10'></span> Suosikit &nbsp;</h3>
-                <h3 onClick={toggleEvents}><span className='emoji uni15'></span> &nbsp; Näytösajat</h3>
-              </div></>
-            )}
-            </div>
-          </div>
-        
-          {(isAdmin || isMember) && (
-          <div className='group-between'>
-            <div className="group-view">
-              <div className='group-content'>
-                {showMembers && <MemberList id={id} user={user} />}
-                {showFavorites && <FavoriteList id={id} user={user} />}
-
-                {showEvents && (
-                
-                  <>  
-                    <span className='singleEvent'><b> Selaa / Hallinnoi / yms </b></span>
-                
-                    <span className='singleEvent'>
-                      00.00.2024 &nbsp;&nbsp;
-                      Paikkakunta &nbsp;&nbsp;
-                      Teatteri, sali X &nbsp;&nbsp;
-                      klo 00:00 &nbsp;&nbsp;
-                      <a href="#"><b>Elokuvan nimi</b></a> &nbsp;&nbsp;
-                      Lisätietoja
-                    </span>
-
-                    <span className='singleEvent'>
-                      00.00.2024 &nbsp;&nbsp;
-                      Paikkakunta &nbsp;&nbsp;
-                      Teatteri, sali X &nbsp;&nbsp;
-                      klo 00:00 &nbsp;&nbsp;
-                      <a href="#"><b>Elokuvan nimi</b></a> &nbsp;&nbsp;
-                      Lisätietoja
-                    </span>
-
-                    <span className='singleEvent'>
-                      00.00.2024 &nbsp;&nbsp;
-                      Paikkakunta &nbsp;&nbsp;
-                      Teatteri, sali X &nbsp;&nbsp;
-                      klo 00:00 &nbsp;&nbsp;
-                      <a href="#"><b>Elokuvan nimi</b></a> &nbsp;&nbsp;
-                      Lisätietoja
-                    </span>
-                    </>
-                  )}
+                {(isAdmin || isMainuser && !editMode) && <button onClick={() => setEditMode(true)} className="basicbutton">Muokkaa ryhmää</button>}
+                {(!isMember && !isPending && user && user.user !== null && user.user !== undefined) && (
+                  <button className="basicbutton" onClick={() => handleApplicationToJoin(profileId, id)}>Liittymispyyntö</button>
+                )}
+                {isPending && (
+                  <button className="basicbutton" onClick={() => handleRemoveApplication(profileId, id)}>Peru Pyyntö</button>
+                )}
+                <br />
 
               </div>
+
+              <div className="ginner-right">
+                <h2 id="groupname">{group?.groupname}</h2>
+                <ul>
+                  <p className="info">{group?.groupexplanation || ''} </p>
+                </ul>
+
+                {(isAdmin || isMember) && (
+                  <><h2>Näytä lisää</h2>
+                    <div className="toggleLinks">
+                      <h3 onClick={toggleMembers}><span className='emoji uni07'></span>&nbsp; Jäsenlista </h3>
+                      <h3 onClick={toggleFavorites}><span className='emoji uni10'></span> Suosikit &nbsp;</h3>
+                      <h3 onClick={toggleEvents}><span className='emoji uni15'></span> &nbsp; Näytösajat</h3>
+                    </div></>
+                )}
+              </div>
             </div>
-         </div>
-        )}
-      </div>
 
-      {(isAdmin || isMember) && (
-      <div className='gmessages'>
-        <h2>Keskustelu  &nbsp;<span className='emoji uni08'></span></h2>
+            {(isAdmin || isMember) && (
+              <div className='group-between'>
+                <div className="group-view">
+                  <div className='group-content'>
+                    {showMembers && <MemberList id={id} user={user} />}
+                    {showFavorites && <FavoriteList id={id} user={user} />}
 
-        <div className='msgboard'>
-          <Forum id={id} user={user} />
-        </div>
+                    {showEvents && <GroupEvent id={id} user={user} />}
 
-      </div>
-      )}
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
 
-      {(isAdmin || isMember) && (
-      <div className='greviews-view'>
-        <h2>Arvostelut  &nbsp;<span className='emoji uni08'></span></h2>
-        <ReviewList user={user} id={id} />
-      </div>
-      )}
+          {(isAdmin || isMember) && (
+            <div className='gmessages'>
+              <h2>Keskustelu  &nbsp;<span className='emoji uni08'></span></h2>
+
+              <div className='msgboard'>
+                <Forum id={id} user={user} />
+              </div>
+
+            </div>
+          )}
+
+          {(isAdmin || isMember) && (
+            <div className='greviews-view'>
+              <h2>Arvostelut  &nbsp;<span className='emoji uni08'></span></h2>
+              <ReviewList user={user} id={id} />
+            </div>
+          )}
 
       {(isMember || isMainuser) && (
       <>

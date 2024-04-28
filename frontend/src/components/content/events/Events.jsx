@@ -1,18 +1,43 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import Area from './Area';
 import Dates from './Dates';
 import NowShowing from './NowShowing';
+import Group from './Group';
+import { getHeaders } from '@auth/token';
 import { animateScroll as scroll } from 'react-scroll';
+const { VITE_APP_BACKEND_URL } = import.meta.env;
 import './events.css';
 
-const Events = () => {
-  const [selectedArea, setSelectedArea] = useState('1018');
+const Events = ({ user }) => {
+  const [selectedArea, setSelectedArea] = useState('');
   const [selectedMovie, setSelectedMovie] = useState('');
   const [selectedDate, setSelectedDate] = useState(new Date());
+  const [selectedGroup, setSelectedGroup] = useState(0);
   const [events, setEvents] = useState([]);
   const [showtimes, setShowtimes] = useState([]);
+  const [groupShowtimes, setGroupShowtimes] = useState([]);
   const [error, setError] = useState('');
   const currentDate = new Date();
+  const headers = getHeaders();
+
+  const profilename = user?.user;
+  const profileid = user?.profileid;
+
+  // hae näytökset ryhmälle
+  useEffect(() => {
+    const fetchGroupEvents = async () => {
+      try {
+        const response = await axios.get(`${VITE_APP_BACKEND_URL}/event/${selectedGroup}`, { headers });
+        const showIds = response.data.map(event => event.eventid);
+        setGroupShowtimes(showIds);
+      } catch (error) {
+        console.error('Virhe haettaessa ryhmän näytöksiä:', error);
+      }
+    };
+
+    fetchGroupEvents();
+  }, [selectedGroup]);
 
   const handleDateSelection = (date) => {
     setSelectedDate(date);
@@ -20,6 +45,10 @@ const Events = () => {
 
   const handleMovieSelection = (movie) => {
     setSelectedMovie(movie);
+  };
+
+  const handleGroupSelection = (groupid) => {
+    setSelectedGroup(groupid);
   };
 
   // jäsennelty näytösaika näytöshakuihin
@@ -80,8 +109,9 @@ const Events = () => {
         const spokenLanguage = show.querySelector('Name')?.textContent || '';
         const showUrl = show.querySelector('ShowURL')?.textContent || '';
         const eventPortrait = show.querySelector('EventSmallImagePortrait')?.textContent || '';
+        profilename;
 
-        return { id, title, start_time, end_time, theatre, auditorium, ratingImageUrl, genres, spokenLanguage, showUrl, eventPortrait };
+        return { id, title, start_time, end_time, theatre, auditorium, ratingImageUrl, genres, spokenLanguage, showUrl, eventPortrait, profilename };
       });
       const filteredShows = shows.filter(show => {
         const showDate = new Date(show.start_time);
@@ -112,6 +142,47 @@ const Events = () => {
     });
   };
 
+  // lisää valittu näytös ryhmään
+  const handleAddToGroup = async (eventInfo) => {
+    const idAsInteger = parseInt(eventInfo.id, 10);
+    const [day, month, year] = eventInfo.date.split('.');
+    const startDate = new Date(`${year}-${month}-${day}T${eventInfo.start_time}`);
+    startDate.setDate(startDate.getDate() + 1);
+    const formattedDate = startDate.toISOString();
+    try {
+      const data = {
+        eventid: idAsInteger,
+        groupid: selectedGroup,
+        event_info: eventInfo,
+        exp_date: formattedDate
+      }
+      const response = await axios.post(`${VITE_APP_BACKEND_URL}/event`, data, { headers });
+
+      if (response.status === 201) {
+        console.log('Näytös lisätty ryhmään');
+        setGroupShowtimes([...groupShowtimes, idAsInteger]);
+      }
+    } catch (error) {
+      console.error('Virhe lisättäessä näytöstä ryhmään', error);
+    }
+  };
+
+  // poista näytös ryhmästä
+  const handleRemoveFromGroup = async (eventInfo) => {
+    const idAsInteger = parseInt(eventInfo.id, 10);
+    console.log('Poistetaan näytös ryhmästä', idAsInteger);
+
+    try {
+      const response = await axios.delete(`${VITE_APP_BACKEND_URL}/event/${idAsInteger}`, { headers });
+      if (response.status === 200) {
+        console.log('Näytös poistettu ryhmästä');
+        setGroupShowtimes(groupShowtimes.filter(show => show !== idAsInteger));
+      }
+    } catch (error) {
+      console.error('Virhe poistettaessa näytöstä ryhmästä', error);
+    }
+  };
+
   return (
     <div className="content">
       <div className="form-view">
@@ -122,6 +193,8 @@ const Events = () => {
           <NowShowing setSelectedMovie={handleMovieSelection} />
           <Area setSelectedArea={setSelectedArea} />
           <Dates onSelectDate={handleDateSelection} />
+
+          {profilename && <Group setSelectedGroup={handleGroupSelection} />}
           <button className='basicbutton' onClick={haeNaytokset}>Hae</button>
           <button className='basicbutton' onClick={tyhjennaHaku}>Tyhjennä</button>
         </div>
@@ -145,13 +218,11 @@ const Events = () => {
                         <img className='reviewimg' src={show.eventPortrait} alt={show.title} />
                       </div>
                     </td>
-
                     <td className="showContentCellLeft">
                       <span className='eventTitle2'><a href={show.showUrl} target="_blank" rel="noreferrer">{show.title}</a></span>
                       <br /><span className='eventInfo2'><b>{show.date}</b> &nbsp;klo <b>{show.start_time}</b></span>
                       <br /><span className='eventInfo2'>{show.auditorium}, {show.theatre}</span>
                     </td>
-
                     <td className="showContentCellRight">
                       <span className='eventInfo'>Näytös alkaa ja päättyy</span> <br />
                       <span className='eventInfo'>{show.start_time} - {show.end_time}</span> <br />
@@ -159,7 +230,14 @@ const Events = () => {
                         <span className='userinfo'>{show.spokenLanguage}</span><img className='ratingImg' src={show.ratingImageUrl} alt={show.title} />
                       </div>
                     </td>
-
+                    {profilename && selectedGroup !== 0 &&
+                      <td className='addButtonTd'>
+                        {groupShowtimes.map(id => id.toString()).includes(show.id) ? (
+                          <button className='removefromgroupbutton' onClick={() => { handleRemoveFromGroup(show); }}>x</button>
+                        ) : (
+                          <button className='addtogroupbutton' onClick={() => { handleAddToGroup(show); }}>+</button>
+                        )}
+                      </td>}
                   </tr>
 
                 </tbody>
@@ -174,7 +252,7 @@ const Events = () => {
           <button onClick={() => { scrollToTop(); }} className='basicbutton' >{'Palaa ylös'}</button>
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 
