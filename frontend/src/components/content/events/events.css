@@ -72,13 +72,14 @@
 }
 
 .removefromgroupbutton {
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    margin-left: 12px;
     margin-right: 8px;
     border-radius: 8px;
     border: var(--solid);
-    padding: 0.3em 0.6em;
-    font-size: 1em;
+    padding: 0.1em 0.4em;
+    font-size: 1.2em;
     font-weight: 500;
     font-family: inherit;
     background-color: var(--button-bg);
@@ -127,6 +128,18 @@
 
 .eventinfoRight {
     justify-content: flex-end;
+    width: 20%;
+}
+
+.geventinfoLeft {
+    align-items: left;
+}
+
+.geventinfoCenter {
+    width: 40%;
+}
+
+.geventinfoRight {
     width: 20%;
 }
 
