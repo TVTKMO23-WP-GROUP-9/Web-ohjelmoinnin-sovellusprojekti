@@ -110,7 +110,7 @@ const ReviewFormSerie = ({ tvShowId, user }) => {
   }
 
 
-  console.log("profileHasReview", profileHasReview); ///KESKEN !!!
+  console.log("profileHasReview", profileHasReview); 
 
   const handleUpdateReview = async () => {
     try {
@@ -214,11 +214,21 @@ const ReviewFormSerie = ({ tvShowId, user }) => {
                 {confirmDeleteId === review.idreview ? (
                   <>
                     <button className="confirm" onClick={() => handleConfirmDelete()}><span className='review uni12'></span> Vahvista</button>
-                    <button className="compactButton" onClick={() => setConfirmDeleteId(null)}>Peruuta</button>
+  
                   </>
                 ) : (
                   <button className="compactButton" onClick={() => setConfirmDeleteId()}><span className='review uni12'></span> Poista arvostelu</button>
                 )}
+              </>
+            )}
+
+            {(!editReviewId && profileHasReview && actionForm && editReviewId === null) && (
+              <>
+                
+                  <>
+                    <button className="compactButton" onClick={closeEditForm} >Peruuta</button>
+                  </>
+                
               </>
             )}
     </div>
