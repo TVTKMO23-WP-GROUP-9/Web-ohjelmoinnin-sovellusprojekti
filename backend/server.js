@@ -44,3 +44,5 @@ app.listen(PORT, () => { // Käynnistä palvelin
 app.get('/', (req, res) => { // Juurireitityksen get-pyyntö
     res.send('Tervetuloa juureen');
 });
+
+module.exports = app;
