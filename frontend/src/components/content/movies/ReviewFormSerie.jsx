@@ -72,11 +72,6 @@ const ReviewFormSerie = ({ tvShowId, user }) => {
     setNewReviewButton(false);
   }
 
-  const closeEditForm = () => {
-    setShowActionForm(false);
-    setEditButton(true);
-  }
-
   const openEditForm = () => {
     setShowActionForm(true);
     setEditButton(false);
@@ -85,6 +80,16 @@ const ReviewFormSerie = ({ tvShowId, user }) => {
   const handleReviewEdit = (idreview) => {
     setEditReviewId(idreview);
   };
+
+  const handleCancelEdit = () => {
+    setEditReviewId(null);
+    setConfirmDeleteId(null);
+    setUpdatedReview({ review: '', rating: 0 });
+  };
+
+  const handleCancelDelete = () => { 
+    setConfirmDeleteId(null);
+  }
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -192,12 +197,11 @@ const ReviewFormSerie = ({ tvShowId, user }) => {
       {user.user !== null && !profileHasReview && ( newReviewButton && (
         <button onClick={openReviewForm} className="basicbutton">Luo uusi arvostelu</button>
       ))}     
-      {user.user !== null && profileHasReview && ( editButton && (
-        <button onClick={openEditForm} className="basicbutton">Muokkaa arvostelua</button>
+    
+    {user.user !== null && profileHasReview && editReviewId === null && ( editButton && (
+        <button onClick={() => handleReviewEdit(review.idreview)} className="basicbutton"><span className="review uni11"></span>&nbsp; Muokkaa arvostelua</button>
       ))}
-      {user.user !== null && profileHasReview && ( actionForm  && (
-        <button className="compactButton" onClick={() => handleReviewEdit(review.idreview)}><span className='review uni11'></span> Muokkaa arvostelua</button>
-      ))}
+      
                {editReviewId === review.idreview && (
               <div className="edit-review">
                 <b>Tähdet välillä 1-5</b> <br />
@@ -205,32 +209,23 @@ const ReviewFormSerie = ({ tvShowId, user }) => {
                 <b>Kommentti</b> <br />
                 <textarea className="updateReview" value={updatedReview.review} onChange={setUpdateReview} /> <br />
                 <button className="compactButton" onClick={() => handleUpdateReview(review.idreview)}><span className='review uni13'></span> Tallenna muutokset</button>
-                <button className="compactButton" onClick={() => setEditReviewId(null)}>Peruuta muutokset</button>
-              </div>
-            )}
-
-            {!editReviewId && profileHasReview && actionForm && (
-              <>
+                <button className="compactButton" onClick={() => handleCancelEdit()}>Peruuta muutokset</button>
                 {confirmDeleteId === review.idreview ? (
                   <>
                     <button className="confirm" onClick={() => handleConfirmDelete()}><span className='review uni12'></span> Vahvista</button>
-  
+                    <button className="compactButton" onClick={() => handleCancelDelete()} >Peruuta</button>
+   
                   </>
                 ) : (
-                  <button className="compactButton" onClick={() => setConfirmDeleteId()}><span className='review uni12'></span> Poista arvostelu</button>
-                )}
-              </>
-            )}
-
-            {(!editReviewId && profileHasReview && actionForm && editReviewId === null) && (
-              <>
-                
                   <>
-                    <button className="compactButton" onClick={closeEditForm} >Peruuta</button>
+                  <button className="compactButton" onClick={() => setConfirmDeleteId()}><span className='review uni12'></span> Poista arvostelu</button>
+                  
                   </>
-                
-              </>
+                )}
+
+              </div>
             )}
+            
     </div>
   );
 };

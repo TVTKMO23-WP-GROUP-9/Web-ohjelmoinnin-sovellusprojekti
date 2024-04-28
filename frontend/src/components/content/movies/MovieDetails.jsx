@@ -212,7 +212,7 @@ const MovieDetails = (user) => {
                   <button className="favorite-button" onClick={handleFavoriteAction}>{isFavorite ? <FaHeart className="favorite-icon" size={34} /> : <FaRegHeart size={34} />}</button>
                   }
                   {profileId &&
-                  <button className="favorite-button" onClick={toggleGroups}><div className="uni06"></div></button>
+                  <button className="favorite-button" onClick={toggleGroups}><span className="emoji26 uni17"></span></button>
                   }
                 </div>
 
@@ -267,7 +267,7 @@ const MovieDetails = (user) => {
                 <button className="buttonnext" onClick={() => setCurrentPage(currentPage > 1 ? currentPage - 1 : 1)}>
                 &#9664;
                 </button>
-                &nbsp; <span className="communityinfo">selaa</span> &nbsp;
+                &nbsp; <span className="pagistyle">selaa</span> &nbsp;
                 <button className="buttonnext" onClick={() =>
                 setCurrentPage(currentPage < Math.ceil(groups.length / groupsPerPage) ?
                 currentPage + 1 : Math.ceil(groups.length / groupsPerPage))}>
@@ -276,7 +276,7 @@ const MovieDetails = (user) => {
                 </li>
               </ul>
               
-              <ul className="profileSections">
+              <ul className="favlist">
               {currentGroups.map((group, index) => (
                 <li key={index}><Link to={`/group/${group.groupid}`}>{group.groupname}</Link>          
                 {profileId &&
