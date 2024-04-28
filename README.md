@@ -12,7 +12,7 @@
 
 ---------------------------------
 
-Tämä repositio esittelee Oulun ammattikorkeakoulun 2. vuoden tieto- ja viestintätekniikan opiskelijoiden tekemää elokuvasivustoa, joka kuuluu toteutukseen **Web-ohjelmoinnin sovellusprojekti** (15 op). 
+Tämä arkisto esittelee Oulun ammattikorkeakoulun 2. vuoden tieto- ja viestintätekniikan opiskelijoiden tekemää elokuvasivustoa, joka kuuluu toteutukseen **Web-ohjelmoinnin sovellusprojekti** (15 op). 
 
 Hankkeen tarkoituksena on oppia kokonaisvaltaista ohjelmistokehitystä ketteriä menetelmiä sekä versionhallintajärjestelmää käyttäen. 
 
@@ -75,10 +75,10 @@ Tietoturvan takaamiseksi on käytetty Cross-origin Resource Sharing (CORS)-, JSO
 Hankkeessa on toteutettu käyttäjätilin luomiseen, sisäänkirjautumiseen ja poistamiseen automatisoidut testit Chai- ja Mocha-kirjastoilla. Ajamalla ```npm run test``` -komento serveripuolelta, ohjelma suorittaa seitsemän eri testitapausta. Käyttäjän rekisteröityminen onnistuneesti, rekisteröityminen jo varatulla nimellä, rekisteröityminen vajailla tiedoilla, rekisteröityminen jo käytössä olevalla sähköpostiosoitteella, kirjautuminen luoduilla tunnuksilla, kirjautuminen väärillä tunnuksilla ja luodun käyttäjätilin poistaminen. 
 
 ## Sovelluksen käyttöönottaminen
-Sivustolle pääsee Render-pilvipalvelun ylläpitämänä verkko-osoitteessa https..... 
-Sovelluksen voi myös halutessaan ladata itselleen paikallisesti käytettäväksi seuraavilla ohjeilla. 
 
-1.	Kloonaa tämä repositio omalle koneellesi
+Sovelluksen voi halutessaan ladata itselleen paikallisesti käytettäväksi seuraavilla ohjeilla. 
+
+1.	Kloonaa tämä arkisto omalle koneellesi
 2.	Hanki oma rajapinta-avain The Movie Database -sivustolta
 3.	Luo arkiston juureen **.env-tiedosto** ja lisää sinne rajapinta-avain sekä muut tarvittavat ympäristömuuttujat. Lue ohjeet tämän tekemiseen arkiston tiedostosta
 ```env-example```
