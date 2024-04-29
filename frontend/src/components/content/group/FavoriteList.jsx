@@ -68,8 +68,8 @@ const FavoriteList = ({ id, user }) => {
       <span className="userinfo">
         Löytyi <b>{favorites.length}</b> Suosikkia.<br />
       </span>
+      <span className='hideableBr'><br/></span>
       <ul className="pagination">
-        <li>
           <button className="buttonnext" onClick={() => setCurrentPage(currentPage > 1 ? currentPage - 1 : 1)}>
             &#9664;
           </button>
@@ -77,9 +77,10 @@ const FavoriteList = ({ id, user }) => {
           <button className="buttonnext" onClick={() => setCurrentPage(currentPage < Math.ceil(favorites.length / favoritesPerPage) ? currentPage + 1 : Math.ceil(favorites.length / favoritesPerPage))}>
             &#9654;
           </button>
-          
-        </li>
+
       </ul>
+
+      <span className='hideableBr'><br/></span>
 
       {currentFavorites        
         .filter(favorite => favorite.adult === false || adult === true)

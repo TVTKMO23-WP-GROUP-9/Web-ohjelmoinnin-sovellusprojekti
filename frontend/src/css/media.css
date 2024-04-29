@@ -612,6 +612,10 @@
     width: 100px !important; 
   }
 
+  .hideableBr {
+    display: inline;
+  }
+
 }
 
 /*Lopullinen breakpoint, jolloin näyttö on liian pieni, kaikkeen display none ja screenerror tms*/

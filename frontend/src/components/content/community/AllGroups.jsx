@@ -15,28 +15,7 @@ const AllGroups = ({ user, searchTerm, setSearchTerm }) => {
     const [newGroupName, setNewGroupName] = useState('');
     const [creatingGroup, setCreatingGroup] = useState(false);
     const headers = getHeaders();
-
-    /*if (user.user !== null) {
-    useEffect(() => {
-        const fetchProfile = async () => {
-            try {
-
-                const { user: username } = user;
-
-                const response = await axios.get(`${VITE_APP_BACKEND_URL}/profile/${username.user}`, { headers });
     
-                setProfileid(response.data.profileid);
-
-            } catch (error) {
-                console.error('Virhe haettaessa profiilitietoja:', error);
-            }
-        };
-    
-        fetchProfile();
-      }, [user]);
-    }*/
-
-
     useEffect(() => {
         const fetchGroups = async () => {
             try {
@@ -90,7 +69,7 @@ const AllGroups = ({ user, searchTerm, setSearchTerm }) => {
 
                             <li>
                                 <input className='longInput' type="text" placeholder="Etsi ..." value={searchTerm} onChange={(e) => { setSearchTerm(e.target.value); setCurrentPage(1); }} />
-
+                                <span className='hideableBr'><br/></span>
                                 <button className="buttonnext justMargin" onClick={() => setCurrentPage(currentPage > 1 ? currentPage - 1 : 1)}>
                                 &#9664; </button>
                                 &nbsp; <span className="userinfo">sivu {currentPage} / {Math.ceil(filteredGroups.length / groupsPerPage)}</span> &nbsp;
