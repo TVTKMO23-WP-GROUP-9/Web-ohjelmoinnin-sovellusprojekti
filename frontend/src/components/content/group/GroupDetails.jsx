@@ -133,7 +133,7 @@ const GroupDetails = ({ user }) => {
               // Tarkistetaan, onko muita pääkäyttäjiä ryhmässä
               const otherMainUsers = groupMembers.filter(member => member.mainuser === 1 && member.profileid !== profileId);
               
-              if (otherMainUsers.length > 0) {
+              if (otherMainUsers.length > 1) {
                 // Jos muita pääkäyttäjiä on, poistetaan käyttäjä ryhmästä
                 await axios.delete(`${VITE_APP_BACKEND_URL}/memberstatus/${memberResponse.data.memberlistid}`, {headers});
                 window.location.reload();
