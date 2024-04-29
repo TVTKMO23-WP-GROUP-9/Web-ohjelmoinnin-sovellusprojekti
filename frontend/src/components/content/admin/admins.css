@@ -17,7 +17,7 @@
 }
 
 .admin-view h2 {
-    padding-left: 30px;
+    padding-left: 25px;
     padding-top: 20px;
 }
 
@@ -30,9 +30,6 @@
     padding: 4px;
     box-shadow: var(--shadow02);
 }
-
-
-
 
 .adminrews {
     min-height: 180px;
@@ -52,8 +49,8 @@
     display: flex-table;
     flex-wrap: wrap;
     padding: 1em;
-    padding-left: 2%;
-    padding-right: 2%;
+    padding-left: 1%;
+    padding-right: 1%;
     margin-top: 25px;
     border: 3px solid #000000;
 }

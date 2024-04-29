@@ -55,7 +55,7 @@ const UserList = ({ searchTerm, setSearchTerm }) => {
 
                             <li>
                                 <input className='longInput' type="text" placeholder="Etsi ..." value={searchTerm} onChange={(e) => { setSearchTerm(e.target.value); setCurrentPage(1); }} />
-
+                                <span className='hideableBr'><br/></span>
                                 <button className="buttonnext justMargin" onClick={() => setCurrentPage(currentPage > 1 ? currentPage - 1 : 1)}>
                                 &#9664; </button>
                                 &nbsp; <span className="userinfo">sivu {currentPage} / {Math.ceil(filteredProfiles.length / profilesPerPage)}</span> &nbsp;
