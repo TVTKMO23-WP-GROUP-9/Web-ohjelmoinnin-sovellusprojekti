@@ -5,11 +5,13 @@ import { Link } from 'react-router-dom';
 const { VITE_APP_BACKEND_URL } = import.meta.env;
 import { getHeaders } from '@auth/token';
 
-const FavoriteList = ({ id, user }) => {
+const FavoriteList = ({ id, user, mainuser }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [favoritesPerPage, setfavoritesPerPage] = useState(4);
   const [favorites, setFavorites] = useState([]);
   const [adult, setAdult] = useState(false);
+  const [isMainuser, setMainuser] = useState(false);
+  const [editMode, setEditMode] = useState(false);
   const headers = getHeaders();
   
   useEffect(() => {
@@ -45,6 +47,7 @@ const FavoriteList = ({ id, user }) => {
               return favorite;
             }
           }));
+          setMainuser(mainuser);
           setFavorites(favoritesWithMovies);
         
       } catch (error) {
@@ -53,9 +56,24 @@ const FavoriteList = ({ id, user }) => {
     };
 
     fetchFavorites();
-  }, [id, user]); 
+  }, [id, user, mainuser]); 
 
+  const handleEditClick = () => {
+    setEditMode(!editMode);
+  };
 
+  const DeleteFavorite = async (favoriteditem, mediatype) => {
+    try {
+      if (isMainuser) {
+        await axios.delete(`${VITE_APP_BACKEND_URL}/favoritefromgroup/${id}/${favoriteditem}/${mediatype}`);
+        setFavorites(favorites.filter(favorite => favorite.favoriteditem !== favoriteditem)); 
+      } else {
+        console.error('group-id puuttuu');
+      }
+    } catch (error) {
+      console.error('Ei pystytty poistamaan', error);
+    }
+  };
 
   const indexOfLastFavorite = currentPage * favoritesPerPage;
   const indexOfFirstFavorite = indexOfLastFavorite - favoritesPerPage;
@@ -90,14 +108,19 @@ const FavoriteList = ({ id, user }) => {
            <div className="favorite-poster">
            <Link className='favoritetitle' to={`/movie/${favorite.favoriteditem}`}><img className='favoriteimg' src={`https://image.tmdb.org/t/p/w342${favorite.movie.poster_path}`} alt={favorite.movie.title} />
            </Link>
+           {isMainuser && editMode && (
+            <button className="favoriteDButton" onClick={() => DeleteFavorite(favorite.favoriteditem, 0)}>X</button> 
+          )}
          </div>
        ) : (
           <div className="favorite-poster">
             <Link className='favoritetitle' to={`/series/${favorite.favoriteditem}`}>
              <img className='favoriteimg' src={`https://image.tmdb.org/t/p/w342${favorite.movie.poster_path}`} alt={favorite.movie.name} />
             </Link>
+            {isMainuser && editMode && (
+            <button className="favoriteDButton" onClick={() => DeleteFavorite(favorite.favoriteditem, 1)}>X</button> 
+          )}
           </div>
-
           )}
             {favorite.mediatype === 0 ? (
               <Link className='favoritetitle' to={`/movie/${favorite.favoriteditem}`}><span>{favorite.movie.title.length > 20 ? `${favorite.movie.title.substring(0, 20)}...` : favorite.movie.title}</span></Link>
@@ -111,7 +134,11 @@ const FavoriteList = ({ id, user }) => {
         ))}
 
      </ul>
-
+     {( isMainuser) &&
+     <button className="compactButton" onClick={handleEditClick}>
+        {editMode ? 'Lopeta muokkaus' : 'Muokkaa suosikkeja'}
+      </button>
+      }
     </>
   );
 }

@@ -61,10 +61,10 @@ const FavoriteList = ({ profile, user }) => {
   };
 
   // Poistetaan suosikeista suosikki
-  const DeleteFavorite = async (favoriteditem) => {
+  const DeleteFavorite = async (favoriteditem, mediatype) => {
     try {
       if (profile && profile.profileid) {
-        await axios.delete(`${VITE_APP_BACKEND_URL}/favorite/${profile.profileid}/${favoriteditem}`);
+        await axios.delete(`${VITE_APP_BACKEND_URL}/favorite/${profile.profileid}/${favoriteditem}/${mediatype}`);
         setFavorites(favorites.filter(favorite => favorite.favoriteditem !== favoriteditem)); 
       } else {
         console.error('Profiili-id puuttuu');
@@ -112,7 +112,7 @@ const FavoriteList = ({ profile, user }) => {
            <Link className='favoritetitle' to={`/movie/${favorite.favoriteditem}`}><img className='favoriteimg' src={`https://image.tmdb.org/t/p/w342${favorite.movie.poster_path}`} alt={favorite.movie.title} />
            </Link>
            {isOwnProfile && editMode && ( 
-                <button className="favoriteDButton" onClick={() => DeleteFavorite(favorite.favoriteditem)}>X</button> 
+                <button className="favoriteDButton" onClick={() => DeleteFavorite(favorite.favoriteditem, 0)}>X</button> 
               )}
          </div>
        ) : (
@@ -120,7 +120,7 @@ const FavoriteList = ({ profile, user }) => {
            <Link className='favoritetitle' to={`/series/${favorite.favoriteditem}`}><img className='favoriteimg' src={`https://image.tmdb.org/t/p/w342${favorite.movie.poster_path}`} alt={favorite.movie.title} />
            </Link>
            {isOwnProfile && editMode && (
-                <button className="favoriteDButton" onClick={() => DeleteFavorite(favorite.favoriteditem)}>X</button> 
+                <button className="favoriteDButton" onClick={() => DeleteFavorite(favorite.favoriteditem, 1)}>X</button> 
               )}
          </div>
 
