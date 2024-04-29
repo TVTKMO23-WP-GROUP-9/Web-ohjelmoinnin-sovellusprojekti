@@ -107,7 +107,7 @@
 .singleEvent {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
 }
@@ -148,12 +148,20 @@
     max-width: 200px;
     text-align: center;
     padding: 7px;
-  }
+}
 
-  .geventShowLater,
-  .geventShowLater2 {
+.geventShowLater {
     display: none;
-  }
+}
+
+.geventShowLater2 {
+    display: block;
+}
+
+.geventShowLater2 img {
+    width: 90%;
+    height: auto;
+}
 
 .singleEvent b,
 .singleEvent p {
