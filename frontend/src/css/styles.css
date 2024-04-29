@@ -516,3 +516,7 @@ input {
 .colored {
   color: #633912;
 }
+
+.hideableBr {
+  display: none;
+}

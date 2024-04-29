@@ -15,7 +15,6 @@ const AllReviews = ({ searchTerm, setSearchTerm, user }) => {
   const [adult, setAdult] = useState(false);
   const headers = getHeaders()
 
-
   useEffect(() => {
     
     const fetchProfile = async () => {
@@ -23,12 +22,10 @@ const AllReviews = ({ searchTerm, setSearchTerm, user }) => {
 
       const profresponse = await axios.get(`${VITE_APP_BACKEND_URL}/profile/${user.user.user}`, { headers });
       setAdult(profresponse.data.adult);
-
       }
 
       fetchProfile();
     };
-  
   
   }, [user]);
 
@@ -136,7 +133,7 @@ const AllReviews = ({ searchTerm, setSearchTerm, user }) => {
 
                   <li>
                       <input className='longInput' type="text" placeholder="Etsi ..." value={searchTerm} onChange={(e) => { setSearchTerm(e.target.value); setCurrentPage(1); }} />
-
+                      <span className='hideableBr'><br/></span>
                       <button className="buttonnext justMargin" onClick={() => setCurrentPage(currentPage > 1 ? currentPage - 1 : 1)}>
                     &#9664; </button>
                     &nbsp; <span className="communityinfo">sivu {currentPage} / {Math.ceil(filteredReviews.length / reviewsPerPage)}</span> &nbsp;

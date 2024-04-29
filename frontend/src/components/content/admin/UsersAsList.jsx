@@ -64,8 +64,7 @@ const UsersAsList = ({ searchTerm, setSearchTerm, user }) => {
                                     <button className="buttonnext" onClick={() => setCurrentPage(currentPage < Math.ceil(filteredProfiles.length / profilesPerPage) ? currentPage + 1 : Math.ceil(filteredProfiles.length / profilesPerPage))}>
                                         &#9654;
                                     </button>
-                                </li>
-                                <li>
+                                    <span className='hideableBr'><br/></span>
                                     <input className='justMargin longInput'
                                         type="text"
                                         placeholder="Etsi käyttäjää..."
