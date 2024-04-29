@@ -476,6 +476,10 @@
     justify-content: center;
   }
 
+  .admin-view{
+    width: min-content;
+  }
+
   .favorite-poster,
   .favoritetitle {
     width: 100%; 
