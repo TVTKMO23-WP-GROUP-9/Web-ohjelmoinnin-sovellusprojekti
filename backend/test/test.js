@@ -67,20 +67,48 @@ describe('Authentication API', () => {
       expect(res.body).to.have.property('jwtToken');
     });
 
-    it('should return an error if username or password is incorrect', async () => {
+    it('should return an error if username is incorrect', async () => {
       const res = await chai
         .request(server)
         .post('/auth/login')
-        .send({ username: 'wrongusername', password: 'wrongpassword' });
+        .send({ username: 'wrongusername', password: 'testpassword' });
 
       expect(res).to.have.status(400);
       expect(res.body).to.have.property('message').equal('Käyttäjätunnusta ei löydy');
+    });
+
+    it('should return an error if password is incorrect', async () => {
+      const res = await chai
+        .request(server)
+        .post('/auth/login')
+        .send({ username: 'testuser2', password: 'wrongpassword' });
+
+      expect(res).to.have.status(400);
+      expect(res.body).to.have.property('message').equal('Kirjautuminen epäonnistui');
+    });
+
+    it('should return an error if login fails, when not all send data goes through', async () => {
+      const res = await chai
+          .request(server)
+          .post('/auth/login')
+          .send({ username: 'testuser2' });
+  
+      expect(res).to.have.status(400);
+      expect(res.body).to.have.property('message').equal('Kirjautumisvirhe');
     });
   });
 
   describe('User Deletion', () => {
     let token; 
+
+    it('should not delete an existing user profile without token', async () => {
+      const res = await chai
+        .request(server)
+        .delete('/profile')
   
+      expect(res).to.have.status(403);
+    });
+
     before(async () => {
       const res = await chai
         .request(server)
