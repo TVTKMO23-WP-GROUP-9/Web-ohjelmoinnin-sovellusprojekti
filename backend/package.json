@@ -5,12 +5,14 @@
   "main": "server.js",
   "scripts": {
     "start": "nodemon server.js",
+    "swagger-autogen": "node swagger.js",
     "startDev": "nodemon server.js",
     "test": "mocha"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "and": "^0.0.3",
     "axios": "^1.6.8",
     "bcrypt": "^5.1.1",
     "body-parser": "^1.20.2",
@@ -24,7 +26,9 @@
     "node-fetch": "^3.3.2",
     "nodemailer": "^6.9.13",
     "nodemon": "^3.1.0",
-    "pg": "^8.11.4"
+    "pg": "^8.11.4",
+    "swagger-autogen": "^2.23.7",
+    "swagger-ui-express": "^5.0.0"
   },
   "devDependencies": {
     "dotenv": "^16.4.5"

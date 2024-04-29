@@ -2,6 +2,14 @@
     padding-left: 30px;
 }
 
+.admincontent {
+    margin: 0 auto;
+    padding-top: 20px;
+    padding-bottom: 40px;
+    width: 70vw;
+    text-align: left;
+  }
+
 .admin-view {
     margin-top: 25px;
     background-color: var(--greyblue);

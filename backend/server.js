@@ -1,12 +1,14 @@
 require('dotenv').config({ path: '../.env' });
 const express = require('express');
+const swaggerUi = require('swagger-ui-express')
+const swaggerFile = require('./swagger_output.json')
 const cors = require('cors');
 const app = express();
 const cronTasks = require('./cronTasks');
 
-
 app.use(express.json());
 app.use(cors({ origin: 'http://localhost:5173', credentials: true }));
+app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile))
 
 //const profile = require(origin: './routes/profileRoutes', credentials: true); // Tuo 'profile' reitityksen
 const group = require('./group/groupRoutes'); // Tuo 'group' reitityksen
@@ -43,6 +45,7 @@ app.listen(PORT, () => { // Käynnistä palvelin
 
 app.get('/', (req, res) => { // Juurireitityksen get-pyyntö
     res.send('Tervetuloa juureen');
+    //swagger.tags = ['profile', 'group', 'register', 'login', 'favoritelist', 'search', 'discover', 'find', 'movie', 'review', 'event'];
 });
 
 module.exports = app;
