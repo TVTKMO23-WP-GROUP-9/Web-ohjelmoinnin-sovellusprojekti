@@ -61,7 +61,7 @@ const GroupEvent = ({ id }) => {
                     
                 </div>
                 <div className='geventRightHideable1'>
-                    <p>Lisännyt: {event.event_info.profilename}thematti</p>
+                    <p>Lisännyt: {event.event_info.profilename}</p>
                     <a href={event.event_info.showUrl} target="_blank" rel="noreferrer">Osta liput</a>
                 </div>
                 
