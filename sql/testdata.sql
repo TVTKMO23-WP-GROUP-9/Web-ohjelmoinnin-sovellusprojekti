@@ -1,6 +1,6 @@
 -- Tässä tiedostossa on Leffaysi-tietokannan testidataa 
 
-INSERT INTO Profile_ (profilename, hashedpassword, email, profilepicurl, "timestamp", description) VALUES
+INSERT INTO Profile_ (profilename, hashedpassword, email, profilepicurl, is_private, "timestamp", description, usertype, adult) VALUES
 ('Viilipytty', '$2b$10$Os132x/7gfQuEkIpTNvTG.XMrnQG/bOgj4AepLQ5u.wtgfEoTFpf.', 'viilipytty@example.com', NULL, false, '2024-04-24 15:50:30.603', 'On kiva kuva jee', 'user', false),
 ('Jankka', '$2b$10$ZarxfNZO1AYZp9VCg3Zjz.URJxUuZdcve5qd6A9QZQGWYRBln3rgm', 'jankka@example.com', 'https://i.postimg.cc/ZnbQ4nXv/profile10.jpg', false, '2024-04-18 12:08:22.73823', 'Mitähän tähän nyt kirjottais... no, oon kauhuelokuvien suurkuluttaja, joka ei säikähdä helpolla. Rakastan adrenaliinin kihinää ja jännitystä!', 'user', false),
 ('komediaa82', '$2b$10$9KLQoLOOd9PVGamFgdVoa.CoUDfXClGvAe6CCIW6vhdKbJfBzg89i', 'komediaa82@example.com', 'https://i.postimg.cc/jd8pq6xx/profile2.jpg', false, '2024-04-18 12:08:22.73823', 'Moikka, olen komediaa82! Nimeni kertoo jo kaiken - rakastan komediaelokuvia ja nauran aina makeasti hyville vitseille.', 'user', false),
@@ -365,11 +365,6 @@ INSERT INTO Message_ (groupid, profileid, message, timestamp) VALUES
 (16, 21, 'Hei kaikki! Onko täällä ketään?', '2024-04-26 10:15:00'),
 (16, 22, 'Moi! Juuri tulinkin paikalle.', '2024-04-26 10:20:00'),
 (16, 17, 'Hei! Minäkin täällä.', '2024-04-26 10:25:00');
-
--- yksityinen tili käyttäjille 8-14
-UPDATE Profile_
-SET is_private = TRUE
-WHERE profileid BETWEEN 8 AND 14;
 
 INSERT INTO Review_ (profileid, revieweditem, review, rating, timestamp, mediatype, adult) VALUES
 (1, '1096197', 'diudiu', 2, '2024-04-24 18:27:42.057055', 0, false),

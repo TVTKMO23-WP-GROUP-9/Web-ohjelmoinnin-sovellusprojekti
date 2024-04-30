@@ -112,4 +112,4 @@ ALTER SEQUENCE public.review__idreview_seq RESTART WITH 1;
 ALTER SEQUENCE public.favoritelist__idfavoritelist_seq RESTART WITH 1;
 ALTER SEQUENCE public.memberlist__memberlistid_seq RESTART WITH 1;
 ALTER SEQUENCE public.message__messageid_seq RESTART WITH 1;
-ALTER SEQUENCE public.event__eventid_seq RESTART WITH 1;
+ALTER SEQUENCE public.event__idevent_seq RESTART WITH 1;
