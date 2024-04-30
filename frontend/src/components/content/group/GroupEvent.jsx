@@ -27,7 +27,6 @@ const GroupEvent = ({ id }) => {
         try {
             const response = await axios.delete(`${VITE_APP_BACKEND_URL}/event/${idAsInteger}`, { headers });
             if (response.status === 200) {
-                console.log('Näytös poistettu ryhmästä');
                 setGroupEvents(prevEvents => prevEvents.filter(event => event.eventid !== idAsInteger));
             }
         } catch (error) {
