@@ -20,7 +20,7 @@ Hankkeesta vastanneet tekijät ovat yllämainitut Matti Nieminen, Jimi Jakola, H
 
 ### Esittelyvideo
 
-- Youtube: ([Leffaysi]https://www.youtube.com/watch?v=4ZlEyXCdmbE)
+- Youtube: ([Leffaysi](https://www.youtube.com/watch?v=4ZlEyXCdmbE))
 
 ---------------------------------
 
