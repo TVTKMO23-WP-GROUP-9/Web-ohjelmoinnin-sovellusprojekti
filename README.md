@@ -20,7 +20,7 @@ Hankkeesta vastanneet tekijät ovat yllämainitut Matti Nieminen, Jimi Jakola, H
 
 ### Esittelyvideo
 
-- Youtube: ([Leffaysi - L9 - OAMK projekti](https://www.youtube.com/watch?v=4ZlEyXCdmbE))
+- Youtube: [Leffaysi - L9 - OAMK projekti](https://www.youtube.com/watch?v=4ZlEyXCdmbE)
 
 ---------------------------------
 
