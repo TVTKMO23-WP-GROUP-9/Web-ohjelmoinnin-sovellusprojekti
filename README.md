@@ -18,9 +18,10 @@ Hankkeen tarkoituksena on oppia kokonaisvaltaista ohjelmistokehitystä ketteriä
 
 Hankkeesta vastanneet tekijät ovat yllämainitut Matti Nieminen, Jimi Jakola, Hannu Karjalainen, Rebecca Soisenniemi ja Tapio Kylmämaa. Ryhmästä kaikki ovat osallistuneet jokaisen osa-alueen toteuttamiseen.
 
-### Esittelyvideo
+### Esittelyvideo ja sivusto
 
 - Youtube: [Leffaysi - L9 - OAMK projekti](https://www.youtube.com/watch?v=4ZlEyXCdmbE)
+- Render: [Leffaysi on Render](https://leffaysi.onrender.com/)
 
 ---------------------------------
 
