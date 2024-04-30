@@ -51,6 +51,13 @@ const Latestreviews = () => {
     fetchReviews();
   }, []);
 
+  function truncateLongWords(text, maxLength) {
+    return text.split(' ').map(word => {
+      return word.length > maxLength ? word.substring(0, maxLength) + '...' : word;
+    }).join(' ');
+  }
+
+
   return (
     <>
       {loading ? (
@@ -98,7 +105,7 @@ const Latestreviews = () => {
                     ) : (
                     <h2><Link to={`/series/${review.revieweditem}`} className="titleHover">{review.data.title}{review.data.name}</Link></h2>
                     )}
-                    <p><b>Arvostelu: </b> {review.review}</p>
+                    <p><b>Arvostelu: </b> {truncateLongWords(review.review, 20)}</p>
                     <p><b>Arvosteltu: </b>{new Date(review.timestamp).toLocaleString('fi-FI', {
                       day: 'numeric',
                       month: 'numeric',
