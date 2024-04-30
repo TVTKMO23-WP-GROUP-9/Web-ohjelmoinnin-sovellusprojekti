@@ -36,39 +36,38 @@ const GroupEvent = ({ id }) => {
 
     return (
         <>
-        {groupEvents.map((event, index) => (
-            <div key={index} className='singleEvent'>
-                <div className='geventinfoLeft'>
-                <div className='geventShowLater'>
-                    <h2 className='eventInfoTitle'>{event.event_info.title}</h2>
-                    </div>
-                    <b>{event.event_info.date}</b><br/>
-                    klo <b>{event.event_info.start_time}</b>
-                    <div className='geventShowLater'>
-                        {event.event_info.theatre}, {event.event_info.auditorium}<br/>
-                        <a href={event.event_info.showUrl} target="_blank" rel="noreferrer">Osta liput</a>
-                    </div>
-                </div>
-
-                <div className='geventShowLater2'>
+            {groupEvents.map((event, index) => (
+                <div key={index} className='singleEvent'>
+                    <div className='geventShowLater2'>
                         <img className='reviewimg' src={event.event_info.eventPortrait} alt={event.event_info.title} />
                     </div>
+                    <div className='geventinfoLeft'>
+                        <div className='geventShowLater'>
+                            <h2 className='eventInfoTitle'>{event.event_info.title}</h2>
+                        </div>
+                        <b>{event.event_info.date}</b><br />
+                        klo <b>{event.event_info.start_time}</b>
+                        <div className='geventShowLater'>
+                            {event.event_info.theatre}, {event.event_info.auditorium}<br />
+                            <a href={event.event_info.showUrl} target="_blank" rel="noreferrer">Osta liput</a>
+                        </div>
+                    </div>
 
-                <div className='geventinfoCenter'>
-                    <b>{event.event_info.title}</b>
-                    <p>{event.event_info.theatre}, {event.event_info.auditorium}</p>
-                    
+                    <div className='geventinfoCenter'>
+                        <b>{event.event_info.title}</b>
+                        <p>{event.event_info.theatre}, {event.event_info.auditorium}</p>
+
+                    </div>
+                    <div className='geventRightHideable1'>
+                        <p>Lisännyt: {event.event_info.profilename}</p>
+                        <a href={event.event_info.showUrl} target="_blank" rel="noreferrer">Osta liput</a>
+                    </div>
+
+                    <div className='geventRightHideable2'>
+                        <button className='removefromgroupbutton' onClick={() => { handleRemoveFromGroup(event); }}>X</button>
+                    </div>
                 </div>
-                <div className='geventRightHideable1'>
-                    <p>Lisännyt: {event.event_info.profilename}</p>
-                    <a href={event.event_info.showUrl} target="_blank" rel="noreferrer">Osta liput</a>
-                </div>
-                
-                <div className='geventRightHideable2'>
-                    <button className='removefromgroupbutton' onClick={() => { handleRemoveFromGroup(event); }}>X</button> 
-                </div>
-            </div>
-        ))}
+            ))}
 
         </>
     );

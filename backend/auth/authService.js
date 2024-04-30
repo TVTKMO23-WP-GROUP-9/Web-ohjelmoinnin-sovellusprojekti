@@ -8,6 +8,10 @@ async function registerUser(username, password, email) {
         if (existingUser) {
             return { success: false, message: 'Käyttäjätunnus varattu' };
         }
+        // tarkistetaan, onko salasana 4 merkkiä pitkä
+        if (password.length < 4) {
+            return { success: false, message: 'Salasanan tulee olla vähintään 4 merkkiä pitkä' };
+        }
 
         // salasanan salaus (bcrypt)
         const hashedpassword = await bcrypt.hash(password, 10);

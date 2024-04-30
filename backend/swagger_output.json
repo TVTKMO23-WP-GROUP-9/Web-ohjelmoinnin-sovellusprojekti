@@ -1,18 +1,63 @@
 {
   "swagger": "2.0",
   "info": {
-    "version": "1.0.0",
-    "title": "REST API",
-    "description": ""
+    "version": "1.3.9",
+    "title": "Leffaysi backend REST API",
+    "description": "Leffaysi backend REST API-dokumentaatio"
   },
-  "host": "localhost:3000",
+  "host": "localhost:3001",
   "basePath": "/",
   "schemes": [
     "http"
   ],
+  "tags": [
+    {
+      "name": "auth",
+      "description": "Authentication"
+    },
+    {
+      "name": "event",
+      "description": "Event"
+    },
+    {
+      "name": "favoritelist",
+      "description": "Favoritelist"
+    },
+    {
+      "name": "group",
+      "description": "Group"
+    },
+    {
+      "name": "memberlist",
+      "description": "Memberlist"
+    },
+    {
+      "name": "message",
+      "description": "Message"
+    },
+    {
+      "name": "profile",
+      "description": "Profile"
+    },
+    {
+      "name": "movie",
+      "description": "Movie"
+    },
+    {
+      "name": "series",
+      "description": "Series"
+    },
+    {
+      "name": "review",
+      "description": "Review"
+    }
+  ],
   "paths": {
     "/auth/register": {
       "post": {
+        "tags": [
+          "auth"
+        ],
         "description": "",
         "parameters": [
           {
@@ -49,6 +94,9 @@
     },
     "/auth/login": {
       "post": {
+        "tags": [
+          "auth"
+        ],
         "description": "",
         "parameters": [
           {
@@ -77,21 +125,11 @@
         }
       }
     },
-    "/auth/logout": {
-      "get": {
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
     "/auth/forgot-password": {
       "post": {
+        "tags": [
+          "auth"
+        ],
         "description": "",
         "parameters": [
           {
@@ -119,6 +157,9 @@
     },
     "/auth/password": {
       "put": {
+        "tags": [
+          "auth"
+        ],
         "description": "",
         "parameters": [
           {
@@ -154,6 +195,9 @@
     },
     "/event/{groupid}": {
       "get": {
+        "tags": [
+          "event"
+        ],
         "description": "",
         "parameters": [
           {
@@ -183,6 +227,9 @@
     },
     "/event": {
       "post": {
+        "tags": [
+          "event"
+        ],
         "description": "",
         "parameters": [
           {
@@ -227,6 +274,9 @@
     },
     "/event/{eventid}": {
       "delete": {
+        "tags": [
+          "event"
+        ],
         "description": "",
         "parameters": [
           {
@@ -256,6 +306,9 @@
     },
     "/favoritelist": {
       "get": {
+        "tags": [
+          "favoritelist"
+        ],
         "description": "",
         "responses": {
           "200": {
@@ -264,6 +317,9 @@
         }
       },
       "post": {
+        "tags": [
+          "favoritelist"
+        ],
         "description": "",
         "parameters": [
           {
@@ -306,6 +362,9 @@
     },
     "/favoritelist/profile/{profileid}": {
       "get": {
+        "tags": [
+          "favoritelist"
+        ],
         "description": "",
         "parameters": [
           {
@@ -327,6 +386,9 @@
     },
     "/favoritelist/group/{groupid}/{mediatype}": {
       "get": {
+        "tags": [
+          "favoritelist"
+        ],
         "description": "",
         "parameters": [
           {
@@ -354,6 +416,9 @@
     },
     "/favoritelist/{profileid}/{favoriteditem}/{mediatype}": {
       "get": {
+        "tags": [
+          "favoritelist"
+        ],
         "description": "",
         "parameters": [
           {
@@ -395,6 +460,9 @@
     },
     "/favorite/{profileid}/{favoriteditem}/{mediatype}": {
       "delete": {
+        "tags": [
+          "favoritelist"
+        ],
         "description": "",
         "parameters": [
           {
@@ -428,6 +496,9 @@
     },
     "/favoritefromgroup/{groupid}/{favoriteditem}/{mediatype}": {
       "delete": {
+        "tags": [
+          "favoritelist"
+        ],
         "description": "",
         "parameters": [
           {
@@ -461,6 +532,9 @@
     },
     "/favoritelist/{groupid}": {
       "delete": {
+        "tags": [
+          "favoritelist"
+        ],
         "description": "",
         "parameters": [
           {
@@ -482,6 +556,9 @@
     },
     "/favoritelist/profile/{profileid}/{favoriteditem}": {
       "get": {
+        "tags": [
+          "favoritelist"
+        ],
         "description": "",
         "parameters": [
           {
@@ -509,6 +586,9 @@
     },
     "/group": {
       "get": {
+        "tags": [
+          "group"
+        ],
         "description": "",
         "responses": {
           "200": {
@@ -520,6 +600,9 @@
         }
       },
       "post": {
+        "tags": [
+          "group"
+        ],
         "description": "",
         "parameters": [
           {
@@ -555,6 +638,9 @@
     },
     "/group/groupid/{groupname}": {
       "get": {
+        "tags": [
+          "group"
+        ],
         "description": "",
         "parameters": [
           {
@@ -576,6 +662,9 @@
     },
     "/group/{groupid}": {
       "get": {
+        "tags": [
+          "group"
+        ],
         "description": "",
         "parameters": [
           {
@@ -595,6 +684,9 @@
         }
       },
       "put": {
+        "tags": [
+          "group"
+        ],
         "description": "",
         "parameters": [
           {
@@ -629,6 +721,9 @@
         }
       },
       "delete": {
+        "tags": [
+          "group"
+        ],
         "description": "",
         "parameters": [
           {
@@ -658,6 +753,9 @@
     },
     "/grouplist/profile/{profilename}/{pending}": {
       "get": {
+        "tags": [
+          "group"
+        ],
         "description": "",
         "parameters": [
           {
@@ -685,6 +783,9 @@
     },
     "/memberlist/group/{groupid}/{pending}": {
       "get": {
+        "tags": [
+          "memberlist"
+        ],
         "description": "",
         "parameters": [
           {
@@ -710,8 +811,11 @@
         }
       }
     },
-    "/messages/{groupid}": {
+    "/message/{groupid}": {
       "get": {
+        "tags": [
+          "message"
+        ],
         "description": "",
         "parameters": [
           {
@@ -731,8 +835,11 @@
         }
       }
     },
-    "/messages": {
+    "/message": {
       "post": {
+        "tags": [
+          "message"
+        ],
         "description": "",
         "parameters": [
           {
@@ -772,8 +879,11 @@
         }
       }
     },
-    "/messages/{messageid}": {
+    "/message/{messageid}": {
       "delete": {
+        "tags": [
+          "message"
+        ],
         "description": "",
         "parameters": [
           {
@@ -803,6 +913,9 @@
     },
     "/memberstatus/{profileid}/{groupid}": {
       "get": {
+        "tags": [
+          "memberlist"
+        ],
         "description": "",
         "parameters": [
           {
@@ -830,6 +943,9 @@
     },
     "/memberstatus/{profileid}/{mainuser}/{groupid}/{pending}": {
       "post": {
+        "tags": [
+          "memberlist"
+        ],
         "description": "",
         "parameters": [
           {
@@ -877,6 +993,9 @@
     },
     "/memberstatus/{memberlistid}/{pending}": {
       "put": {
+        "tags": [
+          "memberlist"
+        ],
         "description": "",
         "parameters": [
           {
@@ -912,6 +1031,9 @@
     },
     "/memberrank/{memberlistid}/{mainuser}": {
       "put": {
+        "tags": [
+          "memberlist"
+        ],
         "description": "",
         "parameters": [
           {
@@ -947,6 +1069,9 @@
     },
     "/memberstatus/{memberlistid}": {
       "delete": {
+        "tags": [
+          "memberlist"
+        ],
         "description": "",
         "parameters": [
           {
@@ -976,6 +1101,9 @@
     },
     "/memberlist/{groupid}": {
       "delete": {
+        "tags": [
+          "memberlist"
+        ],
         "description": "",
         "parameters": [
           {
@@ -1005,6 +1133,9 @@
     },
     "/groups/getnewest": {
       "get": {
+        "tags": [
+          "group"
+        ],
         "description": "",
         "responses": {
           "200": {
@@ -1018,6 +1149,9 @@
     },
     "/groups/getpopular": {
       "get": {
+        "tags": [
+          "group"
+        ],
         "description": "",
         "responses": {
           "200": {
@@ -1031,6 +1165,9 @@
     },
     "/group/groupname/{groupid}": {
       "get": {
+        "tags": [
+          "group"
+        ],
         "description": "",
         "parameters": [
           {
@@ -1052,6 +1189,9 @@
     },
     "/memberlist": {
       "post": {
+        "tags": [
+          "memberlist"
+        ],
         "description": "",
         "parameters": [
           {
@@ -1096,6 +1236,9 @@
     },
     "/grouplist": {
       "get": {
+        "tags": [
+          "group"
+        ],
         "description": "",
         "parameters": [
           {
@@ -1119,6 +1262,9 @@
     },
     "/movie/search": {
       "get": {
+        "tags": [
+          "movie"
+        ],
         "description": "",
         "parameters": [
           {
@@ -1154,6 +1300,9 @@
     },
     "/movie/discover": {
       "get": {
+        "tags": [
+          "movie"
+        ],
         "description": "",
         "parameters": [
           {
@@ -1199,6 +1348,9 @@
     },
     "/movie/{id}": {
       "get": {
+        "tags": [
+          "movie"
+        ],
         "description": "",
         "parameters": [
           {
@@ -1220,6 +1372,9 @@
     },
     "/movie/provider/{id}": {
       "get": {
+        "tags": [
+          "movie"
+        ],
         "description": "",
         "parameters": [
           {
@@ -1241,6 +1396,9 @@
     },
     "/tv/provider/{id}": {
       "get": {
+        "tags": [
+          "series"
+        ],
         "description": "",
         "parameters": [
           {
@@ -1262,6 +1420,9 @@
     },
     "/series/search": {
       "get": {
+        "tags": [
+          "series"
+        ],
         "description": "",
         "parameters": [
           {
@@ -1302,6 +1463,9 @@
     },
     "/series/discover": {
       "get": {
+        "tags": [
+          "series"
+        ],
         "description": "",
         "parameters": [
           {
@@ -1347,6 +1511,9 @@
     },
     "/series/{id}": {
       "get": {
+        "tags": [
+          "series"
+        ],
         "description": "",
         "parameters": [
           {
@@ -1368,6 +1535,9 @@
     },
     "/movierandom": {
       "get": {
+        "tags": [
+          "movie"
+        ],
         "description": "",
         "responses": {
           "200": {
@@ -1382,43 +1552,11 @@
         }
       }
     },
-    "/media": {
-      "get": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "query",
-            "in": "query",
-            "type": "string"
-          },
-          {
-            "name": "page",
-            "in": "query",
-            "type": "string"
-          },
-          {
-            "name": "year",
-            "in": "query",
-            "type": "string"
-          },
-          {
-            "name": "language",
-            "in": "query",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
     "/profile": {
       "get": {
+        "tags": [
+          "profile"
+        ],
         "description": "",
         "responses": {
           "200": {
@@ -1430,6 +1568,9 @@
         }
       },
       "delete": {
+        "tags": [
+          "profile"
+        ],
         "description": "",
         "parameters": [
           {
@@ -1451,6 +1592,9 @@
         }
       },
       "put": {
+        "tags": [
+          "profile"
+        ],
         "description": "",
         "parameters": [
           {
@@ -1489,6 +1633,9 @@
     },
     "/profile/id/{profileid}": {
       "get": {
+        "tags": [
+          "profile"
+        ],
         "description": "",
         "parameters": [
           {
@@ -1510,6 +1657,9 @@
     },
     "/profile/{profilename}": {
       "get": {
+        "tags": [
+          "profile"
+        ],
         "description": "",
         "parameters": [
           {
@@ -1539,6 +1689,9 @@
     },
     "/admin/deleteprofile/{id}": {
       "delete": {
+        "tags": [
+          "profile"
+        ],
         "description": "",
         "parameters": [
           {
@@ -1568,6 +1721,9 @@
     },
     "/profile/nameandemail": {
       "put": {
+        "tags": [
+          "profile"
+        ],
         "description": "",
         "parameters": [
           {
@@ -1606,6 +1762,9 @@
     },
     "/profile/visibility": {
       "put": {
+        "tags": [
+          "profile"
+        ],
         "description": "",
         "parameters": [
           {
@@ -1641,6 +1800,9 @@
     },
     "/profile/k18": {
       "put": {
+        "tags": [
+          "profile"
+        ],
         "description": "",
         "parameters": [
           {
@@ -1676,6 +1838,9 @@
     },
     "/moviereviews/thisuser/{id}": {
       "get": {
+        "tags": [
+          "review"
+        ],
         "description": "",
         "parameters": [
           {
@@ -1705,6 +1870,9 @@
     },
     "/seriereviews/thisuser/{id}": {
       "get": {
+        "tags": [
+          "review"
+        ],
         "description": "",
         "parameters": [
           {
@@ -1734,6 +1902,9 @@
     },
     "/movie/{id}/review": {
       "post": {
+        "tags": [
+          "review"
+        ],
         "description": "",
         "parameters": [
           {
@@ -1787,6 +1958,9 @@
     },
     "/series/{id}/review": {
       "post": {
+        "tags": [
+          "review"
+        ],
         "description": "",
         "parameters": [
           {
@@ -1838,6 +2012,9 @@
         }
       },
       "get": {
+        "tags": [
+          "review"
+        ],
         "description": "",
         "parameters": [
           {
@@ -1867,6 +2044,9 @@
     },
     "/reviews": {
       "get": {
+        "tags": [
+          "review"
+        ],
         "description": "",
         "responses": {
           "200": {
@@ -1880,6 +2060,9 @@
     },
     "/reviews/profile/{id}": {
       "get": {
+        "tags": [
+          "review"
+        ],
         "description": "",
         "parameters": [
           {
@@ -1901,6 +2084,9 @@
     },
     "/reviews/{id}/{mediatype}": {
       "get": {
+        "tags": [
+          "review"
+        ],
         "description": "",
         "parameters": [
           {
@@ -1928,6 +2114,9 @@
     },
     "/review/{profileid}/{id}/{mediatype}": {
       "get": {
+        "tags": [
+          "review"
+        ],
         "description": "",
         "parameters": [
           {
@@ -1961,6 +2150,9 @@
     },
     "/review/new": {
       "get": {
+        "tags": [
+          "review"
+        ],
         "description": "",
         "responses": {
           "200": {
@@ -1974,6 +2166,9 @@
     },
     "/reviews/update/{id}": {
       "put": {
+        "tags": [
+          "review"
+        ],
         "description": "",
         "parameters": [
           {
@@ -2018,6 +2213,9 @@
     },
     "/reviews/toanon": {
       "put": {
+        "tags": [
+          "review"
+        ],
         "description": "",
         "parameters": [
           {
@@ -2041,6 +2239,9 @@
     },
     "/reviews/anon": {
       "get": {
+        "tags": [
+          "review"
+        ],
         "description": "",
         "responses": {
           "200": {
@@ -2054,6 +2255,9 @@
     },
     "/review/{id}": {
       "delete": {
+        "tags": [
+          "review"
+        ],
         "description": "",
         "parameters": [
           {
@@ -2075,6 +2279,9 @@
     },
     "/admin/deletereview/{id}": {
       "delete": {
+        "tags": [
+          "review"
+        ],
         "description": "",
         "parameters": [
           {
