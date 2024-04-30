@@ -159,7 +159,6 @@ const Events = ({ user }) => {
       const response = await axios.post(`${VITE_APP_BACKEND_URL}/event`, data, { headers });
 
       if (response.status === 201) {
-        console.log('Näytös lisätty ryhmään');
         setGroupShowtimes([...groupShowtimes, idAsInteger]);
       }
     } catch (error) {
@@ -170,12 +169,10 @@ const Events = ({ user }) => {
   // poista näytös ryhmästä
   const handleRemoveFromGroup = async (eventInfo) => {
     const idAsInteger = parseInt(eventInfo.id, 10);
-    console.log('Poistetaan näytös ryhmästä', idAsInteger);
 
     try {
       const response = await axios.delete(`${VITE_APP_BACKEND_URL}/event/${idAsInteger}`, { headers });
       if (response.status === 200) {
-        console.log('Näytös poistettu ryhmästä');
         setGroupShowtimes(groupShowtimes.filter(show => show !== idAsInteger));
       }
     } catch (error) {
