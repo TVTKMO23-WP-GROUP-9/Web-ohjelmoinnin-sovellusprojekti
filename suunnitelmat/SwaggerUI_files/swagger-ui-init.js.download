@@ -11,18 +11,63 @@ window.onload = function() {
   "swaggerDoc": {
     "swagger": "2.0",
     "info": {
-      "version": "1.0.0",
-      "title": "REST API",
-      "description": ""
+      "version": "1.3.9",
+      "title": "Leffaysi backend REST API",
+      "description": "Leffaysi backend REST API-dokumentaatio"
     },
-    "host": "localhost:3000",
+    "host": "localhost:3001",
     "basePath": "/",
     "schemes": [
       "http"
     ],
+    "tags": [
+      {
+        "name": "auth",
+        "description": "Authentication"
+      },
+      {
+        "name": "event",
+        "description": "Event"
+      },
+      {
+        "name": "favoritelist",
+        "description": "Favoritelist"
+      },
+      {
+        "name": "group",
+        "description": "Group"
+      },
+      {
+        "name": "memberlist",
+        "description": "Memberlist"
+      },
+      {
+        "name": "message",
+        "description": "Message"
+      },
+      {
+        "name": "profile",
+        "description": "Profile"
+      },
+      {
+        "name": "movie",
+        "description": "Movie"
+      },
+      {
+        "name": "series",
+        "description": "Series"
+      },
+      {
+        "name": "review",
+        "description": "Review"
+      }
+    ],
     "paths": {
       "/auth/register": {
         "post": {
+          "tags": [
+            "auth"
+          ],
           "description": "",
           "parameters": [
             {
@@ -59,6 +104,9 @@ window.onload = function() {
       },
       "/auth/login": {
         "post": {
+          "tags": [
+            "auth"
+          ],
           "description": "",
           "parameters": [
             {
@@ -87,21 +135,11 @@ window.onload = function() {
           }
         }
       },
-      "/auth/logout": {
-        "get": {
-          "description": "",
-          "responses": {
-            "200": {
-              "description": "OK"
-            },
-            "500": {
-              "description": "Internal Server Error"
-            }
-          }
-        }
-      },
       "/auth/forgot-password": {
         "post": {
+          "tags": [
+            "auth"
+          ],
           "description": "",
           "parameters": [
             {
@@ -129,6 +167,9 @@ window.onload = function() {
       },
       "/auth/password": {
         "put": {
+          "tags": [
+            "auth"
+          ],
           "description": "",
           "parameters": [
             {
@@ -164,6 +205,9 @@ window.onload = function() {
       },
       "/event/{groupid}": {
         "get": {
+          "tags": [
+            "event"
+          ],
           "description": "",
           "parameters": [
             {
@@ -193,6 +237,9 @@ window.onload = function() {
       },
       "/event": {
         "post": {
+          "tags": [
+            "event"
+          ],
           "description": "",
           "parameters": [
             {
@@ -237,6 +284,9 @@ window.onload = function() {
       },
       "/event/{eventid}": {
         "delete": {
+          "tags": [
+            "event"
+          ],
           "description": "",
           "parameters": [
             {
@@ -266,6 +316,9 @@ window.onload = function() {
       },
       "/favoritelist": {
         "get": {
+          "tags": [
+            "favoritelist"
+          ],
           "description": "",
           "responses": {
             "200": {
@@ -274,6 +327,9 @@ window.onload = function() {
           }
         },
         "post": {
+          "tags": [
+            "favoritelist"
+          ],
           "description": "",
           "parameters": [
             {
@@ -316,6 +372,9 @@ window.onload = function() {
       },
       "/favoritelist/profile/{profileid}": {
         "get": {
+          "tags": [
+            "favoritelist"
+          ],
           "description": "",
           "parameters": [
             {
@@ -337,6 +396,9 @@ window.onload = function() {
       },
       "/favoritelist/group/{groupid}/{mediatype}": {
         "get": {
+          "tags": [
+            "favoritelist"
+          ],
           "description": "",
           "parameters": [
             {
@@ -364,6 +426,9 @@ window.onload = function() {
       },
       "/favoritelist/{profileid}/{favoriteditem}/{mediatype}": {
         "get": {
+          "tags": [
+            "favoritelist"
+          ],
           "description": "",
           "parameters": [
             {
@@ -405,6 +470,9 @@ window.onload = function() {
       },
       "/favorite/{profileid}/{favoriteditem}/{mediatype}": {
         "delete": {
+          "tags": [
+            "favoritelist"
+          ],
           "description": "",
           "parameters": [
             {
@@ -438,6 +506,9 @@ window.onload = function() {
       },
       "/favoritefromgroup/{groupid}/{favoriteditem}/{mediatype}": {
         "delete": {
+          "tags": [
+            "favoritelist"
+          ],
           "description": "",
           "parameters": [
             {
@@ -471,6 +542,9 @@ window.onload = function() {
       },
       "/favoritelist/{groupid}": {
         "delete": {
+          "tags": [
+            "favoritelist"
+          ],
           "description": "",
           "parameters": [
             {
@@ -492,6 +566,9 @@ window.onload = function() {
       },
       "/favoritelist/profile/{profileid}/{favoriteditem}": {
         "get": {
+          "tags": [
+            "favoritelist"
+          ],
           "description": "",
           "parameters": [
             {
@@ -519,6 +596,9 @@ window.onload = function() {
       },
       "/group": {
         "get": {
+          "tags": [
+            "group"
+          ],
           "description": "",
           "responses": {
             "200": {
@@ -530,6 +610,9 @@ window.onload = function() {
           }
         },
         "post": {
+          "tags": [
+            "group"
+          ],
           "description": "",
           "parameters": [
             {
@@ -565,6 +648,9 @@ window.onload = function() {
       },
       "/group/groupid/{groupname}": {
         "get": {
+          "tags": [
+            "group"
+          ],
           "description": "",
           "parameters": [
             {
@@ -586,6 +672,9 @@ window.onload = function() {
       },
       "/group/{groupid}": {
         "get": {
+          "tags": [
+            "group"
+          ],
           "description": "",
           "parameters": [
             {
@@ -605,6 +694,9 @@ window.onload = function() {
           }
         },
         "put": {
+          "tags": [
+            "group"
+          ],
           "description": "",
           "parameters": [
             {
@@ -639,6 +731,9 @@ window.onload = function() {
           }
         },
         "delete": {
+          "tags": [
+            "group"
+          ],
           "description": "",
           "parameters": [
             {
@@ -668,6 +763,9 @@ window.onload = function() {
       },
       "/grouplist/profile/{profilename}/{pending}": {
         "get": {
+          "tags": [
+            "group"
+          ],
           "description": "",
           "parameters": [
             {
@@ -695,6 +793,9 @@ window.onload = function() {
       },
       "/memberlist/group/{groupid}/{pending}": {
         "get": {
+          "tags": [
+            "memberlist"
+          ],
           "description": "",
           "parameters": [
             {
@@ -720,8 +821,11 @@ window.onload = function() {
           }
         }
       },
-      "/messages/{groupid}": {
+      "/message/{groupid}": {
         "get": {
+          "tags": [
+            "message"
+          ],
           "description": "",
           "parameters": [
             {
@@ -741,8 +845,11 @@ window.onload = function() {
           }
         }
       },
-      "/messages": {
+      "/message": {
         "post": {
+          "tags": [
+            "message"
+          ],
           "description": "",
           "parameters": [
             {
@@ -782,8 +889,11 @@ window.onload = function() {
           }
         }
       },
-      "/messages/{messageid}": {
+      "/message/{messageid}": {
         "delete": {
+          "tags": [
+            "message"
+          ],
           "description": "",
           "parameters": [
             {
@@ -813,6 +923,9 @@ window.onload = function() {
       },
       "/memberstatus/{profileid}/{groupid}": {
         "get": {
+          "tags": [
+            "memberlist"
+          ],
           "description": "",
           "parameters": [
             {
@@ -840,6 +953,9 @@ window.onload = function() {
       },
       "/memberstatus/{profileid}/{mainuser}/{groupid}/{pending}": {
         "post": {
+          "tags": [
+            "memberlist"
+          ],
           "description": "",
           "parameters": [
             {
@@ -887,6 +1003,9 @@ window.onload = function() {
       },
       "/memberstatus/{memberlistid}/{pending}": {
         "put": {
+          "tags": [
+            "memberlist"
+          ],
           "description": "",
           "parameters": [
             {
@@ -922,6 +1041,9 @@ window.onload = function() {
       },
       "/memberrank/{memberlistid}/{mainuser}": {
         "put": {
+          "tags": [
+            "memberlist"
+          ],
           "description": "",
           "parameters": [
             {
@@ -957,6 +1079,9 @@ window.onload = function() {
       },
       "/memberstatus/{memberlistid}": {
         "delete": {
+          "tags": [
+            "memberlist"
+          ],
           "description": "",
           "parameters": [
             {
@@ -986,6 +1111,9 @@ window.onload = function() {
       },
       "/memberlist/{groupid}": {
         "delete": {
+          "tags": [
+            "memberlist"
+          ],
           "description": "",
           "parameters": [
             {
@@ -1015,6 +1143,9 @@ window.onload = function() {
       },
       "/groups/getnewest": {
         "get": {
+          "tags": [
+            "group"
+          ],
           "description": "",
           "responses": {
             "200": {
@@ -1028,6 +1159,9 @@ window.onload = function() {
       },
       "/groups/getpopular": {
         "get": {
+          "tags": [
+            "group"
+          ],
           "description": "",
           "responses": {
             "200": {
@@ -1041,6 +1175,9 @@ window.onload = function() {
       },
       "/group/groupname/{groupid}": {
         "get": {
+          "tags": [
+            "group"
+          ],
           "description": "",
           "parameters": [
             {
@@ -1062,6 +1199,9 @@ window.onload = function() {
       },
       "/memberlist": {
         "post": {
+          "tags": [
+            "memberlist"
+          ],
           "description": "",
           "parameters": [
             {
@@ -1106,6 +1246,9 @@ window.onload = function() {
       },
       "/grouplist": {
         "get": {
+          "tags": [
+            "group"
+          ],
           "description": "",
           "parameters": [
             {
@@ -1129,6 +1272,9 @@ window.onload = function() {
       },
       "/movie/search": {
         "get": {
+          "tags": [
+            "movie"
+          ],
           "description": "",
           "parameters": [
             {
@@ -1164,6 +1310,9 @@ window.onload = function() {
       },
       "/movie/discover": {
         "get": {
+          "tags": [
+            "movie"
+          ],
           "description": "",
           "parameters": [
             {
@@ -1209,6 +1358,9 @@ window.onload = function() {
       },
       "/movie/{id}": {
         "get": {
+          "tags": [
+            "movie"
+          ],
           "description": "",
           "parameters": [
             {
@@ -1230,6 +1382,9 @@ window.onload = function() {
       },
       "/movie/provider/{id}": {
         "get": {
+          "tags": [
+            "movie"
+          ],
           "description": "",
           "parameters": [
             {
@@ -1251,6 +1406,9 @@ window.onload = function() {
       },
       "/tv/provider/{id}": {
         "get": {
+          "tags": [
+            "series"
+          ],
           "description": "",
           "parameters": [
             {
@@ -1272,6 +1430,9 @@ window.onload = function() {
       },
       "/series/search": {
         "get": {
+          "tags": [
+            "series"
+          ],
           "description": "",
           "parameters": [
             {
@@ -1312,6 +1473,9 @@ window.onload = function() {
       },
       "/series/discover": {
         "get": {
+          "tags": [
+            "series"
+          ],
           "description": "",
           "parameters": [
             {
@@ -1357,6 +1521,9 @@ window.onload = function() {
       },
       "/series/{id}": {
         "get": {
+          "tags": [
+            "series"
+          ],
           "description": "",
           "parameters": [
             {
@@ -1378,6 +1545,9 @@ window.onload = function() {
       },
       "/movierandom": {
         "get": {
+          "tags": [
+            "movie"
+          ],
           "description": "",
           "responses": {
             "200": {
@@ -1392,43 +1562,11 @@ window.onload = function() {
           }
         }
       },
-      "/media": {
-        "get": {
-          "description": "",
-          "parameters": [
-            {
-              "name": "query",
-              "in": "query",
-              "type": "string"
-            },
-            {
-              "name": "page",
-              "in": "query",
-              "type": "string"
-            },
-            {
-              "name": "year",
-              "in": "query",
-              "type": "string"
-            },
-            {
-              "name": "language",
-              "in": "query",
-              "type": "string"
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "OK"
-            },
-            "500": {
-              "description": "Internal Server Error"
-            }
-          }
-        }
-      },
       "/profile": {
         "get": {
+          "tags": [
+            "profile"
+          ],
           "description": "",
           "responses": {
             "200": {
@@ -1440,6 +1578,9 @@ window.onload = function() {
           }
         },
         "delete": {
+          "tags": [
+            "profile"
+          ],
           "description": "",
           "parameters": [
             {
@@ -1461,6 +1602,9 @@ window.onload = function() {
           }
         },
         "put": {
+          "tags": [
+            "profile"
+          ],
           "description": "",
           "parameters": [
             {
@@ -1499,6 +1643,9 @@ window.onload = function() {
       },
       "/profile/id/{profileid}": {
         "get": {
+          "tags": [
+            "profile"
+          ],
           "description": "",
           "parameters": [
             {
@@ -1520,6 +1667,9 @@ window.onload = function() {
       },
       "/profile/{profilename}": {
         "get": {
+          "tags": [
+            "profile"
+          ],
           "description": "",
           "parameters": [
             {
@@ -1549,6 +1699,9 @@ window.onload = function() {
       },
       "/admin/deleteprofile/{id}": {
         "delete": {
+          "tags": [
+            "profile"
+          ],
           "description": "",
           "parameters": [
             {
@@ -1578,6 +1731,9 @@ window.onload = function() {
       },
       "/profile/nameandemail": {
         "put": {
+          "tags": [
+            "profile"
+          ],
           "description": "",
           "parameters": [
             {
@@ -1616,6 +1772,9 @@ window.onload = function() {
       },
       "/profile/visibility": {
         "put": {
+          "tags": [
+            "profile"
+          ],
           "description": "",
           "parameters": [
             {
@@ -1651,6 +1810,9 @@ window.onload = function() {
       },
       "/profile/k18": {
         "put": {
+          "tags": [
+            "profile"
+          ],
           "description": "",
           "parameters": [
             {
@@ -1686,6 +1848,9 @@ window.onload = function() {
       },
       "/moviereviews/thisuser/{id}": {
         "get": {
+          "tags": [
+            "review"
+          ],
           "description": "",
           "parameters": [
             {
@@ -1715,6 +1880,9 @@ window.onload = function() {
       },
       "/seriereviews/thisuser/{id}": {
         "get": {
+          "tags": [
+            "review"
+          ],
           "description": "",
           "parameters": [
             {
@@ -1744,6 +1912,9 @@ window.onload = function() {
       },
       "/movie/{id}/review": {
         "post": {
+          "tags": [
+            "review"
+          ],
           "description": "",
           "parameters": [
             {
@@ -1797,6 +1968,9 @@ window.onload = function() {
       },
       "/series/{id}/review": {
         "post": {
+          "tags": [
+            "review"
+          ],
           "description": "",
           "parameters": [
             {
@@ -1848,6 +2022,9 @@ window.onload = function() {
           }
         },
         "get": {
+          "tags": [
+            "review"
+          ],
           "description": "",
           "parameters": [
             {
@@ -1877,6 +2054,9 @@ window.onload = function() {
       },
       "/reviews": {
         "get": {
+          "tags": [
+            "review"
+          ],
           "description": "",
           "responses": {
             "200": {
@@ -1890,6 +2070,9 @@ window.onload = function() {
       },
       "/reviews/profile/{id}": {
         "get": {
+          "tags": [
+            "review"
+          ],
           "description": "",
           "parameters": [
             {
@@ -1911,6 +2094,9 @@ window.onload = function() {
       },
       "/reviews/{id}/{mediatype}": {
         "get": {
+          "tags": [
+            "review"
+          ],
           "description": "",
           "parameters": [
             {
@@ -1938,6 +2124,9 @@ window.onload = function() {
       },
       "/review/{profileid}/{id}/{mediatype}": {
         "get": {
+          "tags": [
+            "review"
+          ],
           "description": "",
           "parameters": [
             {
@@ -1971,6 +2160,9 @@ window.onload = function() {
       },
       "/review/new": {
         "get": {
+          "tags": [
+            "review"
+          ],
           "description": "",
           "responses": {
             "200": {
@@ -1984,6 +2176,9 @@ window.onload = function() {
       },
       "/reviews/update/{id}": {
         "put": {
+          "tags": [
+            "review"
+          ],
           "description": "",
           "parameters": [
             {
@@ -2028,6 +2223,9 @@ window.onload = function() {
       },
       "/reviews/toanon": {
         "put": {
+          "tags": [
+            "review"
+          ],
           "description": "",
           "parameters": [
             {
@@ -2051,6 +2249,9 @@ window.onload = function() {
       },
       "/reviews/anon": {
         "get": {
+          "tags": [
+            "review"
+          ],
           "description": "",
           "responses": {
             "200": {
@@ -2064,6 +2265,9 @@ window.onload = function() {
       },
       "/review/{id}": {
         "delete": {
+          "tags": [
+            "review"
+          ],
           "description": "",
           "parameters": [
             {
@@ -2085,6 +2289,9 @@ window.onload = function() {
       },
       "/admin/deletereview/{id}": {
         "delete": {
+          "tags": [
+            "review"
+          ],
           "description": "",
           "parameters": [
             {
