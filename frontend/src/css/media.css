@@ -303,12 +303,36 @@
     display: none;
   }
 
-
 }
-
 
 @media (max-width: 640px) {
 
+  .content {
+    display: block !important;
+    width: 91% !important;
+  }
+
+  body {
+    font-size: 0.8em;
+    padding-left: 0 !important;
+    padding-bottom: 180px;
+  }
+
+  #footer {
+    font-size: 1em;
+  }
+
+  .gh-mark {
+    width: 22px;
+    height: 22px;
+  }
+
+  .moviemain,
+  .moviereviews {
+    padding-left: 19px !important;
+    padding-right: 19px !important;
+  }
+  
   .movie-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
