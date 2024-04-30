@@ -18,6 +18,12 @@ Hankkeen tarkoituksena on oppia kokonaisvaltaista ohjelmistokehitystä ketteriä
 
 Hankkeesta vastanneet tekijät ovat yllämainitut Matti Nieminen, Jimi Jakola, Hannu Karjalainen, Rebecca Soisenniemi ja Tapio Kylmämaa. Ryhmästä kaikki ovat osallistuneet jokaisen osa-alueen toteuttamiseen.
 
+### Esittelyvideo
+
+- Youtube: ([Leffaysi - L9 - OAMK projekti]https://www.youtube.com/watch?v=4ZlEyXCdmbE)
+
+---------------------------------
+
 ## Sivuston kuvaus
 
 Elokuvasivusto on kokonaisvaltainen palvelu käyttäjälle, joka haluaa saada kattavaa tietoa elokuvista ja sarjoista yhdestä paikasta. Sovellus yhdistää React-projektina toteutetun käyttöliittymän ja Node.js -palvelimen, joka on yhteydessä tietokantaan.
