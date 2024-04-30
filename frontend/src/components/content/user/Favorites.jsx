@@ -17,7 +17,7 @@ const FavoriteList = ({ user }) => {
 
 
       try {
-        if (user !== null || user == undefined) {
+        if (user !== null || user !== undefined) {
         const aresponse = await axios.get(`${VITE_APP_BACKEND_URL}/profile/${user.user}`);
           
           setAdult(aresponse.data.adult);
