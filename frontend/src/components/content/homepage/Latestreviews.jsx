@@ -51,12 +51,21 @@ const Latestreviews = () => {
     fetchReviews();
   }, []);
 
-  function truncateLongWords(text, maxLength) {
-    return text.split(' ').map(word => {
-      return word.length > maxLength ? word.substring(0, maxLength) + '...' : word;
+  function truncateLongWords(text, maxWordLength, maxLength) {
+    let truncatedText = text.split(' ').map(word => {
+      if (word.length > maxWordLength) {
+        return word.substring(0, maxWordLength) + '...';
+      } else {
+        return word;
+      }
     }).join(' ');
+    
+    if (truncatedText.length > maxLength) {
+      truncatedText = truncatedText.substring(0, maxLength) + '...';
+    }
+    
+    return truncatedText;
   }
-
 
   return (
     <>
@@ -105,7 +114,7 @@ const Latestreviews = () => {
                     ) : (
                     <h2><Link to={`/series/${review.revieweditem}`} className="titleHover">{review.data.title}{review.data.name}</Link></h2>
                     )}
-                    <p><b>Arvostelu: </b> {truncateLongWords(review.review, 20)}</p>
+                    <p><b>Arvostelu: </b>{truncateLongWords(review.review, 20, 140)}</p>
                     <p><b>Arvosteltu: </b>{new Date(review.timestamp).toLocaleString('fi-FI', {
                       day: 'numeric',
                       month: 'numeric',
