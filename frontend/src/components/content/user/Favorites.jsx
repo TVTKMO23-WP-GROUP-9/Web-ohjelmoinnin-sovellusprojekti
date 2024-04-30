@@ -18,13 +18,10 @@ const FavoriteList = ({ user }) => {
 
 
       try {
-        if (user !== null || user !== undefined) {
-        const aresponse = await axios.get(`${VITE_APP_BACKEND_URL}/profile/${user.user}`);
-          
-          setAdult(aresponse.data.adult);
-        }
+
           const pathArray = window.location.pathname.split('/');
           const addressPartFromURL = pathArray[pathArray.length - 1];
+
           setAddressPart(addressPartFromURL);
           const idresponse = await axios.get(`${VITE_APP_BACKEND_URL}/profile/${address}`);
           const response = await axios.get(`${VITE_APP_BACKEND_URL}/favoritelist/profile/${idresponse.data.profileid}`);   
