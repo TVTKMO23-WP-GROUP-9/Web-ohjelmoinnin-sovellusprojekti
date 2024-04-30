@@ -72,7 +72,7 @@ const FavoriteList = ({ profile, user }) => {
     } catch (error) {
       console.error('Ei pystytty poistamaan', error);
     }
-  };
+  };  
 
   const indexOfLastFavorite = currentPage * favoritesPerPage;
   const indexOfFirstFavorite = indexOfLastFavorite - favoritesPerPage;

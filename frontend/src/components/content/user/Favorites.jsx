@@ -14,11 +14,18 @@ const FavoriteList = ({ user }) => {
 
   useEffect(() => {
     const fetchFavorites = async () => {
+
+
       try {
+        if (user !== null || user == undefined) {
         const aresponse = await axios.get(`${VITE_APP_BACKEND_URL}/profile/${user.user}`);
           
           setAdult(aresponse.data.adult);
-          const response = await axios.get(`${VITE_APP_BACKEND_URL}/favoritelist/profile/${aresponse.data.profileid}`);   
+        }
+          const pathArray = window.location.pathname.split('/');
+          const addressPartFromURL = pathArray[pathArray.length - 1];
+          const idresponse = await axios.get(`${VITE_APP_BACKEND_URL}/profile/${addressPartFromURL}`);
+          const response = await axios.get(`${VITE_APP_BACKEND_URL}/favoritelist/profile/${idresponse.data.profileid}`);   
           
           const favoriteData = response.data;
           const favoritesWithMovies = await Promise.all(favoriteData.map(async favorite => {
