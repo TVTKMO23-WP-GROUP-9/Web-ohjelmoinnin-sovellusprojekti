@@ -173,7 +173,7 @@ const Movies = ({ user }) => {
           <div className="flex">
 
             <div className="pdd-right">
-              <b>Hae nimellä</b>
+              <b>Hae nimellä</b><br/>
               
               <input
                 className="field longInput"
