@@ -709,8 +709,30 @@
     display: inline;
   }
 
-}
+  .faq p {
+    max-width: 90%;
+    margin-bottom: 20px;
+    font-size: 14px;
+  }
 
+  .faq h2 {
+    
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+
+  .faq h3 {
+    font-size: 18px;
+    color: var(--dark);
+  }
+
+  .faq h4 {
+    font-size: 18px;
+    color: var(--section1);
+    font-family: var(--thasadith);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 1); 
+  }
+}
 
 /*Lopullinen breakpoint, jolloin näyttö on liian pieni, kaikkeen display none ja screenerror tms*/
 @media (max-width: 350px) {
