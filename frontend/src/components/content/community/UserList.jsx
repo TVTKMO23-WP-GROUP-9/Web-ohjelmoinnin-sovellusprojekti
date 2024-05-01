@@ -105,7 +105,7 @@ const UserList = ({ searchTerm, setSearchTerm }) => {
                 )}
 
                 {hoveredProfile && (
-                    <div className="communityBox">
+                    <div className="hideable communityBox">
                         <h1>Kurkistusikkunassa</h1>
                         <h3 className='title1'><b>{hoveredProfile.profilename}</b></h3>
                         {hoveredProfile.profilepicurl ? (

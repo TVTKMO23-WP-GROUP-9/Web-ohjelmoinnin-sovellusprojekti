@@ -173,16 +173,16 @@ const Movies = ({ user }) => {
           <div className="flex">
 
             <div className="pdd-right">
-              <b>Hae nimellä</b>
-              <div>
-                <input
-                  className="field longInput"
-                  type="text"
-                  placeholder="..."
-                  value={query}
-                  onChange={handleInputChange}
-                />
-              </div>
+              <b>Hae nimellä</b><br/>
+              
+              <input
+                className="field longInput"
+                type="text"
+                placeholder="..."
+                value={query}
+                onChange={handleInputChange}
+              />
+              
             </div>
 
             <div className="pdd-right">
