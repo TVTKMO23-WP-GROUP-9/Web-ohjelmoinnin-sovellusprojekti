@@ -153,31 +153,31 @@ const MemberList = ({ id, user }) => {
           <span className='singleMember' key={index}>
             {(isMainuser && editMode && member.mainuser===1 && member.pending ===0 && member.profileid !== profileId) && (
             <button className="remove" onClick={() => updateMemberRank(member.name.profileid, id, 0)}>
-            <span className='emoji22'>&#x2B07;</span></button>
+            <img src="/down.png" className='emoji' /></button>
             )}
             {(isMainuser && editMode && member.mainuser===0 && member.pending ===0) && (
             <button className="remove" onClick={() => updateMemberRank(member.name.profileid, id, 1)}>
-            <span className='emoji22'>&#x2B06;</span></button>
+            <img src="/up.png" className='emoji' /></button>
             )}
             {(member.mainuser===1) && (
-            <span className='emoji26 uni14'></span>
+            <img src="/crown.png" className='emoji' />
             )}
             <Link to={`/profile/${member.name.profilename}`}>{member.name.profilename}</Link>&nbsp;&nbsp;&nbsp;
             {(isMainuser && editMode && memberType===1) && (
             <button className="remove" onClick={() => handleAddUser(member.name.profileid, id)}>
-            <span className='updateState uni13'></span></button>
+            <img src="/accept.png" className='emoji' /></button>
             )}
             {(isMainuser && editMode && member.profileid !== profileId) && (
               confirmRemove === member.name.profileid ? (
                 <>
                   <button className="confirm" onClick={() => handleRemoveUser(member.name.profileid, id)}>
-                  &nbsp;<span className='updateState uni12'></span> Vahvista
+                  &nbsp;<img src="/reject.png" className='emoji' /> Vahvista
                   </button>
                   <button className="compactButton" onClick={() => setConfirmRemove(null)}>Peruuta</button>
                 </>
               ) : (
                 <button className='remove' onClick={() => setConfirmRemove(member.name.profileid)}>
-                  &nbsp;<span className='updateState uni12'></span>
+                  &nbsp;<img src="/reject.png" className='emoji' />
                 </button>
               )
             )}

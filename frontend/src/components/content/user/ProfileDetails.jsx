@@ -77,14 +77,14 @@ const ProfileDetails = ({ user }) => {
 
                     <div className="profile-view">
                             <div className="profile-content">
-                                <h2>Suosikit &nbsp;<span className='emoji uni10'></span></h2>
+                                <h2>Suosikit &nbsp;<img src="/blackheart.png" className='emoji' /></h2>
                                 <FavoriteList profile={profile} user={user} />
                             </div>
                         </div>
 
                         <div className="profile-view">
                             <div className="profile-content">
-                                <h2>Ryhmät &nbsp;<span className='emoji uni07'></span></h2>
+                                <h2>Ryhmät &nbsp;<img src="/speak.png" className='emoji' /></h2>
                                 <GroupList profile={profile} />
                             </div>
                         </div>
@@ -92,7 +92,7 @@ const ProfileDetails = ({ user }) => {
                     </div>
 
                     <div className='reviews-view'>
-                        <h2>Arvostelut  &nbsp;<span className='emoji uni08'></span></h2>
+                        <h2>Arvostelut  &nbsp;<img src="/voice.png" className='emoji' /></h2>
                         <ReviewList user={user} profile={profile} /> 
                     </div>
                 </>

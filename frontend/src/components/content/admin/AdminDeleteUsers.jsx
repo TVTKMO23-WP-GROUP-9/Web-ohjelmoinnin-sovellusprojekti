@@ -27,11 +27,11 @@ const AdminDeleteUsers = ({ id, handleDelete }) => {
       <>
         {confirmDeleteAccountId === id.profileid ? (
           <>
-            <button className="confirm" onClick={() => handleDeleteAccount(id.profileid)}><span className='user uni12'></span> Vahvista</button>
+            <button className="confirm" onClick={() => handleDeleteAccount(id.profileid)}><img src="/reject.png" className='emoji' /> Vahvista</button>
             <button className="compactButton" onClick={() => setConfirmDeleteAccountId(null)}>Peruuta</button>
           </>
         ) : (
-          <button className="compactButton" onClick={() => setConfirmDeleteAccountId(id.profileid)}><span className='user uni12'></span> Poista käyttäjä</button>
+          <button className="compactButton" onClick={() => setConfirmDeleteAccountId(id.profileid)}><img src="/reject.png" className='emoji' /> Poista käyttäjä</button>
         )}
       </>
 

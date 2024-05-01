@@ -45,7 +45,7 @@ const Header = ({ user, setUser, handleLogout, toggleTheme, showLogin, setShowLo
           <div className="menu-items">
             <div className="menu-items-left">
               <ul className="whiteLinks">
-                <li><Link to="/search"><span className="emoji uni02"></span> Leffat ja sarjat</Link></li>
+                <li><Link to="/search"><img src="/search.png" className='emoji' />Leffat ja sarjat</Link></li>
                 <li><Link id="link01" to="/community">Yhteisö</Link></li>
               </ul>
             </div>

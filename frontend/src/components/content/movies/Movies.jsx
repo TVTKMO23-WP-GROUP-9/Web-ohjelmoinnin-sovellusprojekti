@@ -242,8 +242,8 @@ const Movies = ({ user }) => {
           )}
 
           <div className='toggleLinks'>
-            <h2 className='activeSearch' onClick={toggleMovies}><span className='emoji uni01'></span> Leffat </h2>&nbsp;&nbsp;&nbsp;
-            <h2 className='activeSearch' onClick={toggleSeries}><span className='emoji justMargin'>📺</span> Sarjat </h2>
+            <h2 className='activeSearch' onClick={toggleMovies}><img src="/popcorn.png" className='emoji' /> Leffat </h2>&nbsp;&nbsp;&nbsp;
+            <h2 className='activeSearch' onClick={toggleSeries}><img src="/tv.png" className='emoji' /> Sarjat </h2>
           </div>
           <div>
             <button className="basicbutton" onClick={handleSearch}>Hae !</button> &nbsp;
@@ -327,7 +327,7 @@ const Movies = ({ user }) => {
                   <Link to={`/series/${result.id}`}>
                     <img src={result.poster_path} alt={result.title} />
                     <div className="headoverview">
-                      <div><h3 className="hideWhenTiny">{result.title.length > 45 ? `${result.overview.substring(0, 45)}...` : result.title}</h3></div>
+                      <div><h3 className="hideWhenTiny">{result.title.length > 45 ? `${result.title.substring(0, 45)}...` : result.title}</h3></div>
                       <div><span className="hideWhenTiny">{result.overview.length > 200 ? `${result.overview.substring(0, 200)}...` : result.overview}</span></div>
                     </div>
                   </Link>
