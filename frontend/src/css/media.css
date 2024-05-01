@@ -218,8 +218,13 @@
 @media (max-width: 850px) {
 
   .two-view {
-    flex-direction: column;
-  }
+    width: 95% !important;
+    display: block !important;
+    flex-direction: none !important;
+    flex-wrap: nowrap !important;
+    padding: 0em;
+    box-shadow: var(--shadow02);
+}
 
   .two-left {
     min-width: 100%;
@@ -227,7 +232,8 @@
   }
 
   .two-right {
-    min-width: 100%;
+    min-width: 80%;
+    padding: 0 !important;
     /* Leveys täyteen ruutuun */
     border-left-width: 0;
     border-left: none !important;
@@ -287,6 +293,11 @@
 
 @media (max-width: 800px) {
 
+  .content {
+    display: block !important;
+    width: 91% !important;
+  }
+
   .geventRightHideable2 {
     display: none;
   }
@@ -295,20 +306,52 @@
     display: block !important;
   }
 
-  /*.geventinfoLeft {
-    display: none;
-  }*/
-
   .geventinfoCenter {
     display: none;
   }
 
-
 }
-
 
 @media (max-width: 640px) {
 
+  body {
+    font-size: 0.9em !important;
+    padding-left: 0 !important;
+    padding-bottom: 180px;
+  }
+
+  #footer {
+    font-size: 1em;
+  }
+
+  .gh-mark {
+    width: 22px;
+    height: 22px;
+  }
+
+.hideable {
+    display: none;
+  }
+
+  div:not(.body, .content, #header-bar, #root, 
+  #header, #header-container, #footer, .arrow, 
+  .coming-soon-container, .event-list, 
+  .events-container, .event-item, 
+  .right-container, .nearby-events, .group-between,
+  .moviemain, .home-container, .reviewmain, 
+  .lowercontent, .lowermiddlecontent, .admin-view,
+  .admin-left, .communityDiv, .two-view, .two-left,
+  .two-right, .carousel, .form-view, #accountinfo
+  ) {
+    padding-left: 11px !important;
+    padding-right: 11px !important;
+  }
+
+  .moviereviews {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+  
   .movie-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -471,8 +514,6 @@
 
   }
 
-
-
   .geventShowLater2 {
     display: none !important;
   }
@@ -501,6 +542,10 @@
 }
 
 @media (max-width: 570px) {
+
+  .carousel {
+    display: none;
+  }
 
   #header-bar {
     width: 100%;
@@ -665,6 +710,7 @@
 
 }
 
+
 /*Lopullinen breakpoint, jolloin näyttö on liian pieni, kaikkeen display none ja screenerror tms*/
 @media (max-width: 350px) {
 
@@ -672,19 +718,24 @@
     display: none;
   }
 
-  #footer {
-    display: none;
-  }
-
   .body {
     background-color: #ffffff;
   }
 
-  #screenError {
-    display: block;
+  .content {
+    visibility: hidden !important;
   }
 
-  h1 {
+  #footer {
+    display: none;
+  }
+
+  #screenError {
+    display: block !important;
+  }
+
+  h1 { 
+    display: contents !important;
     font-family: "Grandstander", cursive;
     font-weight: 400;
     font-size: 3.2em;
