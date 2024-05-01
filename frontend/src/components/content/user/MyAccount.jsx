@@ -170,7 +170,7 @@ export default function MyAccount({ user }) {
                     <hr />
 
                     <p>
-                        Siirry <Link to={`/profile/${user.user}`}>profiiliin</Link> | tai <Link to={`/profile/${user.user}`} onClick={() => setEditMode(true)}>Muokkaa profiilia</Link> {/* Muokkaa profiilia -ei vielä avaa profiilimuokkausta sivua ladatessa*/} <br /><br />
+                        Siirry <Link to={`/profile/${user.user}`}>profiiliin tästä</Link><br /><br />
                     </p>
 
                     <p>Omasta profiilista löydät omat tietosi ja pääset hallinnoimaan niitä. <br />

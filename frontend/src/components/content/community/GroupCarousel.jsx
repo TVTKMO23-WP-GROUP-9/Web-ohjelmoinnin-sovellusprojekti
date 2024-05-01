@@ -83,7 +83,9 @@ const GroupCarousel = () => {
 
         </Slide>
       </Slider>
+      <br/>
     </CarouselProvider>
+
   );
 };
 
