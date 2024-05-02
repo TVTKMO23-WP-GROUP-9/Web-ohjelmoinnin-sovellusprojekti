@@ -215,9 +215,9 @@ const GroupDetails = ({ user }) => {
                 {(isAdmin || isMember) && (
                   <><h2>Näytä lisää</h2>
                     <div className="toggleLinks">
-                      <h3 onClick={toggleMembers}><span className='emoji uni07'></span>&nbsp; Jäsenlista </h3>
-                      <h3 onClick={toggleFavorites}><span className='emoji uni10'></span> Suosikit &nbsp;</h3>
-                      <h3 onClick={toggleEvents}><span className='emoji uni15'></span> &nbsp; Näytösajat</h3>
+                      <h3 onClick={toggleMembers}><img src="/speak.png" className='emoji' />&nbsp; Jäsenlista </h3>
+                      <h3 onClick={toggleFavorites}><img src="/blackheart.png" className='emoji' /> Suosikit &nbsp;</h3>
+                      <h3 onClick={toggleEvents}><img src="/showtime.png" className='emoji' /> &nbsp; Näytösajat</h3>
                     </div></>
                 )}
               </div>
@@ -240,7 +240,7 @@ const GroupDetails = ({ user }) => {
 
           {(isAdmin || isMember) && (
             <div className='gmessages'>
-              <h2>Keskustelu  &nbsp;<span className='emoji uni08'></span></h2>
+              <h2>Keskustelu  &nbsp;<img src="/voice.png" className='emoji' /></h2>
 
               <div className='msgboard'>
                 <Forum id={id} user={user} />
@@ -251,7 +251,7 @@ const GroupDetails = ({ user }) => {
 
           {(isAdmin || isMember) && (
             <div className='greviews-view'>
-              <h2>Arvostelut  &nbsp;<span className='emoji uni08'></span></h2>
+              <h2>Arvostelut  &nbsp;<img src="/voice.png" className='emoji' /></h2>
               <ReviewList user={user} id={id} />
             </div>
           )}
@@ -261,7 +261,7 @@ const GroupDetails = ({ user }) => {
         {confirmDeleteId === profileId ? (
           <>
           <button className="confirm compactButton" onClick={() => handleRemoveApplication(profileId, id)}>
-            &nbsp;<span className='updateState uni12'></span> Vahvista
+            &nbsp;<img src="/reject.png" className='emoji' /> Vahvista
           </button>
           <button className="compactButton" onClick={() => setConfirmDeleteId(null)}>Peruuta</button>
           {groupMembers.length === 1 && (
@@ -271,7 +271,7 @@ const GroupDetails = ({ user }) => {
           </> 
           ) : (
           <button className="compactButton" onClick={() => setConfirmDeleteId(profileId)}>
-            &nbsp;<span className='updateState uni12'></span> Poistu ryhmästä
+            &nbsp;<img src="/reject.png" className='emoji' />  Poistu ryhmästä
           </button>
         )}
       </>
