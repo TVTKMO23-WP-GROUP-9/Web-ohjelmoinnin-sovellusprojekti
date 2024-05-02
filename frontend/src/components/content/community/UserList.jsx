@@ -91,7 +91,7 @@ const UserList = ({ searchTerm, setSearchTerm }) => {
 
                 <div className="communityBox">
                     Meillä on täällä <b>{profiles.length}</b><br />
-                    rekisteröitynyttä käyttäjää. <span className="emoji uni03"></span> <br /><br />
+                    rekisteröitynyttä käyttäjää. <img src="/celebrate.png" className='emoji' /> <br /><br />
                 </div>
 
                 {token === '' && (

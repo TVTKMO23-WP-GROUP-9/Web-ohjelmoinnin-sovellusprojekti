@@ -105,7 +105,7 @@ const AllGroups = ({ user, searchTerm, setSearchTerm }) => {
                             jonka kanssa jakaa leffa-elämyksiä ja chattailla reaaliajassa. <br /><br />
                             Meillä on jo <b>{groups.length}</b> ryhmää, mistä valita <br />
                             Tai saitko uuden ryhmä-idean? Voit luoda sellaisen itsellesi ja kavereillesi <br />
-                            tai koko maailman parhaalle leffakansalle! <span className='emoji uni01'></span>
+                            tai koko maailman parhaalle leffakansalle! <img src="/popcorn.png" className='emoji' />
                         </div> <br />
                         {(!creatingGroup && user !== null && user.user !== null ) && (
                         <button id="robot01" className='basicbutton justMargin' onClick={() => setCreatingGroup(true)}>Luo uusi ryhmä</button> 

@@ -24,11 +24,11 @@ const AdminDeleteReview = ({ id, handleDelete }) => {
         <>
         {confirmDeleteId === id.idreview ? (
           <>
-            <button className="confirm" onClick={() => handleDeleteReview(id.idreview)}><span className='review uni12'></span> Vahvista</button>
+            <button className="confirm" onClick={() => handleDeleteReview(id.idreview)}><img src="/reject.png" className='emoji' /> Vahvista</button>
             <button className="compactButton" onClick={() => setConfirmDeleteId(null)}>Peruuta</button>
           </>
         ) : (
-          <button className="compactButton" onClick={() => setConfirmDeleteId(id.idreview)}><span className='review uni12'></span> Poista arvostelu</button>
+          <button className="compactButton" onClick={() => setConfirmDeleteId(id.idreview)}><img src="/reject.png" className='emoji' /> Poista arvostelu</button>
         )}
       </>
 

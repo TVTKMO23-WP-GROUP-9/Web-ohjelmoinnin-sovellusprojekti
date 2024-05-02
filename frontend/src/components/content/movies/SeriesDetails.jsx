@@ -204,7 +204,7 @@ const currentGroups = groups.slice(indexOfFirstGroup, indexOfLastGroup);
                   <button className="favorite-button" onClick={handleFavoriteAction}>{isFavorite ? <FaHeart className="favorite-icon" size={34} /> : <FaRegHeart size={34} />}</button>
                   }
                   {profileId &&
-                  <button className="favorite-button" onClick={toggleGroups}><div className="emoji26 uni17"></div></button>
+                  <button className="favorite-button" onClick={toggleGroups}><img src="/plus.png" className='emoji' /></button>
                   }
                 </div>
 

@@ -156,7 +156,7 @@ useEffect(() => {
             minute: 'numeric',
           })} &nbsp;<b><Link to={`/profile/${message.name.profilename}`}>{message.name.profilename}</Link> :</b>
           &nbsp;&nbsp;{message.message} 
-          {(isMainuser && editMode) && <button className='remove' onClick={() => handleRemoveMessage(message.messageid)}>&nbsp;<span className='emoji'>&times;</span></button>}
+          {(isMainuser && editMode) && <button className='remove' onClick={() => handleRemoveMessage(message.messageid)}>&nbsp;<img src="/reject.png" className='emoji' /></button>}
           </span>
         ))}
       </div>

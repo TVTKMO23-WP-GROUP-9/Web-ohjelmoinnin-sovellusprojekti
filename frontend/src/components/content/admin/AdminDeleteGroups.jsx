@@ -25,11 +25,11 @@ const AdminDeleteGroups = ({ id, handleDelete }) => {
       <>
         {confirmDeleteGroupId === id.idgroup ? (
           <>
-            <button className="confirm" onClick={() => handleDeleteGroup(id.idgroup)}><span className='group uni12'></span> Vahvista</button>
+            <button className="confirm" onClick={() => handleDeleteGroup(id.idgroup)}><img src="/reject.png" className='emoji' />  Vahvista</button>
             <button className="compactButton" onClick={() => setConfirmDeleteGroupId(null)}>Peruuta</button>
           </>
         ) : (
-          <button className="compactButton" onClick={() => setConfirmDeleteGroupId(id.idgroup)}><span className='group uni12'></span> Poista ryhmä</button>
+          <button className="compactButton" onClick={() => setConfirmDeleteGroupId(id.idgroup)}><img src="/reject.png" className='emoji' />  Poista ryhmä</button>
         )}
       </>
 

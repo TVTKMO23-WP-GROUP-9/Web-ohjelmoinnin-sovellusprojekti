@@ -192,7 +192,7 @@ const ReviewList = ({ user, profile }) => {
             <span className='userinfo'>| <b>{review.rating}/5</b> tähteä</span> <br />
             <span className='userinfo'>{truncateLongWords(review.review, 25)}</span> <br />
             {!editReviewId && isOwnProfile && (
-              <button className="compactButton" onClick={() => handleReviewEdit(review.idreview)}><span className='review uni11'></span> Muokkaa arvostelua</button>
+              <button className="compactButton" onClick={() => handleReviewEdit(review.idreview)}><img src="/pencil.png" className='emoji' /> Muokkaa arvostelua</button>
             )}
             {editReviewId === review.idreview && (
               <div className="edit-review">
@@ -200,7 +200,7 @@ const ReviewList = ({ user, profile }) => {
                 <input className='updateRating' type="number" min="1" max="5" value={updatedReview.rating} onChange={setRating} /> <br />
                 <b>Kommentti</b> <br />
                 <textarea className="updateReview" value={updatedReview.review} onChange={setReview} /> <br />
-                <button className="compactButton" onClick={() => handleUpdateReview(review.idreview)}><span className='review uni13'></span> Tallenna muutokset</button>
+                <button className="compactButton" onClick={() => handleUpdateReview(review.idreview)}><img src="/accept.png" className='emoji' /> Tallenna muutokset</button>
                 <button className="compactButton" onClick={() => setEditReviewId(null)}>Peruuta muutokset</button>
               </div>
             )}
@@ -209,11 +209,11 @@ const ReviewList = ({ user, profile }) => {
               <>
                 {confirmDeleteId === review.idreview ? (
                   <>
-                    <button className="confirm" onClick={() => handleConfirmDelete(review.idreview)}><span className='review uni12'></span> Vahvista</button>
+                    <button className="confirm" onClick={() => handleConfirmDelete(review.idreview)}><img src="/reject.png" className='emoji' /> Vahvista</button>
                     <button className="compactButton" onClick={() => setConfirmDeleteId(null)}>Peruuta</button>
                   </>
                 ) : (
-                  <button className="compactButton" onClick={() => setConfirmDeleteId(review.idreview)}><span className='review uni12'></span> Poista arvostelu</button>
+                  <button className="compactButton" onClick={() => setConfirmDeleteId(review.idreview)}><img src="/reject.png" className='emoji' />Poista arvostelu</button>
                 )}
               </>
             )}
