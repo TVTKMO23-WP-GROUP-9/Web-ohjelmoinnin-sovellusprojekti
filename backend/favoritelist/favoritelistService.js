@@ -63,7 +63,9 @@ async function getFavoritelistByGroup(req, res) {
 
   //lisää uuden suosikkilistan profiiliin tai grouppiin
   async function createFavoritelist(req, res) {
-    const { favoriteditem, groupid, profileid, mediatype, adult} = req.body;
+    const profileid = res.locals.profileid;
+
+    const { favoriteditem, groupid, mediatype, adult} = req.body;
     try {
         const now = new Date();
         let favoritelistQuery;
@@ -92,7 +94,7 @@ async function getFavoritelistByGroup(req, res) {
   }
 
   async function deleteFavorite(req, res) {
-    const profileid = req.params.profileid;
+    const profileid = res.locals.profileid;
     const favoriteditem = req.params.favoriteditem
     const mediatype = req.params.mediatype
 
@@ -113,20 +115,34 @@ async function getFavoritelistByGroup(req, res) {
 }
 
 async function deleteFavoriteFromGroup(req, res) {
+  const profileid = res.locals.profileid;
   const groupid = req.params.groupid;
-  const favoriteditem = req.params.favoriteditem
-  const mediatype = req.params.mediatype
+  const favoriteditem = req.params.favoriteditem;
+  const mediatype = req.params.mediatype;
 
   try {
-      const query = {
-          text: 'DELETE FROM favoritelist_ WHERE groupid = $1 AND favoriteditem = $2 AND mediatype = $3',
-          values: [groupid, favoriteditem, mediatype],
+      const mainuserQuery = {
+          text: 'SELECT mainuser FROM memberlist_ WHERE profileid = $1 AND groupid = $2',
+          values: [profileid, groupid],
       };
+
+      const mainuserResult = await favoritelistModel.queryDatabase(mainuserQuery);
+      const mainuser = mainuserResult.mainuser;
+
+      if (mainuser === 1 || res.locals.usertype === 'admin') {
+          const query = {
+              text: 'DELETE FROM favoritelist_ WHERE groupid = $1 AND favoriteditem = $2 AND mediatype = $3',
+              values: [groupid, favoriteditem, mediatype],
+          };
+
           console.log("group ID:", req.params.groupid);
           console.log("Favorited Item:", req.params.favoriteditem);
 
-      await favoritelistModel.queryDatabase(query);
-      res.send(`Lista poistettu onnistuneesti deletefavorite`);
+          await favoritelistModel.queryDatabase(query);
+          res.send(`Lista poistettu onnistuneesti deletefavorite`);
+      } else {
+          return res.status(403).json({ message: 'Permission denied' });
+      }
   } catch (error) {
       console.error('Virhe poistettaessa listaa:', error);
       res.status(500).send('Virhe poistettaessa listaa');
