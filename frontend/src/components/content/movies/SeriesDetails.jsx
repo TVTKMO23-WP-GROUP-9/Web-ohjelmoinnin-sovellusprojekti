@@ -140,7 +140,7 @@ const handleFavoriteGroupAction = async (groupId, isGFavorite) => {
     if (groupId && id) {
       
       if (isGFavorite) {
-        await axios.delete(`${VITE_APP_BACKEND_URL}/favoritefromgroup/${groupId}/${id}/1`);
+        await axios.delete(`${VITE_APP_BACKEND_URL}/favoritefromgroup/${groupId}/${id}/1`, { headers });
         
         // Päivitä isGFavorite arvo ryhmätiedossa
         updatedGroups = groups.map(groupItem => {

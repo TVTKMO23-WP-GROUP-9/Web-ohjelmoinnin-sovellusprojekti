@@ -143,7 +143,7 @@ const MovieDetails = (user) => {
         
         if (isGFavorite) {
 
-          await axios.delete(`${VITE_APP_BACKEND_URL}/favoritefromgroup/${groupId}/${id}/0`);
+          await axios.delete(`${VITE_APP_BACKEND_URL}/favoritefromgroup/${groupId}/${id}/0`, { headers});
           
           // Päivitä isGFavorite arvo ryhmätiedossa
           updatedGroups = groups.map(groupItem => {
