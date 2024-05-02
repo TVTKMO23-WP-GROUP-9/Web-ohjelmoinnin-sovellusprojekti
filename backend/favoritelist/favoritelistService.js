@@ -125,18 +125,14 @@ async function deleteFavoriteFromGroup(req, res) {
           text: 'SELECT mainuser FROM memberlist_ WHERE profileid = $1 AND groupid = $2',
           values: [profileid, groupid],
       };
-
       const mainuserResult = await favoritelistModel.queryDatabase(mainuserQuery);
-      const mainuser = mainuserResult.mainuser;
+      const mainuser = mainuserResult[0].mainuser;
 
       if (mainuser === 1 || mainuser === 0 || res.locals.usertype === 'admin') {
           const query = {
               text: 'DELETE FROM favoritelist_ WHERE groupid = $1 AND favoriteditem = $2 AND mediatype = $3',
               values: [groupid, favoriteditem, mediatype],
           };
-
-          console.log("group ID:", req.params.groupid);
-          console.log("Favorited Item:", req.params.favoriteditem);
 
           await favoritelistModel.queryDatabase(query);
           res.send(`Lista poistettu onnistuneesti deletefavorite`);

@@ -43,13 +43,20 @@ async function deleteProfileById(req, res) {
 }
 
 async function deleteProfileAsAdmin(req, res) {
-    const profileid = res.params.profileid;
+    const profileid = req.params.profileid;
+    const admin = res.locals.usertype
+
+    if (admin === 'admin'){
+        console.log('kaatuuko jo tässä');
     try {
         await profileModel.deleteProfileById(profileid);
         res.status(200).json({ message: `Tietue poistettu onnistuneesti` });
     } catch (error) {
         res.status(400).json({ message: error.message });
     }
+    } else {
+    res.status(403).json({ message: 'Vain admin voi suorittaa tämän toiminnon' });
+}
 }
 
 
