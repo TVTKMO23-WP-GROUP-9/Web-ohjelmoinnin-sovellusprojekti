@@ -72,18 +72,18 @@ async function getNewestReviews() {
   return await queryDatabase(query);
 }
 
-async function updateReview(idreview, review, rating) {
+async function updateReview(profileid, idreview, review, rating) {
   const query = {
-    text: 'UPDATE Review_ SET review = $2, rating = $3 WHERE idreview = $1',
-    values: [idreview, review, rating],
+    text: 'UPDATE Review_ SET review = $2, rating = $3 WHERE idreview = $1 AND profileid = $4',
+    values: [idreview, review, rating, profileid],
   };
   await queryDatabase(query);
 }
 
-async function deleteReview(id) {
+async function deleteReview(id, profileid) {
   const query = {
-    text: 'DELETE FROM Review_ WHERE idreview = $1',
-    values: [id],
+    text: 'DELETE FROM Review_ WHERE idreview = $1 AND profileid = $2',
+    values: [id, profileid],
   };
   await queryDatabase(query);
 }
@@ -154,7 +154,7 @@ async function getReviewId(profileid, id, mediatype) {
     if (result.rows.length > 0) {
       return result.rows[0].idreview; // Palauta vain idreview
     } else {
-      return null; // Jos ei löydy arvostelua, palauta null
+      return null; 
     }
   } catch (error) {
     throw error;
