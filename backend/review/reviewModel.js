@@ -80,10 +80,10 @@ async function updateReview(profileid, idreview, review, rating) {
   await queryDatabase(query);
 }
 
-async function deleteReview(id) {
+async function deleteReview(id, profileid) {
   const query = {
-    text: 'DELETE FROM Review_ WHERE idreview = $1',
-    values: [id],
+    text: 'DELETE FROM Review_ WHERE idreview = $1 AND profileid = $2',
+    values: [id, profileid],
   };
   await queryDatabase(query);
 }

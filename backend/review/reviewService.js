@@ -97,6 +97,7 @@ async function updateReview(req, res) {
 
 // arvostekun poistaminen reviewid:n perusteella
 async function deleteReview(req, res) {
+  const profileid = res.locals.profileid;
   const id = req.params.id;
   try {
     await reviewModel.deleteReview(id);
