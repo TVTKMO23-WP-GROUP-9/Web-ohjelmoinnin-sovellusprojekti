@@ -154,7 +154,7 @@ async function getReviewId(profileid, id, mediatype) {
     if (result.rows.length > 0) {
       return result.rows[0].idreview; // Palauta vain idreview
     } else {
-      return null; // Jos ei löydy arvostelua, palauta null
+      return null; 
     }
   } catch (error) {
     throw error;
