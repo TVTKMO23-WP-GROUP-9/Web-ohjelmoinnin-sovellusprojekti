@@ -10,15 +10,21 @@ const FavoriteList = ({ user }) => {
   const [favoritesPerPage, setfavoritesPerPage] = useState(10);
   const [favorites, setFavorites] = useState([]);
   const [adult, setAdult] = useState(false);
+  const [address, setAddressPart] = useState(false);
   const headers = getHeaders();
 
   useEffect(() => {
     const fetchFavorites = async () => {
+
+
       try {
-        const aresponse = await axios.get(`${VITE_APP_BACKEND_URL}/profile/${user.user}`);
-          
-          setAdult(aresponse.data.adult);
-          const response = await axios.get(`${VITE_APP_BACKEND_URL}/favoritelist/profile/${aresponse.data.profileid}`);   
+
+          const pathArray = window.location.pathname.split('/');
+          const addressPartFromURL = pathArray[pathArray.length - 1];
+
+          setAddressPart(addressPartFromURL);
+          const idresponse = await axios.get(`${VITE_APP_BACKEND_URL}/profile/${addressPartFromURL}`);
+          const response = await axios.get(`${VITE_APP_BACKEND_URL}/favoritelist/profile/${idresponse.data.profileid}`);   
           
           const favoriteData = response.data;
           const favoritesWithMovies = await Promise.all(favoriteData.map(async favorite => {
@@ -62,7 +68,7 @@ const FavoriteList = ({ user }) => {
   return (
     <>
     <div className="content">
-    <h1>{user.user} suosikkilista!</h1>
+    <h1>{address} suosikkilista!</h1>
     <ul className="group-view">
        
       <span className="review-info">
