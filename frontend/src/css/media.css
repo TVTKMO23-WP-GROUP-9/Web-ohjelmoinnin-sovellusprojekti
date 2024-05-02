@@ -569,6 +569,7 @@
     justify-content: center;
   }
 
+  .content,
   .admin-view {
     width: min-content;
   }
