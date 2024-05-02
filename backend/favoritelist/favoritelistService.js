@@ -129,7 +129,7 @@ async function deleteFavoriteFromGroup(req, res) {
       const mainuserResult = await favoritelistModel.queryDatabase(mainuserQuery);
       const mainuser = mainuserResult.mainuser;
 
-      if (mainuser === 1 || res.locals.usertype === 'admin') {
+      if (mainuser === 1 || mainuser === 0 || res.locals.usertype === 'admin') {
           const query = {
               text: 'DELETE FROM favoritelist_ WHERE groupid = $1 AND favoriteditem = $2 AND mediatype = $3',
               values: [groupid, favoriteditem, mediatype],
