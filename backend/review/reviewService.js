@@ -83,10 +83,11 @@ async function getNewestReviews(req, res) {
 
 // arvostelun päivittäminen reviewid:n perusteella
 async function updateReview(req, res) {
+  const profileid = res.locals.profileid;
   const idreview = req.params.id;
   const { review, rating } = req.body;
   try {
-    await reviewModel.updateReview(idreview, review, rating);
+    await reviewModel.updateReview(profileid, idreview, review, rating);
     res.send('Arvostelu päivitetty onnistuneesti');
   } catch (error) {
     console.error('Virhe päivitettäessä arvostelua:', error);

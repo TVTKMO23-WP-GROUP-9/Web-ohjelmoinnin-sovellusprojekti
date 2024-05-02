@@ -72,10 +72,10 @@ async function getNewestReviews() {
   return await queryDatabase(query);
 }
 
-async function updateReview(idreview, review, rating) {
+async function updateReview(profileid, idreview, review, rating) {
   const query = {
-    text: 'UPDATE Review_ SET review = $2, rating = $3 WHERE idreview = $1',
-    values: [idreview, review, rating],
+    text: 'UPDATE Review_ SET review = $2, rating = $3 WHERE idreview = $1 AND profileid = $4',
+    values: [idreview, review, rating, profileid],
   };
   await queryDatabase(query);
 }
