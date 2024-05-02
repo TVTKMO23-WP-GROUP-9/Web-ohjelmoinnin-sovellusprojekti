@@ -8,7 +8,7 @@ async function getAllProfiles() {
 
 async function getProfileById(profileId) {
     const query = {
-        text: 'SELECT * FROM Profile_ WHERE profileid = $1',
+        text: 'SELECT profileid, profilename, profilepicurl, description, is_private FROM Profile_ WHERE profileid = $1',
         values: [profileId],
     };
     const result = await pool.query(query);
@@ -18,7 +18,7 @@ async function getProfileById(profileId) {
 async function getProfileByName(profilename) {
 
     const query = {
-        text: 'SELECT * FROM Profile_ WHERE profilename = $1',
+        text: 'SELECT profileid, profilename, profilepicurl, description, is_private FROM Profile_ WHERE profilename = $1',
         values: [profilename],
     };
 
