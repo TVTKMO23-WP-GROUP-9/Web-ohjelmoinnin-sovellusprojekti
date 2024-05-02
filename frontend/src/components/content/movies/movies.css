@@ -319,4 +319,14 @@
     height: 200px;
     padding-bottom: 50px; 
   }
+
+  .moviemain {
+    background-color: var(--moviedetails);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    margin-top: 25px;
+    padding: 20px;
+  }
 }
