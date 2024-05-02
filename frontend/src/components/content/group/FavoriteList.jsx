@@ -65,7 +65,7 @@ const FavoriteList = ({ id, user, mainuser }) => {
   const DeleteFavorite = async (favoriteditem, mediatype) => {
     try {
       if (isMainuser) {
-        await axios.delete(`${VITE_APP_BACKEND_URL}/favoritefromgroup/${id}/${favoriteditem}/${mediatype}`);
+        await axios.delete(`${VITE_APP_BACKEND_URL}/favoritefromgroup/${id}/${favoriteditem}/${mediatype}`, { headers });
         setFavorites(favorites.filter(favorite => favorite.favoriteditem !== favoriteditem)); 
       } else {
         console.error('group-id puuttuu');

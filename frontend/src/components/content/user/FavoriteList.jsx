@@ -16,6 +16,7 @@ const FavoriteList = ({ profile, user }) => {
   const headers = getHeaders();
 
   useEffect(() => {
+    
     const fetchFavorites = async () => {
       try {
   
@@ -64,7 +65,7 @@ const FavoriteList = ({ profile, user }) => {
   const DeleteFavorite = async (favoriteditem, mediatype) => {
     try {
       if (profile && profile.profileid) {
-        await axios.delete(`${VITE_APP_BACKEND_URL}/favorite/${profile.profileid}/${favoriteditem}/${mediatype}`);
+        await axios.delete(`${VITE_APP_BACKEND_URL}/favorite/${profile.profileid}/${favoriteditem}/${mediatype}`, {},{ headers });
         setFavorites(favorites.filter(favorite => favorite.favoriteditem !== favoriteditem)); 
       } else {
         console.error('Profiili-id puuttuu');
