@@ -100,7 +100,7 @@ async function deleteReview(req, res) {
   const profileid = res.locals.profileid;
   const id = req.params.id;
   try {
-    await reviewModel.deleteReview(id);
+    await reviewModel.deleteReview(id, profileid);
     res.send('Arvostelu poistettu onnistuneesti');
   } catch (error) {
     console.error('Virhe poistettaessa arvostelua:', error);
